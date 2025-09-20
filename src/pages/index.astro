@@ -1,0 +1,422 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Header from '../components/Header.astro';
+
+// Simple slugify function
+const slugify = (text) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, '-')        // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')    // Remove all non-word chars
+    .replace(/\-\-+/g, '-')      // Replace multiple - with single -
+    .replace(/^-+/, '')          // Trim - from start of text
+    .replace(/-+$/, '');         // Trim - from end of text
+}
+
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) => 
+  new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+);
+
+// Only show the 4 most recent posts
+const recentPosts = sortedPosts.slice(0, 4);
+
+// Render posts to get reading time and enhanced frontmatter data
+const recentPostsWithReadingTime = await Promise.all(
+  recentPosts.map(async (post) => {
+    const { remarkPluginFrontmatter } = await post.render();
+    return { 
+      ...post, 
+      readingTime: remarkPluginFrontmatter.readingTime,
+      contentType: remarkPluginFrontmatter.contentType,
+      complexity: remarkPluginFrontmatter.complexity
+    };
+  })
+);
+
+// Build category data for bottom section
+const categoryData = {
+  'Dharma Writings': { count: 0, slug: 'dharma-writings' },
+  'Creative Writing': { count: 0, slug: 'creative-writing' },
+  'Consciousness & Philosophy': { count: 0, slug: 'consciousness-philosophy' },
+  'Practice & Inner Life': { count: 0, slug: 'practice-inner-life' },
+  'Other': { count: 0, slug: 'other' }
+};
+
+allPosts.forEach(post => {
+  post.data.categories.forEach(category => {
+    if (categoryData[category]) {
+      categoryData[category].count++;
+    }
+  });
+});
+
+// Category descriptions for our 5 main categories
+const categoryDescriptions = {
+  'Dharma Writings': 'Explorations of Buddhist teachings, philosophy, and the path',
+  'Creative Writing': 'Fiction, poetry, and imaginative works',
+  'Consciousness & Philosophy': 'Reflections on mind, reality, and the nature of existence',
+  'Practice & Inner Life': 'Meditation, dreams, and spiritual practices',
+  'Other': 'Various topics and musings'
+};
+
+// Get top categories sorted by count
+const topCategories = Object.entries(categoryData)
+  .sort((a, b) => b[1].count - a[1].count)
+  .filter(([_, data]) => data.count > 0);
+
+---
+
+<Layout title="Hologram Thoughts - Ideas Last Forever">
+  <main>
+    <SiteHeader activePage="home" />
+
+    <section class="posts">
+      <h2 class="section-title">Latest Posts</h2>
+      <div class="posts-terminal">
+        {recentPostsWithReadingTime.map((post) => (
+          <div class="post-line">
+            <a href={`/blog/${post.slug}`} class="post-title">{post.data.title}</a>
+            <span class="post-separator">•</span>
+            <span class="post-date">
+              {post.data.pubDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short', 
+                day: 'numeric'
+              })}
+            </span>
+            <span class="post-separator">•</span>
+            <span class="reading-time">{post.readingTime} min</span>
+            <span class="post-separator">•</span>
+            <span class="content-type-indicator" title={post.contentType}>
+              {post.contentType === 'story' ? '📖' : 
+               post.contentType === 'poetry' ? '🎭' : 
+               post.contentType === 'guide' ? '📚' : 
+               post.contentType === 'reflection' ? '💭' : '📝'}
+            </span>
+            <span class="post-separator">•</span>
+            <span class="post-categories">
+              {post.data.categories.map((category, index) => (
+                <span>
+                  <a href={`/categories/${slugify(category)}`} class="category-link">{category}</a>
+                  {index < post.data.categories.length - 1 && ', '}
+                </span>
+              ))}
+            </span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="categories-section">
+      <h2 class="section-title">Explore Topics</h2>
+      <div class="categories-grid">
+        {topCategories.map(([category, data]) => (
+          <a href={`/categories/${slugify(category)}`} class="category-block">
+            <span class="category-name">{category}</span>
+            <span class="category-description">{categoryDescriptions[category] || 'Spiritual content and reflections'}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .hero-actions {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .pill-nav {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+
+  .pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  }
+
+  .pill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  }
+
+  .pill-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  }
+
+  .pill-icon {
+    font-size: 1rem;
+  }
+
+
+
+  .posts {
+    margin-bottom: 4rem;
+  }
+
+  .posts-terminal {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 2.5rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    
+    /* Enhanced typography */
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .post-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    color: #4a5568;
+    font-size: 1rem;
+    line-height: 1.6;
+    border-bottom: 1px solid #f1f5f9;
+    
+    /* Enhanced typography */
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .post-title {
+    color: #1a202c;
+    text-decoration: none;
+    font-weight: 600;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    transition: color 0.2s ease;
+  }
+
+  .post-title:hover {
+    color: #667eea;
+    text-decoration: underline;
+  }
+
+  .post-separator {
+    color: #a0aec0;
+    font-weight: bold;
+  }
+
+  .post-date {
+    color: #718096;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .reading-time {
+    color: #667eea;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .content-type-indicator {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  .post-categories {
+    color: #4a5568;
+  }
+
+  .category-link {
+    color: #667eea;
+    text-decoration: none;
+  }
+
+  .category-link:hover {
+    color: #5a67d8;
+    text-decoration: underline;
+  }
+
+  .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .section-title {
+    font-family: 'Crimson Text', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #1a202c;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "swsh" 1;
+  }
+
+  .categories-section {
+    margin-top: 5rem;
+  }
+
+  .categories-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .category-block {
+    display: block;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .category-block:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.12);
+    border-color: #667eea;
+  }
+
+  .category-name {
+    display: block;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a202c;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .category-description {
+    display: block;
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .categories {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .category {
+    background: #f7fafc;
+    color: #4a5568;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    border: 1px solid #e2e8f0;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .category:hover {
+    background: #667eea;
+    color: white;
+    border-color: #667eea;
+  }
+
+  .description {
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    background: #edf2f7;
+    color: #2d3748;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .tag-more {
+    background: #f7fafc;
+    color: #718096;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .posts {
+      grid-template-columns: 1fr;
+    }
+    
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .tagline {
+      font-size: 1.2rem;
+    }
+
+    .posts-terminal {
+      padding: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .post-line {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .post-separator {
+      display: none;
+    }
+  }
+</style>

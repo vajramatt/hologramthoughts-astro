@@ -1,0 +1,112 @@
+---
+interface Props {
+  headings: Array<{
+    depth: number;
+    slug: string;
+    text: string;
+  }>;
+}
+
+const { headings } = Astro.props;
+
+// Only show TOC if there are multiple headings
+const showTOC = headings && headings.length > 1;
+---
+
+{showTOC && (
+  <div class="table-of-contents">
+    <h3>Contents</h3>
+    <nav class="toc-nav">
+      <ul>
+        {headings.map((heading) => (
+          <li class={`toc-level-${heading.depth}`}>
+            <a href={`#${heading.slug}`}>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+)}
+
+<style>
+  .table-of-contents {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0 3rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .table-of-contents h3 {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  .toc-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toc-nav li {
+    margin: 0.5rem 0;
+  }
+
+  .toc-nav a {
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: color 0.2s ease;
+    display: block;
+    padding: 0.25rem 0;
+  }
+
+  .toc-nav a:hover {
+    color: #667eea;
+  }
+
+  .toc-level-1 {
+    font-weight: 600;
+    margin-top: 1rem;
+  }
+
+  .toc-level-1:first-child {
+    margin-top: 0;
+  }
+
+  .toc-level-2 {
+    padding-left: 1rem;
+    font-weight: 500;
+  }
+
+  .toc-level-3 {
+    padding-left: 2rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+
+  .toc-level-4,
+  .toc-level-5,
+  .toc-level-6 {
+    padding-left: 3rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .table-of-contents {
+      padding: 1.5rem;
+      margin: 1.5rem 0 2rem;
+    }
+    
+    .table-of-contents h3 {
+      font-size: 1.25rem;
+    }
+  }
+</style>

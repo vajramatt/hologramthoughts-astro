@@ -1,0 +1,56 @@
+---
+interface Props {
+  contentType: string;
+  complexity?: {
+    score: number;
+    headings: number;
+    paragraphs: number;
+  };
+}
+
+const { contentType, complexity } = Astro.props;
+
+const typeLabels = {
+  story: { icon: '📖', label: 'Story', color: '#e53e3e' },
+  poetry: { icon: '🎭', label: 'Poetry', color: '#d69e2e' },
+  guide: { icon: '📚', label: 'Guide', color: '#38a169' },
+  reflection: { icon: '💭', label: 'Reflection', color: '#667eea' },
+  article: { icon: '📝', label: 'Article', color: '#4a5568' }
+};
+
+const type = typeLabels[contentType] || typeLabels.article;
+---
+
+<div class="content-type-badge">
+  <span class="type-icon">{type.icon}</span>
+  <span class="type-label">{type.label}</span>
+  {complexity && complexity.score > 20 && (
+    <span class="complexity-indicator" title={`${complexity.headings} sections, ${complexity.paragraphs} paragraphs`}>
+      📊
+    </span>
+  )}
+</div>
+
+<style define:vars={{ typeColor: type.color }}>
+  .content-type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--typeColor);
+    color: white;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .type-icon {
+    font-size: 1rem;
+  }
+
+  .complexity-indicator {
+    opacity: 0.8;
+    font-size: 0.8rem;
+  }
+</style>

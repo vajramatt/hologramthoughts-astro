@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+
+// Get all posts and count categories
+const allPosts = await getCollection('blog');
+
+// Our 5 main categories
+const categories = [
+  { 
+    name: 'Dharma Writings',
+    description: 'Explorations of Buddhist teachings, philosophy, and the path',
+    emoji: '☸️'
+  },
+  { 
+    name: 'Creative Writing',
+    description: 'Fiction, poetry, and imaginative works',
+    emoji: '✍️'
+  },
+  { 
+    name: 'Consciousness & Philosophy',
+    description: 'Reflections on mind, reality, and the nature of existence',
+    emoji: '🌌'
+  },
+  { 
+    name: 'Practice & Inner Life',
+    description: 'Meditation, dreams, and spiritual practices',
+    emoji: '🧘'
+  },
+  { 
+    name: 'Other',
+    description: 'Various topics and musings',
+    emoji: '📝'
+  }
+];
+
+// Count posts per category
+const categoryCounts = {};
+allPosts.forEach(post => {
+  post.data.categories.forEach(category => {
+    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+  });
+});
+
+// Add counts to category data
+const categoriesWithCounts = categories.map(cat => ({
+  ...cat,
+  count: categoryCounts[cat.name] || 0,
+  slug: cat.name.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')
+}));
+---
+
+<Layout title="Categories - Hologram Thoughts">
+  <main>
+    <SiteHeader activePage="categories" />
+    <div class="container">      
+      <div class="categories-grid">
+        {categoriesWithCounts.map(category => (
+          <a href={`/categories/${category.slug}`} class="category-card">
+            <div class="category-emoji">{category.emoji}</div>
+            <h2 class="category-name">{category.name}</h2>
+            <p class="category-description">{category.description}</p>
+            <div class="category-count">{category.count} posts</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+  <SiteFooter />
+</Layout>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1rem 0;
+  }
+
+  .categories-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
+    border-color: #667eea;
+  }
+
+  .category-emoji {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .category-description {
+    color: #718096;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+
+  .category-count {
+    background: #f7fafc;
+    color: #667eea;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .categories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

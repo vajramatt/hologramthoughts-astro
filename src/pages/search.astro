@@ -1,0 +1,344 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { getCollection } from 'astro:content';
+
+// Get all posts at build time for search
+const allPosts = await getCollection('blog');
+const searchablePosts = allPosts.map(post => ({
+  title: post.data.title,
+  url: `/blog/${post.slug}`,
+  categories: post.data.categories || [],
+  description: post.data.description || '',
+  content: post.body.substring(0, 500), // First 500 chars for searching
+  date: post.data.pubDate
+}));
+---
+
+<Layout title="Search - Hologram Thoughts">
+  <main>
+    <SiteHeader activePage="search" />
+    
+    <div class="searchbox">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+      <input type="search" id="search-input" placeholder="Search through hundreds of posts..." autocomplete="off">
+    </div>
+    
+    <div id="search-results"></div>
+
+    <div class="search-container">
+      <div class="search-tips">
+        <h3>Search Tips</h3>
+        <div class="tips-grid">
+          <div class="tip">
+            <strong>Topics:</strong> Try "buddhism", "meditation", "chenrezig"
+          </div>
+          <div class="tip">
+            <strong>Stories:</strong> Search "fiction", "emergence", "jyoti"
+          </div>
+          <div class="tip">
+            <strong>Concepts:</strong> Look for "oneness", "dharma", "enlightenment"
+          </div>
+          <div class="tip">
+            <strong>Practices:</strong> Find "reiki", "yoga", "mindfulness"
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <SiteFooter />
+</Layout>
+
+<style>
+  /* Color palette */
+  html {
+    --dark-gray: rgb(90, 90, 90);
+    --light-gray: rgb(148, 148, 148);
+    --focus-blue: #667eea;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 70vh;
+  }
+
+  /* Search box variables */
+  .searchbox {
+    --target-size: 48px;
+    --box-height: var(--target-size);
+    --border-radius: calc(var(--box-height) / 2);
+    --border-width: 2px;
+    --icon-size: calc(var(--box-height) * 3/4);
+    --side-margin: calc(var(--border-radius) / 2);
+    --icon-vertical-margin: calc((var(--box-height) - var(--icon-size)) / 2);
+  }
+
+  /* Shaping the box */
+  .searchbox {
+    height: var(--box-height);
+    max-width: 600px;
+    width: 90%;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+
+  .searchbox input[type="search"] {
+    border: var(--border-width) solid var(--dark-gray);
+    border-radius: var(--border-radius);
+    height: 100%;
+    width: 100%;
+    -webkit-appearance: none;
+    color: var(--dark-gray);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1rem;
+    padding-left: calc(var(--side-margin) + var(--icon-size) + 8px);
+    padding-right: var(--side-margin);
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  /* Icon styling */
+  .searchbox svg {
+    fill: var(--dark-gray);
+    height: var(--icon-size);
+    width: var(--icon-size);
+    position: absolute;
+    left: var(--side-margin);
+    top: var(--icon-vertical-margin);
+    bottom: var(--icon-vertical-margin);
+    z-index: -1;
+  }
+
+  /* Placeholder styling */
+  .searchbox input[type="search"]::placeholder {
+    color: var(--light-gray);
+    opacity: 1;
+  }
+
+  /* Remove default decorations */
+  input[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  /* Focus state */
+  .searchbox input[type="search"]:focus {
+    border-color: var(--focus-blue);
+    box-shadow: 0px 0px 8px rgba(102, 126, 234, 0.4);
+    outline: 1px solid transparent;
+  }
+
+  /* Clear button styling */
+  .searchbox input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgb(148, 148, 148)' %3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z' /%3E%3C/svg%3E%0A");
+    height: calc(var(--box-height) / 2);
+    width: calc(var(--box-height) / 2);
+    cursor: pointer;
+  }
+
+  input[type="search"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Search results area */
+  #search-results {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+  }
+
+  .results-count {
+    color: var(--dark-gray);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding: 0 1rem;
+  }
+
+  .search-result {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .search-result:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+
+  .search-result h3 {
+    margin: 0 0 0.75rem 0;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.5rem;
+  }
+
+  .search-result h3 a {
+    color: #1a202c;
+    text-decoration: none;
+  }
+
+  .search-result h3 a:hover {
+    color: #667eea;
+  }
+
+  .search-result .excerpt {
+    color: #4a5568;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .search-result .categories {
+    margin-top: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .search-result .category-tag {
+    background: #f0f4ff;
+    color: #667eea;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--dark-gray);
+  }
+
+  .no-results p {
+    font-size: 1.1rem;
+  }
+
+  /* Search tips section */
+  .search-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .search-tips {
+    background: #f8fafc;
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+
+  .search-tips h3 {
+    font-family: 'Crimson Text', serif;
+    font-size: 1.75rem;
+    color: #1a202c;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .tip {
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  .tip strong {
+    color: #667eea;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .searchbox {
+      width: 95%;
+    }
+
+    .tips-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script define:vars={{ searchablePosts }}>
+  // Simple client-side search implementation
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    
+    function performSearch(query) {
+      if (query.length < 2) {
+        searchResults.innerHTML = '';
+        return;
+      }
+      
+      const lowerQuery = query.toLowerCase();
+      
+      // Search through posts
+      const results = searchablePosts.filter(post => {
+        return post.title.toLowerCase().includes(lowerQuery) ||
+               post.description.toLowerCase().includes(lowerQuery) ||
+               post.categories.some(cat => cat.toLowerCase().includes(lowerQuery)) ||
+               post.content.toLowerCase().includes(lowerQuery);
+      });
+      
+      // Sort by relevance (title matches first)
+      results.sort((a, b) => {
+        const aInTitle = a.title.toLowerCase().includes(lowerQuery);
+        const bInTitle = b.title.toLowerCase().includes(lowerQuery);
+        if (aInTitle && !bInTitle) return -1;
+        if (!aInTitle && bInTitle) return 1;
+        return new Date(b.date) - new Date(a.date); // Then by date
+      });
+      
+      // Display results
+      if (results.length === 0) {
+        searchResults.innerHTML = '<div class="no-results"><p>No results found for "' + query + '"</p></div>';
+      } else {
+        let html = '<div class="results-count">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' found</div>';
+        html += '<div class="results-list">';
+        
+        // Show first 20 results
+        results.slice(0, 20).forEach(result => {
+          html += '<article class="search-result">';
+          html += '<h3><a href="' + result.url + '">' + result.title + '</a></h3>';
+          html += '<p class="excerpt">' + (result.description || 'Click to read more...') + '</p>';
+          if (result.categories.length > 0) {
+            html += '<div class="categories">';
+            result.categories.forEach(cat => {
+              html += '<span class="category-tag">' + cat + '</span>';
+            });
+            html += '</div>';
+          }
+          html += '</article>';
+        });
+        
+        html += '</div>';
+        searchResults.innerHTML = html;
+      }
+    }
+    
+    // Add event listener with debouncing
+    let debounceTimer;
+    searchInput.addEventListener('input', function(e) {
+      clearTimeout(debounceTimer);
+      const query = e.target.value.trim();
+      
+      debounceTimer = setTimeout(() => {
+        performSearch(query);
+      }, 300);
+    });
+    
+    // Focus on load
+    searchInput.focus();
+  });
+</script>

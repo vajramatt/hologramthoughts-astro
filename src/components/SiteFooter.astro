@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+
+// Get all posts to find the oldest date
+const allPosts = await getCollection('blog');
+const oldestPost = allPosts.reduce((oldest, post) => {
+  return !oldest || post.data.pubDate < oldest.data.pubDate ? post : oldest;
+}, null);
+
+const startYear = oldestPost ? oldestPost.data.pubDate.getFullYear() : new Date().getFullYear();
+const currentYear = 2025;
+const yearRange = startYear === currentYear ? currentYear : `${startYear}-${currentYear}`;
+---
+
+<footer class="site-footer">
+  <p>&copy; {yearRange} Hologram Thoughts. All rights reserved.</p>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 4rem;
+    padding: 2rem 1rem;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+  }
+
+  .site-footer p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .site-footer {
+      margin-top: 3rem;
+      padding: 1.5rem 1rem;
+    }
+  }
+</style>
