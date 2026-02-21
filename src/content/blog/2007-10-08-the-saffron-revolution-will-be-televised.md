@@ -22,18 +22,208 @@ tags:
   - violence
 slug: the-saffron-revolution-will-be-televised
 ---
-There is much pain and suffering in the world on a daily and ongoing basis. I try not to dwell on the suffering, but there are things that we cannot ignore, cannot turn away from, but instead we must do something to right the situation. It is my hope that by presenting this information we can do something and hopefully bring some happiness to the world. On August 19, 2007 Burmese Buddhist monks began a series of peaceful protests against the government in Burma, now called Myanmar by the military junta in control of the nation. On September 26 the military took violent action against the protesters. The back story to this situation is terrible. For over four decades the military government has been systematically attacking, killing a looting villages in the eastern providences of Burma. At this point the military is shooting civilians on site according to many international reports. I recently received two emails in my inbox that both contained a wonderful amount of information. Links to articles, online petitions and blog posts; all germane to the military crackdown on the Buddhist monks in Burma. The first email came to me from Kris Ladusau. Kris is a Dharma Teacher at the [Rissho Kosei Kai Dharma Center of Oklahoma](http://www.rkok-dharmacenter.org/).
+There is much pain and suffering in the world on a daily and ongoing basis. I try not to dwell on the suffering, but there are things that we cannot ignore, cannot turn away from, but instead we must do something to right the situation. It is my hope that by presenting this information we can do something and hopefully bring some happiness to the world.
 
-> Subject: Proposal for Burma Strategy Just some ideas for a Burma strategy. Cut and paste to your heart’s content. Demands could include: 1) Support UN, ASEAN and high level diplomatic efforts by immediately calling for the release of Aung San Suu Kyi and other political prisoners, as well as an urgent end to attacks against ethnic minority civilians, monks, and democracy protestors. 2) Compel the Burmese military regime towards an inclusive and representative national reconciliation process under the guidance of the UN Special Envoy for Myanmar Ibrahim Gambari. 3) Support UN Security Council resolutions on Burma. On-line petitions:
-> 
-> *   [http://pol.moveon.org/pac/burma](http://pol.moveon.org/pac/burma)
-> *   [http://www.avaaz.org](http://www.avaaz.org) (international sister organization to Move-On.Org)
-> *   [http://wwwsavemyanmar.com](http://wwwsavemyanmar.com/)
-> 
-> Private letters and faxes (let’s start an avalanche): The China Angle:Burma has been isolated economically by international sanctions, so the only country with real sway there is China, and China has its own concerns about pro-democracy movements, so the only way to sway China is to mention the up-coming Olympics of which the theme is “One World, One Dream.” Don’t omit to refer to them as “Your excellencies . . .” Hon. Mr. Hu Jintao, President Hon. Mr. Wen Jiabao, Prime Minister Hon. Mr. Tan Jiaxuan, State Counselor Hon. Mr. Yang Jiechi, Foreign Minister Hon. Mr. Wang Guangya, Permanent Representative of China to the United Nations, Government of the People's Republic of China c/o Mission of China to UN 350 East 35th Street, New York, NY 10016 Tel: 212-655-6100, Fax: 212-634-7626 E-mail: [chinamission\_un@fmprc.gov.cn](mailto:chinamission_un@fmprc.gov.cn) Hon. Mr. Zhou Wenzhong, Ambassador to the U.S. of the People’s Republic of China Hon. Mr. Jiang Yu, Foreign Ministry Spokesperson c/o Chinese Embassy to the United States 2133 Wisconsin Ave NW Washington, DC 20007 (202) 625-2030 The Myanmar Angle: There is doubt we’ll sway the leaders of Myanmar, but it might be of concern to them that we know their names. Be sure to refer to Burma as Myanmar and Rangoon as Yangon. It’s a pet peeve of theirs. Hon. Mr. U Linn Myaing, Union of Myanmar Ambassador to the United States c/o Embassy of the Union of Myanmar 2300 S Street NW, Washington D.C. - 20008 Tel: 202-332-3344, 202-332-4350, 202-332-4352 FAX : 202-332-4351 Email: [info@mewashingtondc.com](mailto:info@mewashingtondc.com) E-mail: [thuriya@aol.com](mailto:thuriya@aol.com) Chairman, Senior-General Than Shwe, Commander-in-Chief of Defence Services Vice-Chairman, Vice Senior General Maung Aye, Commander-in-Chief of Defence Services, Commander-in-Chief (Army) General Thura Shwe Mann, Joint Chief of Staff of the Army, Navy and Air Force General Soe Win, Prime Minister of the Union of Myanmar Lieutenant-General Thein Sein, First Secretary of SPDC, Adjutant General Lieutenant-General Thiha Thura Tin Aung Myint Oo, Quartermaster General Lieutenant-General Kyaw Win, Chief of Bureau of Special Operation-2 (Shan, Kayah) Lieutenant-General Tin Aye, Chief of Military Ordance Lieutenant-General Ye Myint, Chief of Bureau of Special Operation - 1 (Kachin, Chin, Sagaing, Magawe, Mandalay) Lieutenant-General Aung Htwe, Chief of Armed Forces Training Lieutenant-General Khin Maung Than, Chief of Bureau of Special Operation - 3 (Pegu, Yangon, Irrawaddy, Arakan) Lieutenant-General Maung Bo, Chief of Bureau of Special Operation - 4 (Karen, Mon, Tenasserim) Maj-Gen Myint Swe, Commander of the Yangon Command, Peace and Development Council Brig-Gen Thura Myint Maung, Minister for Religious Affairs Brig-Gen. Thura Aung Ko, Deputy Minister for Religious Affairs Government of The Union of Myanmar, and Hon. Mr. Kyaw Tint Swe, Ambassador/ Permanent Representative of the Union of Myanmar to the United Nations c/o Permanent Mission of the Union of Myanmar to the United Nations 10 EAST 77TH St. N. Y 10021, New York . Tel: 00-212-535-1310, 535-1311 Fax: 00-21-737-2421 E-mail: [myanmar@un.int](mailto:myanmar@un.int) The Buddhist Angle: Officially called the State Sangha Maha Nayaka Committee (SSMNC) , these are a group of aging monks who have supported the junta by enforcing Order No. 15, since 2001 banning monks who have ever been arrested from donning robes again once they are released. This is to intimidate monks who make up 3% of the population from taking part in the democracy movement. They administer the infamous “Monk Identity Card” system which identifies “good establishment monks” from “pro-democracy monks.” Many monks have boycotted the identity card system even though they miss out on government subsidies that way. The State Sangha Maha Nayaka Committee is opposed by the Young Monks Association, which has continued to support the 1990 “patam nikkujjana kamma" agreement, in protest of the mass killings of 1988, by which they refuse to accept dana from government officials thus isolating them from absolution of their karma. This statement comes from section 262 of the Vinaya. How the State Sangha Maha Nayaka Committee can give lip service to the three-fold Saddhamma of scriptural study (pariyatti), Buddhist practice (patipatti), and realization of the Dhamma (patipvedha), and continue to support the murder of their fellow monastics is beyond me. They stay safe and well fed in their universities, claiming the most supreme of these sasanas is pariyatti. Anyone who can answer that from the Vinaya is welcome. There may be some point to American Buddhists influencing these senior monks to finally support the rest of the monks. These are the establishment monks (apparently the longer the karma, the longer the name): 1. Agga Maha Saddhama Jotika Dhaja Sayadaw Bhaddanta Panna Dipa, Dean of the Faculty of Patipatti at the International Theravada Buddhist Missionary University (ITBMU). 2. Sayadaw Abhidhaja Maha Rattha Guru Abhidhaja Agga Maha Saddhammajotika Bhaddanta Paññinda Bhivamsa, Vice-Chairman of the SSMNC and head of Aungmyebonsan Monastery 3. Magway Sayadaw Abhidhaja Maha Rattha Guru Abhidhaja Agga Maha Saddhammajotika Bhaddanta Kumara, General Secretary of SSMNC and Secretary Vice-Chancellor of the State Pariyatti Sasana Universities 4. Nyaungdon Sayadaw Abhidhaja Maha Rattha Guru Bhaddanta Osadha Bhivamsa, Vice president of SSMNC and Joint Secretary and Sayadaw Chairman of the State Pariyatti Sasana Universities Administration Board 5. Bhaddanta Thuriya Bhivamsa, Vice President of SSMNC 6. Bhaddanta Sandima, Secretary of SSMNC 7. Bhaddanta Agghiya, President of Shwekyin Nikaya SSMNC 8. Bhaddanta Sumangala Lankara, Tipitakadhara Tipitaka Kovida Dhammabhandagarika, Ph.D 9. Dr Ashin Sila Nanda Bhivamsa, Rector Sayadaw, ITBMU 10. Dr Canda Vara Bhivamsa of the ITBMU, Buddhist Education Department 11. Dr Punnobhasa of Sitagu International Buddhist Academy of Myanmar They most likely can be reached at the: International Theravada Buddhist Missionary University Dhammapala Hill, Mayangone P.O. Yangon, UNION OF MYANMAR. Fax: 095-1-650700 Phone: 095-1-650702 Except for: Thegon Sayadaw Agga Maha Pandita Agga Maha Saddhamma Jotikadhaja Maha Dhamma Kathika Bahujanahitadhara Dr Ashin Yanissara, Chancellor of Sitagu International Buddhist Academy Ovadacariya of the ITBMU and Honorary Professor, who can be reached at: Sitagu Vihara Sagaing Hills Sagaing City UNION OF MYANMAR Phone - 095-072-21270 or c/o Sitagu Ayudna Hospital Phone - 095-072-21310 Fax - 095-072-21587 These are the pro-democracy monks. I don’t know where they can be reached at the present moment: U Pandavamsa, Secretary General the Young Monks Union U Tilawkar Biwuntha, head of Insein Ywama monastery U Thumingalar Linkara, head of Mahar Ghandaryone monastery U Nyarna Wuntha, head of Maydini monastery U Panditha Biwuntha, head of Maharbawdi monastery U Tanza Wunda, head of Ma Soe Yein Nu monastery Ashin Aingitha, head of Parli Karyi monastery U Wantha Wanpandi, head of Maggin monastery U Waryamandar Biwuntha, head of Shwe Phone Pwint monastery U Byanma Thini, senior monk of Shwe Phone Pwint monastery U Kaw Thanla, senior monk of Shwe Phone Pwint monastery The Economic Angle: U.S. companies doing business in Burma these days: DHL 223, Sule Pagoda Road 7 (A ), Kaba Aye Pagoda Rd., Mayangon Tsp. Tel 251752, 664434, 664423, Fax 664430 United Parcel Service 337 Boaungkyaw Street, Kyauktada Tsp Tel: 245481 Fax 242734 Donations: The previous massacre in 1988 was blacked out of the news, but this time private video and cell phones are making a difference. For video equipment for Burma, make out checks to “Stone Circles” and put “Burma Equipment” in the “for” line and mail to The Stone House, Attn: Burma Equipment, 6602 Nick’s Rd., Mebane, N.C., 27302. Please add to this list if you can. The more we write and fax, I believe maybe this time, we can break through. May benefit arise from this. "The more one unites with that which is, the more one becomes absolute compassion."
+On August 19, 2007 Burmese Buddhist monks began a series of peaceful protests against the government in Burma, now called Myanmar by the military junta in control of the nation. On September 26 the military took violent action against the protesters. The back story to this situation is terrible. For over four decades the military government has been systematically attacking, killing a looting villages in the eastern providences of Burma. At this point the military is shooting civilians on site according to many international reports.
 
-This email came to me from a friend involved with the [Karma Thegsum Choling](http://www.ktcdallas.org/) in Dallas, Texas.
+I recently received two emails in my inbox that both contained a wonderful amount of information. Links to articles, online petitions and blog posts; all germane to the military crackdown on the Buddhist monks in Burma.
 
-> Burma - a collection of posts and petitions.**Perspective - NY Times** [http://www.nytimes.com/aponline/world/AP-Myanmar-What-Next.html](http://www.nytimes.com/aponline/world/AP-Myanmar-What-Next.html) Excerpt: Yet the monks are deeply revered in this mostly Buddhist nation, and imprisoning them upsets the faithful, no matter what their occupation or political bent. ''The crackdown by the military against the monks may be a major element in the destruction of the very military unity they seek. Many may be profoundly disturbed by the actions of their colleagues,'' says David Steinberg of Georgetown University, an author of several books on Myanmar.**Exploiting the Dalai Lama to Spread Malware** By John P. Mello Jr. TechNewsWorld 10/03/07 4:00 AM PT [http://www.technewsworld.com/story/59617.html](http://www.technewsworld.com/story/59617.html) Hackers have taken advantage of the worldwide attention centered on the violent protests in Myanmar to further the spread of malware, according to security firm Sophos. A new scam sends its victims e-mail with an attached Microsoft Word document purportedly written by the Dalai Lama supporting the pro-democracy demonstrations in the country. The file, once viewed, opens the PC to malware.**Petition sent in by Catharine Heller** [Avaaz.org](http://avaaz.org/) and MoveOn.org have launched a petition demanding Burmese generals negotiate rather than crush the demonstrators. They're focused on getting United Nations Security Council members--particularly China's Hu Jintao--to intervene. [http://pol.moveon.org/burma/?r\_by=&rc=mailto](http://pol.moveon.org/burma/?r_by=&rc=mailto) **Petition sent in from Jan Puckett** An appeal to the UN Security Council to Protect the People of Burma (UK Daily Mail) [http://new.petitiononline.com/9848/petition-sign.html](http://new.petitiononline.com/9848/petition-sign.html) **Petition sent in from Jo Wharton** [http://www.avaaz.org/en/stand\_with\_burma/t.php](http://www.avaaz.org/en/stand_with_burma/t.php) **Shambhala News Service: Letter to the U.N. regarding Burma** From Columbus E-list Excerpt: "The Sakyong would like members of the Shambhala community know that in his view it would be appropriate for prayers and practices to be offered in a spirit of encouraging a peaceful resolution to the crisis in Burma (Myanmar). It would also be appropriate for individuals to join in vigils, meditations, petitions or other non-violent manifestations aimed at generating international protection for the sangha in Burma (Myanmar)." Letter from Pema Chodron: Dear Ones: I feel that this is of such importance that I want you all to be informed and to hold aspirations for a peaceful outcome to result. With much love, Ani Pema Chödrön**From Isabel Umana / Excerpt Letter from Lama Shenphen Hookam:** "It is important that we as Buddhists do not think that ignoring what is going on is somehow an expression of our commitment to peace. If an active response is called for, then we as Buddhists need to be ready to respond with courage and determination. Non-effort doesn’t mean inaction and passivity, apathy or indifference. It means responding from our hearts without ego-involvement.” By Lama Shenpen Hookham
+The first email came to me from Kris Ladusau. Kris is a Dharma Teacher at the (http://www.rkok-dharmacenter.org/).
 
-Both emails are worthy of merit. Both were compiled by compassionate individuals for our benefit and the benefit of countless other sentient beings. I myself have signed a few of the online petitions and I plan to make updates to this blog as new developments occur. I am one person, but by adding these thoughts to my practices and to my offerings, my voice can be added to the countless others seeking the peaceful resolution to this conflict. Please, if you have comments or ideas, post them below and I will get them to people more appropriate than me. In Dharma, Matt
+> Subject: Proposal for Burma Strategy Just some ideas for a Burma strategy. Cut and paste to your heart’s content. Demands could include:
+>
+> 1) Support UN, ASEAN and high level diplomatic efforts by immediately calling for the release of Aung San Suu Kyi and other political prisoners, as well as an urgent end to attacks against ethnic minority civilians, monks, and democracy protestors.
+> 2) Compel the Burmese military regime towards an inclusive and representative national reconciliation process under the guidance of the UN Special Envoy for Myanmar Ibrahim Gambari.
+> 3) Support UN Security Council resolutions on Burma.
+>
+> On-line petitions:
+>
+>
+>
+
+> 	
+>
+>
+- (http://pol.moveon.org/pac/burma)
+>
+>
+> 	
+>
+>
+- (http://www.avaaz.org) (international sister organization to Move-On.Org)
+>
+>
+> 	
+>
+>
+- (http://wwwsavemyanmar.com/)
+>
+>
+>
+
+>
+>
+> Private letters and faxes (let’s start an avalanche):
+>
+> The China Angle:Burma has been isolated economically by international sanctions, so the only country with real sway there is China, and China has its own concerns about pro-democracy movements, so the only way to sway China is to mention the up-coming Olympics of which the theme is “One World, One Dream.” Don’t omit to refer to them as “Your excellencies . . .”
+>
+> Hon. Mr. Hu Jintao, President
+> Hon. Mr. Wen Jiabao, Prime Minister
+> Hon. Mr. Tan Jiaxuan, State Counselor
+> Hon. Mr. Yang Jiechi, Foreign Minister
+> Hon. Mr. Wang Guangya, Permanent Representative of China to the United Nations,
+> Government of the People's Republic of China
+> c/o Mission of China to UN
+> 350 East 35th Street, New York, NY 10016
+> Tel: 212-655-6100, Fax: 212-634-7626
+> E-mail: (mailto:chinamission_un@fmprc.gov.cn)
+>
+> Hon. Mr. Zhou Wenzhong, Ambassador to the U.S. of the People’s Republic of China
+> Hon. Mr. Jiang Yu, Foreign Ministry Spokesperson
+> c/o Chinese Embassy to the United States
+> 2133 Wisconsin Ave NW
+> Washington, DC 20007
+> (202) 625-2030
+>
+> The Myanmar Angle: There is doubt we’ll sway the leaders of Myanmar, but it might be of concern to them that we know their names. Be sure to refer to Burma as Myanmar and Rangoon as Yangon. It’s a pet peeve of theirs.
+>
+> Hon. Mr. U Linn Myaing, Union of Myanmar Ambassador to the United States
+> c/o Embassy of the Union of Myanmar
+> 2300 S Street NW, Washington D.C. - 20008
+> Tel: 202-332-3344, 202-332-4350, 202-332-4352
+> FAX : 202-332-4351
+> Email: (mailto:info@mewashingtondc.com)
+> E-mail: (mailto:thuriya@aol.com)
+>
+> Chairman, Senior-General Than Shwe, Commander-in-Chief of Defence Services Vice-Chairman, Vice Senior
+> General Maung Aye, Commander-in-Chief of Defence Services, Commander-in-Chief (Army)
+> General Thura Shwe Mann, Joint Chief of Staff of the Army, Navy and Air Force General Soe Win, Prime Minister of the Union of Myanmar
+> Lieutenant-General Thein Sein, First Secretary of SPDC, Adjutant General
+> Lieutenant-General Thiha Thura Tin Aung Myint Oo, Quartermaster General
+> Lieutenant-General Kyaw Win, Chief of Bureau of Special Operation-2 (Shan, Kayah)
+> Lieutenant-General Tin Aye, Chief of Military Ordance
+> Lieutenant-General Ye Myint, Chief of Bureau of Special Operation - 1 (Kachin, Chin, Sagaing, Magawe, Mandalay)
+> Lieutenant-General Aung Htwe, Chief of Armed Forces Training
+> Lieutenant-General Khin Maung Than, Chief of Bureau of Special Operation - 3 (Pegu, Yangon, Irrawaddy, Arakan)
+> Lieutenant-General Maung Bo, Chief of Bureau of Special Operation - 4 (Karen, Mon, Tenasserim)
+> Maj-Gen Myint Swe, Commander of the Yangon Command, Peace and Development Council
+> Brig-Gen Thura Myint Maung, Minister for Religious Affairs
+> Brig-Gen. Thura Aung Ko, Deputy Minister for Religious Affairs
+> Government of The Union of Myanmar, and
+> Hon. Mr. Kyaw Tint Swe, Ambassador/ Permanent Representative of the Union of
+> Myanmar to the United Nations
+> c/o Permanent Mission of the Union of Myanmar to the United Nations
+> 10 EAST 77TH St. N. Y 10021, New York .
+> Tel: 00-212-535-1310, 535-1311
+> Fax: 00-21-737-2421
+> E-mail: (mailto:myanmar@un.int)
+>
+> The Buddhist Angle: Officially called the State Sangha Maha Nayaka Committee (SSMNC) , these are a group of aging monks who have supported the junta by enforcing Order No. 15, since 2001 banning monks who have ever been arrested from donning robes again once they are released. This is to intimidate monks who make up 3% of the population from taking part in the democracy movement. They administer the infamous “Monk Identity Card” system which identifies “good establishment monks” from “pro-democracy monks.” Many monks have boycotted the identity card system even though they miss out on government subsidies that way. The State Sangha Maha Nayaka Committee is opposed by the Young Monks Association, which has continued to support the 1990 “patam nikkujjana kamma" agreement, in protest of the mass killings of 1988, by which they refuse to accept dana from government officials thus isolating them from absolution of their karma. This statement comes from section 262 of the Vinaya. How the State Sangha Maha Nayaka Committee can give lip service to the three-fold Saddhamma of scriptural study (pariyatti), Buddhist practice (patipatti), and realization of the Dhamma (patipvedha), and continue to support the murder of their fellow monastics is beyond me. They stay safe and well fed in their universities, claiming the most supreme of these sasanas is pariyatti. Anyone who can answer that from the Vinaya is welcome. There may be some point to American Buddhists influencing these senior monks to finally support the rest of the monks.
+>
+> These are the establishment monks (apparently the longer the karma, the longer the name):
+>
+> 1. Agga Maha Saddhama Jotika Dhaja Sayadaw Bhaddanta Panna Dipa, Dean of the
+> Faculty of Patipatti at the International Theravada Buddhist Missionary University (ITBMU).
+> 2. Sayadaw Abhidhaja Maha Rattha Guru Abhidhaja Agga Maha Saddhammajotika Bhaddanta Paññinda Bhivamsa, Vice-Chairman of the SSMNC and head of Aungmyebonsan Monastery
+> 3. Magway Sayadaw Abhidhaja Maha Rattha Guru Abhidhaja Agga Maha Saddhammajotika Bhaddanta Kumara, General Secretary of SSMNC and Secretary Vice-Chancellor of the State Pariyatti Sasana Universities
+> 4. Nyaungdon Sayadaw Abhidhaja Maha Rattha Guru Bhaddanta Osadha Bhivamsa, Vice president of SSMNC and Joint Secretary and Sayadaw Chairman of the State Pariyatti Sasana Universities Administration Board
+> 5. Bhaddanta Thuriya Bhivamsa, Vice President of SSMNC
+> 6. Bhaddanta Sandima, Secretary of SSMNC
+> 7. Bhaddanta Agghiya, President of Shwekyin Nikaya SSMNC
+> 8. Bhaddanta Sumangala Lankara, Tipitakadhara Tipitaka Kovida Dhammabhandagarika, Ph.D
+> 9. Dr Ashin Sila Nanda Bhivamsa, Rector Sayadaw, ITBMU
+> 10. Dr Canda Vara Bhivamsa of the ITBMU, Buddhist Education Department
+> 11. Dr Punnobhasa of Sitagu International Buddhist Academy of Myanmar
+>
+> They most likely can be reached at the:
+> International Theravada Buddhist Missionary University
+> Dhammapala Hill,
+> Mayangone P.O. Yangon,
+> UNION OF MYANMAR.
+> Fax: 095-1-650700
+> Phone: 095-1-650702
+>
+> Except for:
+> Thegon Sayadaw Agga Maha Pandita Agga Maha Saddhamma Jotikadhaja Maha Dhamma Kathika Bahujanahitadhara Dr Ashin Yanissara, Chancellor of Sitagu International Buddhist Academy Ovadacariya of the ITBMU and Honorary Professor, who can be reached at:
+> Sitagu Vihara
+> Sagaing Hills
+> Sagaing City
+> UNION OF MYANMAR
+> Phone - 095-072-21270
+> or c/o Sitagu Ayudna Hospital
+> Phone - 095-072-21310
+> Fax - 095-072-21587
+>
+> These are the pro-democracy monks. I don’t know where they can be reached at the present moment:
+>
+> U Pandavamsa, Secretary General the Young Monks Union
+> U Tilawkar Biwuntha, head of Insein Ywama monastery
+> U Thumingalar Linkara, head of Mahar Ghandaryone monastery
+> U Nyarna Wuntha, head of Maydini monastery
+> U Panditha Biwuntha, head of Maharbawdi monastery
+> U Tanza Wunda, head of Ma Soe Yein Nu monastery
+> Ashin Aingitha, head of Parli Karyi monastery
+> U Wantha Wanpandi, head of Maggin monastery
+> U Waryamandar Biwuntha, head of Shwe Phone Pwint monastery
+> U Byanma Thini, senior monk of Shwe Phone Pwint monastery
+> U Kaw Thanla, senior monk of Shwe Phone Pwint monastery
+>
+> The Economic Angle:
+>
+> U.S. companies doing business in Burma these days:
+>
+> DHL
+> 223, Sule Pagoda Road
+> 7 (A ), Kaba Aye Pagoda Rd., Mayangon Tsp.
+> Tel 251752, 664434, 664423, Fax 664430
+>
+> United Parcel Service
+> 337 Boaungkyaw Street, Kyauktada Tsp
+> Tel: 245481 Fax 242734
+>
+> Donations:
+>
+> The previous massacre in 1988 was blacked out of the news, but this time private video and cell phones are making a difference. For video equipment for Burma, make out checks to “Stone Circles” and put “Burma Equipment” in the “for” line and mail to The Stone House, Attn: Burma Equipment, 6602 Nick’s Rd., Mebane, N.C., 27302.
+>
+> Please add to this list if you can. The more we write and fax, I believe maybe this time, we can break through.
+>
+> May benefit arise from this.
+>
+> "The more one unites with that which is, the more one becomes absolute
+> compassion."
+
+This email came to me from a friend involved with the (http://www.ktcdallas.org/) in Dallas, Texas.
+
+> Burma - a collection of posts and petitions.**Perspective - NY Times
+> **[http://www.nytimes.com/aponline/world/AP-Myanmar-What-Next.html](http://www.nytimes.com/aponline/world/AP-Myanmar-What-Next.html)
+> Excerpt: Yet the monks are deeply revered in this mostly Buddhist nation, and imprisoning them upsets the faithful, no matter what their occupation or political bent.
+> ''The crackdown by the military against the monks may be a major element in the destruction of the very military unity they seek. Many may be profoundly disturbed by the actions of their colleagues,'' says David Steinberg of Georgetown University, an author of several books on Myanmar.**Exploiting the Dalai Lama to Spread Malware** By John P. Mello Jr. TechNewsWorld 10/03/07 4:00 AM PT
+>
+> [http://www.technewsworld.com/story/59617.html](http://www.technewsworld.com/story/59617.html)
+> Hackers have taken advantage of the worldwide attention centered on the violent protests in Myanmar to further the spread of malware, according to security firm Sophos. A new scam sends its victims e-mail with an attached Microsoft Word document purportedly written by the Dalai Lama supporting the pro-democracy demonstrations in the country. The file, once viewed, opens the PC to malware.**Petition sent in by Catharine Heller
+> **(http://avaaz.org/) and MoveOn.org have launched a petition demanding Burmese
+> generals negotiate rather than crush the demonstrators. They're focused on getting United Nations Security Council members--particularly China's Hu Jintao--to intervene.
+> [http://pol.moveon.org/burma/?r_by=&rc=mailto](http://pol.moveon.org/burma/?r_by=&rc=mailto)
+>
+> **Petition sent in from Jan Puckett
+> **An appeal to the UN Security Council to Protect the People of Burma (UK Daily Mail)
+> [http://new.petitiononline.com/9848/petition-sign.html](http://new.petitiononline.com/9848/petition-sign.html)
+>
+> **Petition sent in from Jo Wharton
+> **[http://www.avaaz.org/en/stand_with_burma/t.php](http://www.avaaz.org/en/stand_with_burma/t.php)
+>
+> **Shambhala News Service: Letter to the U.N. regarding Burma** From Columbus E-list
+> Excerpt:
+> "The Sakyong would like members of the Shambhala community know that in his view it would be appropriate for prayers and practices to be offered in a spirit of encouraging a peaceful resolution to the crisis in Burma (Myanmar). It would also be appropriate for individuals to join in vigils, meditations, petitions or other non-violent manifestations aimed at generating international protection for the sangha in Burma (Myanmar)."
+> Letter from Pema Chodron:
+> Dear Ones:
+> I feel that this is of such importance that I want you all to be informed and to hold aspirations for a peaceful outcome to result. With much love, Ani Pema Chödrön**From Isabel Umana / Excerpt Letter from Lama Shenphen Hookam:
+> **"It is important that we as Buddhists do not think that ignoring what is going on is somehow an expression of our commitment to peace. If an active response is called for, then we as Buddhists need to be ready to respond with courage and determination. Non-effort doesn’t mean inaction and passivity, apathy or indifference. It means responding from our hearts without ego-involvement.” By Lama Shenpen Hookham
+
+Both emails are worthy of merit. Both were compiled by compassionate individuals for our benefit and the benefit of countless other sentient beings. I myself have signed a few of the online petitions and I plan to make updates to this blog as new developments occur. I am one person, but by adding these thoughts to my practices and to my offerings, my voice can be added to the countless others seeking the peaceful resolution to this conflict.
+
+Please, if you have comments or ideas, post them below and I will get them to people more appropriate than me.
+
+In Dharma,
+
+Matt

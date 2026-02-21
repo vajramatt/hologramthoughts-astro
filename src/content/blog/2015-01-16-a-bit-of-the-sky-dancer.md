@@ -11,4 +11,38 @@ tags:
   - yeshe-tsogyal
 slug: a-bit-of-the-sky-dancer
 ---
-[![Yeshe Tsoygal](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_285/v1438748903/10153235_10152647233952634_4756499733881761040_n_pmarrz.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748903/10153235_10152647233952634_4756499733881761040_n_pmarrz.jpg)Listen, faithful Tibetans!  I am merging with the fundamental, the ground of all that is—physical pain and suffering are disappearing….  The son, the inner elements of my body, is reuniting with the mother, the outer elements.  Her physical remains will disappear into earth and stone. I, Yeshe Tsogyal, am the sovereign of cyclic existence and its transcendence.  If you recognize me, I live in the minds of all beings; I emanate as the natural elements and sense-fields; though primordially we are not separate, not recognizing me, you experience me externally. Afterwards, I abided evenly in the view of the Great Perfection beyond all action, and as the experience dawned on me wherein all phenomena are extinguished in the nature of reality, I was perceived in various forms according to the needs of beings. To the hungry I was heaps of food and all good things, and thus I brought them joy. To the cold and freezing I was fire and sun-warmth, thus their joy. To the poor and needy I was wealth and riches, thus their joy. To the naked I was every kind of raiment, thus their joy. To the childless I was sons and daughters, thus their joy. To those who craved a woman, I became a lovely girl and thus their joy. To those who sought a lover, I was a handsome youth and thus their joy. To those who wanted magic powers, I gave prowess in the eight great siddhis, and thus I brought them joy. To the sick I was their remedy and thus their joy. To the anguished I was all their mind desired, and thus I was their joy. To those in fear of savage beasts, I was a haven, thus their joy. To those who fell into the depths, I was their drawing out and thus their joy. To those tormented in the fire, I was a quenching stream and thus their joy. To those in prey to any of the elements, I was their medicine and thus their joy. For those who could not see, I was their eyes and brought them joy. And for the halt and crippled I was feet and thus their joy. I was a tongue for those who could not speak, and thus I brought them joy. To those in fear of death I granted immortality, and thus I was their joy. I led the dying on the path of transference and brought them joy. To those who wandered in the bardo state, I was their yidam, bringing them to joy. I cooled the burning heat and warmed the cold of those lost in the realms of hell. Howsoever they were tortured, I changed myself to shield them, being thus their joy. I shielded all from everything that tortured them and was their every joy. ~Yeshe Tsogyal, from “The Sky Dancer,” Translated by Keith Dowman (A note from Matt: I saw this posted on Facebook by my friend, Amrita Nadi, and though I have read The Sky Dancer, this was posted and perfectly timed for me on this very day.)
+[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_285/v1438748903/10153235_10152647233952634_4756499733881761040_n_pmarrz.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748903/10153235_10152647233952634_4756499733881761040_n_pmarrz.jpg)Listen, faithful Tibetans!  I am merging with the fundamental, the ground of all that is—physical pain and suffering are disappearing….  The son, the inner elements of my body, is reuniting with the mother, the outer elements.  Her physical remains will disappear into earth and stone.
+
+I, Yeshe Tsogyal, am the sovereign of cyclic existence and its transcendence.  If you recognize me, I live in the minds of all beings; I emanate as the natural elements and sense-fields; though primordially we are not separate, not recognizing me, you experience me externally.
+
+Afterwards, I abided evenly in the view of the Great Perfection beyond all action, and as the experience dawned on me wherein all phenomena are extinguished in the nature of reality, I was perceived in various forms according to the needs of beings.
+
+To the hungry I was heaps of food and all good things, and thus I brought them joy.
+
+To the cold and freezing I was fire and sun-warmth, thus their joy.
+To the poor and needy I was wealth and riches, thus their joy.
+To the naked I was every kind of raiment, thus their joy.
+To the childless I was sons and daughters, thus their joy.
+To those who craved a woman, I became a lovely girl and thus their joy.
+To those who sought a lover, I was a handsome youth and thus their joy.
+To those who wanted magic powers, I gave prowess in the eight great siddhis, and thus I brought them joy.
+To the sick I was their remedy and thus their joy.
+To the anguished I was all their mind desired, and thus I was their joy.
+To those in fear of savage beasts, I was a haven, thus their joy.
+To those who fell into the depths, I was their drawing out and thus their joy.
+To those tormented in the fire, I was a quenching stream and thus their joy.
+To those in prey to any of the elements, I was their medicine and thus their joy.
+For those who could not see, I was their eyes and brought them joy.
+And for the halt and crippled I was feet and thus their joy.
+I was a tongue for those who could not speak, and thus I brought them joy.
+To those in fear of death I granted immortality, and thus I was their joy.
+I led the dying on the path of transference and brought them joy.
+To those who wandered in the bardo state, I was their yidam, bringing them to joy.
+I cooled the burning heat and warmed the cold of those lost in the realms of hell.
+Howsoever they were tortured, I changed myself to shield them, being thus their joy.
+I shielded all from everything that tortured them and was their every joy.
+
+~Yeshe Tsogyal, from “The Sky Dancer,”
+Translated by Keith Dowman
+
+(A note from Matt: I saw this posted on Facebook by my friend, Amrita Nadi, and though I have read The Sky Dancer, this was posted and perfectly timed for me on this very day.)

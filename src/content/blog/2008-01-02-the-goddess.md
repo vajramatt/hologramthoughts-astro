@@ -18,4 +18,248 @@ tags:
   - universe
 slug: the-goddess
 ---
-*Note: A good friend of mine sent this to me out of the blue, and it is wonderful and amazing. I am blessed to have read it.* Thereupon, Manjusri, the crown prince, addressed the Licchavi Vimalakirti: "Good sir, how should a bodhisattva regard all living beings?" Vimalakirti replied, "Manjusri, a bodhisattva should regard all livings beings as a wise man regards the reflection of the moon in water or as magicians regard men created by magic. He should regard them as being like a face in a mirror; like the water of a mirage; like the sound of an echo; like a mass of clouds in the sky; like the previous moment of a ball of foam; like the appearance and disappearance of a bubble of water; like the core of a plantain tree; like a flash of lightning; like the fifth great element; like the seventh sense-medium; like the appearance of matter in an immaterial realm; like a sprout from a rotten seed; like a tortoise-hair coat; like the fun of games for one who wishes to die; like the egoistic views of a stream-winner; like a third rebirth of a once-returner; like the descent of a nonreturner into a womb; like the existence of desire, hatred, and folly in a saint; like thoughts of avarice, immorality, wickedness, and hostility in a bodhisattva who has attained tolerance; like the instincts of passions in a Tathagata; like the perception of color in one blind from birth; like the inhalation and exhalation of an ascetic absorbed in the meditation of cessation; like the track of a bird in the sky; like the erection of a eunuch; like the pregnancy of a barren woman; like the unproduced passions of an emanated incarnation of the Tathagata; like dream-visions seen after waking; like the passions of one who is free of conceptualizations; like fire burning without fuel; like the reincarnation of one who has attained ultimate liberation. "Precisely thus, Manjusri, does a bodhisattva who realizes the ultimate selflessness consider all beings." Manjusri then asked further, "Noble sir, if a bodhisattva considers all living beings in such a way, how does he generate the great love toward them?" Vimalakirti replied, "Manjusri, when a bodhisattva considers all living beings in this way, he thinks: 'Just as I have realized the Dharma, so should I teach it to living beings.' Thereby, he generates the love that is truly a refuge for all living beings; the love that is peaceful because free of grasping; the love that is not feverish, because free of passions; the love that accords with reality because it is equanimous in all three times; the love that is without conflict because free of the violence of the passions; the love that is nondual because it is involved neither with the external nor with the internal; the love that is imperturbable because totally ultimate. "Thereby he generates the love that is firm, its high resolve unbreakable, like a diamond; the love that is pure, purified in its intrinsic nature; the love that is even, its aspirations being equal; the saint's love that has eliminated its enemy; the bodhisattva's love that continuously develops living beings; The Tathagata's love that understands reality; the Buddha's love that causes living beings to awaken from their sleep; the love that is spontaneous because it is fully enlightened spontaneously; the love that is enlightenment because it is unity of experience; the love that has no presumption because it has eliminated attachment and aversion; the love that is great compassion because it infuses the Mahayana with radiance; the love that is never exhausted because it acknowledges voidness and selflessness; the love that is giving because it bestows the gift of Dharma free of the tight fist of a bad teacher; the love that is morality because it improves immoral living beings; the love that is tolerance because it protects both self and others; the love that is effort because it takes responsibility for all living beings; the love that is contemplation because it refrains from indulgence in tastes; the love that is wisdom because it causes attainment at the proper time; the love that is liberative technique because it shows the way everywhere; the love that is without formality because it is pure in motivation; the love that is without deviation because it acts from decisive motivation; the love that is high resolve because it is without passions; the love that is without deceit because it is not artificial; the love that is happiness because it introduces living beings to the happiness of the Buddha. Such, Manjusri, is the great love of a bodhisattva." Manjusri: What is the great compassion of a bodhisattva? Vimalakirti: It is the giving of all accumulated roots of virtue to all living beings. Manjusri: What is the great joy of the bodhisattva? Vimalakirti: It is to be joyful and without regret in giving. Manjusri: What is the equanimity of the bodhisattva? Vimalakirti: It is what benefits both self and others. Manjusri: To what should one resort when terrified by fear of life? Vimalakirti: Manjusri, a bodhisattva who is terrified by fear of life should resort to the magnanimity of the Buddha. Manjusri: Where should he who wishes to resort to the magnanimity of the Buddha take his stand? Vimalakirti: He should stand in equanimity toward all living beings. Manjusri: Where should he who wishes to stand in equanimity toward all living beings take his stand? Vimalakirti: He should live for the liberation of all living beings. Manjusri: What should he who wishes to liberate all living beings do? Vimalakirti: He should liberate them from their passions. Manjusri: How should he who wishes to eliminate passions apply himself? Vimalakirti: He should apply himself appropriately. Manjusri: How should he apply himself, to "apply himself appropriately"? Vimalakirti: He should apply himself to productionlessness and to destructionlessness. Manjusri: What is not produced? And what is not destroyed? Vimalakirti: Evil is not produced and good is not destroyed. Manjusri: What is the root of good and evil? Vimalakirti: Materiality is the root of good and evil. Manjusri: What is the root of materiality? Vimalakirti: Desire is the root of materiality. Manjusri: What is the root of desire and attachment? Vimalakirti: Unreal construction is the root of desire. Manjusri: What is the root of unreal construction? Vimalakirti: The false concept is its root. Manjusri: What is the root of the false concept? Vimalakirti: Baselessness. Manjusri: What it the root of baselessness? Vimalakirti: Manjusri, when something is baseless, how can it have any root? Therefore, all things stand on the root which is baseless. Thereupon, a certain goddess who lived in that house, having heard this teaching of the Dharma of the great heroic bodhisattvas, and being delighted, pleased, and overjoyed, manifested herself in a material body and showered the great spiritual heroes, the bodhisattvas, and the great disciples with heavenly flowers. When the flowers fell on the bodies of the bodhisattvas, they fell off on the floor, but when they fell on the bodies of the great disciples, they stuck to them and did not fall. The great disciples shook the flowers and even tried to use their magical powers, but still the flowers would not shake off. Then, the goddess said to the venerable Sariputra, "Reverend Sariputra, why do you shake these flowers?" Sariputra replied, "Goddess, these flowers are not proper for religious persons and so we are trying to shake them off." The goddess said, "Do not say that, reverend Sariputra. Why? These flowers are proper indeed! Why? Such flowers have neither constructual thought nor discrimination. But the elder Sariputra has both constructual thought and discrimination. "Reverend Sariputra, impropriety for one who has renounced the world for the discipline of the rightly taught Dharma consists of constructual thought and discrimination, yet the elders are full of such thoughts. One who is without such thoughts is always proper. "Reverend Sariputra, see how these flowers do not stick to the bodies of these great spiritual heroes, the bodhisattvas! This is because they have eliminated constructual thoughts and discriminations. "For example, evil spirits have power over fearful men but cannot disturb the fearless. Likewise, those intimidated by fear of the world are in the power of forms, sounds, smells, tastes, and textures, which do not disturb those who are free from fear of the passions inherent in the constructive world. Thus, these flowers stick to the bodies of those who have not eliminated their instincts for the passions and do not stick to the bodies of those who have eliminated their instincts. Therefore, the flowers do not stick to the bodies of these bodhisattvas, who have abandoned all instincts." Then the venerable Sariputra said to the goddess, "Goddess, how long have you been in this house?" The goddess replied, "I have been here as long as the elder has been in liberation." Sariputra said, "Then, have you been in this house for quite some time?" The goddess said, "Has the elder been in liberation for quite some time?" At that, the elder Sariputra fell silent. The goddess continued, "Elder, you are 'foremost of the wise!' Why do you not speak? Now, when it is your turn, you do not answer the question." Sariputra: Since liberation is inexpressible, goddess, I do not know what to say. Goddess: All the syllables pronounced by the elder have the nature of liberation. Why? Liberation is neither internal nor external, nor can it be apprehended apart from them. Likewise, syllables are neither internal nor external, nor can they be apprehended anywhere else. Therefore, reverend Sariputra, do not point to liberation by abandoning speech! Why? The holy liberation is the equality of all things! Sariputra: Goddess, is not liberation the freedom from desire, hatred, and folly? Goddess: "Liberation is freedom from desire, hatred, and folly" that is the teaching of the excessively proud. But those free of pride are taught that the very nature of desire, hatred, and folly is itself liberation. Sariputra: Excellent! Excellent, goddess! Pray, what have you attained, what have you realized, that you have such eloquence? Goddess: I have attained nothing, reverend Sariputra. I have no realization. Therefore I have such eloquence. Whoever thinks, "I have attained! I have realized!" is overly proud in the discipline of the well-taught Dharma. Sariputra: Goddess, do you belong to the disciple-vehicle, to the solitary-vehicle, or to the great vehicle? Goddess: I belong to the disciple-vehicle when I teach it to those who need it. I belong to the solitary-vehicle when I teach the twelve links of dependent origination to those who need them. And, since I never abandon the great compassion, I belong to the great vehicle, as all need that teaching to attain ultimate liberation. Nevertheless, reverend Sariputra, just as one cannot smell the castor plant in a magnolia wood, but only the magnolia flowers, so, reverend Sariputra, living in this house, which is redolent with the perfume of the virtues of the Buddha-qualities, one does not smell the perfume of the disciples and the solitary sages. Reverend Sariputra, the Sakras, the Brahmas, the Lokapalas, the devas, nagas, yaksas, gandharvas, asuras, garudas, kimnaras, and mahoragas who live in this house hear the Dharma from the mouth of this holy man and, enticed by the perfume of the virtues of the Buddha-qualities, proceed to conceive the spirit of enlightenment. Reverend Sariputra, I have been in this house for twelve years, and I have heard no discourses concerning the disciples and solitary sages but have heard only those concerning the great love, the great compassion, and the inconceivable qualities of the Buddha. Reverend Sariputra, eight strange and wonderful things manifest themselves constantly in this house. What are these eight? A light of golden hue shines here constantly, so bright that it is hard to distinguish day and night; and neither the moon nor the sun shines here distinctly. That is the **first** wonder of this house. Furthermore, reverend Sariputra, whoever enters this house is no longer troubled by his passions from the moment he is within. That is the **second** strange and wonderful thing. Furthermore, reverend Sariputra, this house is never forsaken by Sakra, Brahma, the Lokapalas, and the bodhisattvas from all the other buddha-fields. That is the **third** strange and wonderful thing. Furthermore, reverend Sariputra, this house is never empty of the sounds of the Dharma, the discourse on the six transcendences, and the discourses of the irreversible wheel of the Dharma. That is the **fourth** strange and wonderful thing. Furthermore, reverend Sariputra, in this house one always hears the rhythms, songs, and music of gods and men, and from this music constantly resounds the sound of the infinite Dharma of the Buddha. That is the **fifth** strange and wonderful thing. Furthermore, reverend Sariputra, in this house there are always four inexhaustible treasures, replete with all kinds of jewels, which never decrease, although all the poor and wretched may partake to their satisfaction. That is the **sixth** strange and wonderful thing. Furthermore, reverend Sariputra, at the wish of this good man, to this house come the innumerable Tathagatas of the ten directions, such as the Tathagatas Sakyamuni, Amitabha, Aksobhya, Ratnasri, Ratnarcis, Ratnacandra, Ratnavyuha, Dusprasaha, Sarvarthasiddha, Ratnabahula, Simhakirti, Simhasvara, and so forth; and when they come they teach the door of Dharma called the "Secrets of the Tathagatas" and then depart. That is the **seventh** strange and wonderful thing. Furthermore, reverend Sariputra, all the splendors of the abodes of the gods and all the splendors of the fields of the Buddhas shine forth in this house. That is the **eighth** strange and wonderful thing. Reverend Sariputra, these eight strange and wonderful things are seen in this house. Who then, seeing such inconceivable things, would believe the teaching of the disciples? Sariputra: Goddess, what prevents you from transforming yourself out of your female state? Goddess: Although I have sought my "female state" for these twelve years, I have not yet found it. Reverend Sariputra, if a magician were to incarnate a woman by magic, would you ask her, "What prevents you from transforming yourself out of your female state?" Sariputra: No! Such a woman would not really exist, so what would there be to transform? Goddess: Just so, reverend Sariputra, all things do not really exist. Now, would you think, "What prevents one whose nature is that of a magical incarnation from transforming herself out of her female state?" Thereupon, the goddess employed her magical power to cause the elder Sariputra to appear in her form and to cause herself to appear in his form. Then the goddess, transformed into Sariputra, said to Sariputra, transformed into a goddess, "Reverend Sariputra, what prevents you from transforming yourself out of your female state?" And Sariputra, transformed into the goddess, replied, "I no longer appear in the form of a male! My body has changed into the body of a woman! I do not know what to transform!" The goddess continued, "If the elder could again change out of the female state, then all women could also change out of their female states. All women appear in the form of women in just the same way as the elder appears in the form of a woman. While they are not women in reality, they appear in the form of women. With this in mind, the Buddha said, '*In all things, there is neither male nor female*.'" Then, the goddess released her magical power and each returned to his ordinary form. She then said to him, "Reverend Sariputra, what have you done with your female form?" Sariputra: I neither made it nor did I change it. Goddess: Just so, all things are neither made nor changed, and that they are not made and not changed, that is the teaching of the Buddha. Sariputra: Goddess, where will you be born when you transmigrate after death? Goddess: I will be born where all the magical incarnations of the Tathagata are born. Sariputra: But the emanated incarnations of the Tathagata do not transmigrate nor are they born. Goddess: All things and living beings are just the same; they do not transmigrate nor are they born! Sariputra: Goddess, how soon will you attain the perfect enlightenment of Buddhahood? Goddess: At such time as you, elder, become endowed once more with the qualities of an ordinary individual, then will I attain the perfect enlightenment of Buddhahood. Sariputra: Goddess, it is impossible that I should become endowed once more with the qualities of an ordinary individual. Goddess: Just so, reverend Sariputra, it is impossible that I should attain the perfect enlightenment of Buddhahood! Why? Because perfect enlightenment stands upon the impossible. Because it is impossible, no one attains the perfect enlightenment of Buddhahood. Sariputra: But the Tathagata has declared: "The Tathagatas, who are as numerous as the sands of the Ganges, have attained perfect Buddhahood, are attaining perfect Buddhahood, and will go on attaining perfect Buddhahood." Goddess: Reverend Sariputra, the expression, "the Buddhas of the past, present and future," is a conventional expression made up of a certain number of syllables. The Buddhas are neither past, nor present, nor future. Their enlightenment transcends the three times! But tell me, elder, have you attained sainthood? Sariputra: It is attained, because there is no attainment. Goddess: Just so, there is perfect enlightenment because there is no attainment of perfect enlightenment. Then the Licchavi Vimalakirti said to the venerable elder Sariputra, "Reverend Sariputra, this goddess has already served ninety-two million billion Buddhas. She plays with the superknowledges. She has truly succeeded in all her vows. She has gained the tolerance of the birthlessness of things. She has actually attained irreversibility. She can live wherever she wishes on the strength of her vow to develop living beings."
+*Note: A good friend of mine sent this to me out of the blue, and it is wonderful and amazing.  I am blessed to have read it.*
+
+Thereupon, Manjusri, the crown prince, addressed the Licchavi Vimalakirti: "Good sir, how should a bodhisattva regard all living beings?"
+
+Vimalakirti replied, "Manjusri, a bodhisattva should regard all livings beings as a wise man regards the reflection of the moon in water or as magicians regard men created by magic.
+
+He should regard them as being like a face in a mirror;
+like the water of a mirage;  like the sound of an echo;
+like a mass of clouds in the sky;
+like the previous moment of a ball of foam;
+like the appearance and disappearance of a bubble of water;
+like the core of a plantain tree;
+like a flash of lightning;
+like the fifth great element;
+like the seventh sense-medium;
+like the appearance of matter in an immaterial realm;
+like a sprout from a rotten seed;  like a tortoise-hair coat;
+like the fun of games for one who wishes to die;
+like the egoistic views of a stream-winner;
+like a third rebirth of a once-returner;
+like the descent of a nonreturner into a womb;
+like the existence of desire, hatred, and folly in a saint;
+like thoughts of avarice, immorality, wickedness, and hostility in a bodhisattva who has attained tolerance;
+like the instincts of passions in a Tathagata;
+like the perception of color in one blind from birth;
+like the inhalation and exhalation of an ascetic absorbed in the meditation of cessation;
+like the track of a bird in the sky;
+like the erection of a eunuch;
+like the pregnancy of a barren woman;
+like the unproduced passions of an emanated incarnation of the Tathagata;
+like dream-visions seen after waking;
+like the passions of one who is free of conceptualizations;
+like fire burning without fuel;
+like the reincarnation of one who has attained ultimate liberation.
+
+"Precisely thus, Manjusri, does a bodhisattva who realizes the ultimate selflessness consider all beings."
+
+Manjusri then asked further, "Noble sir, if a bodhisattva considers all living beings in such a way, how does he generate the great love toward them?"
+
+Vimalakirti replied, "Manjusri, when a bodhisattva considers all living beings in this way, he thinks: 'Just as I have realized the Dharma, so should I teach it to living beings.'
+
+Thereby, he generates the love that is truly a refuge for all living beings;
+the love that is peaceful because free of grasping;  the love that is not feverish, because free of passions;
+the love that accords with reality because it is equanimous in all three times;
+the love that is without conflict because free of the violence of the passions;
+the love that is nondual because it is involved neither with the external nor with the internal;
+the love that is imperturbable because totally ultimate.
+
+"Thereby he generates the love that is firm, its high resolve unbreakable, like a diamond;
+the love that is pure, purified in its intrinsic nature;
+the love that is even, its aspirations being equal;
+the saint's love that has eliminated its enemy;
+the bodhisattva's love that continuously develops living beings;
+The Tathagata's love that understands reality;
+the Buddha's love that causes living beings to awaken from their sleep;
+the love that is spontaneous because it is fully enlightened spontaneously;
+the love that is enlightenment because it is unity of experience;
+the love that has no presumption because it has eliminated attachment and aversion;
+the love that is great compassion because it infuses the Mahayana with radiance;
+the love that is never exhausted because it acknowledges voidness and selflessness;
+the love that is giving because it bestows the gift of Dharma free of the tight fist of a bad teacher;
+the love that is morality because it improves immoral living beings;
+the love that is tolerance because it protects both self and others;
+the love that is effort because it takes responsibility for all living beings;
+the love that is contemplation because it refrains from indulgence in tastes;
+the love that is wisdom because it causes attainment at the proper time;
+the love that is liberative technique because it shows the way everywhere;
+the love that is without formality because it is pure in motivation;
+the love that is without deviation because it acts from decisive motivation;
+the love that is high resolve because it is without passions;
+the love that is without deceit because it is not artificial;
+the love that is happiness because it introduces living beings to the happiness of the Buddha.
+Such, Manjusri, is the great love of a bodhisattva."
+
+Manjusri: What is the great compassion of a bodhisattva?
+
+Vimalakirti: It is the giving of all accumulated roots of virtue to all living beings.
+
+Manjusri: What is the great joy of the bodhisattva?
+
+Vimalakirti: It is to be joyful and without regret in giving.
+
+Manjusri: What is the equanimity of the bodhisattva?
+
+Vimalakirti: It is what benefits both self and others.
+
+Manjusri: To what should one resort when terrified by fear of life?
+
+Vimalakirti: Manjusri, a bodhisattva who is terrified by fear of life should resort to the magnanimity of the Buddha.
+
+Manjusri: Where should he who wishes to resort to the magnanimity of the Buddha take his stand?
+
+Vimalakirti: He should stand in equanimity toward all living beings.
+
+Manjusri: Where should he who wishes to stand in equanimity toward all living beings take his stand?
+
+Vimalakirti: He should live for the liberation of all living beings.
+
+Manjusri: What should he who wishes to liberate all living beings do?
+
+Vimalakirti: He should liberate them from their passions.
+
+Manjusri: How should he who wishes to eliminate passions apply himself?
+
+Vimalakirti: He should apply himself appropriately.
+
+Manjusri: How should he apply himself, to "apply himself appropriately"?
+
+Vimalakirti: He should apply himself to productionlessness and to destructionlessness.
+
+Manjusri: What is not produced? And what is not destroyed?
+
+Vimalakirti: Evil is not produced and good is not destroyed.
+
+Manjusri: What is the root of good and evil?
+
+Vimalakirti: Materiality is the root of good and evil.
+
+Manjusri: What is the root of materiality?
+
+Vimalakirti: Desire is the root of materiality.
+
+Manjusri: What is the root of desire and attachment?
+
+Vimalakirti: Unreal construction is the root of desire.
+
+Manjusri: What is the root of unreal construction?
+
+Vimalakirti: The false concept is its root.
+
+Manjusri: What is the root of the false concept?
+
+Vimalakirti: Baselessness.
+
+Manjusri: What it the root of baselessness?
+
+Vimalakirti: Manjusri, when something is baseless, how can it have any root? Therefore, all things stand on the root which is baseless. Thereupon, a certain goddess who lived in that house, having heard this teaching of the Dharma of the great heroic bodhisattvas, and being delighted, pleased, and overjoyed, manifested herself in a material body and showered the great spiritual heroes, the bodhisattvas, and the great disciples with heavenly flowers. When the flowers fell on the bodies of the bodhisattvas, they fell off on the floor, but when they fell on the bodies of the great disciples, they stuck to them and did not fall. The great disciples shook the flowers and even tried to use their magical powers, but still the flowers would not shake off. Then, the goddess said to the venerable Sariputra, "Reverend Sariputra, why do you shake these flowers?"
+
+Sariputra replied, "Goddess, these flowers are not proper for religious persons and so we are trying to shake them off."
+
+The goddess said, "Do not say that, reverend Sariputra. Why? These flowers are proper indeed! Why? Such flowers have neither constructual thought nor discrimination. But the elder Sariputra has both constructual thought and discrimination.
+
+"Reverend Sariputra, impropriety for one who has renounced the world for the discipline of the rightly taught Dharma consists of constructual thought and discrimination, yet the elders are full of such thoughts. One who is without such thoughts is always proper.
+
+"Reverend Sariputra, see how these flowers do not stick to the bodies of these great spiritual heroes, the bodhisattvas! This is because they have eliminated constructual thoughts and discriminations.
+
+"For example, evil spirits have power over fearful men but cannot disturb the fearless. Likewise, those intimidated by fear of the world are in the power of forms, sounds, smells, tastes, and textures, which do not disturb those who are free from fear of the passions inherent in the constructive world. Thus, these flowers stick to the bodies of those who have not eliminated their instincts for the passions and do not stick to the bodies of those who have eliminated their instincts. Therefore, the flowers do not stick to the bodies of these bodhisattvas, who have abandoned all instincts."
+
+Then the venerable Sariputra said to the goddess, "Goddess, how long have you been in this house?"
+
+The goddess replied, "I have been here as long as the elder has been in liberation."
+
+Sariputra said, "Then, have you been in this house for quite some time?"
+
+The goddess said, "Has the elder been in liberation for quite some time?"
+
+At that, the elder Sariputra fell silent.
+
+The goddess continued, "Elder, you are 'foremost of the wise!' Why do you not speak? Now, when it is your turn, you do not answer the question."
+
+Sariputra: Since liberation is inexpressible, goddess, I do not know what to say.
+
+Goddess: All the syllables pronounced by the elder have the nature of liberation. Why? Liberation is neither internal nor external, nor can it be apprehended apart from them. Likewise, syllables are neither internal nor external, nor can they be apprehended anywhere else. Therefore, reverend Sariputra, do not point to liberation by abandoning speech! Why? The holy liberation is the equality of all things!
+
+Sariputra: Goddess, is not liberation the freedom from desire, hatred, and folly?
+
+Goddess: "Liberation is freedom from desire, hatred, and folly" that is the teaching of the excessively proud. But those free of pride are taught that the very nature of desire, hatred, and folly is itself liberation.
+
+Sariputra: Excellent! Excellent, goddess! Pray, what have you attained, what have you realized, that you have such eloquence?
+
+Goddess: I have attained nothing, reverend Sariputra. I have no realization. Therefore I have such eloquence. Whoever thinks, "I have attained! I have realized!" is overly proud in the discipline of the well-taught Dharma.
+
+Sariputra: Goddess, do you belong to the disciple-vehicle, to the solitary-vehicle, or to the great vehicle?
+
+Goddess: I belong to the disciple-vehicle when I teach it to those who need it. I belong to the solitary-vehicle when I teach the twelve links of dependent origination to those who need them. And, since I never abandon the great compassion, I belong to the great vehicle, as all need that teaching to attain ultimate liberation.
+
+Nevertheless, reverend Sariputra, just as one cannot smell the castor plant in a magnolia wood, but only the magnolia flowers, so, reverend Sariputra, living in this house, which is redolent with the perfume of the virtues of the Buddha-qualities, one does not smell the perfume of the disciples and the solitary sages. Reverend Sariputra, the Sakras, the Brahmas, the Lokapalas, the devas, nagas, yaksas, gandharvas, asuras, garudas, kimnaras, and mahoragas who live in this house hear the Dharma from the mouth of this holy man and, enticed by the perfume of the virtues of the Buddha-qualities, proceed to conceive the spirit of enlightenment.
+
+Reverend Sariputra, I have been in this house for twelve years, and I have heard no discourses concerning the disciples and solitary sages but have heard only those concerning the great love, the great compassion, and the inconceivable qualities of the Buddha.
+
+Reverend Sariputra, eight strange and wonderful things manifest themselves constantly in this house. What are these eight?
+
+A light of golden hue shines here constantly, so bright that it is hard to distinguish day and night; and neither the moon nor the sun shines here distinctly. That is the **first** wonder of this house.
+
+Furthermore, reverend Sariputra, whoever enters this house is no longer troubled by his passions from the moment he is within. That is the **second **strange and wonderful thing.
+
+Furthermore, reverend Sariputra, this house is never forsaken by Sakra, Brahma, the Lokapalas, and the bodhisattvas from all the other buddha-fields. That is the **third **strange and wonderful thing.
+
+Furthermore, reverend Sariputra, this house is never empty of the sounds of the Dharma, the discourse on the six transcendences, and the discourses of the irreversible wheel of the Dharma. That is the **fourth **strange and wonderful thing.
+
+Furthermore, reverend Sariputra, in this house one always hears the rhythms, songs, and music of gods and men, and from this music constantly resounds the sound of the infinite Dharma of the Buddha. That is the **fifth **strange and wonderful thing.
+
+Furthermore, reverend Sariputra, in this house there are always four inexhaustible treasures, replete with all kinds of jewels, which never decrease, although all the poor and wretched may partake to their satisfaction. That is the **sixth** strange and wonderful thing.
+
+Furthermore, reverend Sariputra, at the wish of this good man, to this house come the innumerable Tathagatas of the ten directions, such as the Tathagatas Sakyamuni, Amitabha, Aksobhya, Ratnasri, Ratnarcis, Ratnacandra, Ratnavyuha, Dusprasaha, Sarvarthasiddha, Ratnabahula, Simhakirti, Simhasvara, and so forth; and when they come they teach the door of Dharma called the "Secrets of the Tathagatas" and then depart. That is the **seventh** strange and wonderful thing.
+
+Furthermore, reverend Sariputra, all the splendors of the abodes of the gods and all the splendors of the fields of the Buddhas shine forth in this house. That is the **eighth** strange and wonderful thing.
+
+Reverend Sariputra, these eight strange and wonderful things are seen in this house. Who then, seeing such inconceivable things, would believe the teaching of the disciples?
+
+Sariputra: Goddess, what prevents you from transforming yourself out of your female state?
+
+Goddess: Although I have sought my "female state" for these twelve years, I have not yet found it. Reverend Sariputra, if a magician were to incarnate a woman by magic, would you ask her, "What prevents you from transforming yourself out of your female state?"
+
+Sariputra: No! Such a woman would not really exist, so what would there be to transform?
+
+Goddess: Just so, reverend Sariputra, all things do not really exist. Now, would you think, "What prevents one whose nature is that of a magical incarnation from transforming herself out of her female state?"
+
+Thereupon, the goddess employed her magical power to cause the elder Sariputra to appear in her form and to cause herself to appear in his form. Then the goddess, transformed into Sariputra, said to Sariputra, transformed into a goddess, "Reverend Sariputra, what prevents you from transforming yourself out of your female state?"
+
+And Sariputra, transformed into the goddess, replied, "I no longer appear in the form of a male! My body has changed into the body of a woman! I do not know what to transform!"
+
+The goddess continued, "If the elder could again change out of the female state, then all women could also change out of their female states. All women appear in the form of women in just the same way as the elder appears in the form of a woman. While they are not women in reality, they appear in the form of women. With this in mind, the Buddha said, '*In all things, there is neither male nor female*.'"
+
+Then, the goddess released her magical power and each returned to his ordinary form. She then said to him, "Reverend Sariputra, what have you done with your female form?"
+
+Sariputra: I neither made it nor did I change it.
+
+Goddess: Just so, all things are neither made nor changed, and that they are not made and not changed, that is the teaching of the Buddha.
+
+Sariputra: Goddess, where will you be born when you transmigrate after death?
+
+Goddess: I will be born where all the magical incarnations of the Tathagata are born.
+
+Sariputra: But the emanated incarnations of the Tathagata do not transmigrate nor are they born.
+
+Goddess: All things and living beings are just the same; they do not transmigrate nor are they born!
+
+Sariputra: Goddess, how soon will you attain the perfect enlightenment of Buddhahood?
+
+Goddess: At such time as you, elder, become endowed once more with the qualities of an ordinary individual, then will I attain the perfect enlightenment of Buddhahood.
+
+Sariputra: Goddess, it is impossible that I should become endowed once more with the qualities of an ordinary individual.
+
+Goddess: Just so, reverend Sariputra, it is impossible that I should attain the perfect enlightenment of Buddhahood! Why? Because perfect enlightenment stands upon the impossible. Because it is impossible, no one attains the perfect enlightenment of Buddhahood.
+
+Sariputra: But the Tathagata has declared: "The Tathagatas, who are as numerous as the sands of the Ganges, have attained perfect Buddhahood, are attaining perfect Buddhahood, and will go on attaining perfect Buddhahood."
+
+Goddess: Reverend Sariputra, the expression, "the Buddhas of the past, present and future," is a conventional expression made up of a certain number of syllables. The Buddhas are neither past, nor present, nor future. Their enlightenment transcends the three times! But tell me, elder, have you attained sainthood?
+
+Sariputra: It is attained, because there is no attainment.
+
+Goddess: Just so, there is perfect enlightenment because there is no attainment of perfect enlightenment.
+
+Then the Licchavi Vimalakirti said to the venerable elder Sariputra, "Reverend Sariputra, this goddess has already served ninety-two million billion Buddhas. She plays with the superknowledges. She has truly succeeded in all her vows. She has gained the tolerance of the birthlessness of things. She has actually attained irreversibility. She can live wherever she wishes on the strength of her vow to develop living beings."

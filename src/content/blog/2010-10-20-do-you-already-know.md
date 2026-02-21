@@ -11,4 +11,6 @@ tags:
   - buddha-nature
 slug: do-you-already-know
 ---
-In science we have learned that once we look at electrons they seem to behave quite nicely, a lot like children.  How do they know they are being observed? How do they know that an intelligence is watching them? If tiny electrons can sense this, what more can you do?
+In science we have learned that once we look at electrons they seem to behave quite nicely, a lot like children.  How do they know they are being observed? How do they know that an intelligence is watching them?
+
+If tiny electrons can sense this, what more can you do?

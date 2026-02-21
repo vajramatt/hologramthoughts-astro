@@ -15,7 +15,9 @@ tags:
   - god
 slug: a-conversation-between-friends-about-god
 ---
-A good friend and i had a conversation a few days ago that I think is worth sharing. We had spoke about a few things already and then he read on of my posts, let's start with his question after he read the blog entry...
+A good friend and i had a conversation a few days ago that I think is worth sharing.  We had spoke about a few things already and then he read on of my posts, let's start with his question after he read the blog entry...
+
+ 
 
 10:11 AM Christian: so would you call yourself a deist?
 
@@ -31,7 +33,7 @@ and from what i have learned of Buddhism, it is beautiful. So full of love and c
 
 10:31 AM Buddhist: for instance, I have a friend named Priya, she is a Jain and all of her family are Jains as well... in their village they had never heard of Jesus until the late 1800s when the British moved in and set up shop (by force mind you). So suddenly people tell her that all of her family before them are in hell and unless they give up their culture and accept this foreign god they are bad and hell-bound too. That is not compassion. That is not even sane.
 
-She asked me one night if that was my belief and i started wondering what I did think
+ She asked me one night if that was my belief and i started wondering what I did think
 
 10:41 AM Christian: I do agree that the church can and does present the message of Christ's love in a very unloving manner. And when you're presented with basically amounts to an ultimatum by a conquering force, doesn’t exactly say "I love you"
 
@@ -89,7 +91,11 @@ Buddhist: Do you think God is not there?
 
 11:00 AM How can God not be there?
 
+ 
+
 *Time passes*
+
+ 
 
 1:25 PM Christian: well, the last question you asked was, "do i think God is not there?"
 
@@ -225,13 +231,13 @@ Buddhist: i think there obviously was, yes. or maybe not lineage though, perhaps
 
 2:38 PM Buddhist: by sending one lonely guy to a tiny people in the desert? and damn the rest?
 
-isn’t that sorta like saying "I love these people and they are messing up. So I will hide the truth in a tree in the desert and if they are lucky enough to find it, awesome" ?
+ isn’t that sorta like saying "I love these people and they are messing up. So I will hide the truth in a tree in the desert and if they are lucky enough to find it, awesome" ?
 
 2:41 PM Christian: not at all. I don't know all the reasons God chose the method he chose, but there are some things about God we can learn when we look at why he sent Jesus, instead of some other way.
 
-1\. Jesus was God in the flesh. So what does that tell us about God? First, he's a personal God. He wanted to experience our condition within our context
+1. Jesus was God in the flesh. So what does that tell us about God? First, he's a personal God. He wanted to experience our condition within our context
 
-2\. He wanted to set the record straight. You only need to see how he dealt with the Pharisees and seduces to see that he wanted to show the world (starting with that tiny village in the desert) who God really was, what it meant to have a relationship with him, and that above all else, he wants all of his creation to come back to him
+2. He wanted to set the record straight. You only need to see how he dealt with the Pharisees and seduces to see that he wanted to show the world (starting with that tiny village in the desert) who God really was, what it meant to have a relationship with him, and that above all else, he wants all of his creation to come back to him
 
 and by "his creation" i mean Man
 
@@ -269,7 +275,7 @@ Christian: i should say there was no evangelistic movement until after Jesus
 
 knowing what i know of not only the Jewish culture of that time, and the surrounding cultures in Mesopotamia (which isn’t a whole lot) there wasn't a whole lot inter-cultural interaction, so I think its highly unlikely that the Jews would have gone out of their way to share God with other cultures. In fact, if you read the Old Testament, God instructed the Jews not to have much to do with those other cultures
 
-3:16 PM Buddhist: there was already a tremendous amount of trade on the Silk Road and the Spice Highway, in China and into India, respectively... but why would a loving God of ALL mankind not want the whole world to know yet? Why just the Jews? Why not send prophets or angels to every tribe of man?
+3:16 PM Buddhist: there was already a tremendous amount of trade on the Silk Road and the Spice   Highway, in China and into India, respectively... but why would a loving God of ALL mankind not want the whole world to know yet? Why just the Jews? Why not send prophets or angels to every tribe of man?
 
 3:17 PM Christian: it goes back to the promise God made to Abraham.
 
@@ -347,7 +353,7 @@ Christian: They just know that when they flick the switch, the light is supposed
 
 3:51 PM Buddhist: so back to this then: can you accept that he might have reached out to them in a way that they can accept?
 
-to those people that is
+ to those people that is
 
 Christian: As Christians we don't always understand why things work the way they do, we just know when we do what God asks us to do, he does what he says he'll do
 

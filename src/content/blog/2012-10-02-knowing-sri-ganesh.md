@@ -10,11 +10,16 @@ categories:
 tags: []
 slug: knowing-sri-ganesh
 ---
-\[caption id="" align="alignleft" width="227"\]![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_227/v1417391498/Screenshot_2012-07-08-19-34-09-1_nujxt5.jpg "Sri Ganesha") Sri Ganesha\[/caption\]
+**
+
+![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_227/v1417391498/Screenshot_2012-07-08-19-34-09-1_nujxt5.jpg "Sri Ganesha") Sri Ganesha
 
 ## **Gayatri Mantra**
 
-***Aum Bhur Bhuvah Swah, Tat Savitur Varenyam*** ***Bhargo Devasya Dhimahi, DhiyoYo Nah Prachodayat.*** Oh God, the Protector, the basis of all life, Who is self-existent,Who is free from all pains and Whose contact frees the soul from all troubles, Who pervades the Universe and sustains all, the Creator and Energizer of the whole Universe, the Giver of happiness, Who is worthy of acceptance, the most excellent.
+***Aum Bhur Bhuvah Swah, Tat Savitur Varenyam***
+***Bhargo Devasya Dhimahi, DhiyoYo Nah Prachodayat.***
+
+Oh God, the Protector, the basis of all life, Who is self-existent,Who is free from all pains and Whose contact frees the soul from all troubles, Who pervades the Universe and sustains all, the Creator and Energizer of the whole Universe, the Giver of happiness, Who is worthy of acceptance, the most excellent.
 
 Who is Pure and the Purifier of all, let us embrace that  God, so that He may direct our mental faculties in the right direction.
 

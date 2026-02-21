@@ -10,11 +10,13 @@ categories:
 tags: []
 slug: the-trial-of-jyoti-part-2
 ---
-If you found this without reading Part 1, it is [here](/blog/the-trial-of-jyoti-part-1).
+If you found this without reading Part 1, it is (https://www.hologramthoughts.com/fiction/the-trial-of-jyoti-part-1/).
 
-* * *
+---
 
-## ****The Memory of the Rains****
+## **The Memory of the Rains**
+
+###
 
 The clearing fell silent as the woman of bark and leaf stepped forward. Only the hush of high branches marked her passage, as if the entire canopy bowed to her will. Jyoti straightened, the white chrysanthemum trembling between his fingers.
 

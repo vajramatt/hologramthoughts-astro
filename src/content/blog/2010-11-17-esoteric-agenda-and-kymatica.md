@@ -12,4 +12,10 @@ tags:
   - movies
 slug: esoteric-agenda-and-kymatica
 ---
-While I might not agree with every statement in these two movies, there is a lot of truth here. Watch these movies and post your comments below: Esoteric Agenda: httpvhd://www.youtube.com/watch?v=FJiCU6Jw0Co Kymatica: httpvhd://www.youtube.com/watch?v=AanQ2mY2jjc
+While I might not agree with every statement in these two movies, there is a lot of truth here. Watch these movies and post your comments below:
+
+Esoteric Agenda:
+httpvhd://www.youtube.com/watch?v=FJiCU6Jw0Co
+
+Kymatica:
+httpvhd://www.youtube.com/watch?v=AanQ2mY2jjc

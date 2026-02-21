@@ -12,4 +12,12 @@ tags:
   - mantra
 slug: green-tara
 ---
-\[caption id="attachment\_903" align="alignright" width="239"\]![Green Tara ](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_239/v1417391340/BpqHRDDIIAAMzvw_pqjjmm.jpg) Green Tara\[/caption\] She is the skies and I am the bird, She is the seas, and I the fish, She is the stars and I the gazer…   Om Tare Tuttare Ture Soha
+!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_239/v1417391340/BpqHRDDIIAAMzvw_pqjjmm.jpg) Green Tara
+
+She is the skies and I am the bird,
+She is the seas, and I the fish,
+She is the stars and I the gazer…
+
+ 
+
+Om Tare Tuttare Ture Soha

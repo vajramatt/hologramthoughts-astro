@@ -11,6 +11,14 @@ tags:
   - mahamudra
 slug: stages-of-mahamudra
 ---
-\[caption id="attachment\_1143" align="alignright" width="200"\][![Tilopa - The Song of Mahamudra](https://www.hologramthoughts.com/wp-content/uploads/2015/08/11891215_1200620829964246_988278587353067974_n-200x300.jpg)](https://www.hologramthoughts.com/wp-content/uploads/2015/08/11891215_1200620829964246_988278587353067974_n.jpg) Tilopa\[/caption\] At first a yogi feels his mind Is tumbling like a waterfall; In mid-course, like the Ganges It flows on slow and gentle; In the end, it is a great Vast ocean, where the Lights Of Son and Mother merge in one.
+[!(https://www.hologramthoughts.com/wp-content/uploads/2015/08/11891215_1200620829964246_988278587353067974_n-200x300.jpg)](https://www.hologramthoughts.com/wp-content/uploads/2015/08/11891215_1200620829964246_988278587353067974_n.jpg) Tilopa
 
-\-- Tilopa from The Song of Mahamudra
+At first a yogi feels his mind
+Is tumbling like a waterfall;
+In mid-course, like the Ganges
+It flows on slow and gentle;
+In the end, it is a great
+Vast ocean, where the Lights
+Of Son and Mother merge in one.
+
+-- Tilopa from The Song of Mahamudra

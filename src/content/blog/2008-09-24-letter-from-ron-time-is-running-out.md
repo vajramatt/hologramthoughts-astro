@@ -13,4 +13,10 @@ tags:
   - politics
 slug: letter-from-ron-time-is-running-out
 ---
-This is important... we all need to know the facts.  Read Dr. Ron Paul's letter about the coming financial bailout. [http://www.campaignforliberty.com/blog/?p=597](http://www.campaignforliberty.com/blog/?p=597 "Time is running out") Read all of it. Matt
+This is important... we all need to know the facts.  Read Dr. Ron Paul's letter about the coming financial bailout.
+
+(http://www.campaignforliberty.com/blog/?p=597)
+
+Read all of it.
+
+Matt
