@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import pagefind from 'astro-pagefind';
+import sitemap from '@astrojs/sitemap';
 import { remarkReadingTime } from './src/utils/reading-time.mjs';
 import { remarkEnhanceFrontmatter } from './src/utils/enhance-frontmatter.mjs';
 import remarkSmartypants from 'remark-smartypants';
@@ -11,7 +12,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [pagefind()],
+  site: 'https://hologramthoughts.com',
+  integrations: [pagefind(), sitemap()],
   devToolbar: {
     enabled: false
   },

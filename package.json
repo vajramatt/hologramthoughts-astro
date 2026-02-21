@@ -9,6 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.15",
+    "@astrojs/sitemap": "^3.7.0",
     "astro": "^5.13.8",
     "astro-pagefind": "^1.8.5",
     "rehype-autolink-headings": "^7.1.0",

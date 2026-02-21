@@ -1,5 +1,5 @@
 ---
-title: It&#8217;s Just Good Karma
+title: "It's Just Good Karma"
 pubDate: '2007-01-17'
 description: >-
   I have been lazy of late and not writing posts. Mainly because I have been

@@ -1,5 +1,5 @@
 ---
-title: St. Valentine&#8217;s Day and The Buddha
+title: "St. Valentine's Day and The Buddha"
 pubDate: '2007-02-14'
 description: >-
   I woke up this morning and wished my wife a happy Valentine's day. Rolled

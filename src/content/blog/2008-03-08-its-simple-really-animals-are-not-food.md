@@ -1,5 +1,5 @@
 ---
-title: 'It&#8217;s Simple Really, Animals Are Not Food'
+title: "It's Simple Really, Animals Are Not Food"
 pubDate: '2008-03-09'
 description: >-
   On January 3, 2007, the leader of the Karma Kagyu tradition of Tibetan

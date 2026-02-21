@@ -1,38 +1,69 @@
 ---
 import { getCollection } from 'astro:content';
 
-// Get all posts to find the oldest date
 const allPosts = await getCollection('blog');
 const oldestPost = allPosts.reduce((oldest, post) => {
   return !oldest || post.data.pubDate < oldest.data.pubDate ? post : oldest;
 }, null);
 
 const startYear = oldestPost ? oldestPost.data.pubDate.getFullYear() : new Date().getFullYear();
-const currentYear = 2025;
+const currentYear = new Date().getFullYear();
 const yearRange = startYear === currentYear ? currentYear : `${startYear}-${currentYear}`;
 ---
 
 <footer class="site-footer">
-  <p>&copy; {yearRange} Hologram Thoughts. All rights reserved.</p>
+  <div class="footer-content">
+    <p>&copy; {yearRange} Hologram Thoughts</p>
+    <nav class="footer-links">
+      <a href="/rss.xml">RSS</a>
+      <a href="/archive">Archive</a>
+      <a href="/search">Search</a>
+    </nav>
+  </div>
 </footer>
 
 <style>
   .site-footer {
     margin-top: 4rem;
     padding: 2rem 1rem;
-    text-align: center;
-    border-top: 1px solid #e2e8f0;
-    background: #f8fafc;
+    border-top: 1px solid #d6d3d1;
+  }
+
+  .footer-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .site-footer p {
     margin: 0;
-    color: #6b7280;
-    font-size: 0.9rem;
-    font-family: 'Inter', system-ui, sans-serif;
+    color: #78716c;
+    font-size: 0.875rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: #78716c;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  .footer-links a:hover {
+    color: #8b7355;
   }
 
   @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     .site-footer {
       margin-top: 3rem;
       padding: 1.5rem 1rem;

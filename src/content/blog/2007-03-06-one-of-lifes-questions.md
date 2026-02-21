@@ -1,5 +1,5 @@
 ---
-title: One of Life&#8217;s Questions
+title: "One of Life's Questions"
 pubDate: '2007-03-06'
 description: >-
   I keep hearing this question over and over, like a mantra that others are

@@ -5,9 +5,8 @@ import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
 export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
-  
-  // Our 5 main categories with their slugs
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
   const categories = [
     { name: 'Dharma Writings', slug: 'dharma-writings' },
     { name: 'Creative Writing', slug: 'creative-writing' },
@@ -15,20 +14,19 @@ export async function getStaticPaths() {
     { name: 'Practice & Inner Life', slug: 'practice-inner-life' },
     { name: 'Other', slug: 'other' }
   ];
-  
+
   return categories.map(category => {
-    const categoryPosts = allPosts.filter(post => 
+    const categoryPosts = allPosts.filter(post =>
       post.data.categories.includes(category.name)
     );
-    
-    // Sort posts by date, newest first
-    const sortedPosts = categoryPosts.sort((a, b) => 
+
+    const sortedPosts = categoryPosts.sort((a, b) =>
       new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
     );
-    
+
     return {
       params: { category: category.slug },
-      props: { 
+      props: {
         categoryName: category.name,
         posts: sortedPosts
       }
@@ -38,7 +36,6 @@ export async function getStaticPaths() {
 
 const { categoryName, posts } = Astro.props;
 
-// Category descriptions
 const descriptions = {
   'Dharma Writings': 'Explorations of Buddhist teachings, philosophy, and the path',
   'Creative Writing': 'Fiction, poetry, and imaginative works',
@@ -46,53 +43,35 @@ const descriptions = {
   'Practice & Inner Life': 'Meditation, dreams, and spiritual practices',
   'Other': 'Various topics and musings'
 };
-
-// Simple slugify function
-const slugify = (text) => {
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
-}
 ---
 
 <Layout title={`${categoryName} - Hologram Thoughts`}>
   <main>
     <SiteHeader activePage="categories" />
-    <div class="container">
-      <div class="breadcrumb">
-        <a href="/">Home</a> / <a href="/categories">Categories</a> / <span>{categoryName}</span>
-      </div>
-      
-      <h1 class="page-title">{categoryName}</h1>
-      <p class="page-description">{descriptions[categoryName]}</p>
-      <p class="post-count">{posts.length} posts</p>
-      
-      <div class="posts-list">
-        {posts.map(post => (
-          <article class="post-item">
-            <h2 class="post-title">
-              <a href={`/blog/${slugify(post.data.title)}`}>
-                {post.data.title}
-              </a>
-            </h2>
-            <time class="post-date" datetime={post.data.pubDate}>
-              {new Date(post.data.pubDate).toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </time>
-            {post.data.description && (
-              <p class="post-excerpt">{post.data.description}</p>
-            )}
-          </article>
-        ))}
-      </div>
+
+    <div class="breadcrumb">
+      <a href="/categories">Categories</a> <span class="sep">/</span> <span>{categoryName}</span>
+    </div>
+
+    <h1 class="page-title">{categoryName}</h1>
+    <p class="page-description">{descriptions[categoryName]}</p>
+    <p class="post-count">{posts.length} posts</p>
+
+    <div class="posts-list">
+      {posts.map(post => (
+        <article class="post-item">
+          <a href={`/blog/${post.slug}`} class="post-title">
+            {post.data.title}
+          </a>
+          <time class="post-date" datetime={post.data.pubDate}>
+            {new Date(post.data.pubDate).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
+        </article>
+      ))}
     </div>
   </main>
   <SiteFooter />
@@ -100,25 +79,19 @@ const slugify = (text) => {
 
 <style>
   main {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 2rem 1rem;
   }
 
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1rem 0;
-  }
-
   .breadcrumb {
     margin-bottom: 2rem;
-    color: #718096;
+    color: #78716c;
     font-size: 0.9rem;
   }
 
   .breadcrumb a {
-    color: #667eea;
+    color: #8b7355;
     text-decoration: none;
   }
 
@@ -126,84 +99,68 @@ const slugify = (text) => {
     text-decoration: underline;
   }
 
+  .breadcrumb .sep {
+    margin: 0 0.35rem;
+    color: #a8a29e;
+  }
+
   .page-title {
     font-family: 'Crimson Text', serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+    color: #1c1917;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     margin-bottom: 0.5rem;
-    color: #1a202c;
   }
 
   .page-description {
-    color: #718096;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+    color: #78716c;
+    font-size: 1.05rem;
+    font-style: italic;
+    font-family: 'Crimson Text', serif;
+    margin-bottom: 0.5rem;
   }
 
   .post-count {
-    color: #667eea;
-    font-weight: 600;
-    margin-bottom: 3rem;
+    color: #78716c;
+    font-size: 0.9rem;
+    margin-bottom: 2.5rem;
   }
 
   .posts-list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.75rem;
   }
 
   .post-item {
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    transition: all 0.2s ease;
-  }
-
-  .post-item:hover {
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .post-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    font-family: 'Inter', sans-serif;
-  }
-
-  .post-title a {
-    color: #1a202c;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1c1917;
     text-decoration: none;
-    transition: color 0.2s ease;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
   }
 
-  .post-title a:hover {
-    color: #667eea;
+  .post-title:hover {
+    color: #8b7355;
   }
 
   .post-date {
-    color: #718096;
-    font-size: 0.9rem;
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
-  .post-excerpt {
-    color: #4a5568;
-    line-height: 1.6;
-    margin: 0;
+    color: #78716c;
+    font-size: 0.875rem;
   }
 
   @media (max-width: 768px) {
     .page-title {
-      font-size: 2rem;
-    }
-    
-    .post-item {
-      padding: 1rem;
-    }
-    
-    .post-title {
-      font-size: 1.25rem;
+      font-size: 1.8rem;
     }
   }
 </style>

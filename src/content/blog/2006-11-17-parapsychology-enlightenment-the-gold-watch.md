@@ -1,5 +1,5 @@
 ---
-title: 'Parapsychology, Enlightenment &#38; the Gold Watch'
+title: "Parapsychology, Enlightenment & the Gold Watch"
 pubDate: '2006-11-17'
 description: >-
   Parapsychology has fascinated me since I was a little guy, and that was a long

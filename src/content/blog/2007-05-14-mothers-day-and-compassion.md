@@ -1,5 +1,5 @@
 ---
-title: Mother&#8217;s Day and Compassion
+title: "Mother's Day and Compassion"
 pubDate: '2007-05-14'
 description: >-
   Spent yesterday with the family. Most of the day was just at home with my wife

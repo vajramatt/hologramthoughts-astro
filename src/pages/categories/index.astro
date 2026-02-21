@@ -4,39 +4,36 @@ import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
-// Get all posts and count categories
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 
-// Our 5 main categories
 const categories = [
-  { 
+  {
     name: 'Dharma Writings',
     description: 'Explorations of Buddhist teachings, philosophy, and the path',
-    emoji: '☸️'
+    slug: 'dharma-writings'
   },
-  { 
+  {
     name: 'Creative Writing',
     description: 'Fiction, poetry, and imaginative works',
-    emoji: '✍️'
+    slug: 'creative-writing'
   },
-  { 
+  {
     name: 'Consciousness & Philosophy',
     description: 'Reflections on mind, reality, and the nature of existence',
-    emoji: '🌌'
+    slug: 'consciousness-philosophy'
   },
-  { 
+  {
     name: 'Practice & Inner Life',
     description: 'Meditation, dreams, and spiritual practices',
-    emoji: '🧘'
+    slug: 'practice-inner-life'
   },
-  { 
+  {
     name: 'Other',
     description: 'Various topics and musings',
-    emoji: '📝'
+    slug: 'other'
   }
 ];
 
-// Count posts per category
 const categoryCounts = {};
 allPosts.forEach(post => {
   post.data.categories.forEach(category => {
@@ -44,28 +41,28 @@ allPosts.forEach(post => {
   });
 });
 
-// Add counts to category data
 const categoriesWithCounts = categories.map(cat => ({
   ...cat,
-  count: categoryCounts[cat.name] || 0,
-  slug: cat.name.toLowerCase().replace(/\s+&\s+/g, '-').replace(/\s+/g, '-')
+  count: categoryCounts[cat.name] || 0
 }));
 ---
 
 <Layout title="Categories - Hologram Thoughts">
   <main>
     <SiteHeader activePage="categories" />
-    <div class="container">      
-      <div class="categories-grid">
-        {categoriesWithCounts.map(category => (
-          <a href={`/categories/${category.slug}`} class="category-card">
-            <div class="category-emoji">{category.emoji}</div>
-            <h2 class="category-name">{category.name}</h2>
-            <p class="category-description">{category.description}</p>
-            <div class="category-count">{category.count} posts</div>
-          </a>
-        ))}
-      </div>
+
+    <h1 class="page-title">Categories</h1>
+
+    <div class="categories-list">
+      {categoriesWithCounts.map(category => (
+        <a href={`/categories/${category.slug}`} class="category-item">
+          <div class="category-info">
+            <span class="category-name">{category.name}</span>
+            <span class="category-description">{category.description}</span>
+          </div>
+          <span class="category-count">{category.count} posts</span>
+        </a>
+      ))}
     </div>
   </main>
   <SiteFooter />
@@ -73,75 +70,75 @@ const categoriesWithCounts = categories.map(cat => ({
 
 <style>
   main {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 2rem 1rem;
   }
 
-  .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 2rem 1rem 0;
+  .page-title {
+    font-family: 'Crimson Text', serif;
+    font-size: 2.2rem;
+    color: #1c1917;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
   }
 
-  .categories-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-
-  .category-card {
+  .categories-list {
     display: flex;
     flex-direction: column;
+  }
+
+  .category-item {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    background: white;
-    border: 2px solid #e2e8f0;
-    border-radius: 1rem;
-    padding: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid #d6d3d1;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: border-color 0.2s ease;
+    gap: 2rem;
   }
 
-  .category-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.15);
-    border-color: #667eea;
+  .category-item:last-child {
+    border-bottom: 1px solid #d6d3d1;
   }
 
-  .category-emoji {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+  .category-item:hover {
+    border-top-color: #8b7355;
+  }
+
+  .category-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .category-name {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: 0.5rem;
-    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1c1917;
   }
 
   .category-description {
-    color: #718096;
-    font-size: 1rem;
+    color: #78716c;
+    font-size: 0.9rem;
+    font-style: italic;
+    font-family: 'Crimson Text', serif;
     line-height: 1.5;
-    margin-bottom: 1rem;
-    flex-grow: 1;
   }
 
   .category-count {
-    background: #f7fafc;
-    color: #667eea;
-    padding: 0.5rem 1rem;
-    border-radius: 2rem;
-    font-weight: 600;
-    font-size: 0.9rem;
+    color: #78716c;
+    font-size: 0.875rem;
+    white-space: nowrap;
   }
 
   @media (max-width: 768px) {
-    .categories-grid {
-      grid-template-columns: 1fr;
+    .category-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
   }
 </style>

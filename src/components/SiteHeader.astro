@@ -1,6 +1,6 @@
 ---
 interface Props {
-  activePage: 'home' | 'categories' | 'search';
+  activePage: 'home' | 'archive' | 'categories' | 'search';
 }
 
 const { activePage } = Astro.props;
@@ -9,117 +9,94 @@ const { activePage } = Astro.props;
 <header class="site-header">
   <div class="header-container">
     <div class="header-content">
-      <h1 class="site-title">Hologram Thoughts</h1>
-      <p class="site-tagline">Because Ideas Last Forever</p>
+      <a href="/" class="site-title-link">
+        <h1 class="site-title">Hologram Thoughts</h1>
+      </a>
+      <p class="site-tagline">Because ideas last forever</p>
     </div>
-    
-    <nav class="pill-nav">
-      <a href="/" class={`pill-btn ${activePage === 'home' ? 'active' : ''}`}>
-        <span class="pill-icon">🏠</span>
-        Home
-      </a>
-      
-      <a href="/categories" class={`pill-btn ${activePage === 'categories' ? 'active' : ''}`}>
-        <span class="pill-icon">🗂️</span>
-        Categories
-      </a>
-      
-      <a href="/search" class={`pill-btn ${activePage === 'search' ? 'active' : ''}`}>
-        <span class="pill-icon">🔍</span>
-        Search
-      </a>
+
+    <nav class="site-nav">
+      <a href="/" class:list={['nav-link', { active: activePage === 'home' }]}>Home</a>
+      <a href="/archive" class:list={['nav-link', { active: activePage === 'archive' }]}>Archive</a>
+      <a href="/categories" class:list={['nav-link', { active: activePage === 'categories' }]}>Categories</a>
+      <a href="/search" class:list={['nav-link', { active: activePage === 'search' }]}>Search</a>
     </nav>
   </div>
 </header>
 
 <style>
   .site-header {
-    background: white;
-    border: 3px solid #667eea;
-    border-radius: 1rem;
-    padding: 3rem 0 2rem;
+    padding: 3rem 0 0;
     margin-bottom: 3rem;
+    border-bottom: 1px solid #d6d3d1;
   }
 
   .header-container {
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 1rem;
   }
 
   .header-content {
-    margin-bottom: 2rem;
-    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+
+  .site-title-link {
+    text-decoration: none;
   }
 
   .site-title {
     font-family: 'Crimson Text', serif;
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 600;
     letter-spacing: -0.03em;
     line-height: 1;
-    color: #1a202c;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    margin-bottom: 0.75rem;
+    color: #1c1917;
+    margin-bottom: 0.5rem;
   }
 
   .site-tagline {
-    font-size: 1.2rem;
+    font-family: 'Crimson Text', serif;
+    font-size: 1.1rem;
+    font-style: italic;
     font-weight: 400;
     line-height: 1.3;
-    color: #667eea;
-    font-style: normal;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    font-family: 'Inter', system-ui, sans-serif;
+    color: #78716c;
+    margin: 0;
   }
 
-  .pill-nav {
+  .site-nav {
     display: flex;
-    gap: 1rem;
-    justify-content: flex-start;
+    gap: 2rem;
+    padding-bottom: 1rem;
   }
 
-  .pill-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 2rem;
+  .nav-link {
+    color: #78716c;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
   }
 
-  .pill-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  .nav-link:hover {
+    color: #1c1917;
   }
 
-  .pill-btn.active {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-    box-shadow: 0 4px 20px rgba(118, 75, 162, 0.3);
-  }
-
-  .pill-icon {
-    font-size: 1rem;
+  .nav-link.active {
+    color: #1c1917;
+    border-bottom-color: #8b7355;
   }
 
   @media (max-width: 768px) {
     .site-title {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
     }
-    
-    .site-tagline {
-      font-size: 1rem;
-    }
-    
-    .pill-nav {
-      flex-wrap: wrap;
+
+    .site-nav {
+      gap: 1.5rem;
     }
   }
 </style>

@@ -1,5 +1,5 @@
 ---
-title: Children&#8217;s Stories
+title: "Children's Stories"
 pubDate: '2007-09-18'
 description: >-
   I tell my children a lot of stories. Some of them are good, some are about

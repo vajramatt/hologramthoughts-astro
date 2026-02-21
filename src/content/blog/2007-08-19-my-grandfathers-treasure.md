@@ -1,5 +1,5 @@
 ---
-title: My Grandfather&#8217;s Treasure
+title: "My Grandfather's Treasure"
 pubDate: '2007-08-19'
 description: >-
   I sat for a couple of hours with my grandfather recently. It has been a long

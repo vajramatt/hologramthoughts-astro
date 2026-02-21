@@ -1,5 +1,5 @@
 ---
-title: 'Atalanta&#8217;s Quest, Part Two'
+title: "Atalanta's Quest, Part Two"
 pubDate: '2008-06-06'
 description: >-
   (This is part two in a three part story line. Atalanta's Quest Part One is

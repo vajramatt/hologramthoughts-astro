@@ -1,5 +1,5 @@
 ---
-title: The Essence of Buddha&#8217;s Teaching
+title: "The Essence of Buddha's Teaching"
 pubDate: '2007-05-12'
 description: >-
   I copied in whole this document from another site;
