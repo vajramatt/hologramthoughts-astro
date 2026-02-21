@@ -13,7 +13,7 @@ const yearRange = startYear === currentYear ? currentYear : `${startYear}-${curr
 
 <footer class="site-footer">
   <div class="footer-content">
-    <p>&copy; {yearRange} Hologram Thoughts</p>
+    <p>&copy; {yearRange} <a href="https://vajramatt.github.io/" class="author-link">Matthew Williamson</a> — Hologram Thoughts</p>
     <nav class="footer-links">
       <a href="/rss.xml">RSS</a>
       <a href="/archive">Archive</a>
@@ -55,6 +55,15 @@ const yearRange = startYear === currentYear ? currentYear : `${startYear}-${curr
   }
 
   .footer-links a:hover {
+    color: #8b7355;
+  }
+
+  .author-link {
+    color: #78716c;
+    text-decoration: none;
+  }
+
+  .author-link:hover {
     color: #8b7355;
   }
 
