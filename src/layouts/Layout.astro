@@ -16,6 +16,20 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<link rel="alternate" type="application/rss+xml" title="Hologram Thoughts" href="/rss.xml" />
 		<title>{title}</title>
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content="A spiritual journey exploring Buddhism, meditation, consciousness, and the interconnected nature of reality. Because ideas last forever." />
+		<meta property="og:image" content="https://hologramthoughts.com/og-image.png" />
+		<meta property="og:url" content={Astro.url.href} />
+		<meta property="og:site_name" content="Hologram Thoughts" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content="A spiritual journey exploring Buddhism, meditation, consciousness, and the interconnected nature of reality." />
+		<meta name="twitter:image" content="https://hologramthoughts.com/og-image.png" />
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">

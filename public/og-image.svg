@@ -1,0 +1,87 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d1b4e"/>
+      <stop offset="40%" style="stop-color:#4a2d6e"/>
+      <stop offset="70%" style="stop-color:#6b3f8a"/>
+      <stop offset="100%" style="stop-color:#8b6355"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="35%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.12)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
+    </radialGradient>
+    <radialGradient id="lotus-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:rgba(212,175,125,0.3)"/>
+      <stop offset="100%" style="stop-color:rgba(212,175,125,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background gradient -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle radial glow -->
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Decorative dots/stars -->
+  <circle cx="150" cy="100" r="1.5" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="320" cy="80" r="1" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="890" cy="120" r="1.5" fill="rgba(255,255,255,0.25)"/>
+  <circle cx="1050" cy="90" r="1" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="200" cy="520" r="1" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="980" cy="540" r="1.5" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="750" cy="70" r="1" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="450" cy="560" r="1" fill="rgba(255,255,255,0.2)"/>
+  <circle cx="100" cy="350" r="1" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1100" cy="380" r="1.5" fill="rgba(255,255,255,0.2)"/>
+
+  <!-- Dharma wheel - centered above text -->
+  <g transform="translate(600, 230)" opacity="0.85">
+    <!-- Outer glow -->
+    <circle cx="0" cy="0" r="80" fill="url(#lotus-glow)"/>
+
+    <!-- Outer rim -->
+    <circle cx="0" cy="0" r="52" fill="none" stroke="#d4af7d" stroke-width="2.5"/>
+
+    <!-- Inner rim -->
+    <circle cx="0" cy="0" r="38" fill="none" stroke="#d4af7d" stroke-width="1"/>
+
+    <!-- Hub -->
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#d4af7d" stroke-width="2"/>
+    <circle cx="0" cy="0" r="4" fill="#d4af7d" opacity="0.6"/>
+
+    <!-- 8 spokes -->
+    <line x1="0" y1="-10" x2="0" y2="-38" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="7" y1="-7" x2="27" y2="-27" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="10" y1="0" x2="38" y2="0" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="7" y1="7" x2="27" y2="27" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="0" y1="10" x2="0" y2="38" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="-7" y1="7" x2="-27" y2="27" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="-10" y1="0" x2="-38" y2="0" stroke="#d4af7d" stroke-width="1.5"/>
+    <line x1="-7" y1="-7" x2="-27" y2="-27" stroke="#d4af7d" stroke-width="1.5"/>
+
+    <!-- Spoke tips (small crescents at rim) -->
+    <circle cx="0" cy="-45" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="32" cy="-32" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="45" cy="0" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="32" cy="32" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="0" cy="45" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="-32" cy="32" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="-45" cy="0" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+    <circle cx="-32" cy="-32" r="4" fill="none" stroke="#d4af7d" stroke-width="1.2"/>
+  </g>
+
+  <!-- Thin decorative line -->
+  <line x1="400" y1="310" x2="800" y2="310" stroke="#d4af7d" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Site title -->
+  <text x="600" y="390" font-family="Georgia, 'Crimson Text', serif" font-size="56" font-weight="600" fill="#f5f0e8" text-anchor="middle" letter-spacing="-1">Hologram Thoughts</text>
+
+  <!-- Tagline -->
+  <text x="600" y="440" font-family="'Helvetica Neue', 'Inter', sans-serif" font-size="20" fill="#c4b59a" text-anchor="middle" letter-spacing="4" font-weight="300">BECAUSE IDEAS LAST FOREVER</text>
+
+  <!-- Author -->
+  <text x="600" y="530" font-family="'Helvetica Neue', 'Inter', sans-serif" font-size="16" fill="rgba(196,181,154,0.6)" text-anchor="middle" letter-spacing="2">MATTHEW WILLIAMSON</text>
+
+  <!-- Subtle bottom border -->
+  <rect x="0" y="620" width="1200" height="10" fill="rgba(212,175,125,0.15)"/>
+</svg>
