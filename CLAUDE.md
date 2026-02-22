@@ -10,7 +10,18 @@ Static blog at hologramthoughts.com — spiritual, philosophical, and creative w
 - **Content**: Markdown in `src/content/blog/`, Zod schema in `src/content/config.ts`
 - **Search**: Pagefind (astro-pagefind integration)
 - **Hosting**: Cloudflare Pages
-- **Typography**: Crimson Text (headings) + Inter (body)
+- **Typography**: Cormorant SC (headings/small caps) + Cormorant Garamond (titles/lists) + IM Fell DW Pica (body text)
+
+## Design System — Parchment Reader
+
+The site uses a "parchment reader" theme with a book-like reading experience:
+
+- **CSS custom properties** for all colors — defined in `Layout.astro` under `html[data-theme="light"]` and `html[data-theme="dark"]`
+- **Key tokens**: `--ink`, `--ink-light`, `--ink-faint`, `--page`, `--shell`, `--accent`, `--border`, `--code-bg`, `--toc-bg`
+- **Dark/light mode**: Toggle in header, persisted to `localStorage`, read before paint to prevent FOUC
+- **Visual effects**: Grain texture overlay (`body::before`), vignette (`body::after`)
+- **ReaderShell component**: Book-like `max-width: 64ch` container used on all pages
+- **Blog post features**: Drop cap on first paragraph, ornamental `<hr>` dividers (§), end mark (✦), justified text with hyphenation, reading progress bar
 
 ## Commands
 
@@ -39,6 +50,16 @@ Domain: hologramthoughts.com (configured in Cloudflare dashboard).
 - Categories are hardcoded: Dharma Writings, Creative Writing, Consciousness & Philosophy, Practice & Inner Life, Other
 - Filter drafts on all pages: `getCollection('blog', ({ data }) => !data.draft)`
 - Archive lives at `/archive/[...page].astro` to avoid route conflicts with `/blog/[slug].astro`
+- All colors use CSS variables — never hardcode hex values in component styles
+
+## Components
+
+- `ReaderShell.astro` — Book-like parchment container (wraps all page content)
+- `ThemeToggle.astro` — Sun/moon toggle button for dark/light mode
+- `ReadingProgress.astro` — Fixed scroll progress bar (blog posts only)
+- `SiteHeader.astro` — Sticky bar with wordmark + nav + theme toggle
+- `SiteFooter.astro` — Copyright + links
+- `TableOfContents.astro` — Auto-generated from headings (shown when 2+ headings)
 
 ## Custom Remark Plugins
 

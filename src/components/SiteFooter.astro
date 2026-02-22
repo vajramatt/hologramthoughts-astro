@@ -26,11 +26,11 @@ const yearRange = startYear === currentYear ? currentYear : `${startYear}-${curr
   .site-footer {
     margin-top: 4rem;
     padding: 2rem 1rem;
-    border-top: 1px solid #d6d3d1;
+    border-top: 1px solid var(--border);
   }
 
   .footer-content {
-    max-width: 800px;
+    max-width: 64ch;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -39,7 +39,7 @@ const yearRange = startYear === currentYear ? currentYear : `${startYear}-${curr
 
   .site-footer p {
     margin: 0;
-    color: #78716c;
+    color: var(--ink-faint);
     font-size: 0.875rem;
   }
 
@@ -49,22 +49,24 @@ const yearRange = startYear === currentYear ? currentYear : `${startYear}-${curr
   }
 
   .footer-links a {
-    color: #78716c;
+    color: var(--ink-faint);
     text-decoration: none;
     font-size: 0.875rem;
+    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
+    letter-spacing: 0.03em;
   }
 
   .footer-links a:hover {
-    color: #8b7355;
+    color: var(--accent);
   }
 
   .author-link {
-    color: #78716c;
+    color: var(--ink-faint);
     text-decoration: none;
   }
 
   .author-link:hover {
-    color: #8b7355;
+    color: var(--accent);
   }
 
   @media (max-width: 768px) {

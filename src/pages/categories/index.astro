@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
+import ReaderShell from '../../components/ReaderShell.astro';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 
@@ -48,39 +49,39 @@ const categoriesWithCounts = categories.map(cat => ({
 ---
 
 <Layout title="Categories - Hologram Thoughts">
+  <SiteHeader activePage="categories" />
+
   <main>
-    <SiteHeader activePage="categories" />
+    <ReaderShell>
+      <h1 class="page-title">Categories</h1>
 
-    <h1 class="page-title">Categories</h1>
-
-    <div class="categories-list">
-      {categoriesWithCounts.map(category => (
-        <a href={`/categories/${category.slug}`} class="category-item">
-          <div class="category-info">
-            <span class="category-name">{category.name}</span>
-            <span class="category-description">{category.description}</span>
-          </div>
-          <span class="category-count">{category.count} posts</span>
-        </a>
-      ))}
-    </div>
+      <div class="categories-list">
+        {categoriesWithCounts.map(category => (
+          <a href={`/categories/${category.slug}`} class="category-item">
+            <div class="category-info">
+              <span class="category-name">{category.name}</span>
+              <span class="category-description">{category.description}</span>
+            </div>
+            <span class="category-count">{category.count} posts</span>
+          </a>
+        ))}
+      </div>
+    </ReaderShell>
   </main>
   <SiteFooter />
 </Layout>
 
 <style>
   main {
-    max-width: 800px;
-    margin: 0 auto;
     padding: 2rem 1rem;
   }
 
   .page-title {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
     font-size: 2.2rem;
-    color: #1c1917;
+    color: var(--ink);
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
     margin-bottom: 2.5rem;
   }
 
@@ -94,18 +95,18 @@ const categoriesWithCounts = categories.map(cat => ({
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 0;
-    border-top: 1px solid #d6d3d1;
+    border-top: 1px solid var(--border);
     text-decoration: none;
     transition: border-color 0.2s ease;
     gap: 2rem;
   }
 
   .category-item:last-child {
-    border-bottom: 1px solid #d6d3d1;
+    border-bottom: 1px solid var(--border);
   }
 
   .category-item:hover {
-    border-top-color: #8b7355;
+    border-top-color: var(--accent);
   }
 
   .category-info {
@@ -115,21 +116,23 @@ const categoriesWithCounts = categories.map(cat => ({
   }
 
   .category-name {
+    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
     font-size: 1.15rem;
     font-weight: 600;
-    color: #1c1917;
+    color: var(--ink);
+    letter-spacing: 0.02em;
   }
 
   .category-description {
-    color: #78716c;
-    font-size: 0.9rem;
+    color: var(--ink-faint);
+    font-size: 0.95rem;
     font-style: italic;
-    font-family: 'Crimson Text', serif;
+    font-family: 'IM Fell DW Pica', 'Georgia', serif;
     line-height: 1.5;
   }
 
   .category-count {
-    color: #78716c;
+    color: var(--ink-faint);
     font-size: 0.875rem;
     white-space: nowrap;
   }

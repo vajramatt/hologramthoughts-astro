@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from './ThemeToggle.astro';
+
 interface Props {
   activePage: 'home' | 'archive' | 'categories' | 'search';
 }
@@ -7,96 +9,103 @@ const { activePage } = Astro.props;
 ---
 
 <header class="site-header">
-  <div class="header-container">
-    <div class="header-content">
-      <a href="/" class="site-title-link">
-        <h1 class="site-title">Hologram Thoughts</h1>
-      </a>
-      <p class="site-tagline">Because ideas last forever</p>
+  <div class="header-bar">
+    <a href="/" class="wordmark">Hologram Thoughts</a>
+    <div class="header-right">
+      <nav class="site-nav">
+        <a href="/archive" class:list={['nav-link', { active: activePage === 'archive' }]}>Archive</a>
+        <a href="/categories" class:list={['nav-link', { active: activePage === 'categories' }]}>Categories</a>
+        <a href="/search" class:list={['nav-link', { active: activePage === 'search' }]}>Search</a>
+      </nav>
+      <ThemeToggle />
     </div>
-
-    <nav class="site-nav">
-      <a href="/" class:list={['nav-link', { active: activePage === 'home' }]}>Home</a>
-      <a href="/archive" class:list={['nav-link', { active: activePage === 'archive' }]}>Archive</a>
-      <a href="/categories" class:list={['nav-link', { active: activePage === 'categories' }]}>Categories</a>
-      <a href="/search" class:list={['nav-link', { active: activePage === 'search' }]}>Search</a>
-    </nav>
   </div>
 </header>
 
 <style>
   .site-header {
-    padding: 3rem 0 0;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid #d6d3d1;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--page);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s ease;
   }
 
-  .header-container {
-    max-width: 800px;
+  .header-bar {
+    max-width: 64ch;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .header-content {
-    margin-bottom: 1.5rem;
-  }
-
-  .site-title-link {
-    text-decoration: none;
-  }
-
-  .site-title {
-    font-family: 'Crimson Text', serif;
-    font-size: 2.8rem;
+  .wordmark {
+    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
     font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    color: #1c1917;
-    margin-bottom: 0.5rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
   }
 
-  .site-tagline {
-    font-family: 'Crimson Text', serif;
-    font-size: 1.1rem;
-    font-style: italic;
-    font-weight: 400;
-    line-height: 1.3;
-    color: #78716c;
-    margin: 0;
+  .wordmark:hover {
+    color: var(--accent);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
   }
 
   .site-nav {
     display: flex;
-    gap: 2rem;
-    padding-bottom: 1rem;
+    gap: 1.25rem;
   }
 
   .nav-link {
-    color: #78716c;
+    color: var(--ink-faint);
     text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 400;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s ease;
   }
 
   .nav-link:hover {
-    color: #1c1917;
+    color: var(--ink);
   }
 
   .nav-link.active {
-    color: #1c1917;
-    border-bottom-color: #8b7355;
+    color: var(--accent);
   }
 
   @media (max-width: 768px) {
-    .site-title {
-      font-size: 2.2rem;
+    .header-bar {
+      padding: 0.6rem 0.75rem;
+    }
+
+    .wordmark {
+      font-size: 1rem;
     }
 
     .site-nav {
-      gap: 1.5rem;
+      gap: 0.75rem;
+    }
+
+    .nav-link {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-bar {
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
   }
 </style>

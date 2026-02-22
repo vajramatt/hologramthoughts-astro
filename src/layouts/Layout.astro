@@ -7,7 +7,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Hologram Thoughts - A spiritual journey exploring Buddhism, meditation, consciousness, and the interconnected nature of reality. Because ideas last forever." />
@@ -30,9 +30,21 @@ const { title } = Astro.props;
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content="A spiritual journey exploring Buddhism, meditation, consciousness, and the interconnected nature of reality." />
 		<meta name="twitter:image" content="https://hologramthoughts.com/og-image.png" />
+
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Cormorant+SC:wght@300;400;500;600;700&family=IM+Fell+DW+Pica:ital@0;1&display=swap" rel="stylesheet">
+
+		<!-- Theme detection: prevent FOUC -->
+		<script is:inline>
+			(function() {
+				const saved = localStorage.getItem('theme');
+				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const theme = saved || (prefersDark ? 'dark' : 'light');
+				document.documentElement.setAttribute('data-theme', theme);
+			})();
+		</script>
 	</head>
 	<body>
 		<slot />
@@ -40,13 +52,60 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
+	/* ═══════════════════════════════════════════════════════
+	   DESIGN TOKENS — Light & Dark
+	   ═══════════════════════════════════════════════════════ */
+	html[data-theme="light"] {
+		--ink:          #2a1f12;
+		--ink-light:    #5c4f3a;
+		--ink-faint:    #8a7d6b;
+		--page:         #f5ecd8;
+		--page-dark:    #e8d9bf;
+		--shell:        #e8d9bf;
+		--shell-shadow: rgba(0,0,0,0.15);
+		--accent:       #7a3b1e;
+		--accent-light: #a0522d;
+		--accent-faint: rgba(122,59,30,0.12);
+		--border:       rgba(42,31,18,0.12);
+		--border-strong: rgba(42,31,18,0.25);
+		--grain-opacity: 0.04;
+		--vignette-opacity: 0.3;
+		--code-bg:      rgba(42,31,18,0.06);
+		--code-text:    #7a3b1e;
+		--toc-bg:       rgba(42,31,18,0.04);
+	}
+
+	html[data-theme="dark"] {
+		--ink:          #e8dcc8;
+		--ink-light:    #b8a88e;
+		--ink-faint:    #8a7d6b;
+		--page:         #1c1510;
+		--page-dark:    #151008;
+		--shell:        #261e14;
+		--shell-shadow: rgba(0,0,0,0.4);
+		--accent:       #c8825a;
+		--accent-light: #e09a6a;
+		--accent-faint: rgba(200,130,90,0.15);
+		--border:       rgba(232,220,200,0.1);
+		--border-strong: rgba(232,220,200,0.2);
+		--grain-opacity: 0.03;
+		--vignette-opacity: 0.5;
+		--code-bg:      rgba(232,220,200,0.08);
+		--code-text:    #c8825a;
+		--toc-bg:       rgba(232,220,200,0.05);
+	}
+
+	/* ═══════════════════════════════════════════════════════
+	   RESET & BASE
+	   ═══════════════════════════════════════════════════════ */
 	* {
 		box-sizing: border-box;
 	}
 
 	html {
-		font-family: 'Inter', system-ui, sans-serif;
-		background: #fafaf8;
+		font-family: 'IM Fell DW Pica', 'Georgia', serif;
+		background: var(--page);
+		color: var(--ink);
 		line-height: 1.7;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
@@ -54,23 +113,50 @@ const { title } = Astro.props;
 		font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
 		font-variant-ligatures: common-ligatures contextual;
 		scroll-behavior: smooth;
+		transition: background 0.4s ease, color 0.4s ease;
 	}
 
 	body {
 		margin: 0;
 		line-height: 1.7;
-		color: #44403c;
+		color: var(--ink);
 		font-size: 16px;
 		word-spacing: 0.05em;
+		position: relative;
+		min-height: 100vh;
 	}
 
+	/* Grain texture overlay */
+	body::before {
+		content: '';
+		position: fixed;
+		inset: 0;
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+		opacity: var(--grain-opacity);
+		pointer-events: none;
+		z-index: 9999;
+	}
+
+	/* Vignette effect */
+	body::after {
+		content: '';
+		position: fixed;
+		inset: 0;
+		background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,var(--vignette-opacity)) 150%);
+		pointer-events: none;
+		z-index: 9998;
+	}
+
+	/* ═══════════════════════════════════════════════════════
+	   TYPOGRAPHY
+	   ═══════════════════════════════════════════════════════ */
 	h1, h2, h3, h4, h5, h6 {
-		font-family: 'Crimson Text', serif;
+		font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
 		font-weight: 600;
 		line-height: 1.3;
-		color: #1c1917;
+		color: var(--ink);
 		margin-top: 0;
-		letter-spacing: -0.02em;
+		letter-spacing: 0.02em;
 		text-rendering: optimizeLegibility;
 		font-feature-settings: "kern" 1, "liga" 1;
 	}
@@ -93,16 +179,16 @@ const { title } = Astro.props;
 	p {
 		line-height: 1.8;
 		margin-bottom: 1.5rem;
-		color: #44403c;
+		color: var(--ink);
 	}
 
 	a {
-		color: #8b7355;
+		color: var(--accent);
 		transition: color 0.2s ease;
 	}
 
 	a:hover {
-		color: #6d5a3f;
+		color: var(--accent-light);
 	}
 
 	code {
@@ -115,5 +201,28 @@ const { title } = Astro.props;
 			Bitstream Vera Sans Mono,
 			Courier New,
 			monospace;
+		background: var(--code-bg);
+		color: var(--code-text);
+		padding: 0.2rem 0.4rem;
+		border-radius: 0.25rem;
+		font-size: 0.9em;
+	}
+
+	/* ═══════════════════════════════════════════════════════
+	   ANIMATIONS
+	   ═══════════════════════════════════════════════════════ */
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(12px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	.fade-up {
+		animation: fadeUp 0.6s ease-out both;
 	}
 </style>

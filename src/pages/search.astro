@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import ReaderShell from '../components/ReaderShell.astro';
 import { getCollection } from 'astro:content';
 
 // Get all posts at build time for search
@@ -17,52 +18,46 @@ const searchablePosts = allPosts.map(post => ({
 ---
 
 <Layout title="Search - Hologram Thoughts">
+  <SiteHeader activePage="search" />
+
   <main>
-    <SiteHeader activePage="search" />
+    <ReaderShell>
+      <div class="searchbox">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="search" id="search-input" placeholder="Search posts..." autocomplete="off">
+      </div>
 
-    <div class="searchbox">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-      </svg>
-      <input type="search" id="search-input" placeholder="Search posts..." autocomplete="off">
-    </div>
+      <div id="search-results"></div>
 
-    <div id="search-results"></div>
-
-    <div class="search-container">
-      <div class="search-tips">
-        <h3>Search Tips</h3>
-        <div class="tips-grid">
-          <div class="tip">
-            <strong>Topics:</strong> Try "buddhism", "meditation", "chenrezig"
-          </div>
-          <div class="tip">
-            <strong>Stories:</strong> Search "fiction", "emergence", "jyoti"
-          </div>
-          <div class="tip">
-            <strong>Concepts:</strong> Look for "oneness", "dharma", "enlightenment"
-          </div>
-          <div class="tip">
-            <strong>Practices:</strong> Find "reiki", "yoga", "mindfulness"
+      <div class="search-container">
+        <div class="search-tips">
+          <h3>Search Tips</h3>
+          <div class="tips-grid">
+            <div class="tip">
+              <strong>Topics:</strong> Try "buddhism", "meditation", "chenrezig"
+            </div>
+            <div class="tip">
+              <strong>Stories:</strong> Search "fiction", "emergence", "jyoti"
+            </div>
+            <div class="tip">
+              <strong>Concepts:</strong> Look for "oneness", "dharma", "enlightenment"
+            </div>
+            <div class="tip">
+              <strong>Practices:</strong> Find "reiki", "yoga", "mindfulness"
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ReaderShell>
   </main>
 
   <SiteFooter />
 </Layout>
 
 <style>
-  html {
-    --dark-gray: #44403c;
-    --light-gray: #a8a29e;
-    --focus-accent: #8b7355;
-  }
-
   main {
-    max-width: 800px;
-    margin: 0 auto;
     padding: 2rem 1rem;
     min-height: 70vh;
   }
@@ -86,13 +81,13 @@ const searchablePosts = allPosts.map(post => ({
   }
 
   .searchbox input[type="search"] {
-    border: var(--border-width) solid var(--dark-gray);
+    border: var(--border-width) solid var(--ink-faint);
     border-radius: var(--border-radius);
     height: 100%;
     width: 100%;
     -webkit-appearance: none;
-    color: var(--dark-gray);
-    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    font-family: 'IM Fell DW Pica', 'Georgia', serif;
     font-size: 1rem;
     padding-left: calc(var(--side-margin) + var(--icon-size) + 8px);
     padding-right: var(--side-margin);
@@ -101,7 +96,7 @@ const searchablePosts = allPosts.map(post => ({
   }
 
   .searchbox svg {
-    fill: var(--dark-gray);
+    fill: var(--ink-faint);
     height: var(--icon-size);
     width: var(--icon-size);
     position: absolute;
@@ -112,8 +107,8 @@ const searchablePosts = allPosts.map(post => ({
   }
 
   .searchbox input[type="search"]::placeholder {
-    color: var(--light-gray);
-    opacity: 1;
+    color: var(--ink-faint);
+    opacity: 0.6;
   }
 
   input[type="search"]::-webkit-search-decoration {
@@ -121,14 +116,13 @@ const searchablePosts = allPosts.map(post => ({
   }
 
   .searchbox input[type="search"]:focus {
-    border-color: var(--focus-accent);
-    box-shadow: 0px 0px 6px rgba(139, 115, 85, 0.3);
+    border-color: var(--accent);
+    box-shadow: 0px 0px 6px var(--accent-faint);
     outline: 1px solid transparent;
   }
 
   .searchbox input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml, %3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='rgb(168, 162, 158)' %3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z' /%3E%3C/svg%3E%0A");
     height: calc(var(--box-height) / 2);
     width: calc(var(--box-height) / 2);
     cursor: pointer;
@@ -139,85 +133,85 @@ const searchablePosts = allPosts.map(post => ({
   }
 
   #search-results {
-    max-width: 800px;
     margin: 0 auto 3rem;
   }
 
-  .results-count {
-    color: #78716c;
+  /* JS-generated results inherit these via class targeting */
+  :global(.results-count) {
+    color: var(--ink-faint);
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
 
-  .search-result {
+  :global(.search-result) {
     padding: 1.25rem 0;
-    border-top: 1px solid #d6d3d1;
+    border-top: 1px solid var(--border);
   }
 
-  .search-result:last-child {
-    border-bottom: 1px solid #d6d3d1;
+  :global(.search-result:last-child) {
+    border-bottom: 1px solid var(--border);
   }
 
-  .search-result h3 {
+  :global(.search-result h3) {
     margin: 0 0 0.5rem 0;
-    font-family: 'Crimson Text', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 1.35rem;
     font-weight: 600;
   }
 
-  .search-result h3 a {
-    color: #1c1917;
+  :global(.search-result h3 a) {
+    color: var(--ink);
     text-decoration: none;
   }
 
-  .search-result h3 a:hover {
-    color: #8b7355;
+  :global(.search-result h3 a:hover) {
+    color: var(--accent);
   }
 
-  .search-result .excerpt {
-    color: #44403c;
+  :global(.search-result .excerpt) {
+    color: var(--ink-light);
     line-height: 1.6;
     margin: 0 0 0.5rem 0;
     font-size: 0.95rem;
   }
 
-  .search-result .categories {
+  :global(.search-result .categories) {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
   }
 
-  .search-result .category-tag {
-    color: #78716c;
+  :global(.search-result .category-tag) {
+    color: var(--ink-faint);
     font-size: 0.8rem;
   }
 
-  .no-results {
+  :global(.no-results) {
     text-align: center;
     padding: 3rem 1rem;
-    color: #78716c;
+    color: var(--ink-faint);
   }
 
-  .no-results p {
+  :global(.no-results p) {
     font-size: 1.05rem;
   }
 
   .search-container {
-    max-width: 800px;
     margin: 0 auto;
   }
 
   .search-tips {
-    border-top: 1px solid #d6d3d1;
+    border-top: 1px solid var(--border);
     padding-top: 2rem;
   }
 
   .search-tips h3 {
-    font-family: 'Crimson Text', serif;
+    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
     font-size: 1.4rem;
-    color: #1c1917;
+    color: var(--ink);
     margin-bottom: 1.25rem;
     font-weight: 600;
+    letter-spacing: 0.02em;
   }
 
   .tips-grid {
@@ -228,12 +222,12 @@ const searchablePosts = allPosts.map(post => ({
 
   .tip {
     font-size: 0.9rem;
-    color: #44403c;
+    color: var(--ink-light);
     line-height: 1.5;
   }
 
   .tip strong {
-    color: #1c1917;
+    color: var(--ink);
     font-weight: 600;
   }
 
