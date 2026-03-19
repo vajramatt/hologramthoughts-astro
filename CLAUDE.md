@@ -66,6 +66,45 @@ Domain: hologramthoughts.com (configured in Cloudflare dashboard).
 - `src/utils/reading-time.mjs` — adds reading time to frontmatter
 - `src/utils/enhance-frontmatter.mjs` — auto-generates descriptions, content types, complexity scores
 
+## Markdown for Agents
+
+DIY implementation of Cloudflare's "Markdown for Agents" (which requires a paid plan). Lets AI agents request any blog post as clean markdown.
+
+### How it works
+
+1. **Build-time generation** (`src/integrations/markdown-for-agents.ts`): Astro integration that hooks into `astro:build:done` and writes a `.md` file for each non-draft post to `dist/blog/[slug]/index.md`. Uses `gray-matter` to parse the source markdown from `src/content/blog/`.
+
+2. **Agent index** (`src/pages/agent-index.md.ts`): Static endpoint that generates a structured markdown index of all posts (title, date, URL, categories, tags) at `/agent-index.md`.
+
+3. **Edge middleware** (`functions/_middleware.ts`): Cloudflare Pages Function that intercepts requests and serves markdown when:
+   - `Accept: text/markdown` header is present, OR
+   - `?format=md` query parameter is appended to the URL
+
+4. **Discoverability**: Every page includes `<link rel="alternate" type="text/markdown">` in `<head>` and an HTML comment after `<body>` pointing agents to `?format=md` and `/agent-index.md`.
+
+### Response headers on markdown responses
+
+- `Content-Type: text/markdown; charset=utf-8`
+- `x-markdown-tokens: <estimated token count>` (chars / 4)
+- `Content-Signal: ai-input=yes, search=yes`
+- `Cache-Control: public, max-age=3600`
+
+### Key files
+
+- `src/integrations/markdown-for-agents.ts` — Build-time .md file generator
+- `src/pages/agent-index.md.ts` — Agent index endpoint
+- `functions/_middleware.ts` — Cloudflare Pages edge middleware
+- `functions/tsconfig.json` — TypeScript config for functions dir
+
+### Testing
+
+```sh
+# Browser: append ?format=md to any post URL
+# curl: use Accept header
+curl -H "Accept: text/markdown" https://hologramthoughts.com/blog/the-holographic-universe/
+curl https://hologramthoughts.com/agent-index.md
+```
+
 ## Environment Note
 
 npm may need: `export PATH="/opt/homebrew/bin:$PATH"`

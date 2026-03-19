@@ -9,11 +9,12 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { markdownForAgents } from './src/integrations/markdown-for-agents.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://hologramthoughts.com',
-  integrations: [pagefind(), sitemap()],
+  integrations: [pagefind(), sitemap(), markdownForAgents()],
   devToolbar: {
     enabled: false
   },
