@@ -303,8 +303,24 @@ const { title } = Astro.props;
 	}
 
 	/* ═══════════════════════════════════════════════════════
+	   CONTENT GUTTER — applied globally to all page wrappers
+	   ═══════════════════════════════════════════════════════ */
+	.terminal-main {
+		padding: 32px 56px;
+		overflow-wrap: break-word;
+		min-width: 0;
+		overflow-x: hidden;
+	}
+
+	/* ═══════════════════════════════════════════════════════
 	   RESPONSIVE
 	   ═══════════════════════════════════════════════════════ */
+	@media (max-width: 72rem) {
+		.terminal-main {
+			padding: 28px 40px;
+		}
+	}
+
 	@media (max-width: 50rem) {
 		.terminal-window {
 			margin: 0;
@@ -312,6 +328,10 @@ const { title } = Astro.props;
 			border-left: none;
 			border-right: none;
 			min-height: 100vh;
+		}
+
+		.terminal-main {
+			padding: 20px 24px;
 		}
 	}
 </style>
