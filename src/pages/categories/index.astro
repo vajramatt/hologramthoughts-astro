@@ -3,36 +3,15 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
-import ReaderShell from '../../components/ReaderShell.astro';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 
 const categories = [
-  {
-    name: 'Dharma Writings',
-    description: 'Explorations of Buddhist teachings, philosophy, and the path',
-    slug: 'dharma-writings'
-  },
-  {
-    name: 'Creative Writing',
-    description: 'Fiction, poetry, and imaginative works',
-    slug: 'creative-writing'
-  },
-  {
-    name: 'Consciousness & Philosophy',
-    description: 'Reflections on mind, reality, and the nature of existence',
-    slug: 'consciousness-philosophy'
-  },
-  {
-    name: 'Practice & Inner Life',
-    description: 'Meditation, dreams, and spiritual practices',
-    slug: 'practice-inner-life'
-  },
-  {
-    name: 'Other',
-    description: 'Various topics and musings',
-    slug: 'other'
-  }
+  { name: 'Dharma Writings',            description: 'Explorations of Buddhist teachings, philosophy, and the path', slug: 'dharma-writings' },
+  { name: 'Creative Writing',            description: 'Fiction, poetry, and imaginative works', slug: 'creative-writing' },
+  { name: 'Consciousness & Philosophy',  description: 'Reflections on mind, reality, and the nature of existence', slug: 'consciousness-philosophy' },
+  { name: 'Practice & Inner Life',       description: 'Meditation, dreams, and spiritual practices', slug: 'practice-inner-life' },
+  { name: 'Other',                        description: 'Various topics and musings', slug: 'other' },
 ];
 
 const categoryCounts = {};
@@ -52,96 +31,82 @@ const categoriesWithCounts = categories.map(cat => ({
   <SiteHeader activePage="categories" />
 
   <main>
-    <ReaderShell>
-      <h1 class="page-title">Categories</h1>
+    <div class="terminal-main">
+      <div class="shell-session">
+        <div class="shell-line">
+          <span class="ps1">
+            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
+          </span>
+          <span class="shell-cmd">ls categories/</span>
+        </div>
 
-      <div class="categories-list">
-        {categoriesWithCounts.map(category => (
-          <a href={`/categories/${category.slug}`} class="category-item">
-            <div class="category-info">
-              <span class="category-name">{category.name}</span>
-              <span class="category-description">{category.description}</span>
+        <div class="shell-output">
+          {categoriesWithCounts.map(category => (
+            <div class="category-entry">
+              <span class="entry-arrow">→</span>
+              <div class="entry-info">
+                <a href={`/categories/${category.slug}`} class="category-name">{category.name}/</a>
+                <span class="category-desc">{category.description} ({category.count} posts)</span>
+              </div>
             </div>
-            <span class="category-count">{category.count} posts</span>
-          </a>
-        ))}
+          ))}
+        </div>
       </div>
-    </ReaderShell>
+    </div>
   </main>
+
   <SiteFooter />
 </Layout>
 
 <style>
-  main {
-    padding: 2rem 1rem;
-  }
+  main { margin: 0; padding: 0; }
 
-  .page-title {
-    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    color: var(--ink);
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    margin-bottom: 2.5rem;
-  }
+  .shell-session { font-size: 14px; line-height: 1.5; }
+  .shell-line { margin-bottom: 0.5rem; }
 
-  .categories-list {
+  .ps1 { font-weight: 700; margin-right: 0.5em; }
+  .ps1-user   { color: var(--term-green); }
+  .ps1-sep    { color: var(--term-fg-dim); }
+  .ps1-dir    { color: #818cf8; }
+  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
+  .shell-cmd  { color: var(--term-fg-dim); }
+
+  .shell-output {
+    color: var(--term-fg-dim);
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
   }
 
-  .category-item {
+  .category-entry {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 0;
-    border-top: 1px solid var(--border);
-    text-decoration: none;
-    transition: border-color 0.2s ease;
-    gap: 2rem;
+    align-items: baseline;
+    gap: 0.75rem;
   }
 
-  .category-item:last-child {
-    border-bottom: 1px solid var(--border);
+  .entry-arrow {
+    color: var(--term-muted);
+    flex-shrink: 0;
   }
 
-  .category-item:hover {
-    border-top-color: var(--accent);
-  }
-
-  .category-info {
+  .entry-info {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.1rem;
   }
 
   .category-name {
-    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
+    color: #818cf8;
+    text-decoration: none;
     font-weight: 600;
-    color: var(--ink);
-    letter-spacing: 0.02em;
   }
 
-  .category-description {
-    color: var(--ink-faint);
-    font-size: 0.95rem;
-    font-style: italic;
-    font-family: 'IM Fell DW Pica', 'Georgia', serif;
-    line-height: 1.5;
+  .category-name:hover {
+    color: var(--term-accent);
   }
 
-  .category-count {
-    color: var(--ink-faint);
-    font-size: 0.875rem;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    .category-item {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
+  .category-desc {
+    color: var(--term-muted);
+    font-size: 12px;
   }
 </style>

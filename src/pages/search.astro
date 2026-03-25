@@ -2,17 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import ReaderShell from '../components/ReaderShell.astro';
 import { getCollection } from 'astro:content';
 
-// Get all posts at build time for search
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const searchablePosts = allPosts.map(post => ({
   title: post.data.title,
   url: `/blog/${post.slug}`,
   categories: post.data.categories || [],
   description: post.data.description || '',
-  content: post.body.substring(0, 500), // First 500 chars for searching
+  content: post.body.substring(0, 500),
   date: post.data.pubDate
 }));
 ---
@@ -21,297 +19,255 @@ const searchablePosts = allPosts.map(post => ({
   <SiteHeader activePage="search" />
 
   <main>
-    <ReaderShell>
-      <div class="searchbox">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-        </svg>
-        <input type="search" id="search-input" placeholder="Search posts..." autocomplete="off">
-      </div>
+    <div class="terminal-main">
+      <div class="shell-session">
+        <div class="shell-line">
+          <span class="ps1">
+            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
+          </span>
+          <span class="shell-cmd">grep -r "" posts/</span>
+        </div>
 
-      <div id="search-results"></div>
-
-      <div class="search-container">
-        <div class="search-tips">
-          <h3>Search Tips</h3>
-          <div class="tips-grid">
-            <div class="tip">
-              <strong>Topics:</strong> Try "buddhism", "meditation", "chenrezig"
-            </div>
-            <div class="tip">
-              <strong>Stories:</strong> Search "fiction", "emergence", "jyoti"
-            </div>
-            <div class="tip">
-              <strong>Concepts:</strong> Look for "oneness", "dharma", "enlightenment"
-            </div>
-            <div class="tip">
-              <strong>Practices:</strong> Find "reiki", "yoga", "mindfulness"
-            </div>
+        <div class="shell-output search-area">
+          <div class="searchbox">
+            <span class="search-prefix">pattern: </span>
+            <input type="search" id="search-input" placeholder="buddhism, dreams, emptiness..." autocomplete="off">
           </div>
+          <div id="search-results"></div>
+        </div>
+
+        <div class="shell-output tips-area">
+          <p class="tips-header"># search tips</p>
+          <p>topics: "buddhism", "meditation", "chenrezig"</p>
+          <p>stories: "fiction", "emergence", "jyoti"</p>
+          <p>concepts: "oneness", "dharma", "enlightenment"</p>
+          <p>practices: "reiki", "yoga", "mindfulness"</p>
         </div>
       </div>
-    </ReaderShell>
+    </div>
   </main>
 
   <SiteFooter />
 </Layout>
 
 <style>
-  main {
-    padding: 2rem 1rem;
-    min-height: 70vh;
+  main { margin: 0; padding: 0; min-height: 70vh; }
+
+  .shell-session { font-size: 14px; line-height: 1.5; }
+  .shell-line { margin-bottom: 0.5rem; }
+
+  .ps1 { font-weight: 700; margin-right: 0.5em; }
+  .ps1-user   { color: var(--term-green); }
+  .ps1-sep    { color: var(--term-fg-dim); }
+  .ps1-dir    { color: #818cf8; }
+  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
+  .shell-cmd  { color: var(--term-fg-dim); }
+
+  .shell-output { color: var(--term-fg-dim); margin-bottom: 1rem; }
+
+  /* Search input */
+  .searchbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--term-border);
+    border-radius: 4px;
+    padding: 8px 12px;
+    background: var(--term-code-bg);
+    max-width: 520px;
   }
 
-  .searchbox {
-    --target-size: 48px;
-    --box-height: var(--target-size);
-    --border-radius: calc(var(--box-height) / 2);
-    --border-width: 2px;
-    --icon-size: calc(var(--box-height) * 3/4);
-    --side-margin: calc(var(--border-radius) / 2);
-    --icon-vertical-margin: calc((var(--box-height) - var(--icon-size)) / 2);
-  }
-
-  .searchbox {
-    height: var(--box-height);
-    max-width: 600px;
-    width: 90%;
-    margin: 0 auto 3rem;
-    position: relative;
+  .search-prefix {
+    color: var(--term-muted);
+    white-space: nowrap;
+    font-size: 13px;
   }
 
   .searchbox input[type="search"] {
-    border: var(--border-width) solid var(--ink-faint);
-    border-radius: var(--border-radius);
-    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--term-fg);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    outline: none;
     width: 100%;
     -webkit-appearance: none;
-    color: var(--ink);
-    font-family: 'IM Fell DW Pica', 'Georgia', serif;
-    font-size: 1rem;
-    padding-left: calc(var(--side-margin) + var(--icon-size) + 8px);
-    padding-right: var(--side-margin);
-    background: transparent;
-    transition: border-color 0.2s ease;
-  }
-
-  .searchbox svg {
-    fill: var(--ink-faint);
-    height: var(--icon-size);
-    width: var(--icon-size);
-    position: absolute;
-    left: var(--side-margin);
-    top: var(--icon-vertical-margin);
-    bottom: var(--icon-vertical-margin);
-    z-index: -1;
   }
 
   .searchbox input[type="search"]::placeholder {
-    color: var(--ink-faint);
-    opacity: 0.6;
+    color: var(--term-muted);
+    opacity: 0.7;
   }
 
-  input[type="search"]::-webkit-search-decoration {
-    -webkit-appearance: none;
+  .searchbox:focus-within {
+    border-color: var(--term-accent);
   }
 
-  .searchbox input[type="search"]:focus {
-    border-color: var(--accent);
-    box-shadow: 0px 0px 6px var(--accent-faint);
-    outline: 1px solid transparent;
+  #search-results { margin-bottom: 1rem; }
+
+  /* Tips */
+  .tips-area p {
+    margin: 0.15rem 0;
+    font-size: 13px;
+    color: var(--term-muted);
   }
 
-  .searchbox input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    height: calc(var(--box-height) / 2);
-    width: calc(var(--box-height) / 2);
-    cursor: pointer;
+  .tips-header {
+    color: var(--term-fg-dim) !important;
+    margin-bottom: 0.25rem !important;
   }
 
-  input[type="search"] {
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  #search-results {
-    margin: 0 auto 3rem;
-  }
-
-  /* JS-generated results inherit these via class targeting */
+  /* JS-generated results */
   :global(.results-count) {
-    color: var(--ink-faint);
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    color: var(--term-muted);
+    font-size: 12px;
+    margin-bottom: 1rem;
   }
 
   :global(.search-result) {
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--border);
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--term-border);
   }
 
   :global(.search-result:last-child) {
-    border-bottom: 1px solid var(--border);
+    border-bottom: none;
   }
 
-  :global(.search-result h3) {
-    margin: 0 0 0.5rem 0;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem;
+  :global(.search-result-title) {
+    margin: 0 0 0.25rem;
+    font-size: 14px;
     font-weight: 600;
+    font-family: var(--font-mono);
   }
 
-  :global(.search-result h3 a) {
-    color: var(--ink);
+  :global(.search-result-title a) {
+    color: var(--term-accent);
     text-decoration: none;
   }
 
-  :global(.search-result h3 a:hover) {
-    color: var(--accent);
+  :global(.search-result-title a:hover) {
+    color: var(--term-accent-hover);
   }
 
-  :global(.search-result .excerpt) {
-    color: var(--ink-light);
-    line-height: 1.6;
-    margin: 0 0 0.5rem 0;
-    font-size: 0.95rem;
+  :global(.search-result-excerpt) {
+    color: var(--term-fg-dim);
+    line-height: 1.5;
+    margin: 0 0 0.25rem;
+    font-size: 12px;
   }
 
-  :global(.search-result .categories) {
+  :global(.search-result-categories) {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
   }
 
-  :global(.search-result .category-tag) {
-    color: var(--ink-faint);
-    font-size: 0.8rem;
+  :global(.category-tag) {
+    color: var(--term-muted);
+    font-size: 11px;
   }
 
   :global(.no-results) {
-    text-align: center;
-    padding: 3rem 1rem;
-    color: var(--ink-faint);
-  }
-
-  :global(.no-results p) {
-    font-size: 1.05rem;
-  }
-
-  .search-container {
-    margin: 0 auto;
-  }
-
-  .search-tips {
-    border-top: 1px solid var(--border);
-    padding-top: 2rem;
-  }
-
-  .search-tips h3 {
-    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    color: var(--ink);
-    margin-bottom: 1.25rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-  }
-
-  .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-
-  .tip {
-    font-size: 0.9rem;
-    color: var(--ink-light);
-    line-height: 1.5;
-  }
-
-  .tip strong {
-    color: var(--ink);
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    .searchbox {
-      width: 95%;
-    }
-
-    .tips-grid {
-      grid-template-columns: 1fr;
-    }
+    color: var(--term-muted);
+    font-size: 13px;
+    padding: 1rem 0;
   }
 </style>
 
 <script define:vars={{ searchablePosts }}>
-  // Simple client-side search implementation
   document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
 
+    function esc(str) {
+      const d = document.createElement('div');
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
     function performSearch(query) {
       if (query.length < 2) {
-        searchResults.innerHTML = '';
+        searchResults.textContent = '';
         return;
       }
 
       const lowerQuery = query.toLowerCase();
+      const results = searchablePosts.filter(post =>
+        post.title.toLowerCase().includes(lowerQuery) ||
+        post.description.toLowerCase().includes(lowerQuery) ||
+        post.categories.some(cat => cat.toLowerCase().includes(lowerQuery)) ||
+        post.content.toLowerCase().includes(lowerQuery)
+      );
 
-      // Search through posts
-      const results = searchablePosts.filter(post => {
-        return post.title.toLowerCase().includes(lowerQuery) ||
-               post.description.toLowerCase().includes(lowerQuery) ||
-               post.categories.some(cat => cat.toLowerCase().includes(lowerQuery)) ||
-               post.content.toLowerCase().includes(lowerQuery);
-      });
-
-      // Sort by relevance (title matches first)
       results.sort((a, b) => {
         const aInTitle = a.title.toLowerCase().includes(lowerQuery);
         const bInTitle = b.title.toLowerCase().includes(lowerQuery);
         if (aInTitle && !bInTitle) return -1;
         if (!aInTitle && bInTitle) return 1;
-        return new Date(b.date) - new Date(a.date); // Then by date
+        return new Date(b.date) - new Date(a.date);
       });
 
-      // Display results
+      // Build DOM nodes safely — no raw HTML injection from user input
+      searchResults.textContent = '';
+
+      const countEl = document.createElement('div');
+      countEl.className = 'results-count';
+      countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '');
+      searchResults.appendChild(countEl);
+
       if (results.length === 0) {
-        searchResults.innerHTML = '<div class="no-results"><p>No results found for "' + query + '"</p></div>';
-      } else {
-        let html = '<div class="results-count">' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ' found</div>';
-        html += '<div class="results-list">';
-
-        // Show first 20 results
-        results.slice(0, 20).forEach(result => {
-          html += '<article class="search-result">';
-          html += '<h3><a href="' + result.url + '">' + result.title + '</a></h3>';
-          html += '<p class="excerpt">' + (result.description || 'Click to read more...') + '</p>';
-          if (result.categories.length > 0) {
-            html += '<div class="categories">';
-            result.categories.forEach(cat => {
-              html += '<span class="category-tag">' + cat + '</span>';
-            });
-            html += '</div>';
-          }
-          html += '</article>';
-        });
-
-        html += '</div>';
-        searchResults.innerHTML = html;
+        const none = document.createElement('div');
+        none.className = 'no-results';
+        none.textContent = 'no results for "' + query + '"';
+        searchResults.appendChild(none);
+        return;
       }
+
+      const list = document.createElement('div');
+      list.className = 'results-list';
+
+      results.slice(0, 20).forEach(result => {
+        const article = document.createElement('article');
+        article.className = 'search-result';
+
+        const titleEl = document.createElement('p');
+        titleEl.className = 'search-result-title';
+        const link = document.createElement('a');
+        link.href = result.url;
+        link.textContent = result.title;
+        titleEl.appendChild(link);
+        article.appendChild(titleEl);
+
+        const excerpt = document.createElement('p');
+        excerpt.className = 'search-result-excerpt';
+        excerpt.textContent = result.description || 'click to read...';
+        article.appendChild(excerpt);
+
+        if (result.categories.length > 0) {
+          const cats = document.createElement('div');
+          cats.className = 'search-result-categories';
+          result.categories.forEach(cat => {
+            const tag = document.createElement('span');
+            tag.className = 'category-tag';
+            tag.textContent = '# ' + cat;
+            cats.appendChild(tag);
+          });
+          article.appendChild(cats);
+        }
+
+        list.appendChild(article);
+      });
+
+      searchResults.appendChild(list);
     }
 
-    // Add event listener with debouncing
     let debounceTimer;
     searchInput.addEventListener('input', function(e) {
       clearTimeout(debounceTimer);
-      const query = e.target.value.trim();
-
-      debounceTimer = setTimeout(() => {
-        performSearch(query);
-      }, 300);
+      debounceTimer = setTimeout(() => performSearch(e.target.value.trim()), 300);
     });
 
-    // Focus on load
     searchInput.focus();
   });
 </script>

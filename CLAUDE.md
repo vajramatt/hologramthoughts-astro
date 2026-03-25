@@ -8,20 +8,60 @@ Static blog at hologramthoughts.com — spiritual, philosophical, and creative w
 
 - **Framework**: Astro 5 (static output)
 - **Content**: Markdown in `src/content/blog/`, Zod schema in `src/content/config.ts`
-- **Search**: Pagefind (astro-pagefind integration)
+- **Search**: Client-side search (custom, in `search.astro`)
 - **Hosting**: Cloudflare Pages
-- **Typography**: Cormorant SC (headings/small caps) + Cormorant Garamond (titles/lists) + IM Fell DW Pica (body text)
+- **Typography**: Space Mono (Google Fonts) — monospace throughout
 
-## Design System — Parchment Reader
+## Design System — Far Future Dharma Terminal
 
-The site uses a "parchment reader" theme with a book-like reading experience:
+The site uses a terminal aesthetic rooted in a "far future dharma" concept: you're jacked into the dharma net, navigating teachings from a node called `samsara`. Inspired by (but deliberately distinct from) blog.rice.is — the footer credits the homage.
 
-- **CSS custom properties** for all colors — defined in `Layout.astro` under `html[data-theme="light"]` and `html[data-theme="dark"]`
-- **Key tokens**: `--ink`, `--ink-light`, `--ink-faint`, `--page`, `--shell`, `--accent`, `--border`, `--code-bg`, `--toc-bg`
-- **Dark/light mode**: Toggle in header, persisted to `localStorage`, read before paint to prevent FOUC
-- **Visual effects**: Grain texture overlay (`body::before`), vignette (`body::after`)
-- **ReaderShell component**: Book-like `max-width: 64ch` container used on all pages
-- **Blog post features**: Drop cap on first paragraph, ornamental `<hr>` dividers (§), end mark (✦), justified text with hyphenation, reading progress bar
+### Palette (dark default)
+
+All colors via CSS custom properties defined in `Layout.astro`:
+
+| Token | Dark | Light | Role |
+|---|---|---|---|
+| `--term-bg` | `#090b12` | `#f0f4ff` | Page background |
+| `--term-fg` | `#c8d0e8` | `#1e2538` | Body text |
+| `--term-fg-dim` | `#8892b0` | `#4a5568` | Muted text |
+| `--term-fg-bright` | `#eef2ff` | `#090b12` | Emphasis |
+| `--term-accent` | `#fbbf24` | `#d97706` | Electric saffron — headings, titles, links |
+| `--term-green` | `#34d399` | `#059669` | PS1 username |
+| `--term-border` | `#1e2538` | `#c8d0e8` | Borders |
+| `--term-code-bg` | `#0d1020` | `#e4e9f7` | Code blocks, TOC |
+| `--term-muted` | `#4a5568` | `#94a3b8` | Prompt symbols, markers |
+| `--term-glow` | amber text-shadow | none | Holographic glow on accent elements |
+
+### Key design elements
+
+- **Terminal window**: `max-width: 72rem` container with subtle amber outer glow (`box-shadow`)
+- **Titlebar**: `☸` dharma wheel left + `dharma://hologram.thoughts` centered + theme toggle right — no Mac-style dots
+- **Nav prefix**: `→ link` (not `$ link`)
+- **Shell session framing**: every page opens with a PS1 prompt — `matt@samsara:~/dharma →`
+- **Commands**: `read ./slug.md` (posts), `ls -lt ~/dharma/posts/` (listings), `read DHARMA.md` (homepage README)
+- **Markdown-as-HTML**: headings show `# `, `## `, `### ` prefixes via `::before` pseudo-elements in muted color; `>` on blockquotes; `---` on `<hr>`; `›` list bullets
+- **Glow**: `text-shadow: var(--term-glow)` on headings, post titles, active nav — amber holographic effect
+- **CRT scanlines**: `repeating-linear-gradient` overlay on `.terminal-window::after`
+- **Dark default**: localStorage-persisted, FOUC-prevented with inline script
+- **Post excerpts**: first ~160 chars of `post.body` with markdown stripped, shown in listings
+
+### Prompt format
+
+```
+matt@samsara:~/dharma → read ./slug.md
+```
+
+- Username (`ps1-user`): `var(--term-green)`
+- Directory (`ps1-dir`): `#818cf8` (indigo-violet)
+- Arrow (`ps1-dollar`): `var(--term-muted)`
+
+### DO NOT
+
+- Hardcode hex colors in component `<style>` blocks — use CSS variables
+- Use serif fonts anywhere — Space Mono only
+- Add Mac-style colored dots to the titlebar
+- Use `$` as the prompt terminator — use `→`
 
 ## Commands
 
@@ -50,16 +90,15 @@ Domain: hologramthoughts.com (configured in Cloudflare dashboard).
 - Categories are hardcoded: Dharma Writings, Creative Writing, Consciousness & Philosophy, Practice & Inner Life, Other
 - Filter drafts on all pages: `getCollection('blog', ({ data }) => !data.draft)`
 - Archive lives at `/archive/[...page].astro` to avoid route conflicts with `/blog/[slug].astro`
-- All colors use CSS variables — never hardcode hex values in component styles
 
 ## Components
 
-- `ReaderShell.astro` — Book-like parchment container (wraps all page content)
-- `ThemeToggle.astro` — Sun/moon toggle button for dark/light mode
-- `ReadingProgress.astro` — Fixed scroll progress bar (blog posts only)
-- `SiteHeader.astro` — Sticky bar with wordmark + nav + theme toggle
-- `SiteFooter.astro` — Copyright + links
-- `TableOfContents.astro` — Auto-generated from headings (shown when 2+ headings)
+- `ReaderShell.astro` — Terminal main content wrapper (padding only, no background)
+- `SiteHeader.astro` — Sticky terminal header: titlebar (☸ + site URL + toggle) + nav
+- `SiteFooter.astro` — Terminal footer bar with copyright + nav + rice homage credit
+- `ThemeToggle.astro` — Sun/moon SVG toggle, dark default
+- `ReadingProgress.astro` — Fixed amber progress bar (blog posts only)
+- `TableOfContents.astro` — Auto-generated from headings (shown when 2+ headings), terminal-styled
 
 ## Custom Remark Plugins
 

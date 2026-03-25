@@ -1,8 +1,5 @@
 ---
-/**
- * ReadingProgress — Fixed scroll-based progress bar at top of viewport.
- * For use on blog post pages only.
- */
+// ReadingProgress — Fixed scroll-based progress bar. Blog posts only.
 ---
 
 <div class="reading-progress" id="reading-progress">
@@ -15,7 +12,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 2px;
     background: transparent;
     z-index: 10000;
   }
@@ -23,9 +20,8 @@
   .reading-progress-bar {
     height: 100%;
     width: 0%;
-    background: var(--accent);
+    background: var(--term-accent);
     transition: width 0.1s ease-out;
-    border-radius: 0 1px 1px 0;
   }
 </style>
 

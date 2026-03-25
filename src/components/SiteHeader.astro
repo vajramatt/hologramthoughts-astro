@@ -8,104 +8,100 @@ interface Props {
 const { activePage } = Astro.props;
 ---
 
-<header class="site-header">
-  <div class="header-bar">
-    <a href="/" class="wordmark">Hologram Thoughts</a>
-    <div class="header-right">
-      <nav class="site-nav">
-        <a href="/archive" class:list={['nav-link', { active: activePage === 'archive' }]}>Archive</a>
-        <a href="/categories" class:list={['nav-link', { active: activePage === 'categories' }]}>Categories</a>
-        <a href="/search" class:list={['nav-link', { active: activePage === 'search' }]}>Search</a>
-      </nav>
+<header class="terminal-header">
+  <div class="terminal-titlebar">
+    <div class="titlebar-dharma">☸</div>
+    <div class="titlebar-title">dharma://hologram.thoughts</div>
+    <div class="titlebar-toggle">
       <ThemeToggle />
     </div>
   </div>
+  <nav class="terminal-nav">
+    <a href="/" class:list={[{ active: activePage === 'home' }]}>hologram-thoughts</a>
+    <a href="/archive" class:list={[{ active: activePage === 'archive' }]}>archive</a>
+    <a href="/categories" class:list={[{ active: activePage === 'categories' }]}>categories</a>
+    <a href="/search" class:list={[{ active: activePage === 'search' }]}>search</a>
+  </nav>
 </header>
 
 <style>
-  .site-header {
+  .terminal-header {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--page);
-    border-bottom: 1px solid var(--border);
-    transition: background 0.4s ease;
+    background: var(--term-bg);
   }
 
-  .header-bar {
-    max-width: 64ch;
-    margin: 0 auto;
-    padding: 0.75rem 1rem;
+  .terminal-titlebar {
+    background: var(--term-titlebar-bg);
+    padding: 10px 16px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--term-border);
   }
 
-  .wordmark {
-    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--ink);
-    text-decoration: none;
-    letter-spacing: 0.03em;
+  .titlebar-dharma {
+    font-size: 18px;
+    color: var(--term-accent);
+    text-shadow: var(--term-glow);
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .titlebar-title {
+    flex: 1;
+    text-align: center;
+    color: var(--term-muted);
+    font-size: 13px;
+    font-family: var(--font-mono);
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .wordmark:hover {
-    color: var(--accent);
+  .titlebar-toggle {
+    flex-shrink: 0;
   }
 
-  .header-right {
+  .terminal-nav {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--term-border);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0 24px;
+    background: var(--term-bg);
   }
 
-  .site-nav {
-    display: flex;
-    gap: 1.25rem;
-  }
-
-  .nav-link {
-    color: var(--ink-faint);
+  .terminal-nav a {
+    color: var(--term-fg-dim);
     text-decoration: none;
-    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    transition: color 0.2s ease;
+    white-space: nowrap;
+    transition: color 0.15s;
+    font-family: var(--font-mono);
+    font-size: 14px;
   }
 
-  .nav-link:hover {
-    color: var(--ink);
+  .terminal-nav a::before {
+    content: "→ ";
+    color: var(--term-muted);
   }
 
-  .nav-link.active {
-    color: var(--accent);
+  .terminal-nav a:hover,
+  .terminal-nav a.active {
+    color: var(--term-accent);
+    text-shadow: var(--term-glow);
   }
 
-  @media (max-width: 768px) {
-    .header-bar {
-      padding: 0.6rem 0.75rem;
+  @media (max-width: 50rem) {
+    .terminal-nav {
+      padding: 10px 16px;
+      gap: 0 16px;
     }
 
-    .wordmark {
-      font-size: 1rem;
-    }
-
-    .site-nav {
-      gap: 0.75rem;
-    }
-
-    .nav-link {
-      font-size: 0.8rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .header-bar {
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .titlebar-title {
+      font-size: 11px;
     }
   }
 </style>

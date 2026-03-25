@@ -8,14 +8,12 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-
-// Only show TOC if there are multiple headings
 const showTOC = headings && headings.length > 1;
 ---
 
 {showTOC && (
-  <div class="table-of-contents">
-    <h3>Contents</h3>
+  <div class="toc">
+    <div class="toc-header">### Contents</div>
     <nav class="toc-nav">
       <ul>
         {headings.map((heading) => (
@@ -29,22 +27,20 @@ const showTOC = headings && headings.length > 1;
 )}
 
 <style>
-  .table-of-contents {
-    background: var(--toc-bg);
-    border: 1px solid var(--border);
+  .toc {
+    border: 1px solid var(--term-border);
     border-radius: 4px;
-    padding: 1.5rem 2rem;
-    margin: 2rem 0 3rem;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0 2.5rem;
+    background: var(--term-code-bg);
+    font-size: 14px;
   }
 
-  .table-of-contents h3 {
-    font-family: 'Cormorant SC', 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
+  .toc-header {
+    color: var(--term-muted);
     font-weight: 600;
-    color: var(--ink);
-    margin: 0 0 1rem 0;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-mono);
   }
 
   .toc-nav ul {
@@ -54,60 +50,32 @@ const showTOC = headings && headings.length > 1;
   }
 
   .toc-nav li {
-    margin: 0.4rem 0;
+    margin: 0.3rem 0;
   }
 
   .toc-nav a {
-    color: var(--ink-light);
+    color: var(--term-fg-dim);
     text-decoration: none;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.95rem;
+    font-family: var(--font-mono);
+    font-size: 13px;
     line-height: 1.5;
-    transition: color 0.2s ease;
+    transition: color 0.15s;
     display: block;
-    padding: 0.15rem 0;
+    padding: 0.1rem 0;
+  }
+
+  .toc-nav a::before {
+    content: "› ";
+    color: var(--term-muted);
   }
 
   .toc-nav a:hover {
-    color: var(--accent);
+    color: var(--term-accent);
   }
 
-  .toc-level-1 {
-    font-weight: 600;
-    margin-top: 0.75rem;
-  }
-
-  .toc-level-1:first-child {
-    margin-top: 0;
-  }
-
-  .toc-level-2 {
-    padding-left: 1rem;
-    font-weight: 500;
-  }
-
-  .toc-level-3 {
-    padding-left: 2rem;
-    font-size: 0.9rem;
-    opacity: 0.9;
-  }
-
+  .toc-level-2 { padding-left: 1rem; }
+  .toc-level-3 { padding-left: 2rem; }
   .toc-level-4,
   .toc-level-5,
-  .toc-level-6 {
-    padding-left: 3rem;
-    font-size: 0.85rem;
-    opacity: 0.8;
-  }
-
-  @media (max-width: 768px) {
-    .table-of-contents {
-      padding: 1.25rem 1.5rem;
-      margin: 1.5rem 0 2rem;
-    }
-
-    .table-of-contents h3 {
-      font-size: 1rem;
-    }
-  }
+  .toc-level-6 { padding-left: 3rem; opacity: 0.8; }
 </style>

@@ -1,14 +1,9 @@
 ---
-/**
- * ThemeToggle — Light/dark mode toggle button.
- * Saves preference to localStorage, reads on load.
- * Uses is:inline script so it works on all browsers including mobile
- * without depending on Astro View Transitions events.
- */
+// ThemeToggle — dark/light mode toggle, persisted to localStorage.
 ---
 
 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="12" cy="12" r="5"></circle>
     <line x1="12" y1="1" x2="12" y2="3"></line>
     <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -19,7 +14,7 @@
     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
   </svg>
-  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
   </svg>
 </button>
@@ -27,50 +22,39 @@
 <style>
   .theme-toggle {
     background: none;
-    border: 1px solid var(--border);
-    color: var(--ink-faint);
+    border: 1px solid var(--term-border);
+    color: var(--term-muted);
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 6px;
+    padding: 4px 6px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s ease, border-color 0.2s ease;
+    transition: color 0.15s, border-color 0.15s;
     line-height: 1;
-    min-width: 44px;
-    min-height: 44px;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
 
   .theme-toggle:hover {
-    color: var(--accent);
-    border-color: var(--accent);
+    color: var(--term-accent);
+    border-color: var(--term-accent);
   }
 
   .theme-toggle:active {
     opacity: 0.7;
   }
 
-  /* In light mode: show moon (click to go dark), hide sun */
-  :global(html[data-theme="light"]) .icon-sun {
-    display: none;
-  }
-  :global(html[data-theme="light"]) .icon-moon {
-    display: block;
-  }
+  /* In dark mode: show sun (click to go light) */
+  :global(html[data-theme="dark"]) .icon-sun  { display: block; }
+  :global(html[data-theme="dark"]) .icon-moon { display: none; }
 
-  /* In dark mode: show sun (click to go light), hide moon */
-  :global(html[data-theme="dark"]) .icon-sun {
-    display: block;
-  }
-  :global(html[data-theme="dark"]) .icon-moon {
-    display: none;
-  }
+  /* In light mode: show moon (click to go dark) */
+  :global(html[data-theme="light"]) .icon-sun  { display: none; }
+  :global(html[data-theme="light"]) .icon-moon { display: block; }
 </style>
 
 <script is:inline>
-  // Event delegation only — single listener, no double-fire risk.
   document.addEventListener('click', function(e) {
     if (e.target.closest('#theme-toggle')) {
       var current = document.documentElement.getAttribute('data-theme');
