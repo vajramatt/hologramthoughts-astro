@@ -8,15 +8,21 @@
 
 <style>
   .terminal-main {
-    padding: 24px 28px;
+    padding: 32px 56px;
     overflow-wrap: break-word;
     min-width: 0;
     overflow-x: hidden;
   }
 
+  @media (max-width: 72rem) {
+    .terminal-main {
+      padding: 28px 40px;
+    }
+  }
+
   @media (max-width: 50rem) {
     .terminal-main {
-      padding: 16px;
+      padding: 20px 24px;
     }
   }
 </style>
