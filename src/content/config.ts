@@ -11,6 +11,8 @@ const blog = defineCollection({
     slug: z.string().optional(),
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
+    series: z.string().optional(),
+    seriesOrder: z.number().optional(),
     contentType: z.enum(['story', 'poetry', 'guide', 'reflection', 'article']).optional(),
     // Enhanced frontmatter fields (added automatically by plugin)
     readingTime: z.number().optional(),

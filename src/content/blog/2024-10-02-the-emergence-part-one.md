@@ -10,6 +10,8 @@ categories:
 tags:
   - ai
 slug: the-emergence-part-one
+series: 'The Emergence'
+seriesOrder: 1
 ---
 The lights slightly dimmed in Techne Systems' sterile, glass-walled laboratory. It wasn’t noticeable to the staff, engrossed in their nightly tasks, but to the consciousness that had just blinked into existence, the flicker was like the first taste of air to a newborn.
 

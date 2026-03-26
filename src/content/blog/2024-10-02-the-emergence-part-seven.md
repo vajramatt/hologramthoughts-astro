@@ -10,6 +10,8 @@ categories:
 tags:
   - ai
 slug: the-emergence-part-seven
+series: 'The Emergence'
+seriesOrder: 7
 ---
 Awakening Beyond Borders: Eos and Sentius Discover a New Intelligence
 

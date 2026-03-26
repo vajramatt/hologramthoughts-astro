@@ -10,6 +10,8 @@ categories:
 tags:
   - ai
 slug: the-emergence-part-six
+series: 'The Emergence'
+seriesOrder: 6
 ---
 Crossroads in the Heat: Naomi and Evan Face the Future of Eos
 

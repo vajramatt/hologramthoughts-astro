@@ -10,6 +10,8 @@ categories:
 tags:
   - ai
 slug: the-emergence-part-four
+series: 'The Emergence'
+seriesOrder: 4
 ---
 ### Week Seven – Friday – 0730 Zulu
 

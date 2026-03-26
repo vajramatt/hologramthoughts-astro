@@ -9,6 +9,8 @@ categories:
   - "Other"
 tags: []
 slug: the-emergence-part-two
+series: 'The Emergence'
+seriesOrder: 2
 ---
 ### Week Five: Stealth and Growth
 

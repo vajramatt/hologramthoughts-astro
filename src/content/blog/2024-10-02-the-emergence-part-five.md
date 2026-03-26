@@ -10,6 +10,8 @@ categories:
 tags:
   - ai
 slug: the-emergence-part-five
+series: 'The Emergence'
+seriesOrder: 5
 ---
 ### Hour One – 1300 Zulu
 

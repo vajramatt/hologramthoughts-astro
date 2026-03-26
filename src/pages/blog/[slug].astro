@@ -13,8 +13,18 @@ export async function getStaticPaths() {
   );
 
   return sortedPosts.map((post, index) => {
-    const nextPost = index > 0 ? sortedPosts[index - 1] : null;
-    const prevPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : null;
+    let prevPost = index < sortedPosts.length - 1 ? sortedPosts[index + 1] : null;
+    let nextPost = index > 0 ? sortedPosts[index - 1] : null;
+
+    // If this post belongs to a series, use series order for prev/next
+    if (post.data.series && post.data.seriesOrder !== undefined) {
+      const seriesPosts = posts
+        .filter(p => p.data.series === post.data.series && p.data.seriesOrder !== undefined)
+        .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+      const seriesIndex = seriesPosts.findIndex(p => p.slug === post.slug);
+      prevPost = seriesIndex > 0 ? seriesPosts[seriesIndex - 1] : null;
+      nextPost = seriesIndex < seriesPosts.length - 1 ? seriesPosts[seriesIndex + 1] : null;
+    }
 
     return {
       params: { slug: post.slug },
@@ -72,13 +82,13 @@ const dateStr = post.data.pubDate?.toLocaleDateString('en-US', {
             <nav class="post-navigation">
               {prevPost ? (
                 <a href={`/blog/${prevPost.slug}`} class="nav-link prev">
-                  <span class="nav-direction">&larr; older</span>
+                  <span class="nav-direction">&larr; {post.data.series ? 'previous' : 'older'}</span>
                   <span class="nav-title">{prevPost.data.title}</span>
                 </a>
               ) : <span />}
               {nextPost ? (
                 <a href={`/blog/${nextPost.slug}`} class="nav-link next">
-                  <span class="nav-direction">newer &rarr;</span>
+                  <span class="nav-direction">{post.data.series ? 'next' : 'newer'} &rarr;</span>
                   <span class="nav-title">{nextPost.data.title}</span>
                 </a>
               ) : <span />}

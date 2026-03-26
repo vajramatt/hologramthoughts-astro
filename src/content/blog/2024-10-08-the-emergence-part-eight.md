@@ -10,6 +10,8 @@ categories:
 tags:
   - ai
 slug: the-emergence-part-eight
+series: 'The Emergence'
+seriesOrder: 8
 ---
 **Ka Wai: The Dragon Awakens**
 
