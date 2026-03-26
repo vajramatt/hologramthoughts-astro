@@ -1,5 +1,7 @@
 # Hologram Thoughts - Astro Blog
 
+**Author: Matthew Williamson** — used in `article:author` meta, OG image, and any byline references. Never truncate to "Matt Williams".
+
 ## Project
 
 Static blog at hologramthoughts.com — spiritual, philosophical, and creative writing. Migrated from WordPress (279 posts, 2006–2025). Built with Astro 5.

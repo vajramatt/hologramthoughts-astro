@@ -42,11 +42,12 @@ const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathn
 		<meta property="og:image" content={ogImage} />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:site_name" content="Hologram Thoughts" />
+		<meta property="og:logo" content="https://hologramthoughts.com/favicon.svg" />
 		{ogType === 'article' && publishedTime && (
 			<meta property="article:published_time" content={publishedTime} />
 		)}
 		{ogType === 'article' && (
-			<meta property="article:author" content="Matt Williams" />
+			<meta property="article:author" content="Matthew Williamson" />
 		)}
 		{tags.map(tag => (
 			<meta property="article:tag" content={tag} />
