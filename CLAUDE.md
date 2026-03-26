@@ -90,6 +90,36 @@ Domain: hologramthoughts.com (configured in Cloudflare dashboard).
 - Categories are hardcoded: Dharma Writings, Creative Writing, Consciousness & Philosophy, Practice & Inner Life, Other
 - Filter drafts on all pages: `getCollection('blog', ({ data }) => !data.draft)`
 - Archive lives at `/archive/[...page].astro` to avoid route conflicts with `/blog/[slug].astro`
+- `.terminal-main` padding is defined globally in `Layout.astro` (not in `ReaderShell.astro`) so it applies to all pages including `[slug].astro` which has its own wrapper div
+
+## Content Series
+
+Posts can belong to a named series using two frontmatter fields:
+
+```yaml
+series: 'The Emergence'
+seriesOrder: 1
+```
+
+- Both fields are optional in `src/content/config.ts` (Zod schema)
+- When a post has `series` set, `[slug].astro` replaces global date-based prev/next with series-scoped prev/next sorted by `seriesOrder`
+- Nav labels change to `← previous` / `next →` for series posts (vs `← older` / `newer →` for standalone)
+- Currently only "The Emergence" (parts 1–8) uses this system
+
+## OpenGraph & Meta
+
+`Layout.astro` accepts these optional props (all have sensible defaults):
+
+| Prop | Type | Default |
+|---|---|---|
+| `description` | string | Site-level tagline |
+| `ogType` | `'website' \| 'article'` | `'website'` |
+| `ogImage` | string | `/og-image.png` |
+| `publishedTime` | string (ISO 8601) | — |
+| `tags` | string[] | `[]` |
+| `canonicalUrl` | string | `https://hologramthoughts.com{pathname}` |
+
+Blog posts (`[slug].astro`) pass `ogType="article"`, post description (from frontmatter or auto-excerpted from body), `publishedTime`, `tags`, and a clean canonical URL. A `<link rel="canonical">` is included on every page.
 
 ## Components
 
