@@ -8,10 +8,6 @@ draft: false
 slug: the-light-nextdoor
 ---
 
-# The Light Next Door
-
-**by Matthew Williamson**
-
 It was on again.
 
 The light in the attic of the house next door. On again—and it shouldn't have been.
