@@ -24,15 +24,15 @@ All colors via CSS custom properties defined in `Layout.astro`:
 
 | Token | Dark | Light | Role |
 |---|---|---|---|
-| `--term-bg` | `#090b12` | `#f0f4ff` | Page background |
-| `--term-fg` | `#c8d0e8` | `#1e2538` | Body text |
-| `--term-fg-dim` | `#8892b0` | `#4a5568` | Muted text |
-| `--term-fg-bright` | `#eef2ff` | `#090b12` | Emphasis |
-| `--term-accent` | `#fbbf24` | `#d97706` | Electric saffron — headings, titles, links |
-| `--term-green` | `#34d399` | `#059669` | PS1 username |
-| `--term-border` | `#1e2538` | `#c8d0e8` | Borders |
-| `--term-code-bg` | `#0d1020` | `#e4e9f7` | Code blocks, TOC |
-| `--term-muted` | `#4a5568` | `#94a3b8` | Prompt symbols, markers |
+| `--term-bg` | `#090b12` | `#faf8f4` | Page background |
+| `--term-fg` | `#c8d0e8` | `#1e1a2e` | Body text |
+| `--term-fg-dim` | `#8892b0` | `#4a4560` | Muted text |
+| `--term-fg-bright` | `#eef2ff` | `#0d0b1a` | Emphasis |
+| `--term-accent` | `#fbbf24` | `#4338ca` | Dark: electric saffron / Light: deep indigo |
+| `--term-green` | `#34d399` | `#047857` | PS1 username |
+| `--term-border` | `#1e2538` | `#d4cfc4` | Borders |
+| `--term-code-bg` | `#0d1020` | `#edeae2` | Code blocks, TOC |
+| `--term-muted` | `#4a5568` | `#6b6880` | Prompt symbols, markers |
 | `--term-glow` | amber text-shadow | none | Holographic glow on accent elements |
 
 ### Key design elements

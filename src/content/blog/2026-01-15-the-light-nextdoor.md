@@ -92,7 +92,7 @@ And from the attic window, not in sound but in something deeper—something cert
 
 **”Lorna Gilmore.”**
 
-Chapter Two
+---
 
 Lorna woke on her left side.
 
@@ -138,7 +138,7 @@ Lorna stepped inside.
 
 She had customers to serve, and a strange light in the attic next door that refused to leave her thoughts.
 
-## Chapter Three
+---
 
 The bell over the door of *The Briar & Bramble* jingled low and clear as Aileen Dunn pushed it open with her elbow, arms full of paper bags and self-satisfaction.
 
@@ -214,7 +214,7 @@ She smiled to herself.
 
 And went inside before the dusk could settle too thick.
 
-## Chapter Four
+---
 
 No one in Gullhaven called it magic.
 
@@ -312,7 +312,7 @@ The house next door remained quiet.
 
 But the ivy had curled away from the gate again.
 
-## Chapter Five
+---
 
 She was six again.
 
@@ -418,7 +418,7 @@ And for the first time, she didn’t feel watched.
 
 She felt seen.
 
-## Chapter Six
+---
 
 The light was still on next door.
 
