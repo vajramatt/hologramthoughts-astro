@@ -1,8 +1,8 @@
 ---
-// ReadingProgress — Fixed scroll-based progress bar. Blog posts only.
+// Reading progress — thin warm bar at top of page, blog posts only.
 ---
 
-<div class="reading-progress" id="reading-progress">
+<div class="reading-progress" id="reading-progress" aria-hidden="true">
   <div class="reading-progress-bar" id="reading-progress-bar"></div>
 </div>
 
@@ -15,13 +15,15 @@
     height: 2px;
     background: transparent;
     z-index: 10000;
+    pointer-events: none;
   }
 
   .reading-progress-bar {
     height: 100%;
     width: 0%;
-    background: var(--term-accent);
-    transition: width 0.1s ease-out;
+    background: var(--accent);
+    opacity: 0.7;
+    transition: width 0.15s ease-out;
   }
 </style>
 
@@ -29,15 +31,13 @@
   (function() {
     var bar = document.getElementById('reading-progress-bar');
     if (!bar) return;
-
-    function updateProgress() {
+    function update() {
       var scrollTop = window.scrollY;
       var docHeight = document.documentElement.scrollHeight - window.innerHeight;
       var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
       bar.style.width = Math.min(progress, 100) + '%';
     }
-
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
+    window.addEventListener('scroll', update, { passive: true });
+    update();
   })();
 </script>

@@ -8,44 +8,60 @@ const oldestPost = allPosts.reduce((oldest, post) => {
 
 const startYear = oldestPost ? oldestPost.data.pubDate.getFullYear() : new Date().getFullYear();
 const currentYear = new Date().getFullYear();
-const yearRange = startYear === currentYear ? currentYear : `${startYear}-${currentYear}`;
+const yearRange = startYear === currentYear ? currentYear : `${startYear}–${currentYear}`;
 ---
 
-<footer class="terminal-footer">
-  <span>&copy; {yearRange} <a href="https://vajramatt.github.io/">Matthew Williamson</a> — hologram-thoughts</span>
-  <span class="footer-homage">theme: an homage to <a href="https://blog.rice.is">rice</a></span>
-  <nav class="footer-nav">
-    <a href="/rss.xml">rss</a>
+<footer class="site-footer">
+  <div class="footer-mark" aria-hidden="true">☸</div>
+  <p class="footer-line">
+    <span>&copy; {yearRange} <a href="https://vajramatt.github.io/">Matthew Williamson</a></span>
+    <span class="footer-sep">·</span>
+    <a href="/rss.xml">feed</a>
+    <span class="footer-sep">·</span>
     <a href="/archive">archive</a>
+    <span class="footer-sep">·</span>
     <a href="/search">search</a>
-  </nav>
+  </p>
 </footer>
 
 <style>
-  .terminal-footer {
-    padding: 12px 20px;
-    border-top: 1px solid var(--term-border);
-    color: var(--term-muted);
-    font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .site-footer {
+    padding: 3rem 0 2.5rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+  }
+
+  .footer-mark {
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    opacity: 0.6;
+  }
+
+  .footer-line {
+    margin: 0;
+    display: inline-flex;
     flex-wrap: wrap;
-    gap: 4px 16px;
-    font-family: var(--font-mono);
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: baseline;
   }
 
-  .terminal-footer a:link,
-  .terminal-footer a:visited {
-    color: var(--term-fg-dim);
+  .footer-sep {
+    color: var(--rule);
   }
 
-  .terminal-footer a:hover {
-    color: var(--term-fg-bright);
+  .site-footer a {
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color 150ms ease;
   }
 
-  .footer-nav {
-    display: flex;
-    gap: 16px;
+  .site-footer a:hover {
+    color: var(--accent);
   }
 </style>

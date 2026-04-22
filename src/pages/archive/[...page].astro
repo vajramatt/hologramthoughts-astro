@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 
-function getExcerpt(body, maxLength = 120) {
+function getExcerpt(body, maxLength = 150) {
   const text = body
     .replace(/^---[\s\S]*?---\n?/, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
@@ -28,138 +28,221 @@ export const getStaticPaths = (async ({ paginate }) => {
   const sortedPosts = allPosts.sort((a, b) =>
     new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
   );
-  return paginate(sortedPosts, { pageSize: 20 });
+  return paginate(sortedPosts, { pageSize: 25 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+
+// Group posts by year for a more readable archive
+const postsByYear = {};
+page.data.forEach(post => {
+  const year = post.data.pubDate.getFullYear();
+  if (!postsByYear[year]) postsByYear[year] = [];
+  postsByYear[year].push(post);
+});
+const years = Object.keys(postsByYear).sort((a, b) => b - a);
+
+const formatDate = (d) => d.toLocaleDateString('en-US', {
+  month: 'short', day: '2-digit'
+});
 ---
 
-<Layout title={`Archive${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''} - Hologram Thoughts`}>
-  <SiteHeader activePage="archive" />
+<Layout title={`Archive${page.currentPage > 1 ? ` — page ${page.currentPage}` : ''} — Hologram Thoughts`}>
+  <div class="page">
+    <SiteHeader activePage="archive" />
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
-          </span>
-          <span class="shell-cmd">ls -lt posts/ &nbsp;# {page.total} posts</span>
-        </div>
+    <main class="page-main archive">
+      <header class="archive-header">
+        <p class="eyebrow">Archive</p>
+        <h1>Every piece, oldest to newest.</h1>
+        <p class="archive-count">
+          {page.total} pieces — page {page.currentPage} of {page.lastPage}
+        </p>
+      </header>
 
-        <div class="shell-output">
-          <div class="posts-list">
-            {page.data.map(post => (
-              <div class="post-entry">
-                <div class="post-entry-header">
-                  <span class="post-date">
-                    {post.data.pubDate.toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    })}
-                  </span>
-                  <a href={`/blog/${post.slug}`} class="post-title">{post.data.title}</a>
-                </div>
-                <p class="post-excerpt">{getExcerpt(post.body)}</p>
-              </div>
+      {years.map(year => (
+        <section class="year-group">
+          <h2 class="year-label">{year}</h2>
+          <ul class="post-list">
+            {postsByYear[year].map(post => (
+              <li>
+                <a href={`/blog/${post.slug}`} class="post-link">
+                  <span class="post-date">{formatDate(post.data.pubDate)}</span>
+                  <div class="post-body">
+                    <span class="post-title">{post.data.title}</span>
+                    {post.data.description && (
+                      <span class="post-excerpt">{post.data.description}</span>
+                    )}
+                  </div>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
+        </section>
+      ))}
 
-          <nav class="pagination">
-            {page.url.prev ? (
-              <a href={page.url.prev} class="page-link">&larr; newer</a>
-            ) : <span />}
-            <span class="page-info">page {page.currentPage}/{page.lastPage}</span>
-            {page.url.next ? (
-              <a href={page.url.next} class="page-link">older &rarr;</a>
-            ) : <span />}
-          </nav>
-        </div>
-      </div>
-    </div>
-  </main>
+      <nav class="pagination" aria-label="Archive pagination">
+        {page.url.prev ? (
+          <a href={page.url.prev} class="page-link">← newer</a>
+        ) : <span class="nav-spacer" />}
+        <span class="page-info">page {page.currentPage} / {page.lastPage}</span>
+        {page.url.next ? (
+          <a href={page.url.next} class="page-link">older →</a>
+        ) : <span class="nav-spacer" />}
+      </nav>
+    </main>
 
-  <SiteFooter />
+    <SiteFooter />
+  </div>
 </Layout>
 
 <style>
-  main { margin: 0; padding: 0; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg-dim); }
-  .ps1-dir    { color: #818cf8; }
-  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg-dim); }
-
-  .shell-output { color: var(--term-fg-dim); }
-
-  .posts-list {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
+  .archive {
+    max-width: var(--measure);
+    margin: 0 auto;
   }
 
-  .post-entry {
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--term-border);
+  .archive-header {
+    margin: 1rem 0 3rem;
   }
 
-  .post-entry:last-child { border-bottom: none; }
+  .eyebrow {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 36, "SOFT" 30;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+  }
 
-  .post-entry-header {
+  .archive-header h1 {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 96, "SOFT" 40;
+    font-weight: 500;
+    font-size: clamp(1.85rem, 1.4rem + 1.8vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.75rem;
+    color: var(--fg-bright);
+  }
+
+  .archive-count {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  .year-group {
+    margin-bottom: 2.5rem;
+  }
+
+  .year-label {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 36, "SOFT" 40;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list li {
+    margin: 0;
+  }
+
+  .post-link {
     display: flex;
+    gap: 1.25rem;
+    padding: 0.7rem 0;
+    text-decoration: none;
+    color: inherit;
     align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 3px;
   }
 
   .post-date {
-    color: var(--term-muted);
-    font-size: 12px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--muted);
     white-space: nowrap;
     flex-shrink: 0;
+    min-width: 4.5rem;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
   }
 
   .post-title {
-    color: var(--term-accent);
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1.4;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 36, "SOFT" 40;
+    font-weight: 500;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    color: var(--fg-bright);
+    text-wrap: balance;
+    transition: color 150ms ease;
   }
 
-  .post-title:hover { color: var(--term-accent-hover); }
+  .post-link:hover .post-title {
+    color: var(--accent);
+  }
 
   .post-excerpt {
-    color: var(--term-fg-dim);
-    font-size: 12px;
-    line-height: 1.5;
-    margin: 0;
-    padding-left: calc(10ch + 1rem);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--fg-dim);
+    line-height: 1.45;
+    text-wrap: pretty;
   }
 
   .pagination {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 1.5rem;
-    border-top: 1px dashed var(--term-border);
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
   }
 
   .page-link {
-    color: var(--term-accent);
+    color: var(--fg-dim);
     text-decoration: none;
-    font-size: 13px;
+    font-style: italic;
+    transition: color 150ms ease;
   }
 
-  .page-link:hover { color: var(--term-accent-hover); }
+  .page-link:hover { color: var(--accent); }
 
   .page-info {
-    color: var(--term-muted);
-    font-size: 12px;
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-spacer { flex: 1; }
+
+  @media (max-width: 36rem) {
+    .post-link { gap: 1rem; }
+    .post-date { min-width: 3.5rem; font-size: 0.75rem; }
+    .post-title { font-size: 1rem; }
   }
 </style>

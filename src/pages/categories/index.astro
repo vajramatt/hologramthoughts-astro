@@ -7,11 +7,11 @@ import SiteFooter from '../../components/SiteFooter.astro';
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 
 const categories = [
-  { name: 'Dharma Writings',            description: 'Explorations of Buddhist teachings, philosophy, and the path', slug: 'dharma-writings' },
-  { name: 'Creative Writing',            description: 'Fiction, poetry, and imaginative works', slug: 'creative-writing' },
-  { name: 'Consciousness & Philosophy',  description: 'Reflections on mind, reality, and the nature of existence', slug: 'consciousness-philosophy' },
-  { name: 'Practice & Inner Life',       description: 'Meditation, dreams, and spiritual practices', slug: 'practice-inner-life' },
-  { name: 'Other',                        description: 'Various topics and musings', slug: 'other' },
+  { name: 'Dharma Writings',           description: 'Buddhist teachings, philosophy, the path.',                 slug: 'dharma-writings' },
+  { name: 'Creative Writing',           description: 'Fiction, poetry, imagined worlds.',                          slug: 'creative-writing' },
+  { name: 'Consciousness & Philosophy', description: 'Mind, reality, the nature of being.',                        slug: 'consciousness-philosophy' },
+  { name: 'Practice & Inner Life',      description: 'Meditation, dreams, devotional practice.',                   slug: 'practice-inner-life' },
+  { name: 'Other',                       description: 'Everything else worth saying.',                              slug: 'other' },
 ];
 
 const categoryCounts = {};
@@ -21,92 +21,123 @@ allPosts.forEach(post => {
   });
 });
 
-const categoriesWithCounts = categories.map(cat => ({
-  ...cat,
-  count: categoryCounts[cat.name] || 0
-}));
+const categoriesWithCounts = categories
+  .map(cat => ({ ...cat, count: categoryCounts[cat.name] || 0 }))
+  .filter(cat => cat.count > 0);
 ---
 
-<Layout title="Categories - Hologram Thoughts">
-  <SiteHeader activePage="categories" />
+<Layout title="Categories — Hologram Thoughts">
+  <div class="page">
+    <SiteHeader activePage="categories" />
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
-          </span>
-          <span class="shell-cmd">ls categories/</span>
-        </div>
+    <main class="page-main categories">
+      <header class="page-header">
+        <p class="eyebrow">Categories</p>
+        <h1>Five ways in.</h1>
+        <p class="page-dek">Same writing, grouped differently depending on what brought you here.</p>
+      </header>
 
-        <div class="shell-output">
-          {categoriesWithCounts.map(category => (
-            <div class="category-entry">
-              <span class="entry-arrow">→</span>
-              <div class="entry-info">
-                <a href={`/categories/${category.slug}`} class="category-name">{category.name}/</a>
-                <span class="category-desc">{category.description} ({category.count} posts)</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </main>
+      <ul class="cat-list">
+        {categoriesWithCounts.map(cat => (
+          <li>
+            <a href={`/categories/${cat.slug}`} class="cat-link">
+              <h2 class="cat-name">{cat.name}</h2>
+              <p class="cat-desc">{cat.description}</p>
+              <p class="cat-count">{cat.count} piece{cat.count === 1 ? '' : 's'}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </main>
 
-  <SiteFooter />
+    <SiteFooter />
+  </div>
 </Layout>
 
 <style>
-  main { margin: 0; padding: 0; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg-dim); }
-  .ps1-dir    { color: #818cf8; }
-  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg-dim); }
-
-  .shell-output {
-    color: var(--term-fg-dim);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  .categories {
+    max-width: var(--measure);
+    margin: 0 auto;
   }
 
-  .category-entry {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
+  .page-header {
+    margin: 1rem 0 3rem;
   }
 
-  .entry-arrow {
-    color: var(--term-muted);
-    flex-shrink: 0;
+  .eyebrow {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 36, "SOFT" 30;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.75rem;
   }
 
-  .entry-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 96, "SOFT" 40;
+    font-weight: 500;
+    font-size: clamp(1.85rem, 1.4rem + 1.8vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.75rem;
+    color: var(--fg-bright);
   }
 
-  .category-name {
-    color: #818cf8;
+  .page-dek {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--fg-dim);
+    margin: 0;
+  }
+
+  .cat-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cat-list li + li {
+    border-top: 1px solid var(--rule);
+  }
+
+  .cat-link {
+    display: block;
+    padding: 1.5rem 0;
     text-decoration: none;
-    font-weight: 600;
+    color: inherit;
   }
 
-  .category-name:hover {
-    color: var(--term-accent);
+  .cat-name {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 72, "SOFT" 40;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--fg-bright);
+    margin: 0 0 0.4rem;
+    transition: color 150ms ease;
   }
 
-  .category-desc {
-    color: var(--term-muted);
-    font-size: 12px;
+  .cat-link:hover .cat-name { color: var(--accent); }
+
+  .cat-desc {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--fg-dim);
+    margin: 0 0 0.35rem;
+    line-height: 1.5;
+  }
+
+  .cat-count {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0;
+    letter-spacing: 0.01em;
   }
 </style>

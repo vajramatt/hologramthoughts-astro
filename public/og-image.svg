@@ -1,85 +1,99 @@
-<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
   <defs>
-    <filter id="shadow">
-      <feDropShadow dx="0" dy="4" stdDeviation="14" flood-color="#b8b0a0" flood-opacity="0.5"/>
+    <!-- Subtle paper grain using a feTurbulence filter -->
+    <filter id="paper-texture" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4"/>
+      <feColorMatrix values="0 0 0 0 0.15
+                             0 0 0 0 0.10
+                             0 0 0 0 0.06
+                             0 0 0 0.05 0"/>
+      <feComposite in2="SourceGraphic" operator="in"/>
     </filter>
-    <clipPath id="window-clip">
-      <rect x="48" y="40" width="1104" height="550" rx="8"/>
-    </clipPath>
   </defs>
 
-  <!-- Page background -->
-  <rect width="1200" height="630" fill="#ece8e0"/>
+  <!-- ══════ Background: cream paper ══════ -->
+  <rect width="1200" height="630" fill="#f5efe2"/>
 
-  <!-- Terminal window (shadow + frame) -->
-  <rect x="48" y="40" width="1104" height="550" rx="8" fill="#faf8f4"
-        stroke="#d4cfc4" stroke-width="1.5" filter="url(#shadow)"/>
-
-  <!-- All interior elements clipped to window shape -->
-  <g clip-path="url(#window-clip)">
-
-    <!-- Titlebar -->
-    <rect x="48" y="40" width="1104" height="52" fill="#edeae2"/>
-    <line x1="48" y1="92" x2="1152" y2="92" stroke="#d4cfc4" stroke-width="1"/>
-
-    <!-- Dharma wheel in titlebar -->
-    <text x="84" y="74" font-family="serif" font-size="22"
-          fill="#4338ca" text-anchor="middle" opacity="0.85">☸</text>
-
-    <!-- Titlebar URL -->
-    <text x="600" y="75" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="15" fill="#6b6880" text-anchor="middle" letter-spacing="1.5">dharma://hologram.thoughts</text>
-
-    <!-- Watermark dharma wheel -->
-    <g transform="translate(600, 360)" opacity="0.08">
-      <circle cx="0" cy="0" r="195" fill="none" stroke="#4338ca" stroke-width="3"/>
-      <circle cx="0" cy="0" r="144" fill="none" stroke="#4338ca" stroke-width="1.5"/>
-      <circle cx="0" cy="0" r="30" fill="none" stroke="#4338ca" stroke-width="3"/>
-      <circle cx="0" cy="0" r="9"  fill="#4338ca"/>
-      <line x1="0"    y1="-30"  x2="0"    y2="-144" stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="21.2" y1="-21.2" x2="101.8" y2="-101.8" stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="30"   y1="0"    x2="144"  y2="0"    stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="21.2" y1="21.2"  x2="101.8" y2="101.8"  stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="0"    y1="30"   x2="0"    y2="144"  stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="-21.2" y1="21.2" x2="-101.8" y2="101.8"  stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="-30"  y1="0"    x2="-144" y2="0"    stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="-21.2" y1="-21.2" x2="-101.8" y2="-101.8" stroke="#4338ca" stroke-width="2.5"/>
-      <circle cx="0"    cy="-169" r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="119.5" cy="-119.5" r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="169"  cy="0"    r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="119.5" cy="119.5"  r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="0"    cy="169"  r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="-119.5" cy="119.5"  r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="-169" cy="0"    r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="-119.5" cy="-119.5" r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-    </g>
-
-    <!-- Main title -->
-    <text x="600" y="295" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="88" font-weight="700" text-anchor="middle">
-      <tspan fill="#c9c4bb"># </tspan><tspan fill="#4338ca">Hologram Thoughts</tspan>
-    </text>
-
-    <!-- Tagline -->
-    <text x="600" y="372" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="26" fill="#4a4560" text-anchor="middle" letter-spacing="3">spiritual · philosophical · creative writing</text>
-
-    <!-- Divider -->
-    <line x1="300" y1="410" x2="900" y2="410" stroke="#d4cfc4" stroke-width="1"/>
-
-    <!-- PS1 prompt -->
-    <text x="600" y="456" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="24" text-anchor="middle">
-      <tspan fill="#047857">matt@samsara</tspan><tspan fill="#6b6880">:</tspan><tspan fill="#6366f1">~/dharma</tspan><tspan fill="#6b6880" dx="10">→</tspan><tspan fill="#4a4560" dx="10">read DHARMA.md</tspan>
-    </text>
-
-    <!-- Footer bar -->
-    <rect x="48" y="548" width="1104" height="42" fill="#edeae2"/>
-    <line x1="48" y1="548" x2="1152" y2="548" stroke="#d4cfc4" stroke-width="1"/>
-    <text x="84" y="573" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="13" fill="#6b6880">hologramthoughts.com</text>
-    <text x="1116" y="573" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="13" fill="#6b6880" text-anchor="end">© 2006–2026 matthew williamson</text>
-
+  <!-- ══════ Dharma wheel watermark — quietly present ══════ -->
+  <g transform="translate(920, 315)" opacity="0.09" stroke="#8b3a1a" fill="none" stroke-linecap="round">
+    <circle cx="0" cy="0" r="250" stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="190" stroke-width="1.25"/>
+    <circle cx="0" cy="0" r="40"  stroke-width="2.5"/>
+    <circle cx="0" cy="0" r="11"  fill="#8b3a1a" stroke="none"/>
+    <!-- 8 spokes -->
+    <line x1="0"     y1="-40"   x2="0"     y2="-190" stroke-width="2"/>
+    <line x1="28.3"  y1="-28.3" x2="134.4" y2="-134.4" stroke-width="2"/>
+    <line x1="40"    y1="0"     x2="190"   y2="0" stroke-width="2"/>
+    <line x1="28.3"  y1="28.3"  x2="134.4" y2="134.4" stroke-width="2"/>
+    <line x1="0"     y1="40"    x2="0"     y2="190" stroke-width="2"/>
+    <line x1="-28.3" y1="28.3"  x2="-134.4" y2="134.4" stroke-width="2"/>
+    <line x1="-40"   y1="0"     x2="-190"  y2="0" stroke-width="2"/>
+    <line x1="-28.3" y1="-28.3" x2="-134.4" y2="-134.4" stroke-width="2"/>
+    <!-- 8 tip medallions -->
+    <circle cx="0"     cy="-220" r="14" stroke-width="1.5"/>
+    <circle cx="155.6" cy="-155.6" r="14" stroke-width="1.5"/>
+    <circle cx="220"   cy="0" r="14" stroke-width="1.5"/>
+    <circle cx="155.6" cy="155.6" r="14" stroke-width="1.5"/>
+    <circle cx="0"     cy="220" r="14" stroke-width="1.5"/>
+    <circle cx="-155.6" cy="155.6" r="14" stroke-width="1.5"/>
+    <circle cx="-220"  cy="0" r="14" stroke-width="1.5"/>
+    <circle cx="-155.6" cy="-155.6" r="14" stroke-width="1.5"/>
   </g>
+
+  <!-- ══════ Top wordmark ══════ -->
+  <g transform="translate(72, 78)">
+    <text font-family="Georgia, 'Times New Roman', serif"
+          font-size="13"
+          fill="#a39373"
+          letter-spacing="4"
+          font-weight="500">HOLOGRAM THOUGHTS · EST. 2006</text>
+  </g>
+
+  <!-- ══════ Thin top rule ══════ -->
+  <line x1="72" y1="108" x2="1128" y2="108" stroke="#d4c7ac" stroke-width="1"/>
+
+  <!-- ══════ Main title — the "book cover" ══════ -->
+  <g transform="translate(72, 295)">
+    <text font-family="Georgia, 'Times New Roman', serif"
+          font-size="144"
+          font-weight="500"
+          fill="#1a130d"
+          letter-spacing="-2">Hologram</text>
+    <text y="132"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="144"
+          font-weight="500"
+          font-style="italic"
+          fill="#8b3a1a"
+          letter-spacing="-2">Thoughts.</text>
+  </g>
+
+  <!-- ══════ Dek ══════ -->
+  <g transform="translate(72, 500)">
+    <text font-family="Georgia, 'Times New Roman', serif"
+          font-size="26"
+          font-style="italic"
+          fill="#6a5b47">Spiritual, philosophical, and creative writing —</text>
+    <text y="36"
+          font-family="Georgia, 'Times New Roman', serif"
+          font-size="26"
+          font-style="italic"
+          fill="#6a5b47">a long conversation with whoever is reading.</text>
+  </g>
+
+  <!-- ══════ Bottom rule + metadata ══════ -->
+  <line x1="72" y1="578" x2="1128" y2="578" stroke="#d4c7ac" stroke-width="1"/>
+
+  <text x="72" y="605"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="15"
+        fill="#a39373"
+        letter-spacing="1.5">hologramthoughts.com</text>
+
+  <text x="1128" y="605"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="15"
+        font-style="italic"
+        fill="#a39373"
+        text-anchor="end">Matthew Williamson  ·  since MMVI</text>
 </svg>

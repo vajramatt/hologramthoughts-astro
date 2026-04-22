@@ -8,100 +8,98 @@ interface Props {
 const { activePage } = Astro.props;
 ---
 
-<header class="terminal-header">
-  <div class="terminal-titlebar">
-    <div class="titlebar-dharma">☸</div>
-    <div class="titlebar-title">dharma://hologram.thoughts</div>
-    <div class="titlebar-toggle">
-      <ThemeToggle />
-    </div>
+<header class="site-header">
+  <div class="brand">
+    <a href="/" aria-label="Hologram Thoughts — home">
+      <span class="brand-mark" aria-hidden="true">☸</span>
+      <span class="brand-name">Hologram Thoughts</span>
+    </a>
+    <p class="brand-tagline">ideas last forever</p>
   </div>
-  <nav class="terminal-nav">
-    <a href="/" class:list={[{ active: activePage === 'home' }]}>hologram-thoughts</a>
-    <a href="/archive" class:list={[{ active: activePage === 'archive' }]}>archive</a>
+
+  <nav class="site-nav" aria-label="Primary">
+    <a href="/archive"    class:list={[{ active: activePage === 'archive' }]}>archive</a>
     <a href="/categories" class:list={[{ active: activePage === 'categories' }]}>categories</a>
-    <a href="/search" class:list={[{ active: activePage === 'search' }]}>search</a>
+    <a href="/search"     class:list={[{ active: activePage === 'search' }]}>search</a>
+    <a href="/rss.xml"    aria-label="RSS feed">feed</a>
+    <ThemeToggle />
   </nav>
 </header>
 
 <style>
-  .terminal-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--term-bg);
-  }
-
-  .terminal-titlebar {
-    background: var(--term-titlebar-bg);
-    padding: 10px 16px;
+  .site-header {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--term-border);
-  }
-
-  .titlebar-dharma {
-    font-size: 18px;
-    color: var(--term-accent);
-    text-shadow: var(--term-glow);
-    flex-shrink: 0;
-    line-height: 1;
-  }
-
-  .titlebar-title {
-    flex: 1;
-    text-align: center;
-    color: var(--term-muted);
-    font-size: 13px;
-    font-family: var(--font-mono);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .titlebar-toggle {
-    flex-shrink: 0;
-  }
-
-  .terminal-nav {
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--term-border);
-    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 2rem;
+    padding: 2rem 0 1.25rem;
+    border-bottom: 1px solid var(--rule);
     flex-wrap: wrap;
-    align-items: center;
-    gap: 0 24px;
-    background: var(--term-bg);
   }
 
-  .terminal-nav a {
-    color: var(--term-fg-dim);
+  .brand a {
     text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.15s;
-    font-family: var(--font-mono);
-    font-size: 14px;
+    color: var(--fg-bright);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+  .brand a:hover { color: var(--accent); }
+
+  .brand-mark {
+    font-size: 1.1em;
+    color: var(--accent);
+    line-height: 1;
+    position: relative;
+    top: 0.05em;
   }
 
-  .terminal-nav a::before {
-    content: "→ ";
-    color: var(--term-muted);
+  .brand-name {
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-weight: 500;
+    font-size: 1.45rem;
+    letter-spacing: -0.015em;
   }
 
-  .terminal-nav a:hover,
-  .terminal-nav a.active {
-    color: var(--term-accent);
-    text-shadow: var(--term-glow);
+  .brand-tagline {
+    margin: 0.15rem 0 0;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.85rem;
   }
 
-  @media (max-width: 50rem) {
-    .terminal-nav {
-      padding: 10px 16px;
-      gap: 0 16px;
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.35rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+  }
+
+  .site-nav a {
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color 150ms ease;
+    letter-spacing: 0.01em;
+  }
+
+  .site-nav a:hover,
+  .site-nav a.active {
+    color: var(--accent);
+  }
+
+  .site-nav a.active {
+    font-style: italic;
+  }
+
+  @media (max-width: 42rem) {
+    .site-header {
+      padding: 1.5rem 0 1rem;
+      gap: 1rem;
     }
-
-    .titlebar-title {
-      font-size: 11px;
-    }
+    .brand-name { font-size: 1.25rem; }
+    .site-nav { gap: 1rem; font-size: 0.85rem; }
   }
 </style>

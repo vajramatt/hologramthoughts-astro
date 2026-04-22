@@ -12,58 +12,79 @@ Static blog at hologramthoughts.com — spiritual, philosophical, and creative w
 - **Content**: Markdown in `src/content/blog/`, Zod schema in `src/content/config.ts`
 - **Search**: Client-side search (custom, in `search.astro`)
 - **Hosting**: Cloudflare Pages
-- **Typography**: Space Mono (Google Fonts) — monospace throughout
+- **Typography**:
+  - **Fraunces** — display serif. Used for the site wordmark, post titles, page titles, section headings, eyebrows. Variable axes (opsz, wght, SOFT, WONK). Set with `font-variation-settings` for per-context warmth.
+  - **Newsreader** — body serif. Used for all long-form prose, UI text, metadata, navigation, paragraphs, lists, blockquotes. Designed by Production Type for on-screen reading. Variable (opsz, wght, ital).
+  - **Space Mono** — mono, code only (`<code>`, `<pre>`). Not used for UI anywhere else.
 
-## Design System — Far Future Dharma Terminal
+## Design System — Parchment & Lamplight
 
-The site uses a terminal aesthetic rooted in a "far future dharma" concept: you're jacked into the dharma net, navigating teachings from a node called `samsara`. Inspired by (but deliberately distinct from) blog.rice.is — the footer credits the homage.
+The site is a literary publication. A warm palette, generous measure, and confident typography — meant to feel like a well-made book, not a terminal. No CRT chrome, no shell prompts, no `→` nav prefix. The reader is the audience; the typography is the room.
 
-### Palette (dark default)
+### Palette
 
-All colors via CSS custom properties defined in `Layout.astro`:
+All colors defined as CSS custom properties in `Layout.astro`:
 
-| Token | Dark | Light | Role |
+| Token | Dark (lamplight on paper) | Light (paper in sun) | Role |
 |---|---|---|---|
-| `--term-bg` | `#090b12` | `#faf8f4` | Page background |
-| `--term-fg` | `#c8d0e8` | `#1e1a2e` | Body text |
-| `--term-fg-dim` | `#8892b0` | `#4a4560` | Muted text |
-| `--term-fg-bright` | `#eef2ff` | `#0d0b1a` | Emphasis |
-| `--term-accent` | `#fbbf24` | `#4338ca` | Dark: electric saffron / Light: deep indigo |
-| `--term-green` | `#34d399` | `#047857` | PS1 username |
-| `--term-border` | `#1e2538` | `#d4cfc4` | Borders |
-| `--term-code-bg` | `#0d1020` | `#edeae2` | Code blocks, TOC |
-| `--term-muted` | `#4a5568` | `#6b6880` | Prompt symbols, markers |
-| `--term-glow` | amber text-shadow | none | Holographic glow on accent elements |
+| `--bg` | `#1a1713` | `#f5efe2` | Page background |
+| `--bg-soft` | `#201c17` | `#ede6d5` | Inset backgrounds |
+| `--fg` | `#e8dcc4` | `#2a211a` | Body text |
+| `--fg-dim` | `#9d8e73` | `#6a5b47` | Secondary text |
+| `--fg-bright` | `#f5ead2` | `#1a130d` | Titles, emphasis |
+| `--accent` | `#c8956d` (copper) | `#8b3a1a` (oxblood) | Links, accent, drop cap |
+| `--accent-hover` | `#d9a87d` | `#6b2c12` | Hover |
+| `--border` | `#2e2822` | `#e4d8c2` | Strong rules |
+| `--rule` | `#3b3328` | `#d4c7ac` | Soft section dividers |
+| `--muted` | `#6a5d48` | `#a39373` | Dates, metadata, eyebrows |
+| `--code-bg` | `#221d17` | `#ede4d1` | Code blocks |
+| `--selection` | copper @ 28% | oxblood @ 18% | Selection |
+
+### Typography tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `--font-display` | Fraunces, Source Serif 4, Georgia | Titles, headings, eyebrows, wordmark |
+| `--font-body` | Newsreader, Source Serif 4, Georgia | Prose, UI, metadata |
+| `--font-mono` | Space Mono, IBM Plex Mono | Code only |
+| `--measure` | `38rem` | Reading column (~65 chars of serif at body size) |
+| `--measure-wide` | `48rem` | Listings, page max-width |
+| `--size-body` | `clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem)` | Fluid reading size |
 
 ### Key design elements
 
-- **Terminal window**: `max-width: 72rem` container with subtle amber outer glow (`box-shadow`)
-- **Titlebar**: `☸` dharma wheel left + `dharma://hologram.thoughts` centered + theme toggle right — no Mac-style dots
-- **Nav prefix**: `→ link` (not `$ link`)
-- **Shell session framing**: every page opens with a PS1 prompt — `matt@samsara:~/dharma →`
-- **Commands**: `read ./slug.md` (posts), `ls -lt ~/dharma/posts/` (listings), `read DHARMA.md` (homepage README)
-- **Markdown-as-HTML**: headings show `# `, `## `, `### ` prefixes via `::before` pseudo-elements in muted color; `>` on blockquotes; `---` on `<hr>`; `›` list bullets
-- **Glow**: `text-shadow: var(--term-glow)` on headings, post titles, active nav — amber holographic effect
-- **CRT scanlines**: `repeating-linear-gradient` overlay on `.terminal-window::after`
-- **Dark default**: localStorage-persisted, FOUC-prevented with inline script
-- **Post excerpts**: first ~160 chars of `post.body` with markdown stripped, shown in listings
+- **Container**: `.page` — `max-width: var(--measure-wide)` (48rem), horizontal padding fluid
+- **Reading column**: `.post`, `.home`, `.archive`, `.search`, `.categories` — `max-width: var(--measure)` (38rem) centered. Everything the reader reads sits inside this measure.
+- **Header**: ☸ dharma wheel + wordmark left ("Hologram Thoughts" in Fraunces), tagline "ideas last forever" italic underneath, right-aligned nav: `archive / categories / search / feed` + theme toggle. Single `border-bottom` rule.
+- **Post header**: eyebrow (category in all-caps tracked small caps) → large Fraunces title (up to 3.25rem, variable opsz 144, SOFT 40) → optional italic dek (from `description`) → small byline (date · reading time · series).
+- **Drop cap**: first paragraph of every post. Fraunces, 4.5em, accent color, floated left. Scales down to 3.5em under 30rem viewport.
+- **End mark**: `✦` centered at 1.25rem, accent color at 65% opacity, marks the end of prose.
+- **Section breaks in prose**: `<hr>` renders as `· · ·` centered, tracked, muted.
+- **Post nav**: previous / next side-by-side in the measure column at the bottom of each post. Italic eyebrow direction, Fraunces title.
+- **Light default**: new visitors land on light; saved preference respected via `localStorage`, FOUC-prevented with an inline script in `<head>`.
 
-### Prompt format
+### Variable font settings
 
-```
-matt@samsara:~/dharma → read ./slug.md
-```
-
-- Username (`ps1-user`): `var(--term-green)`
-- Directory (`ps1-dir`): `#818cf8` (indigo-violet)
-- Arrow (`ps1-dollar`): `var(--term-muted)`
+Fraunces is set with explicit `font-variation-settings` per context:
+- **Wordmark (header)**: `"opsz" 144, "SOFT" 30` — cold, big
+- **Featured / post title**: `"opsz" 144, "SOFT" 40` — warm, big
+- **Page titles**: `"opsz" 96, "SOFT" 40`
+- **Section headings (inside posts)**: `"opsz" 72, "SOFT" 50` — softer at mid-size
+- **Post-list titles**: `"opsz" 48, "SOFT" 40`
+- **Eyebrows**: `"opsz" 36, "SOFT" 30` — crisp for small-caps tracking
+- **Drop cap**: `"opsz" 144, "SOFT" 50, "wght" 500`
 
 ### DO NOT
 
-- Hardcode hex colors in component `<style>` blocks — use CSS variables
-- Use serif fonts anywhere — Space Mono only
-- Add Mac-style colored dots to the titlebar
-- Use `$` as the prompt terminator — use `→`
+- Hardcode hex colors in component `<style>` blocks — use the CSS variables
+- Use Space Mono outside of `code` / `pre` / programmatic IDs. It is the code voice, not the UI voice.
+- Revive terminal chrome (shell prompts, `→ link` nav prefixes, CRT scanlines, `#` heading prefix glyphs, `matt@samsara:~/dharma →` PS1, `read DHARMA.md` framing, `ls -lt posts/` command framing). That aesthetic is retired.
+- Add bare `#rrggbb` to a scoped `<style>` block. If you need a new color, add a token.
+- Use emojis as icons. SVG only.
+
+### Reading column
+
+Post body prose is centered in `var(--measure)` (38rem, ≈65 characters of Newsreader at `var(--size-body)`). Line height is `1.75` for prose, `1.7` elsewhere. Post-body paragraphs get `text-wrap: pretty` (prevents orphans) and `hanging-punctuation: first last`. Headings in posts get `text-wrap: balance`. OpenType features: `"kern", "liga", "onum" 1` (old-style numerals for warmer body feel).
 
 ## Commands
 
@@ -92,7 +113,7 @@ Domain: hologramthoughts.com (configured in Cloudflare dashboard).
 - Categories are hardcoded: Dharma Writings, Creative Writing, Consciousness & Philosophy, Practice & Inner Life, Other
 - Filter drafts on all pages: `getCollection('blog', ({ data }) => !data.draft)`
 - Archive lives at `/archive/[...page].astro` to avoid route conflicts with `/blog/[slug].astro`
-- `.terminal-main` padding is defined globally in `Layout.astro` (not in `ReaderShell.astro`) so it applies to all pages including `[slug].astro` which has its own wrapper div
+- Every page wraps its content in `<div class="page">` (from `Layout.astro` globals — 48rem max-width container with fluid horizontal padding). Inner reading content (post body, homepage feed, archive, category listings, search) is further constrained to `var(--measure)` (38rem).
 
 ## Content Series
 

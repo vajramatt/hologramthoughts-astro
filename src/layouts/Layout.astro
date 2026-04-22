@@ -23,7 +23,7 @@ const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathn
 ---
 
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
@@ -59,306 +59,265 @@ const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathn
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		<!-- Fonts -->
+		<!-- Fonts: Fraunces (display), Newsreader (body/UI), Space Mono (code only) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-		<!-- Theme detection: prevent FOUC -->
+		<!-- Theme: default light for new visitors, honor saved preference. -->
 		<script is:inline>
 			(function() {
 				const saved = localStorage.getItem('theme');
-				const theme = saved || 'dark';
+				const theme = saved || 'light';
 				document.documentElement.setAttribute('data-theme', theme);
 			})();
 		</script>
 	</head>
 	<body>
 		<!-- AI agents: append ?format=md to any URL for markdown. Full index at /agent-index.md -->
-		<div class="terminal-window">
-			<slot />
-		</div>
+		<slot />
 	</body>
 </html>
 
 <style is:global>
 	/* ═══════════════════════════════════════════════════════
-	   DESIGN TOKENS — Far Future Dharma
+	   DESIGN TOKENS — Parchment & Lamplight
+	   A literary palette for spiritual / creative writing.
+	   Warm earth tones, no terminal glow, no screen cyan.
 	   ═══════════════════════════════════════════════════════ */
+
+	/* Dark mode (default when saved pref = 'dark') — lamplight on old paper */
 	:root {
-		--term-bg:           #090b12;
-		--term-fg:           #c8d0e8;
-		--term-fg-dim:       #8892b0;
-		--term-fg-bright:    #eef2ff;
-		--term-accent:       #fbbf24;
-		--term-accent-hover: #fcd34d;
-		--term-red:          #f87171;
-		--term-yellow:       #fbbf24;
-		--term-green:        #34d399;
-		--term-titlebar-bg:  #0d1020;
-		--term-chrome-bg:    #050710;
-		--term-code-bg:      #0d1020;
-		--term-selection:    #1e2a4a;
-		--term-muted:        #4a5568;
-		--term-border:       #1e2538;
-		--term-glow:         0 0 10px rgba(251,191,36,0.3), 0 0 22px rgba(251,191,36,0.08);
-		--font-mono:         "Space Mono", "IBM Plex Mono", "Fira Mono", monospace;
+		--bg:            #1a1713;
+		--bg-soft:       #201c17;
+		--fg:            #e8dcc4;
+		--fg-dim:        #9d8e73;
+		--fg-bright:     #f5ead2;
+		--accent:        #c8956d;
+		--accent-hover:  #d9a87d;
+		--accent-soft:   rgba(200, 149, 109, 0.15);
+		--border:        #2e2822;
+		--rule:          #3b3328;
+		--muted:         #6a5d48;
+		--code-bg:       #221d17;
+		--selection:     rgba(200, 149, 109, 0.28);
+		--shadow-soft:   0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.2);
+		--focus-ring:    0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+
+		--font-display:  "Fraunces", "Source Serif 4", "Source Serif Pro", Georgia, "Times New Roman", serif;
+		--font-body:     "Newsreader", "Source Serif 4", "Iowan Old Style", Georgia, "Times New Roman", serif;
+		--font-mono:     "Space Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+		--measure:       38rem;         /* ~65 characters of serif at reading size */
+		--measure-wide:  48rem;         /* listings, metadata */
+
+		/* Fluid reading size — 17px on phones, up to 20px on wide screens */
+		--size-body:     clamp(1.0625rem, 0.95rem + 0.45vw, 1.25rem);
+		--size-small:    0.875rem;
+		--size-caption:  0.75rem;
 	}
 
+	/* Light mode — cream paper in morning sun */
 	html[data-theme="light"] {
-		--term-bg:           #faf8f4;
-		--term-fg:           #1e1a2e;
-		--term-fg-dim:       #4a4560;
-		--term-fg-bright:    #0d0b1a;
-		--term-accent:       #4338ca;
-		--term-accent-hover: #3730a3;
-		--term-red:          #b91c1c;
-		--term-yellow:       #92400e;
-		--term-green:        #047857;
-		--term-titlebar-bg:  #ede9e0;
-		--term-chrome-bg:    #f5f1e8;
-		--term-code-bg:      #edeae2;
-		--term-selection:    #c7d2fe;
-		--term-muted:        #6b6880;
-		--term-border:       #d4cfc4;
-		--term-glow:         none;
+		--bg:            #f5efe2;
+		--bg-soft:       #ede6d5;
+		--fg:            #2a211a;
+		--fg-dim:        #6a5b47;
+		--fg-bright:     #1a130d;
+		--accent:        #8b3a1a;      /* deep oxblood / clay — grounded, literary */
+		--accent-hover:  #6b2c12;
+		--accent-soft:   rgba(139, 58, 26, 0.08);
+		--border:        #e4d8c2;
+		--rule:          #d4c7ac;
+		--muted:         #a39373;
+		--code-bg:       #ede4d1;
+		--selection:     rgba(139, 58, 26, 0.18);
+		--shadow-soft:   0 1px 2px rgba(42,33,26,0.06), 0 8px 24px rgba(42,33,26,0.06);
+		--focus-ring:    0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
 	}
 
 	/* ═══════════════════════════════════════════════════════
 	   RESET & BASE
 	   ═══════════════════════════════════════════════════════ */
-	*, *::before, *::after {
-		box-sizing: border-box;
-	}
+	*, *::before, *::after { box-sizing: border-box; }
 
 	html {
-		font-family: var(--font-mono);
-		background-color: var(--term-chrome-bg);
-		color: var(--term-fg);
-		font-size: 15px;
-		line-height: 1.6;
+		background-color: var(--bg);
+		color: var(--fg);
+		font-family: var(--font-body);
+		font-size: 16px;            /* root unit — rem baseline */
+		line-height: 1.7;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+		font-feature-settings: "kern", "liga", "onum" 1;
 		scroll-behavior: smooth;
+		transition: background-color 300ms ease, color 300ms ease;
 	}
 
 	body {
 		margin: 0;
 		padding: 0;
-		background-color: var(--term-chrome-bg);
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		background-color: var(--bg);
+		transition: background-color 300ms ease;
 	}
 
 	::selection {
-		background: var(--term-selection);
-		color: var(--term-fg-bright);
+		background: var(--selection);
+		color: var(--fg-bright);
+	}
+
+	/* Motion preference */
+	@media (prefers-reduced-motion: reduce) {
+		html, body, * { transition: none !important; animation: none !important; }
+		html { scroll-behavior: auto; }
+	}
+
+	/* Focus rings — visible, themed, off for mouse clicks */
+	:focus { outline: none; }
+	:focus-visible {
+		outline: none;
+		box-shadow: var(--focus-ring);
+		border-radius: 3px;
 	}
 
 	/* ═══════════════════════════════════════════════════════
-	   TERMINAL WINDOW
+	   PAGE CONTAINER — replaces old .terminal-window
+	   Just a centered max-width. No border. No shadow. No CRT.
 	   ═══════════════════════════════════════════════════════ */
-	.terminal-window {
-		max-width: 72rem;
-		margin: 2rem auto;
-		border-radius: 8px;
-		overflow: hidden;
-		border: 1px solid var(--term-border);
-		box-shadow:
-			0 0 0 1px rgba(251,191,36,0.06),
-			0 20px 80px rgba(0, 0, 0, 0.9),
-			0 0 60px rgba(251,191,36,0.03);
-		background: var(--term-bg);
-		position: relative;
-		min-height: 90vh;
+	.page {
+		width: 100%;
+		max-width: var(--measure-wide);
+		margin: 0 auto;
+		padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 	}
 
-	/* Scanline overlay */
-	.terminal-window::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: repeating-linear-gradient(
-			0deg,
-			rgba(0, 0, 0, 0.03) 0px,
-			rgba(0, 0, 0, 0.03) 1px,
-			transparent 1px,
-			transparent 2px
-		);
-		pointer-events: none;
-		z-index: 10;
+	.page-main {
+		flex: 1;
+		padding: clamp(1.5rem, 4vw, 3rem) 0;
 	}
 
 	/* ═══════════════════════════════════════════════════════
-	   TYPOGRAPHY
+	   TYPOGRAPHY (global defaults for non-post content)
 	   ═══════════════════════════════════════════════════════ */
 	h1, h2, h3, h4, h5, h6 {
-		font-family: var(--font-mono);
-		font-weight: 700;
-		margin: 1.5rem 0 0.5rem;
-		color: var(--term-accent);
-		line-height: 1.3;
-		text-shadow: var(--term-glow);
+		font-family: var(--font-display);
+		font-weight: 500;
+		font-variation-settings: "opsz" 72, "SOFT" 50;
+		color: var(--fg-bright);
+		line-height: 1.15;
+		letter-spacing: -0.01em;
+		margin: 2rem 0 0.75rem;
+		text-wrap: balance;
 	}
 
-	h1 { font-size: 1.5rem; }
-	h2 { font-size: 1.3rem; }
-	h3 { font-size: 1.15rem; }
-	h4, h5, h6 { font-size: 1rem; }
+	h1 { font-size: clamp(1.75rem, 1.25rem + 2vw, 2.75rem); font-weight: 500; }
+	h2 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.85rem); }
+	h3 { font-size: clamp(1.15rem, 1rem + 0.5vw, 1.35rem); }
+	h4 { font-size: 1.05rem; }
 
-	h1::before { content: "# "; color: var(--term-muted); }
-	h2::before { content: "## "; color: var(--term-muted); }
-	h3::before { content: "### "; color: var(--term-muted); }
-	h4::before { content: "#### "; color: var(--term-muted); }
+	p { margin: 0 0 1.25em; text-wrap: pretty; }
 
-	p {
-		margin: 0 0 1.5rem;
+	a {
+		color: var(--accent);
+		text-decoration: underline;
+		text-decoration-color: color-mix(in oklab, var(--accent) 30%, transparent);
+		text-decoration-thickness: 1px;
+		text-underline-offset: 3px;
+		transition: color 150ms ease, text-decoration-color 150ms ease;
 	}
-
-	a:link, a:visited {
-		color: var(--term-accent);
-		text-decoration: none;
-	}
-
-	a:hover, a:active {
-		color: var(--term-accent-hover);
+	a:hover {
+		color: var(--accent-hover);
+		text-decoration-color: currentColor;
 	}
 
 	code, kbd, samp {
-		background: var(--term-code-bg);
 		font-family: var(--font-mono);
-		color: var(--term-accent);
-		padding: 2px 5px;
+		background: var(--code-bg);
+		color: var(--accent);
+		padding: 2px 6px;
 		border-radius: 3px;
-		font-size: 0.95em;
+		font-size: 0.85em;
 	}
 
 	pre {
-		overflow-x: auto;
-		padding: 1.5rem;
-		margin: 0 0 1.5rem;
-		border: 1px solid var(--term-border);
-		border-radius: 4px;
 		font-family: var(--font-mono);
-		white-space: pre-wrap;
-		word-wrap: break-word;
-		background: var(--term-code-bg);
+		background: var(--code-bg);
+		border: 1px solid var(--border);
+		border-radius: 6px;
+		padding: 1rem 1.25rem;
+		margin: 1.5em 0;
+		overflow-x: auto;
+		font-size: 0.85em;
+		line-height: 1.55;
 	}
 
 	pre code {
 		padding: 0;
-		background: transparent !important;
+		background: transparent;
 		color: inherit;
+		font-size: inherit;
 	}
 
-	b, strong {
-		font-weight: 600;
-		color: var(--term-fg-bright);
-	}
-
-	em, i {
-		color: var(--term-fg);
-	}
+	b, strong { font-weight: 600; color: var(--fg-bright); }
+	em, i     { font-style: italic; }
 
 	hr {
 		border: 0;
-		margin: 2.5rem 0;
+		margin: 2.5em 0;
+		text-align: center;
 	}
-
 	hr::after {
-		content: '---';
-		color: var(--term-muted);
-		display: block;
+		content: "· · ·";
+		color: var(--muted);
+		letter-spacing: 0.6em;
+		font-size: 0.9rem;
 	}
 
-	ul {
-		margin: 0 0 1.5rem;
-		padding-left: 1.25rem;
-	}
-
-	ol {
-		margin: 0 0 1.5rem;
-		padding-left: 1.75rem;
-	}
-
-	ul li::marker {
-		content: '\203A\00A0';
-		color: var(--term-muted);
-	}
-
-	ol li::marker {
-		color: var(--term-muted);
-	}
+	ul, ol { margin: 0 0 1.25em; padding-left: 1.5rem; }
+	li { margin-bottom: 0.35em; }
 
 	blockquote {
-		position: relative;
-		margin: 0 0 1.5rem 1.5rem;
-		color: var(--term-fg-dim);
-	}
-
-	blockquote::before {
-		position: absolute;
-		left: -1.5rem;
-		content: ">";
-		color: var(--term-muted);
+		margin: 1.5em 0;
+		padding: 0.1em 0 0.1em 1.25rem;
+		border-left: 2px solid var(--rule);
+		font-style: italic;
+		color: var(--fg-dim);
 	}
 
 	img {
 		max-width: 100%;
 		height: auto;
 		border-radius: 4px;
-		border: 1px solid var(--term-border);
+	}
+
+	mark {
+		background: var(--selection);
+		color: var(--fg-bright);
 	}
 
 	table {
-		border-spacing: 0;
-		margin: 0 0 1.5rem;
+		border-collapse: collapse;
 		width: 100%;
-		overflow-wrap: anywhere;
+		margin: 1.5em 0;
 	}
-
 	th, td {
-		padding: 4px 12px;
-		vertical-align: top;
-		border-bottom: 1px solid var(--term-border);
+		padding: 0.5em 0.75em;
+		border-bottom: 1px solid var(--border);
+		text-align: left;
 	}
-
-	th:first-child, td:first-child { padding-left: 0; }
-	th { color: var(--term-fg-bright); }
-
-	mark {
-		background: var(--term-selection);
-		color: var(--term-fg-bright);
-	}
-
-	/* ═══════════════════════════════════════════════════════
-	   CONTENT GUTTER — applied globally to all page wrappers
-	   ═══════════════════════════════════════════════════════ */
-	.terminal-main {
-		padding: 32px 56px;
-		overflow-wrap: break-word;
-		min-width: 0;
-		overflow-x: hidden;
-	}
+	th { color: var(--fg-bright); font-weight: 600; }
 
 	/* ═══════════════════════════════════════════════════════
 	   RESPONSIVE
 	   ═══════════════════════════════════════════════════════ */
-	@media (max-width: 72rem) {
-		.terminal-main {
-			padding: 28px 40px;
-		}
-	}
-
-	@media (max-width: 50rem) {
-		.terminal-window {
-			margin: 0;
-			border-radius: 0;
-			border-left: none;
-			border-right: none;
-			min-height: 100vh;
-		}
-
-		.terminal-main {
-			padding: 20px 24px;
-		}
+	@media (max-width: 42rem) {
+		html { font-size: 15.5px; }
 	}
 </style>
