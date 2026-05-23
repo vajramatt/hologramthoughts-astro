@@ -6,9 +6,17 @@ interface Props { related: RelatedPost[]; }
 const { related } = Astro.props;
 
 const all = await getCollection('blog', ({ data }) => !data.draft);
-const bySlug = new Map(all.map(p => [p.data.slug ?? p.id.replace(/\.md$/, ''), p]));
+// Build multi-key index: frontmatter slug, astro slug, and id (with/without .md)
+// to tolerate any of those being how related[].slug was generated.
+const bySlug = new Map();
+for (const p of all) {
+  const idBase = p.id.replace(/\.md$/, '');
+  if (p.data.slug) bySlug.set(p.data.slug, p);
+  if ((p as any).slug) bySlug.set((p as any).slug, p);
+  bySlug.set(idBase, p);
+}
 const items = related
-  .map(r => ({ post: bySlug.get(r.slug), rationale: r.rationale }))
+  .map(r => ({ post: bySlug.get(r.slug), rationale: r.rationale, slug: r.slug }))
   .filter(x => x.post);
 ---
 {items.length > 0 && (
@@ -17,7 +25,7 @@ const items = related
     <ul class="space-y-5">
       {items.map(({ post, rationale }) => (
         <li>
-          <a href={`/blog/${post!.data.slug ?? post!.id.replace(/\.md$/, '')}/`} class="block group no-underline">
+          <a href={`/blog/${(post as any).slug ?? post!.id.replace(/\.md$/, '')}/`} class="block group no-underline">
             <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">
               {post!.data.title}
               <span class="text-xs text-[var(--color-ink-soft)] ml-2 align-middle">({new Date(post!.data.pubDate).getFullYear()})</span>
