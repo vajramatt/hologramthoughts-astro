@@ -1,12 +1,12 @@
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import matter from 'gray-matter';
-import { llama } from './lib/llm';
+import { chat } from './lib/llm';
 
 const SYSTEM = `You extract 3 to 7 short thematic tags (kebab-case, 1-3 words each) from a personal essay. Return JSON only: {"tags": ["..."]}. Tags should be specific enough to cluster across the archive but general enough to recur. Avoid proper nouns unless they are central. No commentary, no markdown, just JSON.`;
 
 async function proposeTagsForPost(title: string, body: string): Promise<string[]> {
-  const text = await llama([
+  const text = await chat([
     { role: 'system', content: SYSTEM },
     { role: 'user', content: `Title: ${title}\n\n${body.slice(0, 3500)}` }
   ], { maxTokens: 200, temperature: 0.3 });

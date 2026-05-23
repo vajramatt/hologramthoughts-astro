@@ -50,9 +50,10 @@ npm run build        # Astro static build
 
 Individual stages: `build:tag`, `build:canonicalize`, `build:bio`, `build:blurbs`, `build:embed`, `build:related`, `build:rationale`. Note: `build:muse` meta-script not yet wired — runs added when each stage script lands.
 
-Build-time scripts call Workers AI for Llama 3.3 70B (themes) and Anthropic
-for bio derivation (one-shot). Require env vars: `CF_ACCOUNT_ID`,
-`CF_API_TOKEN`, `ANTHROPIC_API_KEY`. None of these ship to production.
+Build-time scripts call Workers AI for `alibaba/qwen3-max` (themes, bio, blurbs,
+synthesis, rationale) via the shared `chat()` helper in `scripts/lib/llm.ts`.
+Model can be overridden via `MUSE_MODEL` env var. Require env vars:
+`CF_ACCOUNT_ID`, `CF_API_TOKEN`. None of these ship to production.
 
 ### DO NOT
 
