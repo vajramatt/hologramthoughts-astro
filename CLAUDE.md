@@ -43,17 +43,29 @@ Build outputs in `src/content/themes/`:
 
 ### Build pipeline (idempotent, run from local laptop)
 
+Two terminals.
+
+**Terminal 1 — relay Worker** (auth via wrangler OAuth, no API token needed):
 ```sh
-npm run build:muse   # full Muse pipeline (tag → canonicalize → bio → blurbs → embed → related → rationale)
-npm run build        # Astro static build
+npm run muse:relay        # cd scripts/relay-worker && wrangler dev
+```
+
+**Terminal 2 — build scripts:**
+```sh
+npm run build:muse        # full pipeline (tag → canonicalize → bio → blurbs → embed → related → rationale)
+npm run build             # Astro static build
 ```
 
 Individual stages: `build:tag`, `build:canonicalize`, `build:bio`, `build:blurbs`, `build:embed`, `build:related`, `build:rationale`. Note: `build:muse` meta-script not yet wired — runs added when each stage script lands.
 
-Build-time scripts call Workers AI for `alibaba/qwen3-max` (themes, bio, blurbs,
-synthesis, rationale) via the shared `chat()` helper in `scripts/lib/llm.ts`.
-Model can be overridden via `MUSE_MODEL` env var. Require env vars:
-`CF_ACCOUNT_ID`, `CF_API_TOKEN`. None of these ship to production.
+Build scripts POST to the relay (`http://localhost:8787/run`), which calls
+`env.AI.run(model, body)` via the Workers AI binding. Default chat model
+`alibaba/qwen3-max`. Override via `MUSE_MODEL` env var. Override embed model
+via `MUSE_EMBED_MODEL` (default `@cf/baai/bge-base-en-v1.5`). Override relay
+URL via `MUSE_RELAY_URL`.
+
+First-time auth: `npx wrangler login` (browser OAuth). No `CF_API_TOKEN`
+needed. None of these scripts or the relay Worker ship to production.
 
 ### DO NOT
 

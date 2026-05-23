@@ -1,0 +1,16 @@
+# Muse build-time relay Worker.
+# Local-only. Never deployed. Exists so node build scripts can call
+# Workers AI via the [ai] binding (using `wrangler dev` OAuth) instead
+# of requiring a CF_API_TOKEN for REST calls.
+#
+# Usage:
+#   cd scripts/relay-worker && npx wrangler dev
+#   # in another terminal:
+#   npm run build:tag
+name = "muse-relay"
+main = "src/index.ts"
+compatibility_date = "2026-04-28"
+compatibility_flags = ["nodejs_compat"]
+
+[ai]
+binding = "AI"

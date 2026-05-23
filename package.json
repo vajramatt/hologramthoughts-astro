@@ -9,6 +9,7 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
+    "muse:relay": "cd scripts/relay-worker && npx wrangler dev",
     "build:tag": "tsx scripts/01-tag-posts.ts",
     "build:canonicalize": "tsx scripts/02-canonicalize.ts"
   },
