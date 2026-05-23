@@ -1,0 +1,27 @@
+# Muse picks — what Matthew tells Muse to surface
+#
+# This file is Matthew's hand to Muse: edit it to point her at specific
+# posts/threads. Rebuild + deploy after changes. Empty arrays = use defaults.
+#
+# Each section overrides a corresponding block on the homepage MuseHighlight.
+
+# Stories — surfaced in the "Stories" column on the homepage.
+# Order matters; first 5 render. Use the post's frontmatter slug.
+# If empty, falls back to all posts with `contentType: story` in frontmatter.
+stories:
+  - the-fire-between-us
+  - the-willow-and-the-river
+  - the-shade-was-good
+
+# Latest — what Muse considers "latest worth noticing".
+# Order matters; first 5 render. If empty, falls back to the 5 most recent posts.
+latest: []
+
+# Threads — which themes Muse is highlighting right now.
+# Theme ids from src/content/themes/taxonomy.json. If empty, falls back to
+# the 6 themes with the highest postCount.
+threads: []
+
+# Featured note (optional) — hand-written Muse note shown atop the homepage
+# in italic. If empty, the section is hidden.
+featured_note: ""
