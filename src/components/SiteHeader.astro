@@ -8,8 +8,14 @@ const nav = [
 ];
 const path = Astro.url.pathname;
 ---
-<header class="sticky top-0 z-30 backdrop-blur-md border-b border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-bg) 75%, transparent);">
-  <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+<header class="sticky top-0 z-30 backdrop-blur-md border-b border-[var(--color-border)] relative overflow-hidden" style="background: color-mix(in oklch, var(--color-bg) 75%, transparent);">
+  <!-- Canopy-edge curves: slow horizontal drift, mirrored at bottom of header -->
+  <svg aria-hidden="true" class="canopy-curves absolute left-0 right-0 bottom-0 w-[200%] h-6 pointer-events-none" viewBox="0 0 2400 24" preserveAspectRatio="none">
+    <path d="M0,24 Q150,4 300,16 T600,12 T900,20 T1200,8 T1500,18 T1800,10 T2100,16 T2400,12 L2400,24 Z" fill="none" stroke="var(--color-spore)" stroke-width="0.6" stroke-opacity="0.45"/>
+    <path d="M0,18 Q200,24 400,14 T800,22 T1200,12 T1600,20 T2000,14 T2400,18" fill="none" stroke="var(--color-bioluminescent)" stroke-width="0.4" stroke-opacity="0.35"/>
+    <path d="M0,12 Q250,18 500,8 T1000,16 T1500,6 T2000,14 T2400,10" fill="none" stroke="var(--color-mycelium)" stroke-width="0.3" stroke-opacity="0.28"/>
+  </svg>
+  <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between relative">
     <a href="/" class="text-xl tracking-tight no-underline" style="font-family: var(--font-display);">
       <span class="prismatic">hologram thoughts</span>
     </a>
@@ -23,3 +29,16 @@ const path = Astro.url.pathname;
     </nav>
   </div>
 </header>
+
+<style>
+  .canopy-curves {
+    animation: canopy-drift 48s linear infinite;
+  }
+  @keyframes canopy-drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .canopy-curves { animation: none; }
+  }
+</style>

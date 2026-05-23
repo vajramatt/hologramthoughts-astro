@@ -5,12 +5,26 @@ html { color-scheme: dark light; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  background: var(--color-bg);
+  /* Bottom-vignette: page color fades into accent at the bottom.
+     Dark = mycelial violet rising from the forest floor.
+     Light = deep forest green at the base of the page. */
+  background:
+    radial-gradient(120% 60% at 50% 100%, color-mix(in oklch, var(--color-mycelium) 32%, transparent) 0%, transparent 70%),
+    var(--color-bg);
+  background-attachment: fixed;
   color: var(--color-ink);
   font-feature-settings: "ss01", "cv11", "liga", "dlig";
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  min-height: 100vh;
+}
+
+[data-theme="light"] body {
+  background:
+    radial-gradient(120% 60% at 50% 100%, color-mix(in oklch, oklch(0.45 0.13 145) 28%, transparent) 0%, transparent 70%),
+    var(--color-bg);
+  background-attachment: fixed;
 }
 
 /* Subtle organic grain — turbulence noise overlay, very low opacity */
