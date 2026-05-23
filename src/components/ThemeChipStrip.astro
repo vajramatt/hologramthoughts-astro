@@ -1,0 +1,18 @@
+---
+import ThemeChip from './ThemeChip.astro';
+import taxonomy from '../content/themes/taxonomy.json';
+
+interface Props { themeIds: string[]; label?: string; }
+const { themeIds, label = 'Threads in this post' } = Astro.props;
+const themes = themeIds
+  .map(id => (taxonomy as any).themes.find((t: any) => t.id === id))
+  .filter(Boolean);
+---
+{themes.length > 0 && (
+  <aside class="mt-16 pt-8 border-t border-[var(--glass-border)]">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-4">{label}</p>
+    <div class="flex flex-wrap gap-2">
+      {themes.map((t: any) => <ThemeChip id={t.id} name={t.name} />)}
+    </div>
+  </aside>
+)}
