@@ -16,8 +16,15 @@ async function proposeTagsForPost(title: string, body: string): Promise<string[]
 }
 
 async function main() {
+  // CLI: --limit N (smoke first), default = all posts
+  const limitArg = process.argv.find(a => a.startsWith('--limit='));
+  const limit = limitArg ? parseInt(limitArg.split('=')[1], 10) : Infinity;
+
   const dir = 'src/content/blog';
-  const files = (await readdir(dir)).filter(f => f.endsWith('.md'));
+  let files = (await readdir(dir)).filter(f => f.endsWith('.md'));
+  if (Number.isFinite(limit)) files = files.slice(0, limit);
+  process.stderr.write(`tagging ${files.length} posts\n`);
+
   const proposed: { slug: string; tags: string[] }[] = [];
   for (const f of files) {
     const raw = await readFile(join(dir, f), 'utf8');
