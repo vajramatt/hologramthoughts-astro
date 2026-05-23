@@ -11,7 +11,13 @@
     "test:watch": "vitest",
     "muse:relay": "cd scripts/relay-worker && npx wrangler dev",
     "build:tag": "tsx scripts/01-tag-posts.ts",
-    "build:canonicalize": "tsx scripts/02-canonicalize.ts"
+    "build:canonicalize": "tsx scripts/02-canonicalize.ts",
+    "build:bio": "tsx scripts/03-derive-bio.ts",
+    "build:blurbs": "tsx scripts/04-write-theme-blurbs.ts",
+    "build:embed": "tsx scripts/05-embed-posts.ts",
+    "build:related": "tsx scripts/06-compute-related.ts",
+    "build:rationale": "tsx scripts/07-write-rationale.ts",
+    "build:muse": "npm run build:tag && npm run build:canonicalize && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related && npm run build:rationale"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",
