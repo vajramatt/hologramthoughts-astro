@@ -23,17 +23,29 @@ export function emitThemeIndex(): AstroIntegration {
             (reverse[id] ??= []).push(sc.slug);
           }
         }
+        const redirects: string[] = [];
         for (const bf of (await readdir(blogDir)).filter(f => f.endsWith('.md'))) {
           const { data } = matter(await readFile(join(blogDir, bf), 'utf8'));
           if (data.draft) continue;
-          const slug = data.slug ?? bf.replace(/\.md$/, '');
+          const filenameBase = bf.replace(/\.md$/, '');
+          const slug = data.slug ?? filenameBase;
           meta[slug] = { slug, title: data.title, pubDate: new Date(data.pubDate).toISOString() };
+          // Legacy URL redirect: filename-based slug (often YYYY-MM-DD-foo) → clean frontmatter slug
+          if (filenameBase !== slug) {
+            redirects.push(`/blog/${filenameBase}/ /blog/${slug}/ 301`);
+            redirects.push(`/blog/${filenameBase} /blog/${slug}/ 301`);
+          }
         }
 
         const themesOut = join(dir.pathname, 'themes');
         await mkdir(themesOut, { recursive: true });
         await writeFile(join(themesOut, 'reverse-index.json'), JSON.stringify(reverse));
         await writeFile(join(themesOut, 'post-meta.json'), JSON.stringify(meta));
+
+        // Cloudflare Pages _redirects file
+        if (redirects.length > 0) {
+          await writeFile(join(dir.pathname, '_redirects'), redirects.join('\n') + '\n');
+        }
       }
     }
   };
