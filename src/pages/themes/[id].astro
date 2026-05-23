@@ -27,9 +27,16 @@ export async function getStaticPaths() {
 
 const { theme, slugs } = Astro.props;
 const all = await getCollection('blog', ({ data }) => !data.draft);
-const bySlug = new Map(all.map(p => [p.data.slug ?? p.id.replace(/\.md$/, ''), p]));
-const posts = slugs
-  .map((s: string) => bySlug.get(s))
+// Multi-key index — sidecar slugs can match frontmatter slug, astro slug, or id base
+const bySlug = new Map<string, any>();
+for (const p of all) {
+  const idBase = p.id.replace(/\.md$/, '');
+  if (p.data.slug) bySlug.set(p.data.slug, p);
+  if ((p as any).slug) bySlug.set((p as any).slug, p);
+  bySlug.set(idBase, p);
+}
+const posts = (slugs as string[])
+  .map(s => bySlug.get(s))
   .filter(Boolean)
   .sort((a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
 ---
@@ -39,14 +46,22 @@ const posts = slugs
     <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">{theme.name}</h1>
     {theme.blurb && <p class="text-xl text-[var(--color-ink-soft)] italic mt-4">{theme.blurb}</p>}
   </header>
-  {theme.synthesis && (
-    <div class="text-[var(--color-ink)] leading-relaxed mb-16" set:html={`<p>${theme.synthesis.replace(/\n\n/g, '</p><p>')}</p>`} />
-  )}
+  {theme.synthesis && (() => {
+    // Convert markdown links and paragraph breaks to HTML
+    let html = theme.synthesis as string;
+    // Normalize bare hologram-thoughts.com URLs that the model sometimes emits
+    html = html.replace(/https?:\/\/hologram-thoughts\.com/g, '');
+    // Markdown links → anchors
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline decoration-[var(--color-border-strong)] underline-offset-[3px] hover:text-[var(--color-bioluminescent)]">$1</a>');
+    // Paragraph breaks
+    html = `<p>${html.replace(/\n\n+/g, '</p><p>')}</p>`;
+    return <div class="text-[var(--color-ink)] leading-relaxed mb-16" set:html={html} />;
+  })()}
   <section>
     <h2 class="text-xl mb-6" style="font-family: var(--font-display);">{posts.length} posts, in order</h2>
     <ul class="space-y-6">
       {posts.map((p: any) => {
-        const slug = p!.data.slug ?? p!.id.replace(/\.md$/, '');
+        const slug = (p as any).slug ?? p!.id.replace(/\.md$/, '');
         return (
           <li>
             <a href={`/blog/${slug}/`} class="block group no-underline">

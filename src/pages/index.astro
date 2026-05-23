@@ -8,7 +8,10 @@ import taxonomy from '../content/themes/taxonomy.json';
 const all = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const slugOf = (p: any) => p.data.slug ?? p.id.replace(/\.md$/, '');
+// Use Astro's canonical post.slug (matches the URL the [slug].astro getStaticPaths generates)
+const slugOf = (p: any) => p.slug ?? p.id.replace(/\.md$/, '');
+// Frontmatter slug may differ from Astro slug — use frontmatter for sidecar JSON lookups
+const sidecarKey = (p: any) => p.data.slug ?? p.slug ?? p.id.replace(/\.md$/, '');
 
 const latestSlugs = all.slice(0, 5).map(slugOf);
 const storySlugs = all.filter(p => p.data.contentType === 'story').slice(0, 5).map(slugOf);
@@ -21,12 +24,13 @@ const activeThemes = [...(taxonomy as any).themes]
 const featured = all.slice(0, 6);
 const themeIdsBySlug: Record<string, string[]> = {};
 for (const p of featured) {
-  const s = slugOf(p);
+  const urlSlug = slugOf(p);
+  const key = sidecarKey(p);
   try {
-    const sc = await import(`../content/themes/${s}.json`);
-    themeIdsBySlug[s] = sc.default.themeIds ?? [];
+    const sc = await import(`../content/themes/${key}.json`);
+    themeIdsBySlug[urlSlug] = sc.default.themeIds ?? [];
   } catch {
-    themeIdsBySlug[s] = [];
+    themeIdsBySlug[urlSlug] = [];
   }
 }
 ---
