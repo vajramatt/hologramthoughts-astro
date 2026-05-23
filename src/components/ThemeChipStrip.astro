@@ -9,7 +9,7 @@ const themes = themeIds
   .filter(Boolean);
 ---
 {themes.length > 0 && (
-  <aside class="mt-16 pt-8 border-t border-[var(--glass-border)]">
+  <aside class="mt-16 pt-8 border-t border-[var(--color-border-strong)]">
     <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-4">{label}</p>
     <div class="flex flex-wrap gap-2">
       {themes.map((t: any) => <ThemeChip id={t.id} name={t.name} />)}

@@ -26,7 +26,7 @@ const searchablePosts = allPosts.map(post => ({
     <input
       type="search"
       id="search-input"
-      class="w-full bg-transparent border border-[var(--glass-border)] rounded-full px-5 py-3 text-base text-[var(--color-ink)] placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-moss)] focus:shadow-[var(--shadow-soft)] transition-all"
+      class="w-full bg-transparent border border-[var(--color-border-strong)] rounded-full px-5 py-3 text-base text-[var(--color-ink)] placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-bioluminescent)] focus:shadow-[var(--shadow-deep)] transition-all"
       placeholder="buddhism, dreams, emptiness…"
       autocomplete="off"
     />
@@ -37,7 +37,7 @@ const searchablePosts = allPosts.map(post => ({
     <div id="search-results"></div>
   </section>
 
-  <aside class="mt-16 pt-8 border-t border-[var(--glass-border)] text-sm text-[var(--color-ink-soft)]">
+  <aside class="mt-16 pt-8 border-t border-[var(--color-border-strong)] text-sm text-[var(--color-ink-soft)]">
     <p class="text-xs uppercase tracking-[0.18em] mb-3">Try</p>
     <ul class="space-y-1.5">
       <li>topics: buddhism, meditation, chenrezig</li>
@@ -59,7 +59,7 @@ const searchablePosts = allPosts.map(post => ({
 
   :global(.search-result) {
     padding: 1rem 0;
-    border-bottom: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--color-border);
   }
 
   :global(.search-result:last-child) {
@@ -76,11 +76,11 @@ const searchablePosts = allPosts.map(post => ({
   :global(.search-result-title a) {
     color: var(--color-ink);
     text-decoration: none;
-    transition: color var(--dur-fast) var(--ease-bloom);
+    transition: color var(--dur-fast) var(--ease-grow);
   }
 
   :global(.search-result-title a:hover) {
-    color: var(--color-moss-deep);
+    color: var(--color-bioluminescent);
   }
 
   :global(.search-result-excerpt) {

@@ -107,13 +107,13 @@ const isSeries = !!post.data.series;
   </article>
 
   {(prevPost || nextPost) && (
-    <nav class="mt-16 pt-8 border-t border-[var(--glass-border)] grid md:grid-cols-2 gap-6">
+    <nav class="mt-16 pt-8 border-t border-[var(--color-border-strong)] grid md:grid-cols-2 gap-6">
       {prevPost ? (
         <a href={`/blog/${prevPost.slug}`} class="group no-underline block">
           <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">
             {isSeries ? '← Previous' : '← Older'}
           </p>
-          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-moss-deep)] transition-colors" style="font-family: var(--font-display);">{prevPost.data.title}</p>
+          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{prevPost.data.title}</p>
         </a>
       ) : <span />}
       {nextPost ? (
@@ -121,7 +121,7 @@ const isSeries = !!post.data.series;
           <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">
             {isSeries ? 'Next →' : 'Newer →'}
           </p>
-          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-moss-deep)] transition-colors" style="font-family: var(--font-display);">{nextPost.data.title}</p>
+          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{nextPost.data.title}</p>
         </a>
       ) : <span />}
     </nav>
@@ -163,7 +163,7 @@ const isSeries = !!post.data.series;
   .post-content :global(blockquote) {
     margin: 1.5rem 0 1.5rem 0;
     padding-left: 1.25rem;
-    border-left: 2px solid var(--glass-border);
+    border-left: 2px solid var(--color-border-strong);
     color: var(--color-ink-soft);
     font-style: italic;
   }
@@ -180,17 +180,18 @@ const isSeries = !!post.data.series;
   .post-content :global(strong) { font-weight: 600; }
 
   .post-content :global(code) {
-    background: color-mix(in oklch, var(--color-moss) 8%, transparent);
-    color: var(--color-ink);
+    background: color-mix(in oklch, var(--color-bioluminescent) 12%, transparent);
+    color: var(--color-spore-bright);
     padding: 0.1rem 0.4rem;
     border-radius: 4px;
     font-size: 0.92em;
     font-family: var(--font-mono);
+    border: 1px solid var(--color-border);
   }
 
   .post-content :global(pre) {
-    background: color-mix(in oklch, var(--color-ink) 5%, transparent);
-    border: 1px solid var(--glass-border);
+    background: var(--color-bg-soft);
+    border: 1px solid var(--color-border);
     border-radius: 10px;
     padding: 1rem 1.25rem;
     overflow-x: auto;
@@ -216,20 +217,20 @@ const isSeries = !!post.data.series;
 
   .post-content :global(hr) {
     border: 0;
-    border-top: 1px solid var(--glass-border);
+    border-top: 1px solid var(--color-border-strong);
     margin: 2.5rem 0;
   }
 
   .post-content :global(a) {
-    color: var(--color-moss-deep);
+    color: var(--color-spore-bright);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    transition: color var(--dur-fast) var(--ease-bloom);
+    transition: color var(--dur-fast) var(--ease-grow);
   }
 
   .post-content :global(a:hover) {
-    color: var(--color-sky-deep);
+    color: var(--color-bioluminescent);
   }
 
   .post-content :global(img) {
