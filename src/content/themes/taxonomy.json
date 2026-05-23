@@ -1,4 +1,187 @@
 {
-  "generatedAt": "1970-01-01T00:00:00.000Z",
-  "themes": []
+  "generatedAt": "2026-05-23T14:54:14.919Z",
+  "themes": [
+    {
+      "id": "animal-welfare",
+      "name": "Animal Welfare",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 8
+    },
+    {
+      "id": "artificial-intelligence",
+      "name": "Artificial Intelligence",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 22
+    },
+    {
+      "id": "buddhist-philosophy",
+      "name": "Buddhist Philosophy",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 39
+    },
+    {
+      "id": "career-change",
+      "name": "Career Change",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 3
+    },
+    {
+      "id": "childhood",
+      "name": "Childhood",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 5
+    },
+    {
+      "id": "compassion",
+      "name": "Compassion",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 32
+    },
+    {
+      "id": "consciousness",
+      "name": "Consciousness",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 37
+    },
+    {
+      "id": "cultural-exchange",
+      "name": "Cultural Exchange",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 6
+    },
+    {
+      "id": "darkness-attraction",
+      "name": "Darkness Attraction",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 6
+    },
+    {
+      "id": "energy-healing",
+      "name": "Energy Healing",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 5
+    },
+    {
+      "id": "enlightenment",
+      "name": "Enlightenment",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 107
+    },
+    {
+      "id": "existential-crisis",
+      "name": "Existential Crisis",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 10
+    },
+    {
+      "id": "family",
+      "name": "Family",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 13
+    },
+    {
+      "id": "female-empowerment",
+      "name": "Female Empowerment",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 4
+    },
+    {
+      "id": "human-connection",
+      "name": "Human Connection",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 37
+    },
+    {
+      "id": "impermanence",
+      "name": "Impermanence",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 4
+    },
+    {
+      "id": "inner-peace",
+      "name": "Inner Peace",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 67
+    },
+    {
+      "id": "mantra-recitation",
+      "name": "Mantra Recitation",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 3
+    },
+    {
+      "id": "martial-arts",
+      "name": "Martial Arts",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 5
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 29
+    },
+    {
+      "id": "nature-worship",
+      "name": "Nature Worship",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 2
+    },
+    {
+      "id": "nonconformity",
+      "name": "Nonconformity",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 4
+    },
+    {
+      "id": "personal-growth",
+      "name": "Personal Growth",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 107
+    },
+    {
+      "id": "social-commentary",
+      "name": "Social Commentary",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 15
+    },
+    {
+      "id": "spirituality",
+      "name": "Spirituality",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 40
+    },
+    {
+      "id": "tibetan-culture",
+      "name": "Tibetan Culture",
+      "blurb": "",
+      "synthesis": "",
+      "postCount": 4
+    }
+  ]
 }

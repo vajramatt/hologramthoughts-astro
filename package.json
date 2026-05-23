@@ -12,6 +12,7 @@
     "muse:relay": "cd scripts/relay-worker && npx wrangler dev",
     "build:tag": "tsx scripts/01-tag-posts.ts",
     "build:canonicalize": "tsx scripts/02-canonicalize.ts",
+    "build:consolidate": "tsx scripts/02b-consolidate-themes.ts",
     "build:bio": "tsx scripts/03-derive-bio.ts",
     "build:blurbs": "tsx scripts/04-write-theme-blurbs.ts",
     "build:embed": "tsx scripts/05-embed-posts.ts",
