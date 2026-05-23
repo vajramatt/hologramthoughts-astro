@@ -21,7 +21,9 @@ const stories = storySlugs.map(s => bySlug.get(s)).filter(Boolean);
 ---
 <section class="my-16">
   <header class="mb-8">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">From Muse</p>
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">
+      From <abbr title="Mycelial Underground Synthesis Editor" class="no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-bioluminescent)] hover:text-[var(--color-bioluminescent)] transition-colors">Muse</abbr>
+    </p>
     <h2 class="text-4xl" style="font-family: var(--font-display);">What's alive in the archive</h2>
   </header>
   <div class="grid md:grid-cols-3 gap-8">
