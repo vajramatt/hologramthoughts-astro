@@ -1,0 +1,13 @@
+---
+interface Props { id: string; name: string; }
+const { id, name } = Astro.props;
+---
+<button
+  type="button"
+  class="theme-chip inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium text-[var(--color-ink)] border border-[var(--glass-border)] bg-[color-mix(in_oklch,var(--color-sun)_12%,transparent)] hover:bg-[color-mix(in_oklch,var(--color-sun)_22%,transparent)] hover:shadow-[var(--shadow-bloom)] transition-all duration-[var(--dur-med)] ease-[cubic-bezier(0.22,1,0.36,1)]"
+  data-theme={id}
+  aria-label={`Explore theme: ${name}`}
+>
+  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><circle cx="5" cy="5" r="3" fill="currentColor" opacity="0.45"/></svg>
+  <span>{name}</span>
+</button>
