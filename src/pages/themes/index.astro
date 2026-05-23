@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import taxonomy from '../../content/themes/taxonomy.json';
+const themes = [...(taxonomy as any).themes].sort((a: any, b: any) => b.postCount - a.postCount);
+---
+<Layout title="Themes — Hologram Thoughts">
+  <header class="mb-16">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">From Muse</p>
+    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">Threads in the archive</h1>
+    <p class="text-lg text-[var(--color-ink-soft)] mt-4 max-w-xl">{themes.length} threads Matthew keeps returning to, grouped from twenty years of writing.</p>
+  </header>
+  {themes.length === 0 ? (
+    <p class="text-[var(--color-ink-soft)] italic">Muse hasn't finished reading the archive yet. Threads will appear here after the next build pass.</p>
+  ) : (
+    <ul class="space-y-8">
+      {themes.map((t: any) => (
+        <li class="border-b border-[var(--glass-border)] pb-6">
+          <a href={`/themes/${t.id}/`} class="block group no-underline">
+            <div class="flex items-baseline justify-between gap-4">
+              <h2 class="text-2xl group-hover:text-[var(--color-moss-deep)] transition-colors" style="font-family: var(--font-display);">{t.name}</h2>
+              <span class="text-xs text-[var(--color-ink-soft)]">{t.postCount} posts</span>
+            </div>
+            {t.blurb && <p class="text-[var(--color-ink-soft)] mt-2 italic">{t.blurb}</p>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</Layout>
