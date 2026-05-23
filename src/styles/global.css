@@ -1,0 +1,36 @@
+@import "./tokens.css";
+
+html { color-scheme: light dark; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-bone);
+  color: var(--color-ink);
+  font-feature-settings: "ss01", "cv11";
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 480;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+}
+
+a {
+  color: var(--color-moss-deep);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-bloom);
+}
+a:hover { color: var(--color-sky-deep); }
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  box-shadow: var(--shadow-soft);
+}
