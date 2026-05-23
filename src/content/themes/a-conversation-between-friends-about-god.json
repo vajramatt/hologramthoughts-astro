@@ -1,0 +1,23 @@
+{
+  "slug": "a-conversation-between-friends-about-god",
+  "themeIds": [
+    "buddhist-philosophy",
+    "compassion",
+    "enlightenment",
+    "human-connection"
+  ],
+  "related": [
+    {
+      "slug": "for-priya",
+      "rationale": "Picks up the question of God's judgment and pushes it into interfaith dialogue."
+    },
+    {
+      "slug": "statement-of-faith",
+      "rationale": "Challenges Christian exclusivity with a broader view of miracles."
+    },
+    {
+      "slug": "thousand-hand-bodhisattva",
+      "rationale": "Picks up the thread of Buddhist compassion and pushes it into selfless action."
+    }
+  ]
+}

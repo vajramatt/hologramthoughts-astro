@@ -1,0 +1,22 @@
+{
+  "slug": "simple-sonnet",
+  "themeIds": [
+    "darkness-attraction",
+    "human-connection",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Picks up the darkness and pushes it into surreal underwater terrain."
+    },
+    {
+      "slug": "ice-and-needles",
+      "rationale": "Picks up longing and loss, pushing it into frozen landscapes."
+    },
+    {
+      "slug": "feel-my-hand-in-yours",
+      "rationale": "Picks up longing and loss, pushes into paternal love."
+    }
+  ]
+}

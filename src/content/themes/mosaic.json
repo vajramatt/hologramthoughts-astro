@@ -1,0 +1,20 @@
+{
+  "slug": "mosaic",
+  "themeIds": [
+    "cultural-exchange"
+  ],
+  "related": [
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up ancestral reverence and pushes it into personified landscapes."
+    },
+    {
+      "slug": "dragonfly-magic",
+      "rationale": "Picks up the thread of rain and storms, grounding it in personal experience."
+    },
+    {
+      "slug": "waiting-for-the-sun",
+      "rationale": "Picks up the thread of nature's power and pushes it into familial terrain."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "the-commercialization-of-the-buddha",
+  "themeIds": [
+    "buddhist-philosophy"
+  ],
+  "related": [
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up the thread of Buddhism and pushes it into spiritual practice."
+    },
+    {
+      "slug": "st-valentines-day-and-the-buddha",
+      "rationale": "Picks up the Buddha thread and weaves it into Valentine's Day reflections."
+    },
+    {
+      "slug": "strange-dreams",
+      "rationale": "Picks up the thread of sensory indulgence in a sacred context."
+    }
+  ]
+}

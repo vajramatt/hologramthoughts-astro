@@ -1,0 +1,21 @@
+{
+  "slug": "a-question-about-padmasambhava",
+  "themeIds": [
+    "animal-welfare",
+    "buddhist-philosophy"
+  ],
+  "related": [
+    {
+      "slug": "are-dzodgchen-mahamudra-and-moksha-essentially-the-same",
+      "rationale": "Sharpens distinction between Buddhist and Hindu liberation concepts."
+    },
+    {
+      "slug": "lord-shiva-and-lord-padmasambhava",
+      "rationale": "Picks up Tibetan Buddhist practice and complicates it with Hindu influences."
+    },
+    {
+      "slug": "the-buddhas-miracles",
+      "rationale": "Picks up the thread of supernatural beings and pushes it into Buddhist miracles."
+    }
+  ]
+}

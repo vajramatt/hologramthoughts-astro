@@ -1,0 +1,21 @@
+{
+  "slug": "symbiotech-operations-manual",
+  "themeIds": [
+    "artificial-intelligence",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "the-emergence-part-eight",
+      "rationale": "Picks up the thread of advanced technology and pushes it into artificial intelligence."
+    },
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Picks up the thread of high-stakes combat and pushes it into gritty jungle terrain."
+    },
+    {
+      "slug": "target-acquired",
+      "rationale": "Picks up the theme of counter-terrorism and pushes it into tactical operations."
+    }
+  ]
+}

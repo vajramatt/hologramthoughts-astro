@@ -1,0 +1,21 @@
+{
+  "slug": "hanuman-ji",
+  "themeIds": [
+    "enlightenment",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "hanumans-devotion",
+      "rationale": "Deepens devotion to Hanuman through a graphic novelization of his story."
+    },
+    {
+      "slug": "direct-message-from-padmasambhava",
+      "rationale": "Doubles down on Eastern spiritual influences with a personal mystical experience."
+    },
+    {
+      "slug": "lord-shiva-and-lord-padmasambhava",
+      "rationale": "Picks up the Dharmic thread and weaves in Tibetan Buddhist practices."
+    }
+  ]
+}

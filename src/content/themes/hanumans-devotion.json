@@ -1,0 +1,20 @@
+{
+  "slug": "hanumans-devotion",
+  "themeIds": [
+    "buddhist-philosophy"
+  ],
+  "related": [
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Deepens the devotion to Hanuman introduced earlier."
+    },
+    {
+      "slug": "a-modern-shiva-poem",
+      "rationale": "Sharpens focus on Hindu deities with a poetic tribute to Shiva."
+    },
+    {
+      "slug": "a-book-review-of-the-joyous-cosmology-adventures-in-the-chemistry-of-consciousness",
+      "rationale": "Picks up the spiritual thread and pushes it into psychedelic terrain."
+    }
+  ]
+}

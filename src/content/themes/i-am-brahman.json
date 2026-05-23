@@ -1,0 +1,23 @@
+{
+  "slug": "i-am-brahman",
+  "themeIds": [
+    "buddhist-philosophy",
+    "consciousness",
+    "enlightenment",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "a-modern-shiva-poem",
+      "rationale": "Doubles down on non-dual awareness with poetic reverence."
+    },
+    {
+      "slug": "hanuman-and-reality",
+      "rationale": "Picks up non-dualism and pushes it into Hindu mythology."
+    },
+    {
+      "slug": "knowing-sri-ganesh",
+      "rationale": "Deepens the inquiry into Hindu scripture and divine identity."
+    }
+  ]
+}

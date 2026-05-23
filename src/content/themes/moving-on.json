@@ -1,0 +1,21 @@
+{
+  "slug": "moving-on",
+  "themeIds": [
+    "career-change",
+    "martial-arts"
+  ],
+  "related": [
+    {
+      "slug": "martial-arts-super-show",
+      "rationale": "Picks up the martial arts thread and pushes it into event terrain."
+    },
+    {
+      "slug": "everything-changes",
+      "rationale": "Picks up the thread of change and pushes it into personal transformation."
+    },
+    {
+      "slug": "it-isnt-alternative-healing-its-healing",
+      "rationale": "Picks up the thread of personal growth and pushes it into spiritual practices."
+    }
+  ]
+}

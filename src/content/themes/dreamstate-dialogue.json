@@ -1,0 +1,23 @@
+{
+  "slug": "dreamstate-dialogue",
+  "themeIds": [
+    "consciousness",
+    "existential-crisis",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "feel-my-hand-in-yours",
+      "rationale": "Picks up the thread of desperation and redirects it to tender care."
+    },
+    {
+      "slug": "atalantas-quest-part-one",
+      "rationale": "Picks up the thread of desperation and plunges it into divine inquiry."
+    },
+    {
+      "slug": "dreaming-dreams",
+      "rationale": "Picks up the thread of lucid dreaming and pushes it into conscious awareness."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "slug": "legions-laughter",
+  "themeIds": [],
+  "related": [
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Picks up the tactical mindset and pushes it into jungle terrain."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the theme of heightened senses and instinctual reaction in a new environment."
+    },
+    {
+      "slug": "waiting-for-the-sun",
+      "rationale": "Sharpens contrast between warzone instincts and peaceful domesticity."
+    }
+  ]
+}

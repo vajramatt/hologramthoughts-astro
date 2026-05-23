@@ -1,0 +1,23 @@
+{
+  "slug": "thank-you-mom",
+  "themeIds": [
+    "compassion",
+    "family",
+    "personal-growth",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up kindness and complicates it with Buddhist compassion."
+    },
+    {
+      "slug": "the-good-life",
+      "rationale": "Picks up the thread of parental kindness and reciprocated love."
+    },
+    {
+      "slug": "my-grandfathers-treasure",
+      "rationale": "Picks up familial love and pushes it to grandfatherly bonds."
+    }
+  ]
+}

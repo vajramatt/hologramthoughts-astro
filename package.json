@@ -6,21 +6,41 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "muse:relay": "cd scripts/relay-worker && npx wrangler dev",
+    "build:tag": "tsx scripts/01-tag-posts.ts",
+    "build:canonicalize": "tsx scripts/02-canonicalize.ts",
+    "build:consolidate": "tsx scripts/02b-consolidate-themes.ts",
+    "build:bio": "tsx scripts/03-derive-bio.ts",
+    "build:blurbs": "tsx scripts/04-write-theme-blurbs.ts",
+    "build:embed": "tsx scripts/05-embed-posts.ts",
+    "build:related": "tsx scripts/06-compute-related.ts",
+    "build:rationale": "tsx scripts/07-write-rationale.ts",
+    "build:muse": "npm run build:tag && npm run build:canonicalize && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related && npm run build:rationale"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/svelte": "^7.2.5",
+    "@tailwindcss/vite": "^4.3.0",
     "astro": "^5.13.8",
     "astro-pagefind": "^1.8.5",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.1",
     "rehype-slug": "^6.0.0",
     "remark-smartypants": "^3.0.2",
-    "remark-toc": "^9.0.0"
+    "remark-toc": "^9.0.0",
+    "svelte": "^5.55.9",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260317.1",
-    "gray-matter": "^4.0.3"
+    "@types/node": "^22.19.19",
+    "gray-matter": "^4.0.3",
+    "happy-dom": "^15.11.7",
+    "tsx": "^4.22.3",
+    "vitest": "^3.2.4"
   }
 }

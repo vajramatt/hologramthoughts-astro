@@ -1,0 +1,18 @@
+{
+  "slug": "lights-above",
+  "themeIds": [],
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up the theme of mortality and pushes it into mystical terrain."
+    },
+    {
+      "slug": "nightmare",
+      "rationale": "Picks up the theme of mortality and pushes it into darker terrain."
+    },
+    {
+      "slug": "legions-laughter",
+      "rationale": "Picks up the thread of instinctual survival and pushes it into combat terrain."
+    }
+  ]
+}

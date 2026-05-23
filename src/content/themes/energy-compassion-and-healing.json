@@ -1,0 +1,24 @@
+{
+  "slug": "energy-compassion-and-healing",
+  "themeIds": [
+    "compassion",
+    "cultural-exchange",
+    "energy-healing",
+    "enlightenment",
+    "martial-arts"
+  ],
+  "related": [
+    {
+      "slug": "reiki-ii",
+      "rationale": "Picks up Reiki interest and pushes it into practical application."
+    },
+    {
+      "slug": "reiki-level-1",
+      "rationale": "Picks up Reiki interest and pushes it into personal practice."
+    },
+    {
+      "slug": "it-isnt-alternative-healing-its-healing",
+      "rationale": "Picks up the thread of energy healing and complicates it with traditional practices."
+    }
+  ]
+}

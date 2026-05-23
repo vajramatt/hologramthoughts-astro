@@ -1,0 +1,23 @@
+{
+  "slug": "dragonfly-magic",
+  "themeIds": [
+    "enlightenment",
+    "family",
+    "nature",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "all-the-colors-of-the-rainbow",
+      "rationale": "Revisits stormy weather, but shifts focus from dragonflies to rainbows."
+    },
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the theme of rain and storms, pushing it into indigenous ritual."
+    },
+    {
+      "slug": "a-nameless-one-walks",
+      "rationale": "Picks up the thread of mystical experience and pushes it into ritual terrain."
+    }
+  ]
+}

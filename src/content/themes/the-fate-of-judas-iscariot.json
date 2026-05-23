@@ -1,0 +1,22 @@
+{
+  "slug": "the-fate-of-judas-iscariot",
+  "themeIds": [
+    "existential-crisis",
+    "personal-growth",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "a-conversation-between-friends-about-god",
+      "rationale": "Doubles down on Christian themes with a Buddhist perspective."
+    },
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up the thread of Christian-Buddhist dialogue and complicates it with Tibetan perspectives."
+    },
+    {
+      "slug": "perspective-and-context",
+      "rationale": "Picks up Christian themes and pushes into personal devotion."
+    }
+  ]
+}

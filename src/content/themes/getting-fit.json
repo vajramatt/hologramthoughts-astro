@@ -1,0 +1,22 @@
+{
+  "slug": "getting-fit",
+  "themeIds": [
+    "enlightenment",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up spiritual growth and pushes it into Buddhist terrain."
+    },
+    {
+      "slug": "motivation-and-reward",
+      "rationale": "Picks up the fitness goal and complicates it with motivation doubts."
+    },
+    {
+      "slug": "everything-changes",
+      "rationale": "Picks up physical transformation and pushes it into career upheaval."
+    }
+  ]
+}

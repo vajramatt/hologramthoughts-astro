@@ -1,0 +1,20 @@
+{
+  "slug": "high-places",
+  "themeIds": [
+    "consciousness"
+  ],
+  "related": [
+    {
+      "slug": "dreams-and-tears",
+      "rationale": "Complicates the dream landscape with familial anxiety."
+    },
+    {
+      "slug": "lights-above",
+      "rationale": "Darkens the mystical atmosphere with a sense of mortal urgency."
+    },
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the thread of vivid dreamscapes and pushes into wartime camaraderie."
+    }
+  ]
+}

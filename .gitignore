@@ -6,6 +6,8 @@ dist/
 .cache/
 # playwright mcp scratch
 .playwright-mcp/
+# wrangler local state
+.wrangler/
 
 # dependencies
 node_modules/

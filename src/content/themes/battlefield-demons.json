@@ -1,0 +1,18 @@
+{
+  "slug": "battlefield-demons",
+  "themeIds": [],
+  "related": [
+    {
+      "slug": "legions-laughter",
+      "rationale": "Picks up the jungle terrain and intensifies the combat scenario."
+    },
+    {
+      "slug": "what-the-jungle-keeps",
+      "rationale": "Picks up the jungle setting and sharpens its sensory details."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the theme of sensory overload and pushes it into a controlled environment."
+    }
+  ]
+}

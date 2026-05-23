@@ -1,0 +1,21 @@
+{
+  "slug": "2012-movie",
+  "themeIds": [
+    "enlightenment",
+    "nonconformity"
+  ],
+  "related": [
+    {
+      "slug": "beautiful-video",
+      "rationale": "Doubles down on visually driven spiritual curiosity."
+    },
+    {
+      "slug": "esoteric-agenda-and-kymatica",
+      "rationale": "Sharpens focus on esoteric knowledge and hidden agendas."
+    },
+    {
+      "slug": "a-carification-about-a-consternation",
+      "rationale": "Sharpens the line between sharing thoughts and claiming authority."
+    }
+  ]
+}

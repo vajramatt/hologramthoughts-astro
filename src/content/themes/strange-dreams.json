@@ -1,0 +1,20 @@
+{
+  "slug": "strange-dreams",
+  "themeIds": [
+    "energy-healing"
+  ],
+  "related": [
+    {
+      "slug": "dreams-may-tell-us",
+      "rationale": "Picks up the dream thread and pushes it into symbolic terrain."
+    },
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up the thread of dream analysis and complicates it with personal symbolism."
+    },
+    {
+      "slug": "the-commercialization-of-the-buddha",
+      "rationale": "Picks up the theme of abundance and pushes it into spiritual commercialism."
+    }
+  ]
+}

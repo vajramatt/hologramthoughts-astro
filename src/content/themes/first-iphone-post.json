@@ -1,0 +1,18 @@
+{
+  "slug": "first-iphone-post",
+  "themeIds": [],
+  "related": [
+    {
+      "slug": "new-site-old-content",
+      "rationale": "Picks up the tech thread and pushes it into website development."
+    },
+    {
+      "slug": "more-alan-watts-goodness",
+      "rationale": "Picks up the thread of technological wonder and complicates it with spiritual inquiry."
+    },
+    {
+      "slug": "everyday-magic-technology",
+      "rationale": "Picks up iPhone enthusiasm and complicates it with open-ended inquiry."
+    }
+  ]
+}

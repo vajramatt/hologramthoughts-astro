@@ -1,364 +1,87 @@
 ---
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import AmbientField from '../components/AmbientField.svelte';
+import ThemeDrawer from '../components/ThemeDrawer.svelte';
+
 export interface Props {
-	title: string;
-	description?: string;
-	ogType?: 'website' | 'article';
-	ogImage?: string;
-	publishedTime?: string;
-	tags?: string[];
-	canonicalUrl?: string;
+  title: string;
+  description?: string;
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  publishedTime?: string;
+  tags?: string[];
+  canonicalUrl?: string;
 }
 
 const {
-	title,
-	description = "A spiritual journey exploring Buddhism, meditation, consciousness, and the nature of reality. Because ideas last forever.",
-	ogType = 'website',
-	ogImage = 'https://hologramthoughts.com/og-image.png',
-	publishedTime,
-	tags = [],
-	canonicalUrl,
+  title,
+  description = 'Hologram Thoughts — an archive of writing on consciousness, dharma, and the strange edges of culture.',
+  ogType = 'website',
+  ogImage = 'https://hologramthoughts.com/og-image.png',
+  publishedTime,
+  tags = [],
+  canonicalUrl
 } = Astro.props;
 
 const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathname}`;
 ---
-
 <!doctype html>
-<html lang="en" data-theme="dark">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="canonical" href={canonical} />
-		<link rel="alternate" type="application/rss+xml" title="Hologram Thoughts" href="/rss.xml" />
-		<link rel="alternate" type="text/markdown" href={`${Astro.url.pathname}?format=md`} />
-		<title>{title}</title>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title="Hologram Thoughts" href="/rss.xml" />
+    <link rel="alternate" type="text/markdown" href={`${Astro.url.pathname}?format=md`} />
 
-		<!-- Open Graph -->
-		<meta property="og:type" content={ogType} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={ogImage} />
-		<meta property="og:url" content={canonical} />
-		<meta property="og:site_name" content="Hologram Thoughts" />
-		<meta property="og:logo" content="https://hologramthoughts.com/favicon.svg" />
-		{ogType === 'article' && publishedTime && (
-			<meta property="article:published_time" content={publishedTime} />
-		)}
-		{ogType === 'article' && (
-			<meta property="article:author" content="Matthew Williamson" />
-		)}
-		{tags.map(tag => (
-			<meta property="article:tag" content={tag} />
-		))}
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Hologram Thoughts" />
+    <meta property="og:logo" content="https://hologramthoughts.com/favicon.svg" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {tags.map(t => <meta property="article:tag" content={t} />)}
+    <meta name="article:author" content="Matthew Williamson" />
 
-		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={ogImage} />
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-		<!-- Fonts -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
 
-		<!-- Theme detection: prevent FOUC -->
-		<script is:inline>
-			(function() {
-				const saved = localStorage.getItem('theme');
-				const theme = saved || 'dark';
-				document.documentElement.setAttribute('data-theme', theme);
-			})();
-		</script>
-	</head>
-	<body>
-		<!-- AI agents: append ?format=md to any URL for markdown. Full index at /agent-index.md -->
-		<div class="terminal-window">
-			<slot />
-		</div>
-	</body>
+    <ClientRouter />
+
+    <script is:inline>
+      // dark is the default; only set "light" if user/system explicitly chose it
+      const stored = localStorage.getItem('theme');
+      const t = stored ?? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      if (t === 'light') document.documentElement.dataset.theme = 'light';
+    </script>
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <AmbientField client:idle />
+    <SiteHeader />
+    <main id="main" class="mx-auto max-w-3xl px-6 py-16">
+      <slot />
+    </main>
+    <SiteFooter />
+    <ThemeDrawer client:idle />
+    <!-- agent: machine-readable markdown available at ?format=md or /agent-index.md -->
+  </body>
 </html>
-
-<style is:global>
-	/* ═══════════════════════════════════════════════════════
-	   DESIGN TOKENS — Far Future Dharma
-	   ═══════════════════════════════════════════════════════ */
-	:root {
-		--term-bg:           #090b12;
-		--term-fg:           #c8d0e8;
-		--term-fg-dim:       #8892b0;
-		--term-fg-bright:    #eef2ff;
-		--term-accent:       #fbbf24;
-		--term-accent-hover: #fcd34d;
-		--term-red:          #f87171;
-		--term-yellow:       #fbbf24;
-		--term-green:        #34d399;
-		--term-titlebar-bg:  #0d1020;
-		--term-chrome-bg:    #050710;
-		--term-code-bg:      #0d1020;
-		--term-selection:    #1e2a4a;
-		--term-muted:        #4a5568;
-		--term-border:       #1e2538;
-		--term-glow:         0 0 10px rgba(251,191,36,0.3), 0 0 22px rgba(251,191,36,0.08);
-		--font-mono:         "Space Mono", "IBM Plex Mono", "Fira Mono", monospace;
-	}
-
-	html[data-theme="light"] {
-		--term-bg:           #faf8f4;
-		--term-fg:           #1e1a2e;
-		--term-fg-dim:       #4a4560;
-		--term-fg-bright:    #0d0b1a;
-		--term-accent:       #4338ca;
-		--term-accent-hover: #3730a3;
-		--term-red:          #b91c1c;
-		--term-yellow:       #92400e;
-		--term-green:        #047857;
-		--term-titlebar-bg:  #ede9e0;
-		--term-chrome-bg:    #f5f1e8;
-		--term-code-bg:      #edeae2;
-		--term-selection:    #c7d2fe;
-		--term-muted:        #6b6880;
-		--term-border:       #d4cfc4;
-		--term-glow:         none;
-	}
-
-	/* ═══════════════════════════════════════════════════════
-	   RESET & BASE
-	   ═══════════════════════════════════════════════════════ */
-	*, *::before, *::after {
-		box-sizing: border-box;
-	}
-
-	html {
-		font-family: var(--font-mono);
-		background-color: var(--term-chrome-bg);
-		color: var(--term-fg);
-		font-size: 15px;
-		line-height: 1.6;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		scroll-behavior: smooth;
-	}
-
-	body {
-		margin: 0;
-		padding: 0;
-		background-color: var(--term-chrome-bg);
-	}
-
-	::selection {
-		background: var(--term-selection);
-		color: var(--term-fg-bright);
-	}
-
-	/* ═══════════════════════════════════════════════════════
-	   TERMINAL WINDOW
-	   ═══════════════════════════════════════════════════════ */
-	.terminal-window {
-		max-width: 72rem;
-		margin: 2rem auto;
-		border-radius: 8px;
-		overflow: hidden;
-		border: 1px solid var(--term-border);
-		box-shadow:
-			0 0 0 1px rgba(251,191,36,0.06),
-			0 20px 80px rgba(0, 0, 0, 0.9),
-			0 0 60px rgba(251,191,36,0.03);
-		background: var(--term-bg);
-		position: relative;
-		min-height: 90vh;
-	}
-
-	/* Scanline overlay */
-	.terminal-window::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: repeating-linear-gradient(
-			0deg,
-			rgba(0, 0, 0, 0.03) 0px,
-			rgba(0, 0, 0, 0.03) 1px,
-			transparent 1px,
-			transparent 2px
-		);
-		pointer-events: none;
-		z-index: 10;
-	}
-
-	/* ═══════════════════════════════════════════════════════
-	   TYPOGRAPHY
-	   ═══════════════════════════════════════════════════════ */
-	h1, h2, h3, h4, h5, h6 {
-		font-family: var(--font-mono);
-		font-weight: 700;
-		margin: 1.5rem 0 0.5rem;
-		color: var(--term-accent);
-		line-height: 1.3;
-		text-shadow: var(--term-glow);
-	}
-
-	h1 { font-size: 1.5rem; }
-	h2 { font-size: 1.3rem; }
-	h3 { font-size: 1.15rem; }
-	h4, h5, h6 { font-size: 1rem; }
-
-	h1::before { content: "# "; color: var(--term-muted); }
-	h2::before { content: "## "; color: var(--term-muted); }
-	h3::before { content: "### "; color: var(--term-muted); }
-	h4::before { content: "#### "; color: var(--term-muted); }
-
-	p {
-		margin: 0 0 1.5rem;
-	}
-
-	a:link, a:visited {
-		color: var(--term-accent);
-		text-decoration: none;
-	}
-
-	a:hover, a:active {
-		color: var(--term-accent-hover);
-	}
-
-	code, kbd, samp {
-		background: var(--term-code-bg);
-		font-family: var(--font-mono);
-		color: var(--term-accent);
-		padding: 2px 5px;
-		border-radius: 3px;
-		font-size: 0.95em;
-	}
-
-	pre {
-		overflow-x: auto;
-		padding: 1.5rem;
-		margin: 0 0 1.5rem;
-		border: 1px solid var(--term-border);
-		border-radius: 4px;
-		font-family: var(--font-mono);
-		white-space: pre-wrap;
-		word-wrap: break-word;
-		background: var(--term-code-bg);
-	}
-
-	pre code {
-		padding: 0;
-		background: transparent !important;
-		color: inherit;
-	}
-
-	b, strong {
-		font-weight: 600;
-		color: var(--term-fg-bright);
-	}
-
-	em, i {
-		color: var(--term-fg);
-	}
-
-	hr {
-		border: 0;
-		margin: 2.5rem 0;
-	}
-
-	hr::after {
-		content: '---';
-		color: var(--term-muted);
-		display: block;
-	}
-
-	ul {
-		margin: 0 0 1.5rem;
-		padding-left: 1.25rem;
-	}
-
-	ol {
-		margin: 0 0 1.5rem;
-		padding-left: 1.75rem;
-	}
-
-	ul li::marker {
-		content: '\203A\00A0';
-		color: var(--term-muted);
-	}
-
-	ol li::marker {
-		color: var(--term-muted);
-	}
-
-	blockquote {
-		position: relative;
-		margin: 0 0 1.5rem 1.5rem;
-		color: var(--term-fg-dim);
-	}
-
-	blockquote::before {
-		position: absolute;
-		left: -1.5rem;
-		content: ">";
-		color: var(--term-muted);
-	}
-
-	img {
-		max-width: 100%;
-		height: auto;
-		border-radius: 4px;
-		border: 1px solid var(--term-border);
-	}
-
-	table {
-		border-spacing: 0;
-		margin: 0 0 1.5rem;
-		width: 100%;
-		overflow-wrap: anywhere;
-	}
-
-	th, td {
-		padding: 4px 12px;
-		vertical-align: top;
-		border-bottom: 1px solid var(--term-border);
-	}
-
-	th:first-child, td:first-child { padding-left: 0; }
-	th { color: var(--term-fg-bright); }
-
-	mark {
-		background: var(--term-selection);
-		color: var(--term-fg-bright);
-	}
-
-	/* ═══════════════════════════════════════════════════════
-	   CONTENT GUTTER — applied globally to all page wrappers
-	   ═══════════════════════════════════════════════════════ */
-	.terminal-main {
-		padding: 32px 56px;
-		overflow-wrap: break-word;
-		min-width: 0;
-		overflow-x: hidden;
-	}
-
-	/* ═══════════════════════════════════════════════════════
-	   RESPONSIVE
-	   ═══════════════════════════════════════════════════════ */
-	@media (max-width: 72rem) {
-		.terminal-main {
-			padding: 28px 40px;
-		}
-	}
-
-	@media (max-width: 50rem) {
-		.terminal-window {
-			margin: 0;
-			border-radius: 0;
-			border-left: none;
-			border-right: none;
-			min-height: 100vh;
-		}
-
-		.terminal-main {
-			padding: 20px 24px;
-		}
-	}
-</style>

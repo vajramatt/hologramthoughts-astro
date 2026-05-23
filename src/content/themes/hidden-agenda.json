@@ -1,0 +1,21 @@
+{
+  "slug": "hidden-agenda",
+  "themeIds": [
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-dyer-dozen",
+      "rationale": "Picks up the thread of personal desire and complicates it with selfless intention."
+    },
+    {
+      "slug": "observations-on-the-human-experience",
+      "rationale": "Picks up the thread of self-deception and pushes it into inner turmoil."
+    },
+    {
+      "slug": "everything-changes",
+      "rationale": "Picks up the desire for control and complicates it with impermanence."
+    }
+  ]
+}

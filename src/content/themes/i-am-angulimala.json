@@ -1,0 +1,23 @@
+{
+  "slug": "i-am-angulimala",
+  "themeIds": [
+    "buddhist-philosophy",
+    "enlightenment",
+    "personal-growth",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up the thread of Buddhist reflection and sharpens it with compassion."
+    },
+    {
+      "slug": "thousand-hand-bodhisattva",
+      "rationale": "Complicates personal sin with selfless enlightenment ideals."
+    },
+    {
+      "slug": "a-conversation-between-friends-about-god",
+      "rationale": "Picks up the thread of spiritual identity and complicates it with interfaith dialogue."
+    }
+  ]
+}

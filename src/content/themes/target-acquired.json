@@ -1,0 +1,20 @@
+{
+  "slug": "target-acquired",
+  "themeIds": [
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "nightmare",
+      "rationale": "Sharpens the sense of vulnerability in a treacherous natural setting."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Sharpens the focus from evasion to introspection."
+    },
+    {
+      "slug": "the-light-nextdoor",
+      "rationale": "Picks up surveillance theme and pushes it into paranormal terrain."
+    }
+  ]
+}

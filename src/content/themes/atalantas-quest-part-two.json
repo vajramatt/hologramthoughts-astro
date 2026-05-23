@@ -1,0 +1,22 @@
+{
+  "slug": "atalantas-quest-part-two",
+  "themeIds": [
+    "animal-welfare",
+    "female-empowerment",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-2",
+      "rationale": "Picks up the mythic narrative thread and pushes it into mystic judicial terrain."
+    },
+    {
+      "slug": "atalantas-quest-part-one",
+      "rationale": "Picks up Atalanta's story before her island exile."
+    },
+    {
+      "slug": "sri-garuda-and-the-tigress",
+      "rationale": "Picks up the mythic quest thread and plunges it into Hindu mythology."
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 import { defineConfig } from 'astro/config';
 import pagefind from 'astro-pagefind';
 import sitemap from '@astrojs/sitemap';
+import svelte from '@astrojs/svelte';
+import tailwind from '@tailwindcss/vite';
 import { remarkReadingTime } from './src/utils/reading-time.mjs';
 import { remarkEnhanceFrontmatter } from './src/utils/enhance-frontmatter.mjs';
 import remarkSmartypants from 'remark-smartypants';
@@ -10,11 +12,13 @@ import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { markdownForAgents } from './src/integrations/markdown-for-agents.ts';
+import { emitThemeIndex } from './src/integrations/emit-theme-index.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://hologramthoughts.com',
-  integrations: [pagefind(), sitemap(), markdownForAgents()],
+  integrations: [pagefind(), sitemap(), svelte(), markdownForAgents(), emitThemeIndex()],
+  vite: { plugins: [tailwind()] },
   devToolbar: {
     enabled: false
   },

@@ -1,0 +1,64 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import taxonomy from '../../content/themes/taxonomy.json';
+import { getCollection } from 'astro:content';
+import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
+export async function getStaticPaths() {
+  const themes = (taxonomy as any).themes;
+  const themeDir = 'src/content/themes';
+  const byTheme: Record<string, string[]> = {};
+  let files: string[] = [];
+  try {
+    files = (await readdir(themeDir)).filter(f => f.endsWith('.json') && f !== 'taxonomy.json');
+  } catch { files = []; }
+  for (const f of files) {
+    const sc = JSON.parse(await readFile(join(themeDir, f), 'utf8'));
+    for (const id of sc.themeIds) {
+      (byTheme[id] ??= []).push(sc.slug);
+    }
+  }
+  return themes.map((t: any) => ({
+    params: { id: t.id },
+    props: { theme: t, slugs: byTheme[t.id] ?? [] }
+  }));
+}
+
+const { theme, slugs } = Astro.props;
+const all = await getCollection('blog', ({ data }) => !data.draft);
+const bySlug = new Map(all.map(p => [p.data.slug ?? p.id.replace(/\.md$/, ''), p]));
+const posts = slugs
+  .map((s: string) => bySlug.get(s))
+  .filter(Boolean)
+  .sort((a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+---
+<Layout title={`${theme.name} — Hologram Thoughts`} description={theme.blurb}>
+  <header class="mb-12">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Thread</p>
+    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">{theme.name}</h1>
+    {theme.blurb && <p class="text-xl text-[var(--color-ink-soft)] italic mt-4">{theme.blurb}</p>}
+  </header>
+  {theme.synthesis && (
+    <div class="text-[var(--color-ink)] leading-relaxed mb-16" set:html={`<p>${theme.synthesis.replace(/\n\n/g, '</p><p>')}</p>`} />
+  )}
+  <section>
+    <h2 class="text-xl mb-6" style="font-family: var(--font-display);">{posts.length} posts, in order</h2>
+    <ul class="space-y-6">
+      {posts.map((p: any) => {
+        const slug = p!.data.slug ?? p!.id.replace(/\.md$/, '');
+        return (
+          <li>
+            <a href={`/blog/${slug}/`} class="block group no-underline">
+              <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">
+                {new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'long' })}
+              </p>
+              <p class="text-xl mt-1 text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{p!.data.title}</p>
+              {p!.data.description && <p class="text-sm text-[var(--color-ink-soft)] mt-1">{p!.data.description}</p>}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+</Layout>

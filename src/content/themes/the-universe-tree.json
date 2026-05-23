@@ -1,0 +1,22 @@
+{
+  "slug": "the-universe-tree",
+  "themeIds": [
+    "enlightenment",
+    "human-connection",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "to-breathe-a-tree",
+      "rationale": "Picks up the tree as symbol and pushes it into embodied experience."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the tree as threshold and pushes it into winter landscapes."
+    },
+    {
+      "slug": "a-moment-lost",
+      "rationale": "Picks up cosmic pause and pushes it into intimate human moments."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "the-dyer-dozen",
+  "themeIds": [
+    "enlightenment",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-4-reminders-and-buddhist-books",
+      "rationale": "Picks up the thread of spiritual seeking and pushes it into Buddhist terrain."
+    },
+    {
+      "slug": "the-five-precepts-of-reiki",
+      "rationale": "Picks up spiritual guidance and pushes it into actionable principles."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up compassion thread and pushes it into intentional living."
+    }
+  ]
+}

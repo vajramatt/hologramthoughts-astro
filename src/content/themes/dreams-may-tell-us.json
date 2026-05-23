@@ -1,0 +1,22 @@
+{
+  "slug": "dreams-may-tell-us",
+  "themeIds": [
+    "consciousness",
+    "enlightenment",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the dream thread and complicates it with historical context."
+    },
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up dream analysis and complicates it with personal symbolism."
+    },
+    {
+      "slug": "dreaming-dreams",
+      "rationale": "Picks up the thread of dream awareness and pushes it into conscious sleep."
+    }
+  ]
+}

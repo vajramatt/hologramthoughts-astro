@@ -1,0 +1,20 @@
+{
+  "slug": "lost-in-the-crowd",
+  "themeIds": [
+    "artificial-intelligence"
+  ],
+  "related": [
+    {
+      "slug": "the-weight-of-lawful-orders",
+      "rationale": "Complicates stealth operations with advanced technological elements."
+    },
+    {
+      "slug": "target-acquired",
+      "rationale": "Sharpens the assassin's focus from urban crowd to isolated terrain."
+    },
+    {
+      "slug": "the-free-fall",
+      "rationale": "Picks up Captain Mitchell's mission and plunges it into high-stakes free-fall."
+    }
+  ]
+}

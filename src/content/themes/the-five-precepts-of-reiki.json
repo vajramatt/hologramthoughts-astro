@@ -1,0 +1,22 @@
+{
+  "slug": "the-five-precepts-of-reiki",
+  "themeIds": [
+    "enlightenment",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "reiki-ii",
+      "rationale": "Picks up Reiki practice and pushes it into real-world application."
+    },
+    {
+      "slug": "energy-compassion-and-healing",
+      "rationale": "Picks up Reiki principles and pushes into practical applications."
+    },
+    {
+      "slug": "reiki-level-1",
+      "rationale": "Picks up Reiki interest and pushes into personal practice."
+    }
+  ]
+}

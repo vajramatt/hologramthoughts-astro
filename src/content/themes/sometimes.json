@@ -1,0 +1,21 @@
+{
+  "slug": "sometimes",
+  "themeIds": [
+    "darkness-attraction",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "i-am-breath",
+      "rationale": "Picks up the thread of longing and pushes it into expansive self-discovery."
+    },
+    {
+      "slug": "i-am-lost",
+      "rationale": "Picks up the thread of longing and complicates it with self-imposed isolation."
+    },
+    {
+      "slug": "compassion-and-aggression",
+      "rationale": "Complicates vulnerability with aggressive self-awareness."
+    }
+  ]
+}

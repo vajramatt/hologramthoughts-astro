@@ -1,0 +1,23 @@
+{
+  "slug": "buddhist-robots",
+  "themeIds": [
+    "artificial-intelligence",
+    "consciousness",
+    "enlightenment",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "google-in-2011",
+      "rationale": "Picks up the thread of technology and consciousness, pushing it into surveillance."
+    },
+    {
+      "slug": "what-would-you-do-with-150-years",
+      "rationale": "Picks up the future of human potential and pushes it into radical life extension."
+    },
+    {
+      "slug": "laughing-pose",
+      "rationale": "Picks up the thread of mindfulness and pushes it into yoga practice."
+    }
+  ]
+}

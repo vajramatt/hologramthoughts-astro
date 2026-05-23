@@ -1,0 +1,21 @@
+{
+  "slug": "two-billion-a-month",
+  "themeIds": [
+    "human-connection",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "military-spending-compassion",
+      "rationale": "Sharpens critique of military spending into demand for social compassion."
+    },
+    {
+      "slug": "the-food-crisis-and-suffering",
+      "rationale": "Picks up economic outrage and pushes it into global hunger crisis."
+    },
+    {
+      "slug": "turning-chinese",
+      "rationale": "Picks up economic outrage and pushes it into urgent activism."
+    }
+  ]
+}

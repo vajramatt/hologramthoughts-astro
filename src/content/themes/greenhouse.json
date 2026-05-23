@@ -1,0 +1,20 @@
+{
+  "slug": "greenhouse",
+  "themeIds": [
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Picks up the jungle atmosphere and pushes it into a combat zone."
+    },
+    {
+      "slug": "legions-laughter",
+      "rationale": "Picks up the theme of heightened sensory awareness and pushes it into combat terrain."
+    },
+    {
+      "slug": "surviving-the-aftermath",
+      "rationale": "Doubles down on atmospheric tension in a vastly different setting."
+    }
+  ]
+}

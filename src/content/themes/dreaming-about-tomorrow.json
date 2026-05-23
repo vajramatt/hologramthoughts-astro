@@ -1,0 +1,20 @@
+{
+  "slug": "dreaming-about-tomorrow",
+  "themeIds": [
+    "human-connection"
+  ],
+  "related": [
+    {
+      "slug": "dream-state-sadness",
+      "rationale": "Picks up the thread of visionary futures and complicates it with personal loss."
+    },
+    {
+      "slug": "dreams-and-tears",
+      "rationale": "Complicates utopian visions with personal family anxieties."
+    },
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Reverses utopian vision with wartime camaraderie."
+    }
+  ]
+}

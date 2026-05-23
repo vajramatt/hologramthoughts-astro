@@ -1,0 +1,23 @@
+{
+  "slug": "reiki-level-1",
+  "themeIds": [
+    "energy-healing",
+    "enlightenment",
+    "martial-arts",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "energy-compassion-and-healing",
+      "rationale": "Picks up Reiki practice and pushes it into community and diverse healing modalities."
+    },
+    {
+      "slug": "reiki-ii",
+      "rationale": "Picks up Reiki training and pushes it into practical application."
+    },
+    {
+      "slug": "the-five-precepts-of-reiki",
+      "rationale": "Doubles down on Reiki principles with the Five Precepts."
+    }
+  ]
+}

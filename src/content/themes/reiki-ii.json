@@ -1,0 +1,22 @@
+{
+  "slug": "reiki-ii",
+  "themeIds": [
+    "energy-healing",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "energy-compassion-and-healing",
+      "rationale": "Picks up Reiki practice and pushes it into real-world application."
+    },
+    {
+      "slug": "reiki-level-1",
+      "rationale": "Picks up the Reiki thread at its inception, detailing his first attunement."
+    },
+    {
+      "slug": "the-five-precepts-of-reiki",
+      "rationale": "Deepens understanding of Reiki with its founding principles."
+    }
+  ]
+}

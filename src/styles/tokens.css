@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  /* Forest floor — DEFAULT (was: dark-mode override) */
+  --color-bg: oklch(0.15 0.025 150);         /* deep forest black-green */
+  --color-bg-soft: oklch(0.19 0.03 150);
+  --color-surface: oklch(0.22 0.035 152);    /* card */
+  --color-surface-soft: oklch(0.26 0.04 152);
+
+  --color-ink: oklch(0.93 0.02 85);          /* warm bioluminescent off-white */
+  --color-ink-soft: oklch(0.74 0.035 130);   /* muted sage */
+  --color-ink-faint: oklch(0.55 0.04 140);
+
+  --color-spore: oklch(0.80 0.14 78);        /* spore gold / amber */
+  --color-spore-bright: oklch(0.86 0.15 80);
+  --color-mycelium: oklch(0.62 0.13 295);    /* mycelial violet */
+  --color-bioluminescent: oklch(0.78 0.13 175); /* teal interactive */
+
+  --color-border: oklch(0.93 0.02 85 / 0.10);     /* membrane */
+  --color-border-strong: oklch(0.93 0.02 85 / 0.20);
+
+  /* Typography — bookish, archaic, warm */
+  --font-display: "Spectral", "Fraunces", Georgia, serif;
+  --font-body: "Newsreader", "Source Serif 4", Georgia, serif;
+  --font-ui: "Inter Tight", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Motion — slow, organic */
+  --ease-grow: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-breathe: cubic-bezier(0.42, 0, 0.58, 1);
+  --dur-fast: 220ms;
+  --dur-med: 480ms;
+  --dur-slow: 900ms;
+  --dur-breathe: 5400ms;
+
+  /* Surfaces */
+  --membrane-bg: color-mix(in oklch, var(--color-surface) 82%, transparent);
+  --membrane-blur: 18px;
+  --shadow-deep: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 32px oklch(0 0 0 / 0.35);
+  --shadow-bloom: 0 0 0 1px var(--color-border-strong),
+                  0 0 24px color-mix(in oklch, var(--color-spore) 22%, transparent),
+                  0 12px 36px oklch(0 0 0 / 0.4);
+
+  /* Holographic prism — used sparingly */
+  --prism: linear-gradient(
+    100deg,
+    var(--color-spore) 0%,
+    var(--color-bioluminescent) 35%,
+    var(--color-mycelium) 65%,
+    var(--color-spore) 100%
+  );
+}
+
+/* Light mode = canopy morning, opt-in via data-theme="light" */
+[data-theme="light"] {
+  --color-bg: oklch(0.97 0.018 90);          /* warm parchment */
+  --color-bg-soft: oklch(0.94 0.025 90);
+  --color-surface: oklch(0.99 0.012 90);
+  --color-surface-soft: oklch(0.95 0.022 90);
+
+  --color-ink: oklch(0.22 0.06 150);         /* deep forest text */
+  --color-ink-soft: oklch(0.42 0.06 145);
+  --color-ink-faint: oklch(0.58 0.05 140);
+
+  --color-spore: oklch(0.62 0.16 72);        /* intensified gold */
+  --color-spore-bright: oklch(0.72 0.18 75);
+  --color-mycelium: oklch(0.45 0.18 295);
+  --color-bioluminescent: oklch(0.52 0.14 180);
+
+  --color-border: oklch(0.22 0.06 150 / 0.12);
+  --color-border-strong: oklch(0.22 0.06 150 / 0.25);
+
+  --membrane-bg: color-mix(in oklch, var(--color-surface) 88%, transparent);
+  --shadow-deep: 0 1px 2px oklch(0.22 0.06 150 / 0.06), 0 8px 24px oklch(0.22 0.06 150 / 0.08);
+  --shadow-bloom: 0 0 0 1px var(--color-border-strong),
+                  0 0 18px color-mix(in oklch, var(--color-spore) 28%, transparent),
+                  0 12px 36px oklch(0.22 0.06 150 / 0.10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

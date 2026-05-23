@@ -1,0 +1,20 @@
+{
+  "slug": "basketball-with-the-buddha",
+  "themeIds": [
+    "inner-peace"
+  ],
+  "related": [
+    {
+      "slug": "the-good-life",
+      "rationale": "Picks up mindfulness in everyday moments, shifting from solo to familial contexts."
+    },
+    {
+      "slug": "meditations-on-now-and-suchness",
+      "rationale": "Sharpens focus on the present moment through meditation and mindfulness practices."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up mindfulness thread in family settings."
+    }
+  ]
+}

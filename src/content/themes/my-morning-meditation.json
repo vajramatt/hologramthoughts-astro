@@ -1,0 +1,22 @@
+{
+  "slug": "my-morning-meditation",
+  "themeIds": [
+    "enlightenment",
+    "inner-peace",
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up meditation and pushes it into Tibetan mysticism."
+    },
+    {
+      "slug": "stuff-ive-tweeted",
+      "rationale": "Picks up mindfulness and pushes it into poetic fragments."
+    },
+    {
+      "slug": "promises-from-yeshe-tsogyal",
+      "rationale": "Picks up mindfulness thread and pushes it into Tibetan mysticism."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "the-free-fall",
+  "themeIds": [
+    "artificial-intelligence",
+    "personal-growth",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "the-weight-of-lawful-orders",
+      "rationale": "Picks up the theme of high-stakes nighttime operations."
+    },
+    {
+      "slug": "surviving-the-aftermath",
+      "rationale": "Complicates the solo adrenaline rush with corporate power struggles."
+    },
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Picks up the thread of nocturnal stealth and pushes it into combat terrain."
+    }
+  ]
+}

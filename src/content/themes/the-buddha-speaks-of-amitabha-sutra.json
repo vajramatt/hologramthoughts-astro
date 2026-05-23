@@ -1,0 +1,20 @@
+{
+  "slug": "the-buddha-speaks-of-amitabha-sutra",
+  "themeIds": [
+    "buddhist-philosophy"
+  ],
+  "related": [
+    {
+      "slug": "the-goddess",
+      "rationale": "Picks up the Buddhist thread and complicates it with illusion metaphors."
+    },
+    {
+      "slug": "knowing-sri-ganesh",
+      "rationale": "Picks up Buddhist cosmology and pushes it into Hindu mythology."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Deepens Buddhist thought with Guru Rinpoche's prayer."
+    }
+  ]
+}

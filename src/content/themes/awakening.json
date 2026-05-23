@@ -1,0 +1,20 @@
+{
+  "slug": "awakening",
+  "themeIds": [
+    "artificial-intelligence"
+  ],
+  "related": [
+    {
+      "slug": "surviving-the-aftermath",
+      "rationale": "Complicates market manipulation with human trust issues."
+    },
+    {
+      "slug": "the-free-fall",
+      "rationale": "Doubles down on high-stakes risk with a physical free-fall."
+    },
+    {
+      "slug": "gone",
+      "rationale": "Reverses futuristic chaos with domestic morning calm."
+    }
+  ]
+}

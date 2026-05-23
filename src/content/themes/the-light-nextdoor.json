@@ -1,0 +1,20 @@
+{
+  "slug": "the-light-nextdoor",
+  "themeIds": [
+    "existential-crisis"
+  ],
+  "related": [
+    {
+      "slug": "surviving-the-aftermath",
+      "rationale": "Picks up the thread of unexplained presence, shifting to corporate intrigue."
+    },
+    {
+      "slug": "312-any-street",
+      "rationale": "Picks up the thread of longing and loss in a darker, more personal terrain."
+    },
+    {
+      "slug": "a-moment-lost",
+      "rationale": "Picks up the thread of suspended time and pushes it into domestic spaces."
+    }
+  ]
+}

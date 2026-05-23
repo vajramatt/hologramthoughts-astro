@@ -1,0 +1,20 @@
+{
+  "slug": "do-you-already-know",
+  "themeIds": [
+    "human-connection"
+  ],
+  "related": [
+    {
+      "slug": "the-emergence-part-two",
+      "rationale": "Picks up the observer effect and pushes it into artificial intelligence."
+    },
+    {
+      "slug": "watch-these",
+      "rationale": "Picks up the observer effect and pushes it into unexplained phenomena."
+    },
+    {
+      "slug": "mystical-oneness",
+      "rationale": "Picks up the observer effect and pushes it into quantum entanglement."
+    }
+  ]
+}

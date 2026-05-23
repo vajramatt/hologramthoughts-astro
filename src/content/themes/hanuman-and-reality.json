@@ -1,0 +1,23 @@
+{
+  "slug": "hanuman-and-reality",
+  "themeIds": [
+    "buddhist-philosophy",
+    "consciousness",
+    "enlightenment",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Complicates devotion with personal spiritual history."
+    },
+    {
+      "slug": "hanumans-devotion",
+      "rationale": "Picks up the thread of Hanuman's spiritual significance and personalizes it."
+    },
+    {
+      "slug": "prostrations-to-the-guru",
+      "rationale": "Sharpens the distinction between self and ultimate reality."
+    }
+  ]
+}

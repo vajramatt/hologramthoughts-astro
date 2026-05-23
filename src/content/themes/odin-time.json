@@ -1,0 +1,20 @@
+{
+  "slug": "odin-time",
+  "themeIds": [
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "lokis-puzzle",
+      "rationale": "Picks up Odin's waiting and complicates it with Loki's solitude."
+    },
+    {
+      "slug": "sunday-bright-and-shiny",
+      "rationale": "Picks up the crow symbolism and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "lights-above",
+      "rationale": "Doubles down on crows as ominous messengers."
+    }
+  ]
+}

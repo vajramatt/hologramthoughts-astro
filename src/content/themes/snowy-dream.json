@@ -1,0 +1,21 @@
+{
+  "slug": "snowy-dream",
+  "themeIds": [
+    "darkness-attraction",
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up the thread of mystic encounters in a court of animal spirits."
+    },
+    {
+      "slug": "to-breathe-a-tree",
+      "rationale": "Picks up the solitary figure and settles it against a ancient tree's trunk."
+    },
+    {
+      "slug": "nightmare",
+      "rationale": "Doubles down on the fear of being alone in uncertain landscapes."
+    }
+  ]
+}

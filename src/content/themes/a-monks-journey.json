@@ -1,0 +1,23 @@
+{
+  "slug": "a-monks-journey",
+  "themeIds": [
+    "consciousness",
+    "enlightenment",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-prince-a-monk-and-tea",
+      "rationale": "Picks up the theme of enlightenment and pushes it into royal terrain."
+    },
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the theme of transcendence and pushes it into natural landscapes."
+    },
+    {
+      "slug": "bardo-the-intermediate-state",
+      "rationale": "Picks up the bardo theme and grounds it in everyday life."
+    }
+  ]
+}

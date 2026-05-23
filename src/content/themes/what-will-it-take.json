@@ -1,0 +1,22 @@
+{
+  "slug": "what-will-it-take",
+  "themeIds": [
+    "compassion",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "ice-and-needles",
+      "rationale": "Picks up the thread of emotional vulnerability and pushes it into poignant storytelling."
+    },
+    {
+      "slug": "always",
+      "rationale": "Complicates forgiveness with mourning and loss."
+    },
+    {
+      "slug": "a-code-of-conduct-for-my-family",
+      "rationale": "Picks up the thread of compassion and pushes it into family practice."
+    }
+  ]
+}

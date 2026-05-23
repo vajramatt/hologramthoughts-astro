@@ -1,0 +1,21 @@
+{
+  "slug": "the-trial-of-jyoti-part-2",
+  "themeIds": [
+    "cultural-exchange",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up the mystical trial and deepens its mythological roots."
+    },
+    {
+      "slug": "court-of-flowers",
+      "rationale": "Picks up the floral symbolism and pushes it into darker terrain."
+    },
+    {
+      "slug": "sri-garuda-and-the-tigress",
+      "rationale": "Picks up the mythic thread of nature and spirit, weaving it into Hindu mythology."
+    }
+  ]
+}

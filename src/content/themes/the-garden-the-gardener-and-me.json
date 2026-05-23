@@ -1,0 +1,22 @@
+{
+  "slug": "the-garden-the-gardener-and-me",
+  "themeIds": [
+    "inner-peace",
+    "nature",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "nightmare",
+      "rationale": "Picks up the thread of navigating uncertain terrain, but shifts to darkness."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the theme of solitude and pushes it into winter landscapes."
+    },
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up the thread of hidden worlds and pushes it into judicial terrain."
+    }
+  ]
+}

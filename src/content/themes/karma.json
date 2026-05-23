@@ -1,0 +1,22 @@
+{
+  "slug": "karma",
+  "themeIds": [
+    "human-connection",
+    "personal-growth",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "i-am-angulimala",
+      "rationale": "Picks up the karmic thread and complicates it with personal past-life reflections."
+    },
+    {
+      "slug": "the-dyer-dozen",
+      "rationale": "Complicates karma with intentional selflessness and divine connection."
+    },
+    {
+      "slug": "who-am-i-or-who-is-me",
+      "rationale": "Complicates Karma's cause and effect with self-inquiry and identity."
+    }
+  ]
+}

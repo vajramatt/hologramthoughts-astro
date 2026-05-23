@@ -2,10 +2,9 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import PostCard from '../../components/PostCard.astro';
 
-function getExcerpt(body, maxLength = 120) {
+function getExcerpt(body: string, maxLength = 160) {
   const text = body
     .replace(/^---[\s\S]*?---\n?/, '')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
@@ -32,134 +31,58 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
+const slugOf = (p: any) => p.data.slug ?? p.slug;
+
+// Load sidecars for posts on this page
+const themeIdsBySlug: Record<string, string[]> = {};
+for (const p of page.data) {
+  const s = slugOf(p);
+  try {
+    const sc = await import(`../../content/themes/${s}.json`);
+    themeIdsBySlug[s] = sc.default.themeIds ?? [];
+  } catch {
+    themeIdsBySlug[s] = [];
+  }
+}
 ---
 
-<Layout title={`Archive${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ''} - Hologram Thoughts`}>
-  <SiteHeader activePage="archive" />
+<Layout title={`Archive${page.currentPage > 1 ? ` — Page ${page.currentPage}` : ''} — Hologram Thoughts`}>
+  <header class="mb-12">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Archive</p>
+    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">All posts</h1>
+    <p class="text-[var(--color-ink-soft)] mt-3">
+      {page.total} posts, newest first.
+    </p>
+  </header>
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
-          </span>
-          <span class="shell-cmd">ls -lt posts/ &nbsp;# {page.total} posts</span>
-        </div>
+  <section class="space-y-2">
+    {page.data.map((post: any) => {
+      const s = slugOf(post);
+      return (
+        <PostCard
+          slug={s}
+          title={post.data.title}
+          pubDate={post.data.pubDate}
+          excerpt={getExcerpt(post.body)}
+          themeIds={themeIdsBySlug[s]}
+        />
+      );
+    })}
+  </section>
 
-        <div class="shell-output">
-          <div class="posts-list">
-            {page.data.map(post => (
-              <div class="post-entry">
-                <div class="post-entry-header">
-                  <span class="post-date">
-                    {post.data.pubDate.toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    })}
-                  </span>
-                  <a href={`/blog/${post.slug}`} class="post-title">{post.data.title}</a>
-                </div>
-                <p class="post-excerpt">{getExcerpt(post.body)}</p>
-              </div>
-            ))}
-          </div>
-
-          <nav class="pagination">
-            {page.url.prev ? (
-              <a href={page.url.prev} class="page-link">&larr; newer</a>
-            ) : <span />}
-            <span class="page-info">page {page.currentPage}/{page.lastPage}</span>
-            {page.url.next ? (
-              <a href={page.url.next} class="page-link">older &rarr;</a>
-            ) : <span />}
-          </nav>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <SiteFooter />
+  <nav class="flex justify-between items-center mt-12 pt-8 border-t border-[var(--color-border-strong)] text-sm">
+    {page.url.prev ? (
+      <a href={page.url.prev} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-spore)_8%,transparent)] hover:border-[var(--color-bioluminescent)] transition-all">
+        Newer
+      </a>
+    ) : <span />}
+    <span class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">
+      Page {page.currentPage} of {page.lastPage}
+    </span>
+    {page.url.next ? (
+      <a href={page.url.next} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-spore)_8%,transparent)] hover:border-[var(--color-bioluminescent)] transition-all">
+        Older
+      </a>
+    ) : <span />}
+  </nav>
 </Layout>
-
-<style>
-  main { margin: 0; padding: 0; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg-dim); }
-  .ps1-dir    { color: #818cf8; }
-  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg-dim); }
-
-  .shell-output { color: var(--term-fg-dim); }
-
-  .posts-list {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
-  }
-
-  .post-entry {
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--term-border);
-  }
-
-  .post-entry:last-child { border-bottom: none; }
-
-  .post-entry-header {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 3px;
-  }
-
-  .post-date {
-    color: var(--term-muted);
-    font-size: 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .post-title {
-    color: var(--term-accent);
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  .post-title:hover { color: var(--term-accent-hover); }
-
-  .post-excerpt {
-    color: var(--term-fg-dim);
-    font-size: 12px;
-    line-height: 1.5;
-    margin: 0;
-    padding-left: calc(10ch + 1rem);
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1.5rem;
-    border-top: 1px dashed var(--term-border);
-  }
-
-  .page-link {
-    color: var(--term-accent);
-    text-decoration: none;
-    font-size: 13px;
-  }
-
-  .page-link:hover { color: var(--term-accent-hover); }
-
-  .page-info {
-    color: var(--term-muted);
-    font-size: 12px;
-  }
-</style>

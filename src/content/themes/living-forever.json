@@ -1,0 +1,22 @@
+{
+  "slug": "living-forever",
+  "themeIds": [
+    "enlightenment",
+    "personal-growth",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "meditations-on-now-and-suchness",
+      "rationale": "Picks up the thread of transcending time and pushes it into mindfulness."
+    },
+    {
+      "slug": "what-would-you-do-with-150-years",
+      "rationale": "Picks up the desire for extended lifespan and pushes it into practical planning."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the thread of eternal life and pushes it into Tibetan mysticism."
+    }
+  ]
+}

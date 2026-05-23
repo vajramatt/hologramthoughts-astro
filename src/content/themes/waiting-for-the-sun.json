@@ -1,0 +1,20 @@
+{
+  "slug": "waiting-for-the-sun",
+  "themeIds": [
+    "family"
+  ],
+  "related": [
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the thread of elemental longing and pushes it into ancestral terrain."
+    },
+    {
+      "slug": "legions-laughter",
+      "rationale": "Picks up the thread of nighttime scenes and pushes it into intense action."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the thread of heat and pushes it into oppressive greenhouse terrain."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "a-meditation-on-chenrezig",
+  "themeIds": [
+    "buddhist-philosophy",
+    "enlightenment",
+    "inner-peace"
+  ],
+  "related": [
+    {
+      "slug": "the-prince-a-monk-and-tea",
+      "rationale": "Picks up the tranquil atmosphere and pushes it into a mythical narrative."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the meditative state and shifts it into a lush, sensual environment."
+    },
+    {
+      "slug": "gone",
+      "rationale": "Picks up the serene atmosphere and complicates it with domestic routine."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "your-advocate",
+  "themeIds": [
+    "compassion",
+    "enlightenment",
+    "inner-peace",
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "my-morning-meditation",
+      "rationale": "Picks up the earthy connection and pushes it into mindful morning ritual."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the natural world and pushes it into mystical terrain."
+    },
+    {
+      "slug": "to-breathe-a-tree",
+      "rationale": "Picks up the earthy connection and pushes it into arboreal intimacy."
+    }
+  ]
+}

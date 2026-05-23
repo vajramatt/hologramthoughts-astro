@@ -1,0 +1,20 @@
+{
+  "slug": "shri-dhanvantari",
+  "themeIds": [
+    "buddhist-philosophy"
+  ],
+  "related": [
+    {
+      "slug": "knowing-sri-ganesh",
+      "rationale": "Picks up the Vedic knowledge thread and pushes it into devotional practice."
+    },
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Picks up Ayurveda's spiritual roots and pushes into broader Dharmic practices."
+    },
+    {
+      "slug": "hanumans-devotion",
+      "rationale": "Doubles down on Hindu mythology with a monkey deity's devotion."
+    }
+  ]
+}

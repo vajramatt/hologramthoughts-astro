@@ -1,0 +1,23 @@
+{
+  "slug": "green-tara",
+  "themeIds": [
+    "consciousness",
+    "enlightenment",
+    "nature",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "a-modern-shiva-poem",
+      "rationale": "Picks up the divine embodiment thread and complicates it with masculine energy."
+    },
+    {
+      "slug": "manjusri",
+      "rationale": "Picks up the Buddhist deity thread with Manjusri's sword of wisdom."
+    },
+    {
+      "slug": "the-birth-of-tara",
+      "rationale": "Picks up the reverence for Tara and complicates her origin story."
+    }
+  ]
+}

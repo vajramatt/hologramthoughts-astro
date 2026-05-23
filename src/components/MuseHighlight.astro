@@ -1,0 +1,58 @@
+---
+interface Props {
+  latestSlugs: string[];
+  activeThemes: { id: string; name: string; blurb: string; postCount: number }[];
+  storySlugs: string[];
+}
+const { latestSlugs, activeThemes, storySlugs } = Astro.props;
+import { getCollection } from 'astro:content';
+const all = await getCollection('blog', ({ data }) => !data.draft);
+const bySlug = new Map(all.map(p => [p.data.slug ?? p.id.replace(/\.md$/, ''), p]));
+
+const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
+const stories = storySlugs.map(s => bySlug.get(s)).filter(Boolean);
+---
+<section class="my-16">
+  <header class="mb-8">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">From Muse</p>
+    <h2 class="text-4xl" style="font-family: var(--font-display);">What's alive in the archive</h2>
+  </header>
+  <div class="grid md:grid-cols-3 gap-8">
+    <div>
+      <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Latest</h3>
+      <ul class="space-y-3 text-sm">
+        {latest.map(p => (
+          <li><a href={`/blog/${p!.data.slug ?? p!.id.replace(/\.md$/, '')}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">
+            <p>{p!.data.title}</p>
+            <p class="text-xs text-[var(--color-ink-soft)]">{new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' })}</p>
+          </a></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Threads</h3>
+      {activeThemes.length === 0 ? (
+        <p class="text-xs text-[var(--color-ink-soft)] italic">Coming soon.</p>
+      ) : (
+        <ul class="space-y-3 text-sm">
+          {activeThemes.map(t => (
+            <li>
+              <a href={`/themes/${t.id}/`} class="no-underline">
+                <p class="text-[var(--color-ink)] hover:text-[var(--color-bioluminescent)]">{t.name} <span class="text-[var(--color-ink-soft)] text-xs">({t.postCount})</span></p>
+                {t.blurb && <p class="text-xs text-[var(--color-ink-soft)] italic mt-0.5">{t.blurb}</p>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Stories</h3>
+      <ul class="space-y-3 text-sm">
+        {stories.map(p => (
+          <li><a href={`/blog/${p!.data.slug ?? p!.id.replace(/\.md$/, '')}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">{p!.data.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

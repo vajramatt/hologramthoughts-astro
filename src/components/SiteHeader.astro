@@ -1,107 +1,44 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-
-interface Props {
-  activePage: 'home' | 'archive' | 'categories' | 'search';
-}
-
-const { activePage } = Astro.props;
+const nav = [
+  { href: '/', label: 'home' },
+  { href: '/archive/1', label: 'archive' },
+  { href: '/themes', label: 'themes' },
+  { href: '/search', label: 'search' }
+];
+const path = Astro.url.pathname;
 ---
-
-<header class="terminal-header">
-  <div class="terminal-titlebar">
-    <div class="titlebar-dharma">☸</div>
-    <div class="titlebar-title">dharma://hologram.thoughts</div>
-    <div class="titlebar-toggle">
+<header class="sticky top-0 z-30 backdrop-blur-md border-b border-[var(--color-border)] relative overflow-hidden" style="background: color-mix(in oklch, var(--color-bg) 75%, transparent);">
+  <!-- Canopy-edge curves: slow horizontal drift, mirrored at bottom of header -->
+  <svg aria-hidden="true" class="canopy-curves absolute left-0 right-0 bottom-0 w-[200%] h-6 pointer-events-none" viewBox="0 0 2400 24" preserveAspectRatio="none">
+    <path d="M0,24 Q150,4 300,16 T600,12 T900,20 T1200,8 T1500,18 T1800,10 T2100,16 T2400,12 L2400,24 Z" fill="none" stroke="var(--color-spore)" stroke-width="0.6" stroke-opacity="0.45"/>
+    <path d="M0,18 Q200,24 400,14 T800,22 T1200,12 T1600,20 T2000,14 T2400,18" fill="none" stroke="var(--color-bioluminescent)" stroke-width="0.4" stroke-opacity="0.35"/>
+    <path d="M0,12 Q250,18 500,8 T1000,16 T1500,6 T2000,14 T2400,10" fill="none" stroke="var(--color-mycelium)" stroke-width="0.3" stroke-opacity="0.28"/>
+  </svg>
+  <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between relative">
+    <a href="/" class="text-xl tracking-tight no-underline" style="font-family: var(--font-display);">
+      <span class="prismatic">hologram thoughts</span>
+    </a>
+    <nav class="flex items-center gap-6 text-sm" style="font-family: var(--font-ui);">
+      {nav.map(n => (
+        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-bioluminescent)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-bioluminescent)]']}>
+          {n.label}
+        </a>
+      ))}
       <ThemeToggle />
-    </div>
+    </nav>
   </div>
-  <nav class="terminal-nav">
-    <a href="/" class:list={[{ active: activePage === 'home' }]}>hologram-thoughts</a>
-    <a href="/archive" class:list={[{ active: activePage === 'archive' }]}>archive</a>
-    <a href="/categories" class:list={[{ active: activePage === 'categories' }]}>categories</a>
-    <a href="/search" class:list={[{ active: activePage === 'search' }]}>search</a>
-  </nav>
 </header>
 
 <style>
-  .terminal-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--term-bg);
+  .canopy-curves {
+    animation: canopy-drift 48s linear infinite;
   }
-
-  .terminal-titlebar {
-    background: var(--term-titlebar-bg);
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--term-border);
+  @keyframes canopy-drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
-
-  .titlebar-dharma {
-    font-size: 18px;
-    color: var(--term-accent);
-    text-shadow: var(--term-glow);
-    flex-shrink: 0;
-    line-height: 1;
-  }
-
-  .titlebar-title {
-    flex: 1;
-    text-align: center;
-    color: var(--term-muted);
-    font-size: 13px;
-    font-family: var(--font-mono);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .titlebar-toggle {
-    flex-shrink: 0;
-  }
-
-  .terminal-nav {
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--term-border);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0 24px;
-    background: var(--term-bg);
-  }
-
-  .terminal-nav a {
-    color: var(--term-fg-dim);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.15s;
-    font-family: var(--font-mono);
-    font-size: 14px;
-  }
-
-  .terminal-nav a::before {
-    content: "→ ";
-    color: var(--term-muted);
-  }
-
-  .terminal-nav a:hover,
-  .terminal-nav a.active {
-    color: var(--term-accent);
-    text-shadow: var(--term-glow);
-  }
-
-  @media (max-width: 50rem) {
-    .terminal-nav {
-      padding: 10px 16px;
-      gap: 0 16px;
-    }
-
-    .titlebar-title {
-      font-size: 11px;
-    }
+  @media (prefers-reduced-motion: reduce) {
+    .canopy-curves { animation: none; }
   }
 </style>

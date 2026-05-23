@@ -1,0 +1,21 @@
+{
+  "slug": "martial-arts-super-show",
+  "themeIds": [
+    "martial-arts",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "moving-on",
+      "rationale": "Picks up martial arts thread and pushes it into web development terrain."
+    },
+    {
+      "slug": "2nd-amendment",
+      "rationale": "Picks up martial arts thread and pushes it into firearms territory."
+    },
+    {
+      "slug": "the-commercialization-of-the-buddha",
+      "rationale": "Picks up the thread of commercialized spirituality from Las Vegas to Paris."
+    }
+  ]
+}

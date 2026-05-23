@@ -1,0 +1,20 @@
+{
+  "slug": "black-clouds-leprachauns",
+  "themeIds": [
+    "animal-welfare"
+  ],
+  "related": [
+    {
+      "slug": "lights-above",
+      "rationale": "Picks up fantastical warfare and pushes it into darker terrain."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up fantasy warfare and pushes it into wintry, psychological terrain."
+    },
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up fantastical world-building and pushes it into judicial terrain."
+    }
+  ]
+}

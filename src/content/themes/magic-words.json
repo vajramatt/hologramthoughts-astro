@@ -1,0 +1,21 @@
+{
+  "slug": "magic-words",
+  "themeIds": [
+    "enlightenment",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "direct-message-from-padmasambhava",
+      "rationale": "Picks up the power of mantra and pushes it into personal experience."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Picks up the power of words and pushes it into sacred invocation."
+    },
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Picks up the power of words and pushes it into Hindu mythology."
+    }
+  ]
+}

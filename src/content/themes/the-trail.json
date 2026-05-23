@@ -1,0 +1,20 @@
+{
+  "slug": "the-trail",
+  "themeIds": [
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "nightmare",
+      "rationale": "Picks up the eerie woodland atmosphere and pushes it into darker terrain."
+    },
+    {
+      "slug": "smoklahoma-feture-story-from-1994",
+      "rationale": "Picks up Oklahoma settings and pushes into vivid descriptions of food."
+    },
+    {
+      "slug": "the-garden-the-gardener-and-me",
+      "rationale": "Picks up the winding path and shifts it to a neglected garden."
+    }
+  ]
+}

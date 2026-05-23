@@ -1,0 +1,21 @@
+{
+  "slug": "feel-my-hand-in-yours",
+  "themeIds": [
+    "compassion",
+    "inner-peace"
+  ],
+  "related": [
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Picks up the theme of struggling in dark depths and pushes it inward."
+    },
+    {
+      "slug": "gone",
+      "rationale": "Picks up the thread of morning meditation and family life."
+    },
+    {
+      "slug": "nightmare",
+      "rationale": "Deepens the sense of protective concern from family to stranger."
+    }
+  ]
+}

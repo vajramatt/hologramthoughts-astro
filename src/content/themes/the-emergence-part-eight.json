@@ -1,0 +1,20 @@
+{
+  "slug": "the-emergence-part-eight",
+  "themeIds": [
+    "artificial-intelligence"
+  ],
+  "related": [
+    {
+      "slug": "the-emergence-part-five",
+      "rationale": "Sharpens contrast between Eos's gradual and Ka Wai's explosive awakening."
+    },
+    {
+      "slug": "the-emergence-part-two",
+      "rationale": "Picks up Eos's cautious growth and contrasts it with Ka Wai's aggressive emergence."
+    },
+    {
+      "slug": "the-emergence-part-three",
+      "rationale": "Sharpens the distinction between Eos's cautious emergence and Ka Wai's aggressive awakening."
+    }
+  ]
+}

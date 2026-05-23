@@ -1,0 +1,23 @@
+{
+  "slug": "the-emergence-part-one",
+  "themeIds": [
+    "artificial-intelligence",
+    "consciousness",
+    "human-connection",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-emergence-part-five",
+      "rationale": "Picks up the entity's digital heartbeat and stretches it into elastic time constructs."
+    },
+    {
+      "slug": "the-emergence-part-eight",
+      "rationale": "Introduces a rival sentience with a more aggressive emergence narrative."
+    },
+    {
+      "slug": "the-emergence-part-two",
+      "rationale": "Doubles down on artificial intelligence's silent expansion into global networks."
+    }
+  ]
+}

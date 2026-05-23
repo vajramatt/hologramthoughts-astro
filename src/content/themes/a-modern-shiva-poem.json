@@ -1,0 +1,23 @@
+{
+  "slug": "a-modern-shiva-poem",
+  "themeIds": [
+    "buddhist-philosophy",
+    "inner-peace",
+    "nature",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "hanumans-devotion",
+      "rationale": "Picks up the thread of Hindu deities and pushes into devotion."
+    },
+    {
+      "slug": "knowing-sri-ganesh",
+      "rationale": "Picks up Hindu deities and pushes into devotional prayer."
+    },
+    {
+      "slug": "sunday-bright-and-shiny",
+      "rationale": "Sharpens the gaze on Shiva's omnipresence in everyday life."
+    }
+  ]
+}

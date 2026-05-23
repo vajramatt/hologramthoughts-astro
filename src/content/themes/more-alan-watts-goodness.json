@@ -1,0 +1,21 @@
+{
+  "slug": "more-alan-watts-goodness",
+  "themeIds": [
+    "personal-growth",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "beautiful-video",
+      "rationale": "Picks up the spiritual curiosity and pushes it into visual territory."
+    },
+    {
+      "slug": "a-message-of-hope-video",
+      "rationale": "Picks up spiritual inspiration and pushes it into hopeful territory."
+    },
+    {
+      "slug": "2012-movie",
+      "rationale": "Picks up spiritual curiosity and pushes it into apocalyptic terrain."
+    }
+  ]
+}

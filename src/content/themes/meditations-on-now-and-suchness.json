@@ -1,0 +1,21 @@
+{
+  "slug": "meditations-on-now-and-suchness",
+  "themeIds": [
+    "enlightenment",
+    "inner-peace"
+  ],
+  "related": [
+    {
+      "slug": "meditation-and-mindfulness",
+      "rationale": "Picks up the struggle with mindfulness and pushes it into daily actions."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the thread of transcendent experience and pushes it into Tibetan mysticism."
+    },
+    {
+      "slug": "oneness",
+      "rationale": "Picks up the thread of time perception and pushes it into oneness."
+    }
+  ]
+}

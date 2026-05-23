@@ -1,0 +1,22 @@
+{
+  "slug": "journey-to-the-temple",
+  "themeIds": [
+    "enlightenment",
+    "inner-peace",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "my-morning-meditation",
+      "rationale": "Picks up the mountain setting and sharpens the focus to personal meditation."
+    },
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Sharpens the landscape's gentle tone with primal, ancestral relationships."
+    },
+    {
+      "slug": "the-garden-the-gardener-and-me",
+      "rationale": "Picks up the peaceful path and complicates it with human presence."
+    }
+  ]
+}

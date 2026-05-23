@@ -1,0 +1,21 @@
+{
+  "slug": "be-my-friend",
+  "themeIds": [
+    "compassion",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "thoughts-on-oneness",
+      "rationale": "Sharpens the idea of human connection through personal anecdotes."
+    },
+    {
+      "slug": "thank-you-mom",
+      "rationale": "Picks up kindness thread and traces it to maternal roots."
+    },
+    {
+      "slug": "the-good-life",
+      "rationale": "Sharpens the focus from self-promotion to genuine connection."
+    }
+  ]
+}

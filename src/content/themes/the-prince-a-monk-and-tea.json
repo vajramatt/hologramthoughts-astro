@@ -1,0 +1,24 @@
+{
+  "slug": "the-prince-a-monk-and-tea",
+  "themeIds": [
+    "enlightenment",
+    "existential-crisis",
+    "inner-peace",
+    "personal-growth",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "a-meditation-on-chenrezig",
+      "rationale": "Picks up the butter lamps and pushes into sensory meditation."
+    },
+    {
+      "slug": "the-goddess",
+      "rationale": "Picks up the prince's search for distinction and complicates it with bodhisattva wisdom."
+    },
+    {
+      "slug": "the-warrior-and-the-lady",
+      "rationale": "Picks up the theme of unassuming nobility and pushes it into faerie realms."
+    }
+  ]
+}

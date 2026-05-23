@@ -1,0 +1,22 @@
+{
+  "slug": "the-trial-of-jyoti-part-1",
+  "themeIds": [
+    "enlightenment",
+    "nature",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-2",
+      "rationale": "Picks up the mystical trial and deepens the mythic stakes."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the thread of mystic encounters and pushes it into winter landscapes."
+    },
+    {
+      "slug": "lights-above",
+      "rationale": "Picks up mortality theme and pushes it into darker terrain."
+    }
+  ]
+}

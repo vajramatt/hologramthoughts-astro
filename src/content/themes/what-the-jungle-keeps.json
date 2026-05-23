@@ -1,0 +1,21 @@
+{
+  "slug": "what-the-jungle-keeps",
+  "themeIds": [
+    "artificial-intelligence",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Picks up the jungle's sonic chaos and pushes it into tactical terrain."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the sensory overload of a jungle environment and transfers it indoors."
+    },
+    {
+      "slug": "the-weight-of-lawful-orders",
+      "rationale": "Picks up Captain Donnelly's story one minute earlier, in a different jungle."
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "the-river-of-thoughts",
+  "themeIds": [
+    "inner-peace",
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "journey-to-the-temple",
+      "rationale": "Picks up the mountain landscape and pushes it into a walking meditation."
+    },
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the serene landscape and complicates it with personal relationships."
+    },
+    {
+      "slug": "my-morning-meditation",
+      "rationale": "Picks up the serene natural setting and sharpens its spiritual focus."
+    }
+  ]
+}

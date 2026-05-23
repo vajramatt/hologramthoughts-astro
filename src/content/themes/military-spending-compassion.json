@@ -1,0 +1,23 @@
+{
+  "slug": "military-spending-compassion",
+  "themeIds": [
+    "compassion",
+    "human-connection",
+    "personal-growth",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "two-billion-a-month",
+      "rationale": "Picks up the war spending thread and doubles down on its human cost."
+    },
+    {
+      "slug": "just-imagine",
+      "rationale": "Doubles down on prioritizing compassion over military spending."
+    },
+    {
+      "slug": "the-food-crisis-and-suffering",
+      "rationale": "Sharpens critique of systemic priorities and suffering."
+    }
+  ]
+}

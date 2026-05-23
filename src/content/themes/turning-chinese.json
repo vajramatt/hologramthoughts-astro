@@ -1,0 +1,21 @@
+{
+  "slug": "turning-chinese",
+  "themeIds": [
+    "human-connection",
+    "personal-growth"
+  ],
+  "related": [
+    {
+      "slug": "the-food-crisis-and-suffering",
+      "rationale": "Picks up economic urgency and pushes it into global hunger crisis."
+    },
+    {
+      "slug": "two-billion-a-month",
+      "rationale": "Picks up economic urgency and pushes it into staggering national expenditure."
+    },
+    {
+      "slug": "letter-from-ron-time-is-running-out",
+      "rationale": "Picks up economic alarm and pushes it into urgent political action."
+    }
+  ]
+}

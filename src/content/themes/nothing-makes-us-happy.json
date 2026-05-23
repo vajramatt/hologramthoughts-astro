@@ -1,0 +1,22 @@
+{
+  "slug": "nothing-makes-us-happy",
+  "themeIds": [
+    "impermanence",
+    "inner-peace",
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "dragonfly-magic",
+      "rationale": "Picks up the lush natural setting and complicates it with spiritual symbolism."
+    },
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the theme of water scarcity and pushes it into indigenous ritual."
+    },
+    {
+      "slug": "the-garden-the-gardener-and-me",
+      "rationale": "Picks up the lush garden imagery and pushes it into a contemplative encounter."
+    }
+  ]
+}

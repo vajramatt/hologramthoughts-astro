@@ -1,0 +1,23 @@
+{
+  "slug": "for-love-of-darkness-2",
+  "themeIds": [
+    "darkness-attraction",
+    "inner-peace",
+    "nature",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "for-love-of-darkness",
+      "rationale": "Revisits the dark muse eight years prior."
+    },
+    {
+      "slug": "into",
+      "rationale": "Complicates the allure of darkness with paradoxical invitations to light and void."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Doubles down on the allure of dark, formless depths."
+    }
+  ]
+}

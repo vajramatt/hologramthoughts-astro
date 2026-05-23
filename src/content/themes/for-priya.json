@@ -1,0 +1,22 @@
+{
+  "slug": "for-priya",
+  "themeIds": [
+    "cultural-exchange",
+    "enlightenment",
+    "human-connection"
+  ],
+  "related": [
+    {
+      "slug": "a-conversation-between-friends-about-god",
+      "rationale": "Picks up the thread of questioning Christian hell."
+    },
+    {
+      "slug": "statement-of-faith",
+      "rationale": "Picks up the question of hell and pushes it into interfaith skepticism."
+    },
+    {
+      "slug": "the-fate-of-judas-iscariot",
+      "rationale": "Picks up the thread of Christian afterlife and complicates it with Eastern perspective."
+    }
+  ]
+}

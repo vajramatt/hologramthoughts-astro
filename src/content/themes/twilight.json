@@ -1,0 +1,22 @@
+{
+  "slug": "twilight",
+  "themeIds": [
+    "animal-welfare",
+    "enlightenment",
+    "human-connection"
+  ],
+  "related": [
+    {
+      "slug": "a-nameless-one-walks",
+      "rationale": "Picks up the mystical entities and pushes them into ritualistic human interaction."
+    },
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the mythic narrative and pushes it into ecological terrain."
+    },
+    {
+      "slug": "stuff-ive-tweeted",
+      "rationale": "Picks up the mystical thread and pushes it into everyday mindfulness."
+    }
+  ]
+}
