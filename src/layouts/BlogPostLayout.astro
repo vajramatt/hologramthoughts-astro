@@ -1,8 +1,6 @@
 ---
 // Legacy layout — use src/pages/blog/[slug].astro for new posts.
 import Layout from './Layout.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
 import ThemeChipStrip from '../components/ThemeChipStrip.astro';
 import RelatedPosts from '../components/RelatedPosts.astro';
 
@@ -13,89 +11,48 @@ interface Props {
 }
 
 const { frontmatter, themeIds = [], related = [] } = Astro.props as Props;
+const dateStr = frontmatter.pubDate?.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
 ---
 
-<Layout title={`${frontmatter.title} - Hologram Thoughts`}>
-  <SiteHeader activePage="home" />
+<Layout title={`${frontmatter.title} — Hologram Thoughts`}>
+  <article>
+    <header class="mb-12">
+      <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-3">
+        <time datetime={frontmatter.pubDate?.toISOString()}>{dateStr}</time>
+      </p>
+      <h1 class="text-4xl md:text-5xl tracking-tight leading-[1.1] text-[var(--color-ink)]" style="font-family: var(--font-display);">{frontmatter.title}</h1>
+      {frontmatter.description && (
+        <p class="text-lg text-[var(--color-ink-soft)] mt-4 leading-relaxed">{frontmatter.description}</p>
+      )}
+    </header>
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@hologramthoughts</span><span class="ps1-sep">:</span><span class="ps1-dir">~/posts</span><span class="ps1-dollar">$</span>
-          </span>
-          <span class="shell-cmd">cat ./post.md</span>
-        </div>
-
-        <div class="shell-output">
-          <article class="post">
-            <header class="post-header">
-              <h1>{frontmatter.title}</h1>
-              <p class="post-meta">
-                <time datetime={frontmatter.pubDate?.toISOString()}>
-                  {frontmatter.pubDate?.toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                  })}
-                </time>
-              </p>
-            </header>
-            <div class="post-content">
-              <slot />
-            </div>
-
-            <ThemeChipStrip themeIds={themeIds} />
-            <RelatedPosts related={related} />
-          </article>
-        </div>
-      </div>
+    <div class="post-content">
+      <slot />
     </div>
-  </main>
 
-  <SiteFooter />
+    <ThemeChipStrip themeIds={themeIds} />
+    <RelatedPosts related={related} />
+  </article>
 </Layout>
 
 <style>
-  main { margin: 0; padding: 0; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg); }
-  .ps1-dir    { color: #9b6bdf; }
-  .ps1-dollar { color: var(--term-fg); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg); }
-
-  .post-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px dashed var(--term-border);
-  }
-
-  .post-header h1 {
-    color: var(--term-accent);
-    font-size: 1.5rem;
-    margin: 0 0 0.5rem;
-  }
-
-  .post-meta {
-    color: var(--term-muted);
-    font-size: 13px;
-    margin: 0;
-  }
-
   .post-content {
-    font-size: 15px;
+    font-size: 1.0625rem;
     line-height: 1.75;
-    color: var(--term-fg);
+    color: var(--color-ink);
   }
 
   .post-content :global(p) { margin-bottom: 1.5rem; }
-  .post-content :global(a) { color: var(--term-accent); text-decoration: none; }
-  .post-content :global(a:hover) { color: var(--term-accent-hover); text-decoration: underline; }
-  .post-content :global(strong) { color: var(--term-fg-bright); font-weight: 600; }
+  .post-content :global(a) {
+    color: var(--color-moss-deep);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .post-content :global(a:hover) { color: var(--color-sky-deep); }
+  .post-content :global(strong) { font-weight: 600; }
 </style>
