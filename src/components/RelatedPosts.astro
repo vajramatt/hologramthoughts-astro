@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import type { RelatedPost } from '../lib/themes';
+
+interface Props { related: RelatedPost[]; }
+const { related } = Astro.props;
+
+const all = await getCollection('blog', ({ data }) => !data.draft);
+const bySlug = new Map(all.map(p => [p.data.slug ?? p.id.replace(/\.md$/, ''), p]));
+const items = related
+  .map(r => ({ post: bySlug.get(r.slug), rationale: r.rationale }))
+  .filter(x => x.post);
+---
+{items.length > 0 && (
+  <aside class="mt-12 pt-8 border-t border-[var(--glass-border)]">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-4">If this landed, try</p>
+    <ul class="space-y-5">
+      {items.map(({ post, rationale }) => (
+        <li>
+          <a href={`/blog/${post!.data.slug ?? post!.id.replace(/\.md$/, '')}/`} class="block group no-underline">
+            <p class="text-[var(--color-ink)] group-hover:text-[var(--color-moss-deep)] transition-colors" style="font-family: var(--font-display);">
+              {post!.data.title}
+              <span class="text-xs text-[var(--color-ink-soft)] ml-2 align-middle">({new Date(post!.data.pubDate).getFullYear()})</span>
+            </p>
+            <p class="text-sm text-[var(--color-ink-soft)] mt-1 italic">{rationale}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </aside>
+)}
