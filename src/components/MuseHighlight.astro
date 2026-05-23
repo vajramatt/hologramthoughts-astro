@@ -1,10 +1,14 @@
 ---
+type StoryItem =
+  | { kind: 'post'; slug: string; title: string; pubDate: Date }
+  | { kind: 'series'; name: string; parts: Array<{ slug: string; title: string; pubDate: Date; order: number }> };
+
 interface Props {
   latestSlugs: string[];
   activeThemes: { id: string; name: string; blurb: string; postCount: number }[];
-  storySlugs: string[];
+  stories: StoryItem[];
 }
-const { latestSlugs, activeThemes, storySlugs } = Astro.props;
+const { latestSlugs, activeThemes, stories } = Astro.props;
 import { getCollection } from 'astro:content';
 const all = await getCollection('blog', ({ data }) => !data.draft);
 // Multi-key index: frontmatter slug, astro slug, id base
@@ -17,7 +21,6 @@ for (const p of all) {
 }
 
 const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
-const stories = storySlugs.map(s => bySlug.get(s)).filter(Boolean);
 ---
 <section class="my-16">
   <header class="mb-8">
@@ -58,8 +61,31 @@ const stories = storySlugs.map(s => bySlug.get(s)).filter(Boolean);
     <div>
       <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Stories</h3>
       <ul class="space-y-3 text-sm">
-        {stories.map(p => (
-          <li><a href={`/blog/${(p as any).slug ?? p!.id.replace(/\.md$/, '')}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">{p!.data.title}</a></li>
+        {stories.map(item => (
+          item.kind === 'post' ? (
+            <li>
+              <a href={`/blog/${item.slug}/`} class="no-underline text-[var(--color-ink)] hover:text-[var(--color-bioluminescent)]">{item.title}</a>
+            </li>
+          ) : (
+            <li>
+              <details class="group">
+                <summary class="cursor-pointer list-none flex items-center gap-1.5 text-[var(--color-ink)] hover:text-[var(--color-bioluminescent)]">
+                  <svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true" class="transition-transform group-open:rotate-90 shrink-0">
+                    <path d="M3 1 L7 5 L3 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  <span style="font-family: var(--font-display);">{item.name}</span>
+                  <span class="text-xs text-[var(--color-ink-soft)]">({item.parts.length})</span>
+                </summary>
+                <ol class="mt-2 ml-4 pl-3 border-l border-[var(--color-border)] space-y-1.5 text-xs">
+                  {item.parts.map(part => (
+                    <li>
+                      <a href={`/blog/${part.slug}/`} class="no-underline text-[var(--color-ink-soft)] hover:text-[var(--color-bioluminescent)]">{part.title}</a>
+                    </li>
+                  ))}
+                </ol>
+              </details>
+            </li>
+          )
         ))}
       </ul>
     </div>

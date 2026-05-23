@@ -9,6 +9,8 @@ categories:
   - "Other"
 tags: []
 slug: emergence-notebooklm-podcast
+series: 'The Emergence'
+seriesOrder: 9
 ---
 Google offers an AI platform that can take content and produce study guides, summaries, and even a podcast hosted by two AI bots. I fed it Emergence and this is what we have:
 

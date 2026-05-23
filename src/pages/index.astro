@@ -16,8 +16,9 @@ const slugOf = (p: any) => p.slug ?? p.id.replace(/\.md$/, '');
 const sidecarKey = (p: any) => p.data.slug ?? p.slug ?? p.id.replace(/\.md$/, '');
 
 // Read Muse picks (hand-curated overrides)
+type StoryEntry = string | { series: string };
 interface MusePicks {
-  stories?: string[];
+  stories?: StoryEntry[];
   latest?: string[];
   threads?: string[];
   featured_note?: string;
@@ -42,8 +43,33 @@ const pickToSlug = (s: string) => {
 const latestSlugs = (picks.latest?.length ? picks.latest.map(pickToSlug).filter(Boolean) as string[]
   : all.slice(0, 5).map(slugOf));
 
-const storySlugs = (picks.stories?.length ? picks.stories.map(pickToSlug).filter(Boolean) as string[]
-  : all.filter(p => p.data.contentType === 'story').slice(0, 5).map(slugOf));
+// Stories: mix of single posts and series groups.
+// Single → { kind: 'post', slug, title, pubDate }
+// Series → { kind: 'series', name, parts: [{ slug, title, pubDate, order }] }
+type StoryItem =
+  | { kind: 'post'; slug: string; title: string; pubDate: Date }
+  | { kind: 'series'; name: string; parts: Array<{ slug: string; title: string; pubDate: Date; order: number }> };
+const stories: StoryItem[] = [];
+if (picks.stories?.length) {
+  for (const entry of picks.stories) {
+    if (typeof entry === 'string') {
+      const p = postBySlug.get(entry);
+      if (p) stories.push({ kind: 'post', slug: slugOf(p), title: p.data.title, pubDate: p.data.pubDate });
+    } else if (entry?.series) {
+      const seriesName = entry.series;
+      const parts = all
+        .filter(p => p.data.series === seriesName)
+        .map(p => ({ slug: slugOf(p), title: p.data.title, pubDate: p.data.pubDate, order: p.data.seriesOrder ?? 999 }))
+        .sort((a, b) => a.order - b.order);
+      if (parts.length) stories.push({ kind: 'series', name: seriesName, parts });
+    }
+  }
+} else {
+  const fallback = all.filter(p => p.data.contentType === 'story').slice(0, 5);
+  for (const p of fallback) {
+    stories.push({ kind: 'post', slug: slugOf(p), title: p.data.title, pubDate: p.data.pubDate });
+  }
+}
 
 const themesById = new Map<string, any>((taxonomy as any).themes.map((t: any) => [t.id, t]));
 const activeThemes = (picks.threads?.length
@@ -84,7 +110,7 @@ for (const p of featured) {
     )}
   </section>
 
-  <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} storySlugs={storySlugs} />
+  <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} stories={stories} />
 
   <section class="my-16">
     <h2 class="text-3xl mb-8" style="font-family: var(--font-display);">Recent</h2>

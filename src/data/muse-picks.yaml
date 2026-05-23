@@ -6,12 +6,17 @@
 # Each section overrides a corresponding block on the homepage MuseHighlight.
 
 # Stories — surfaced in the "Stories" column on the homepage.
-# Order matters; first 5 render. Use the post's frontmatter slug.
-# If empty, falls back to all posts with `contentType: story` in frontmatter.
+# Order matters. Each entry is EITHER a single post slug OR a series group:
+#   - my-post-slug              # single post
+#   - series: 'Series Name'     # all posts with this frontmatter `series`
+# Series posts auto-sort by `seriesOrder`. Hand-edit a post's seriesOrder
+# to control where each part lands.
+# If this list is empty, falls back to all posts with `contentType: story`.
 stories:
   - the-fire-between-us
   - the-willow-and-the-river
   - the-shade-was-good
+  - series: 'The Emergence'
 
 # Latest — what Muse considers "latest worth noticing".
 # Order matters; first 5 render. If empty, falls back to the 5 most recent posts.
