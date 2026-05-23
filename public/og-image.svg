@@ -1,85 +1,100 @@
-<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="shadow">
-      <feDropShadow dx="0" dy="4" stdDeviation="14" flood-color="#b8b0a0" flood-opacity="0.5"/>
+    <!-- Warm parchment background with subtle bottom-green vignette -->
+    <radialGradient id="bg" cx="50%" cy="100%" r="100%">
+      <stop offset="0%" stop-color="#9dbf86" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#f6efdc" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Prismatic gradient for the wordmark -->
+    <linearGradient id="prism" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8a5a1b"/>
+      <stop offset="35%" stop-color="#1c6b6b"/>
+      <stop offset="65%" stop-color="#5a3aa8"/>
+      <stop offset="100%" stop-color="#8a5a1b"/>
+    </linearGradient>
+
+    <!-- Soft grain pattern -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.14  0 0 0 0.04 0"/>
     </filter>
-    <clipPath id="window-clip">
-      <rect x="48" y="40" width="1104" height="550" rx="8"/>
-    </clipPath>
   </defs>
 
-  <!-- Page background -->
-  <rect width="1200" height="630" fill="#ece8e0"/>
+  <!-- Warm parchment base -->
+  <rect width="1200" height="630" fill="#f6efdc"/>
 
-  <!-- Terminal window (shadow + frame) -->
-  <rect x="48" y="40" width="1104" height="550" rx="8" fill="#faf8f4"
-        stroke="#d4cfc4" stroke-width="1.5" filter="url(#shadow)"/>
+  <!-- Bottom green vignette -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
 
-  <!-- All interior elements clipped to window shape -->
-  <g clip-path="url(#window-clip)">
+  <!-- Grain overlay -->
+  <rect width="1200" height="630" filter="url(#grain)" opacity="0.5"/>
 
-    <!-- Titlebar -->
-    <rect x="48" y="40" width="1104" height="52" fill="#edeae2"/>
-    <line x1="48" y1="92" x2="1152" y2="92" stroke="#d4cfc4" stroke-width="1"/>
-
-    <!-- Dharma wheel in titlebar -->
-    <text x="84" y="74" font-family="serif" font-size="22"
-          fill="#4338ca" text-anchor="middle" opacity="0.85">☸</text>
-
-    <!-- Titlebar URL -->
-    <text x="600" y="75" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="15" fill="#6b6880" text-anchor="middle" letter-spacing="1.5">dharma://hologram.thoughts</text>
-
-    <!-- Watermark dharma wheel -->
-    <g transform="translate(600, 360)" opacity="0.08">
-      <circle cx="0" cy="0" r="195" fill="none" stroke="#4338ca" stroke-width="3"/>
-      <circle cx="0" cy="0" r="144" fill="none" stroke="#4338ca" stroke-width="1.5"/>
-      <circle cx="0" cy="0" r="30" fill="none" stroke="#4338ca" stroke-width="3"/>
-      <circle cx="0" cy="0" r="9"  fill="#4338ca"/>
-      <line x1="0"    y1="-30"  x2="0"    y2="-144" stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="21.2" y1="-21.2" x2="101.8" y2="-101.8" stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="30"   y1="0"    x2="144"  y2="0"    stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="21.2" y1="21.2"  x2="101.8" y2="101.8"  stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="0"    y1="30"   x2="0"    y2="144"  stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="-21.2" y1="21.2" x2="-101.8" y2="101.8"  stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="-30"  y1="0"    x2="-144" y2="0"    stroke="#4338ca" stroke-width="2.5"/>
-      <line x1="-21.2" y1="-21.2" x2="-101.8" y2="-101.8" stroke="#4338ca" stroke-width="2.5"/>
-      <circle cx="0"    cy="-169" r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="119.5" cy="-119.5" r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="169"  cy="0"    r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="119.5" cy="119.5"  r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="0"    cy="169"  r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="-119.5" cy="119.5"  r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="-169" cy="0"    r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-      <circle cx="-119.5" cy="-119.5" r="12" fill="none" stroke="#4338ca" stroke-width="2"/>
-    </g>
-
-    <!-- Main title -->
-    <text x="600" y="295" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="88" font-weight="700" text-anchor="middle">
-      <tspan fill="#c9c4bb"># </tspan><tspan fill="#4338ca">Hologram Thoughts</tspan>
-    </text>
-
-    <!-- Tagline -->
-    <text x="600" y="372" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="26" fill="#4a4560" text-anchor="middle" letter-spacing="3">spiritual · philosophical · creative writing</text>
-
-    <!-- Divider -->
-    <line x1="300" y1="410" x2="900" y2="410" stroke="#d4cfc4" stroke-width="1"/>
-
-    <!-- PS1 prompt -->
-    <text x="600" y="456" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="24" text-anchor="middle">
-      <tspan fill="#047857">matt@samsara</tspan><tspan fill="#6b6880">:</tspan><tspan fill="#6366f1">~/dharma</tspan><tspan fill="#6b6880" dx="10">→</tspan><tspan fill="#4a4560" dx="10">read DHARMA.md</tspan>
-    </text>
-
-    <!-- Footer bar -->
-    <rect x="48" y="548" width="1104" height="42" fill="#edeae2"/>
-    <line x1="48" y1="548" x2="1152" y2="548" stroke="#d4cfc4" stroke-width="1"/>
-    <text x="84" y="573" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="13" fill="#6b6880">hologramthoughts.com</text>
-    <text x="1116" y="573" font-family="'Courier New', 'Lucida Console', monospace"
-          font-size="13" fill="#6b6880" text-anchor="end">© 2006–2026 matthew williamson</text>
-
+  <!-- Canopy curves at the top -->
+  <g opacity="0.55">
+    <path d="M0,46 Q150,18 300,34 T600,28 T900,38 T1200,24" fill="none" stroke="#b8861c" stroke-width="1.2"/>
+    <path d="M0,68 Q200,84 400,58 T800,72 T1200,52" fill="none" stroke="#1c6b6b" stroke-width="0.9"/>
+    <path d="M0,90 Q250,72 500,80 T1000,68 T1200,82" fill="none" stroke="#5a3aa8" stroke-width="0.7"/>
   </g>
+
+  <!-- Spore-mote dots scattered -->
+  <g fill="#b8861c" opacity="0.45">
+    <circle cx="180" cy="220" r="2.5"/>
+    <circle cx="980" cy="180" r="2"/>
+    <circle cx="1050" cy="380" r="3"/>
+    <circle cx="120" cy="420" r="2"/>
+    <circle cx="780" cy="500" r="2.2"/>
+  </g>
+  <g fill="#1c6b6b" opacity="0.4">
+    <circle cx="240" cy="320" r="1.8"/>
+    <circle cx="920" cy="280" r="2.3"/>
+    <circle cx="160" cy="500" r="2"/>
+    <circle cx="1080" cy="200" r="1.5"/>
+  </g>
+  <g fill="#5a3aa8" opacity="0.35">
+    <circle cx="320" cy="180" r="2"/>
+    <circle cx="860" cy="420" r="1.8"/>
+    <circle cx="200" cy="380" r="1.6"/>
+  </g>
+
+  <!-- Wordmark — small uppercase eyebrow -->
+  <text x="600" y="180" font-family="Inter Tight, system-ui, sans-serif"
+        font-size="22" font-weight="500" fill="#5e6553"
+        text-anchor="middle" letter-spacing="6">
+    MATTHEW WILLIAMSON
+  </text>
+
+  <!-- Title — prismatic Spectral -->
+  <text x="600" y="320" font-family="Spectral, Georgia, serif"
+        font-size="108" font-weight="500" fill="url(#prism)"
+        text-anchor="middle" letter-spacing="-1.5">
+    hologram thoughts
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="395" font-family="Newsreader, Georgia, serif"
+        font-size="32" font-style="italic" fill="#3a4631"
+        text-anchor="middle">
+    an archive of attention
+  </text>
+
+  <!-- Sub-tagline -->
+  <text x="600" y="445" font-family="Newsreader, Georgia, serif"
+        font-size="20" fill="#5e6553" text-anchor="middle">
+    twenty years of writing on consciousness, dharma, code, and the strange edges of culture
+  </text>
+
+  <!-- Mycelial root curves at the bottom -->
+  <g opacity="0.55">
+    <path d="M0,590 Q150,562 300,578 T600,572 T900,582 T1200,568" fill="none" stroke="#b8861c" stroke-width="1.2"/>
+    <path d="M0,608 Q200,624 400,598 T800,612 T1200,592" fill="none" stroke="#1c6b6b" stroke-width="0.9"/>
+    <path d="M0,624 Q250,608 500,616 T1000,604 T1200,618" fill="none" stroke="#5a3aa8" stroke-width="0.7"/>
+  </g>
+
+  <!-- Domain badge -->
+  <text x="600" y="558" font-family="Inter Tight, system-ui, sans-serif"
+        font-size="16" font-weight="500" fill="#3a4631"
+        text-anchor="middle" letter-spacing="3">
+    HOLOGRAMTHOUGHTS.COM
+  </text>
 </svg>
