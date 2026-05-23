@@ -5,6 +5,9 @@ import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import ReadingProgress from '../../components/ReadingProgress.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
+import ThemeChipStrip from '../../components/ThemeChipStrip.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import type { PostSidecar } from '../../lib/themes';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -35,6 +38,12 @@ export async function getStaticPaths() {
 
 const { post, nextPost, prevPost } = Astro.props;
 const { Content, remarkPluginFrontmatter, headings } = await post.render();
+
+let sidecar: PostSidecar = { slug: '', themeIds: [], related: [] };
+try {
+  const slug = post.data.slug ?? post.slug;
+  sidecar = (await import(`../../content/themes/${slug}.json`)).default;
+} catch { /* no sidecar */ }
 
 const dateStr = post.data.pubDate?.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -100,6 +109,9 @@ const canonicalUrl = `https://hologramthoughts.com/blog/${post.slug}/`;
             <div class="post-content">
               <Content />
             </div>
+
+            <ThemeChipStrip themeIds={sidecar.themeIds} />
+            <RelatedPosts related={sidecar.related} />
 
             <div class="end-mark">&#10022;</div>
           </article>

@@ -3,8 +3,16 @@
 import Layout from './Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import ThemeChipStrip from '../components/ThemeChipStrip.astro';
+import RelatedPosts from '../components/RelatedPosts.astro';
 
-const { frontmatter } = Astro.props;
+interface Props {
+  frontmatter: any;
+  themeIds?: string[];
+  related?: import('../lib/themes').RelatedPost[];
+}
+
+const { frontmatter, themeIds = [], related = [] } = Astro.props as Props;
 ---
 
 <Layout title={`${frontmatter.title} - Hologram Thoughts`}>
@@ -37,6 +45,9 @@ const { frontmatter } = Astro.props;
             <div class="post-content">
               <slot />
             </div>
+
+            <ThemeChipStrip themeIds={themeIds} />
+            <RelatedPosts related={related} />
           </article>
         </div>
       </div>
