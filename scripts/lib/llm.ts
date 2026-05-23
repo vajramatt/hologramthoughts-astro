@@ -39,9 +39,15 @@ export async function chat(messages: ChatMessage[], opts: { maxTokens?: number; 
     temperature: opts.temperature ?? 0.7
   });
   // Workers AI text-generation responses come back as { response: "..." } or
-  // sometimes nested under { result: { response } }. Handle both.
-  if (typeof result?.response === 'string') return result.response;
-  if (typeof result?.result?.response === 'string') return result.result.response;
+  // sometimes nested under { result: { response } }. Some models (e.g. Llama
+  // 3.3 70B) auto-detect JSON mode and return `response` as a parsed object;
+  // stringify in that case so callers that JSON.parse can still work.
+  const r1 = result?.response;
+  if (typeof r1 === 'string') return r1;
+  if (r1 && typeof r1 === 'object') return JSON.stringify(r1);
+  const r2 = result?.result?.response;
+  if (typeof r2 === 'string') return r2;
+  if (r2 && typeof r2 === 'object') return JSON.stringify(r2);
   throw new Error(`unexpected chat shape: ${JSON.stringify(result).slice(0, 200)}`);
 }
 
