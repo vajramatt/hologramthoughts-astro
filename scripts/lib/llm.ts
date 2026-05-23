@@ -9,7 +9,7 @@
 // Override the relay URL with MUSE_RELAY_URL=... (default: http://localhost:8787).
 
 const RELAY = process.env.MUSE_RELAY_URL ?? 'http://localhost:8787';
-const CHAT_MODEL = process.env.MUSE_MODEL ?? 'alibaba/qwen3-max';
+const CHAT_MODEL = process.env.MUSE_MODEL ?? '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 const EMBED_MODEL = process.env.MUSE_EMBED_MODEL ?? '@cf/baai/bge-base-en-v1.5';
 
 export interface ChatMessage { role: 'system' | 'user' | 'assistant'; content: string; }

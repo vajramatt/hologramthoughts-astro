@@ -60,9 +60,12 @@ Individual stages: `build:tag`, `build:canonicalize`, `build:bio`, `build:blurbs
 
 Build scripts POST to the relay (`http://localhost:8787/run`), which calls
 `env.AI.run(model, body)` via the Workers AI binding. Default chat model
-`alibaba/qwen3-max`. Override via `MUSE_MODEL` env var. Override embed model
-via `MUSE_EMBED_MODEL` (default `@cf/baai/bge-base-en-v1.5`). Override relay
-URL via `MUSE_RELAY_URL`.
+`@cf/meta/llama-3.3-70b-instruct-fp8-fast` (native Workers AI). External
+providers like `alibaba/qwen3-max` require an AI Gateway with the provider
+key configured — for now the default sticks to native models so the relay
+works with `wrangler login` alone. Override via `MUSE_MODEL` env var.
+Override embed model via `MUSE_EMBED_MODEL` (default `@cf/baai/bge-base-en-v1.5`).
+Override relay URL via `MUSE_RELAY_URL`.
 
 First-time auth: `npx wrangler login` (browser OAuth). No `CF_API_TOKEN`
 needed. None of these scripts or the relay Worker ship to production.
