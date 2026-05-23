@@ -12,11 +12,12 @@ import remarkToc from 'remark-toc';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { markdownForAgents } from './src/integrations/markdown-for-agents.ts';
+import { emitThemeIndex } from './src/integrations/emit-theme-index.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://hologramthoughts.com',
-  integrations: [pagefind(), sitemap(), svelte(), markdownForAgents()],
+  integrations: [pagefind(), sitemap(), svelte(), markdownForAgents(), emitThemeIndex()],
   vite: { plugins: [tailwind()] },
   devToolbar: {
     enabled: false
