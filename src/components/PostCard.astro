@@ -12,11 +12,11 @@ import taxonomy from '../content/themes/taxonomy.json';
 const themes = themeIds.slice(0, 3).map(id => (taxonomy as any).themes.find((t: any) => t.id === id)).filter(Boolean);
 ---
 <a href={`/blog/${slug}/`} class="block group no-underline">
-  <article class="p-6 rounded-2xl border border-transparent hover:border-[var(--glass-border)] hover:bg-[color-mix(in_oklch,var(--color-sun)_6%,transparent)] transition-all duration-[var(--dur-med)]">
+  <article class="p-6 rounded-2xl border border-transparent hover:border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-spore)_6%,transparent)] transition-all duration-[var(--dur-med)]">
     <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">
       {pubDate.toLocaleDateString('en', { year: 'numeric', month: 'long' })}
     </p>
-    <h3 class="text-2xl text-[var(--color-ink)] group-hover:text-[var(--color-moss-deep)] transition-colors mb-2" style="font-family: var(--font-display);">{title}</h3>
+    <h3 class="text-2xl text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors mb-2" style="font-family: var(--font-display);">{title}</h3>
     {excerpt && <p class="text-[var(--color-ink-soft)] text-sm leading-relaxed mb-3">{excerpt}</p>}
     {themes.length > 0 && (
       <div class="flex flex-wrap gap-2 mt-3">
