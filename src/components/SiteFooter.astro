@@ -1,51 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-
-const allPosts = await getCollection('blog');
-const oldestPost = allPosts.reduce((oldest, post) => {
-  return !oldest || post.data.pubDate < oldest.data.pubDate ? post : oldest;
-}, null);
-
-const startYear = oldestPost ? oldestPost.data.pubDate.getFullYear() : new Date().getFullYear();
-const currentYear = new Date().getFullYear();
-const yearRange = startYear === currentYear ? currentYear : `${startYear}-${currentYear}`;
+const year = new Date().getFullYear();
 ---
-
-<footer class="terminal-footer">
-  <span>&copy; {yearRange} <a href="https://vajramatt.github.io/">Matthew Williamson</a> — hologram-thoughts</span>
-  <span class="footer-homage">theme: an homage to <a href="https://blog.rice.is">rice</a></span>
-  <nav class="footer-nav">
-    <a href="/rss.xml">rss</a>
-    <a href="/archive">archive</a>
-    <a href="/search">search</a>
-  </nav>
+<footer class="mt-32 border-t border-[var(--glass-border)]">
+  <div class="mx-auto max-w-5xl px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-sm text-[var(--color-ink-soft)]">
+    <p>© {year} Matthew Williamson</p>
+    <nav class="flex gap-6">
+      <a href="/rss.xml" class="no-underline hover:text-[var(--color-ink)]">rss</a>
+      <a href="/agent-index.md" class="no-underline hover:text-[var(--color-ink)]">agents</a>
+      <a href="/archive/1" class="no-underline hover:text-[var(--color-ink)]">archive</a>
+    </nav>
+  </div>
 </footer>
-
-<style>
-  .terminal-footer {
-    padding: 12px 20px;
-    border-top: 1px solid var(--term-border);
-    color: var(--term-muted);
-    font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 4px 16px;
-    font-family: var(--font-mono);
-  }
-
-  .terminal-footer a:link,
-  .terminal-footer a:visited {
-    color: var(--term-fg-dim);
-  }
-
-  .terminal-footer a:hover {
-    color: var(--term-fg-bright);
-  }
-
-  .footer-nav {
-    display: flex;
-    gap: 16px;
-  }
-</style>
