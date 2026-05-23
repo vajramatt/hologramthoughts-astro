@@ -6,5 +6,18 @@
     "nonconformity",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "some-random-poems",
+      "rationale": "Picks up the mystical voice and pushes it into intimate terrain."
+    },
+    {
+      "slug": "twilight",
+      "rationale": "Picks up the mystic thread and pushes it into ancient, formless realms."
+    },
+    {
+      "slug": "i-am",
+      "rationale": "Picks up the mystic persona and complicates it with longing and isolation."
+    }
+  ]
 }

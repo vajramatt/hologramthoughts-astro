@@ -4,5 +4,18 @@
     "human-connection",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "make-your-life-mean-something",
+      "rationale": "Picks up the thread of legacy and loss."
+    },
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up grandfatherly legacy and pushes it into surreal family trauma."
+    },
+    {
+      "slug": "dreams-and-tears",
+      "rationale": "Picks up grandfather theme and complicates it with surreal urgency."
+    }
+  ]
 }

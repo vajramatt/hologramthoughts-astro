@@ -3,5 +3,18 @@
   "themeIds": [
     "nonconformity"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "its-just-good-karma",
+      "rationale": "Picks up the thread of unconventional pursuits and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "dreams-may-tell-us",
+      "rationale": "Picks up the thread of unconventional adventure and pushes it into subconscious terrain."
+    },
+    {
+      "slug": "what-would-you-do-with-150-years",
+      "rationale": "Picks up the thread of unconventional life choices and pushes it into longevity."
+    }
+  ]
 }

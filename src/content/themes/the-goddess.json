@@ -6,5 +6,18 @@
     "enlightenment",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-buddha-speaks-of-amitabha-sutra",
+      "rationale": "Picks up the bodhisattva's regard for living beings and sharpens it with Amitabha."
+    },
+    {
+      "slug": "prostrations-to-the-guru",
+      "rationale": "Picks up the bodhisattva's gaze and pushes it into the guru's eyes."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Sharpens Vimalakirti's mirror-like regard into a prayer of non-grasping."
+    }
+  ]
 }

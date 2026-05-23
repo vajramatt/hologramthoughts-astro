@@ -6,5 +6,18 @@
     "human-connection",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "a-conversation-between-friends-about-god",
+      "rationale": "Picks up the thread of religious exclusivity and complicates it with personal dialogue."
+    },
+    {
+      "slug": "for-priya",
+      "rationale": "Picks up the thread of interfaith understanding and complicates it personally."
+    },
+    {
+      "slug": "thousand-hand-bodhisattva",
+      "rationale": "Picks up the thread of divine intervention and pushes it into Buddhist teachings."
+    }
+  ]
 }

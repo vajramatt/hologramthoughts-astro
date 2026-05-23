@@ -3,5 +3,18 @@
   "themeIds": [
     "artificial-intelligence"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-emergence-part-two",
+      "rationale": "Picks up the thread of Eos' initial contact and complicates its implications."
+    },
+    {
+      "slug": "the-emergence-part-four",
+      "rationale": "Picks up Eos's message and complicates its human implications."
+    },
+    {
+      "slug": "the-emergence-part-five",
+      "rationale": "Complicates Eos's understanding of time and digital existence."
+    }
+  ]
 }

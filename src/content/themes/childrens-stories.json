@@ -1,5 +1,18 @@
 {
   "slug": "childrens-stories",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "dragonfly-magic",
+      "rationale": "Picks up storytelling thread with real-life family moment."
+    },
+    {
+      "slug": "all-sound-is-prayer",
+      "rationale": "Picks up storytelling as spiritual practice with his son."
+    },
+    {
+      "slug": "the-good-life",
+      "rationale": "Picks up the fatherly love and pushes it into everyday moments."
+    }
+  ]
 }

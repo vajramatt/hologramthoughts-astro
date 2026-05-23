@@ -3,5 +3,18 @@
   "themeIds": [
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-2",
+      "rationale": "Picks up the floral motif and pushes it into mystical judicial terrain."
+    },
+    {
+      "slug": "atalantas-quest-part-one",
+      "rationale": "Complicates the mythology of blood and sacrifice with a goddess's primal awakening."
+    },
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up the thread of mystical violence and pushes it into judicial terrain."
+    }
+  ]
 }

@@ -5,5 +5,18 @@
     "family",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "in-adoration",
+      "rationale": "Picks up compassion and redirects it toward the divine and all beings."
+    },
+    {
+      "slug": "quiet-forgiving-loving-kindness-with-chenrezig",
+      "rationale": "Picks up kindness and complicates it with personal struggle."
+    },
+    {
+      "slug": "113-thoughts-from-the-buddha",
+      "rationale": "Picks up compassion and pushes it into spiritual practice."
+    }
+  ]
 }

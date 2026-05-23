@@ -5,5 +5,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up prayer's contemplative state and pushes it into Buddhist terrain."
+    },
+    {
+      "slug": "supplication-to-guru-rinpoche",
+      "rationale": "Picks up contemplative prayer and pushes it into Tibetan Buddhist terrain."
+    },
+    {
+      "slug": "st-valentines-day-and-the-buddha",
+      "rationale": "Complicates spiritual seeking with everyday American life."
+    }
+  ]
 }

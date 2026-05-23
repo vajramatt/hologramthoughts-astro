@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "observations-on-the-human-experience",
+      "rationale": "Complicates meditation with self-doubt and uncomfortable emotions."
+    },
+    {
+      "slug": "keep-going-karmapa",
+      "rationale": "Picks up meditation's transformative promise and pushes it into perseverance."
+    },
+    {
+      "slug": "yogis-of-tibet",
+      "rationale": "Deepens meditation's cultural context into Tibetan Buddhism's troubled history."
+    }
+  ]
 }

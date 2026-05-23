@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "its-just-good-karma",
+      "rationale": "Doubles down on Tibetan Buddhist practices with specific lineage exploration."
+    },
+    {
+      "slug": "chenrezig-practice",
+      "rationale": "Picks up mindfulness and pushes it into Tibetan Buddhist practice."
+    },
+    {
+      "slug": "it-isnt-alternative-healing-its-healing",
+      "rationale": "Picks up the thread of yoga and pushes it into energetic healing practices."
+    }
+  ]
 }

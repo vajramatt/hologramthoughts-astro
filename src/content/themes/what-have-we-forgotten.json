@@ -3,5 +3,18 @@
   "themeIds": [
     "artificial-intelligence"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "yogis-of-tibet",
+      "rationale": "Picks up the thread of lost esoteric knowledge in Tibetan yogic traditions."
+    },
+    {
+      "slug": "watch-these",
+      "rationale": "Picks up the thread of lost knowledge and pushes it into unexplained phenomena."
+    },
+    {
+      "slug": "mahakala-vision-and-information",
+      "rationale": "Picks up forgotten knowledge thread with a personal Mahakala vision."
+    }
+  ]
 }

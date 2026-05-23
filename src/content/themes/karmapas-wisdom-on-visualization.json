@@ -6,5 +6,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "chenrezig-practice",
+      "rationale": "Picks up the thread of Chenrezig's compassion and puts it into personal practice."
+    },
+    {
+      "slug": "tara-mother-of-liberation",
+      "rationale": "Picks up the thread of inner deity and sharpens focus on Tara."
+    },
+    {
+      "slug": "the-birth-of-tara",
+      "rationale": "Picks up the thread of Tara and complicates her origin story."
+    }
+  ]
 }

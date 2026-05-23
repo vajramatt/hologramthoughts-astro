@@ -5,5 +5,18 @@
     "mantra-recitation",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Deepens devotion to Hindu deities beyond Sri Ganesha."
+    },
+    {
+      "slug": "sri-ganesha",
+      "rationale": "Picks up Sri Ganesha and adds visual symbolism."
+    },
+    {
+      "slug": "a-modern-shiva-poem",
+      "rationale": "Picks up Hindu deities and pushes into poetic reverence."
+    }
+  ]
 }

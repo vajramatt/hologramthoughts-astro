@@ -3,5 +3,18 @@
   "themeIds": [
     "consciousness"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "twilight",
+      "rationale": "Picks up the twilight metaphor and pushes it into mystical realms."
+    },
+    {
+      "slug": "a-nameless-one-walks",
+      "rationale": "Picks up the nocturnal mysticism and pushes it into ritualistic terrain."
+    },
+    {
+      "slug": "dreaming-dreams",
+      "rationale": "Picks up the thread of conscious sleep and pushes it into lucid dreaming."
+    }
+  ]
 }

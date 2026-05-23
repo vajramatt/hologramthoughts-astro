@@ -1,5 +1,18 @@
 {
   "slug": "letter-from-ron-time-is-running-out",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "the-food-crisis-and-suffering",
+      "rationale": "Sharpens focus from financial crisis to human cost."
+    },
+    {
+      "slug": "turning-chinese",
+      "rationale": "Picks up economic alarm and pushes it into urgent activism."
+    },
+    {
+      "slug": "anne-korin-seems-smart-to-me",
+      "rationale": "Complicates bailout concerns with energy policy critiques."
+    }
+  ]
 }

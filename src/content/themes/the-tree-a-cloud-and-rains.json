@@ -3,5 +3,18 @@
   "themeIds": [
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the tree's longing and roots it deeply in a parental love."
+    },
+    {
+      "slug": "to-breathe-a-tree",
+      "rationale": "Picks up the tree as refuge and pushes it into intimate, sensual connection."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the tree's longing for connection and complicates it with solitude."
+    }
+  ]
 }

@@ -1,5 +1,18 @@
 {
   "slug": "guru-senge-dradrok",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "mahakala-vision-and-information",
+      "rationale": "Picks up the thread of wrathful deities with Mahakala's protective vision."
+    },
+    {
+      "slug": "pure-dzgochen-from-padmasambhava-through-trungpa",
+      "rationale": "Picks up tantric themes and pushes them into Vajrayana territory."
+    },
+    {
+      "slug": "maa-durga",
+      "rationale": "Picks up the thread of powerful spiritual figures and pushes it into feminine terrain."
+    }
+  ]
 }

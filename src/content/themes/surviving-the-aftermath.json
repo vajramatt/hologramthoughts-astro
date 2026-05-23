@@ -3,5 +3,18 @@
   "themeIds": [
     "social-commentary"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the thread of trust and complicates it in a humid, sensory environment."
+    },
+    {
+      "slug": "the-free-fall",
+      "rationale": "Picks up the thread of high-stakes risk and pushes it into adrenaline-fueled terrain."
+    },
+    {
+      "slug": "the-light-nextdoor",
+      "rationale": "Picks up eerie atmosphere and pushes it into abandoned spaces."
+    }
+  ]
 }

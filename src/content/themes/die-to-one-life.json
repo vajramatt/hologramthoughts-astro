@@ -5,5 +5,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "are-you-ready-to-meet-god",
+      "rationale": "Picks up the thread of transformation and complicates it with spiritual surrender."
+    },
+    {
+      "slug": "a-love-letter-to-me",
+      "rationale": "Picks up the thread of transformation and complicates it with personal struggle."
+    },
+    {
+      "slug": "some-random-poems",
+      "rationale": "Picks up the thread of transformation and pushes it into cosmic intimacy."
+    }
+  ]
 }

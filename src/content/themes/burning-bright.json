@@ -3,5 +3,18 @@
   "themeIds": [
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the natural world imagery and pushes it into mythic terrain."
+    },
+    {
+      "slug": "the-dreamer-awakens",
+      "rationale": "Picks up the nocturnal tranquility and shatters it with explosive awakening."
+    },
+    {
+      "slug": "the-tree-a-cloud-and-rains",
+      "rationale": "Picks up the natural world and pushes it into mythic dialogue."
+    }
+  ]
 }

@@ -5,5 +5,18 @@
     "inner-peace",
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "for-love-of-darkness-2",
+      "rationale": "Picks up the void and plunges it into dark emotional terrain."
+    },
+    {
+      "slug": "for-love-of-darkness",
+      "rationale": "Picks up the void and plunges it into dark, sensual, spiritual terrain."
+    },
+    {
+      "slug": "twilight",
+      "rationale": "Picks up the formlessness and gives it ancient, elemental shape."
+    }
+  ]
 }

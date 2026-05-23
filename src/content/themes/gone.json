@@ -3,5 +3,18 @@
   "themeIds": [
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "a-meditation-on-chenrezig",
+      "rationale": "Deepens the morning meditation scene into a sensory, winter bath ritual."
+    },
+    {
+      "slug": "feel-my-hand-in-yours",
+      "rationale": "Picks up the morning routine and pushes it into nighttime reflection."
+    },
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Picks up the thread of sensory immersion and pushes it into combat terrain."
+    }
+  ]
 }

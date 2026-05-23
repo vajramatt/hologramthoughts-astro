@@ -6,5 +6,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "chenrezig-practice",
+      "rationale": "Picks up the introduction to Chenrezig and pushes into devoted practice."
+    },
+    {
+      "slug": "white-tara-comes-to-oklahoma-city",
+      "rationale": "Picks up Tibetan Buddhist themes and pushes into personal encounters."
+    },
+    {
+      "slug": "pure-dzgochen-from-padmasambhava-through-trungpa",
+      "rationale": "Sharpens the concept of Buddha Nature with Dzogchen teachings."
+    }
+  ]
 }

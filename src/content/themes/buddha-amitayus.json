@@ -4,5 +4,18 @@
     "buddhist-philosophy",
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-buddha-speaks-of-amitabha-sutra",
+      "rationale": "Doubles down on Amitabha's significance with ancient scripture."
+    },
+    {
+      "slug": "tara-mother-of-liberation",
+      "rationale": "Picks up Buddhist iconography and pushes into feminine manifestations."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Picks up the thread of Buddhist deities and pushes into mindfulness practice."
+    }
+  ]
 }

@@ -17,7 +17,22 @@ ${SOUL}
 What you know about Matthew:
 ${BIO}
 
-Task: Given two posts, write a single short sentence (max 16 words) that says what reading the second after the first does — what thread it picks up, what it pushes into. No fluff. No "in this post". No "this article". No affirmation. Output ONE sentence, no quotes, no markdown.`;
+Task: Given two posts (A read first, B suggested next), write a single short sentence (max 16 words) that says what reading B after A does.
+
+HARD RULES — output is REJECTED if it violates these:
+- DO NOT start with "Explores", "Discusses", "Continues", "Examines", "Looks at", or any generic verb opener
+- DO NOT use the words "explore", "exploration", "delve", "journey", "intersection"
+- DO NOT use "similar themes", "related themes", "shared themes" — name the actual thread
+- DO NOT say "in this post" or "this article"
+- DO start with the concrete move: what thread it picks up, where it pushes
+- Use a SPECIFIC verb: picks up, pushes, complicates, reverses, sharpens, doubles down, answers, contradicts
+
+Good: "Picks up the holographic frame and pushes it into psychedelic terrain."
+Good: "Same question, but answered by a teacher he meets in person."
+Bad: "Explores consciousness and spirituality from different perspectives."
+Bad: "Continues themes of unexplained phenomena."
+
+Output ONE sentence, no quotes, no markdown, no preface.`;
 
 async function loadPosts(): Promise<Map<string, { title: string; year: number; body: string }>> {
   const dir = 'src/content/blog';
@@ -37,6 +52,7 @@ async function loadPosts(): Promise<Map<string, { title: string; year: number; b
 }
 
 async function main() {
+  const force = process.argv.includes('--force');
   const posts = await loadPosts();
   const themesDir = 'src/content/themes';
   const files = (await readdir(themesDir)).filter(f => f.endsWith('.json') && f !== 'taxonomy.json');
@@ -47,7 +63,7 @@ async function main() {
     if (!me) continue;
     let changed = false;
     for (const r of sc.related) {
-      if (r.rationale) continue;
+      if (r.rationale && !force) continue;
       const other = posts.get(r.slug);
       if (!other) continue;
       const text = await chat([

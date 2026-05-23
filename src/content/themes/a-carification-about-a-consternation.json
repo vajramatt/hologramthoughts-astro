@@ -4,5 +4,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "keep-going-karmapa",
+      "rationale": "Picks up humility and sharpens it into selfless perseverance."
+    },
+    {
+      "slug": "2012-movie",
+      "rationale": "Picks up the thread of spiritual inquiry and pushes it into cinematic terrain."
+    },
+    {
+      "slug": "what-is-chenrezig-to-me",
+      "rationale": "Picks up humility and pushes it into Buddhist context."
+    }
+  ]
 }

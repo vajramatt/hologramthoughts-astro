@@ -5,5 +5,18 @@
     "energy-healing",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "312-any-street",
+      "rationale": "Complicates love's redemptive power with heartbreak and self-worth."
+    },
+    {
+      "slug": "twilight",
+      "rationale": "Picks up the thread of love and complicates it with ancient, formless forces."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Picks up the thread of desperation and plunges it into darkest fear."
+    }
+  ]
 }

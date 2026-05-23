@@ -1,5 +1,18 @@
 {
   "slug": "anne-korin-seems-smart-to-me",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "turning-chinese",
+      "rationale": "Picks up energy independence thread and pushes it into urgent activism."
+    },
+    {
+      "slug": "the-food-crisis-and-suffering",
+      "rationale": "Picks up energy policy and pushes it into global food crisis."
+    },
+    {
+      "slug": "ayn-rand-interview-in-3-parts",
+      "rationale": "Doubles down on conservative ideology with Ayn Rand's philosophical views."
+    }
+  ]
 }

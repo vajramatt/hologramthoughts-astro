@@ -4,5 +4,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "midnight-moksha",
+      "rationale": "Picks up the thread of transcendence and pushes it into ecstatic dissolution."
+    },
+    {
+      "slug": "the-free-fall",
+      "rationale": "Doubles down on isolation in extreme environments."
+    },
+    {
+      "slug": "the-prince-a-monk-and-tea",
+      "rationale": "Picks up the thread of inner struggle in a mystical, serene landscape."
+    }
+  ]
 }

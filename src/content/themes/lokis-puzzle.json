@@ -6,5 +6,18 @@
     "inner-peace",
     "social-commentary"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "odin-time",
+      "rationale": "Picks up the Norse mythological thread and pushes it toward Odin's perspective."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the solitary retreat and pushes it into Tibetan mysticism."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the snowy solitude and pushes it into mystical terrain."
+    }
+  ]
 }

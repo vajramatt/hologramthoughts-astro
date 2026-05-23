@@ -3,5 +3,18 @@
   "themeIds": [
     "tibetan-culture"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "wonderlane-in-nepal",
+      "rationale": "Picks up the Himalayan thread and pushes it into personal connections."
+    },
+    {
+      "slug": "a-message-of-hope-video",
+      "rationale": "Shifts from ancient treasures to modern inspirational media."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Doubles down on Tibetan mysticism with a female deity's voice."
+    }
+  ]
 }

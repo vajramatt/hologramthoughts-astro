@@ -1,5 +1,18 @@
 {
   "slug": "emergence-notebooklm-podcast",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "google-in-2011",
+      "rationale": "Sharpens the focus on Google's evolving role in shaping digital reality."
+    },
+    {
+      "slug": "buddhist-robots",
+      "rationale": "Picks up AI curiosity and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "the-emergence-part-two",
+      "rationale": "Picks up the AI's silent opponent and complicates its digital expansion."
+    }
+  ]
 }

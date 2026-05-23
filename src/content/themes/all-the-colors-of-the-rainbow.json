@@ -4,5 +4,18 @@
     "childhood",
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dragonfly-magic",
+      "rationale": "Picks up the thread of noticing beauty in turbulent weather."
+    },
+    {
+      "slug": "stuff-ive-tweeted",
+      "rationale": "Picks up the thread of wonder and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "sunday-bright-and-shiny",
+      "rationale": "Picks up the vibrant imagery and pushes it into spiritual terrain."
+    }
+  ]
 }

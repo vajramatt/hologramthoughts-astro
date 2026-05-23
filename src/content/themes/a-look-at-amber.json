@@ -1,5 +1,18 @@
 {
   "slug": "a-look-at-amber",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "maxfield-parrish",
+      "rationale": "Picks up the thread of mystical art and pushes it into early 20th century."
+    },
+    {
+      "slug": "hanumans-devotion",
+      "rationale": "Picks up mythic fascination and pushes it into Hindu mythology."
+    },
+    {
+      "slug": "wonderlane-in-nepal",
+      "rationale": "Picks up the thread of enchanting visuals and pushes it into sacred landscapes."
+    }
+  ]
 }

@@ -1,5 +1,18 @@
 {
   "slug": "ayn-rand-interview-in-3-parts",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "a-book-review-of-the-joyous-cosmology-adventures-in-the-chemistry-of-consciousness",
+      "rationale": "Picks up individualism and pushes it into psychedelic spirituality."
+    },
+    {
+      "slug": "2012-movie",
+      "rationale": "Picks up individualism and pushes it into collective apocalypse."
+    },
+    {
+      "slug": "what-would-you-do-with-150-years",
+      "rationale": "Picks up individualism and pushes it into life extension territory."
+    }
+  ]
 }

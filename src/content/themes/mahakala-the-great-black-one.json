@@ -5,5 +5,18 @@
     "enlightenment",
     "tibetan-culture"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "mahakala-vision-and-information",
+      "rationale": "Picks up Mahakala's legend and pushes it into personal devotion."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the Tibetan tradition and pushes it into feminine mysticism."
+    },
+    {
+      "slug": "the-birth-of-tara",
+      "rationale": "Picks up the thread of Buddhist deities and complicates gender roles."
+    }
+  ]
 }

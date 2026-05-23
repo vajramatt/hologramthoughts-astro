@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "healing-this-reality",
+      "rationale": "Picks up the thread of hidden truth and pushes it into collective healing."
+    },
+    {
+      "slug": "looking-for-treasure",
+      "rationale": "Picks up the thread of hidden truth and pushes it into everyday perception."
+    },
+    {
+      "slug": "hidden-agenda",
+      "rationale": "Picks up the thread of hidden truths and pushes it into personal motivations."
+    }
+  ]
 }

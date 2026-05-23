@@ -6,5 +6,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "i-am-angulimala",
+      "rationale": "Picks up the thread of personal transformation and pushes it into Buddhist terrain."
+    },
+    {
+      "slug": "everything-changes",
+      "rationale": "Picks up personal transformation and pushes it into career decisions."
+    },
+    {
+      "slug": "a-conversation-between-friends-about-god",
+      "rationale": "Picks up the thread of personal belief and pushes it into spiritual dialogue."
+    }
+  ]
 }

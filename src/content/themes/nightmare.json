@@ -4,5 +4,18 @@
     "existential-crisis",
     "social-commentary"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the eerie forest atmosphere and pushes it into serene winter terrain."
+    },
+    {
+      "slug": "lights-above",
+      "rationale": "Picks up the thread of survival in a darker, more ominous landscape."
+    },
+    {
+      "slug": "the-garden-the-gardener-and-me",
+      "rationale": "Picks up the thread of navigating uncertain terrain, shifting from darkness to overgrowth."
+    }
+  ]
 }

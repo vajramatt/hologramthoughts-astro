@@ -3,5 +3,18 @@
   "themeIds": [
     "animal-welfare"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-trial-of-jyoti-part-2",
+      "rationale": "Picks up the mythic landscape and pushes it into judicial terrain."
+    },
+    {
+      "slug": "the-trial-of-jyoti-part-1",
+      "rationale": "Picks up the mythic animal thread and pushes it into courtroom terrain."
+    },
+    {
+      "slug": "the-birth-of-tara",
+      "rationale": "Picks up the feminine divine thread and sharpens its Buddhist edge."
+    }
+  ]
 }

@@ -5,5 +5,18 @@
     "family",
     "inner-peace"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "perspective-and-context",
+      "rationale": "Complicates spiritual seeking with cultural projection."
+    },
+    {
+      "slug": "sunday-bright-and-shiny",
+      "rationale": "Picks up the thread of inner treasure and pushes it into mystical unity."
+    },
+    {
+      "slug": "all-the-colors-of-the-rainbow",
+      "rationale": "Doubles down on finding treasure in everyday moments and landscapes."
+    }
+  ]
 }

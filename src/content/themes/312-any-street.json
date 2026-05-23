@@ -5,5 +5,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-light-nextdoor",
+      "rationale": "Picks up heartache and pushes it into mysterious terrain."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the shattered heart and pushes it into stillness."
+    },
+    {
+      "slug": "gone",
+      "rationale": "Picks up heartache and complicates it with domestic tranquility."
+    }
+  ]
 }

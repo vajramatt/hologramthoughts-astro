@@ -44,6 +44,8 @@ async function loadPosts(): Promise<Map<string, PostMeta>> {
 async function main() {
   const onlyArg = process.argv.find(a => a.startsWith('--only='));
   const onlyId = onlyArg ? onlyArg.split('=')[1] : null;
+  const forceBlurbs = process.argv.includes('--force-blurbs');
+  const forceSynthesis = process.argv.includes('--force-synthesis');
 
   const taxonomy = JSON.parse(await readFile('src/content/themes/taxonomy.json', 'utf8'));
   const posts = await loadPosts();
@@ -63,7 +65,9 @@ async function main() {
   let done = 0;
   for (const theme of taxonomy.themes) {
     if (onlyId && theme.id !== onlyId) continue;
-    if (theme.blurb && theme.synthesis) {
+    const needBlurb = !theme.blurb || forceBlurbs;
+    const needSynth = !theme.synthesis || forceSynthesis;
+    if (!needBlurb && !needSynth) {
       process.stderr.write(`skip ${theme.id} (already written)\n`);
       continue;
     }
@@ -73,19 +77,36 @@ async function main() {
     const titleList = postList.map(p => `- ${p.title} (${p.year})`).join('\n');
     const passages = postList.slice(0, 4).map(p => `[${p.title} (${p.year})]\n${p.excerpt}`).join('\n\n');
 
+    if (needBlurb) {
     process.stderr.write(`blurb: ${theme.id}\n`);
     const blurb = await chat([
-      { role: 'system', content: `${VOICE_PREAMBLE}\n\nTask: Write a single sentence (no more than 18 words) that names what is alive in this theme — what Matthew is actually doing when he returns to it. Output ONE sentence, no quotes, no markdown.` },
+      { role: 'system', content: `${VOICE_PREAMBLE}\n\nTask: Write a single sentence (max 18 words) that names what is alive in this theme.
+
+HARD RULES — output is REJECTED if it violates these:
+- DO NOT start with "Matthew explores", "Matthew writes about", "Matthew's exploration of", or any "Matthew [verb]" opener.
+- DO NOT use the word "explore", "exploration", "intersection", "delve", "journey".
+- DO NOT use generic abstractions ("human experience", "spiritual practice", "personal growth"). Be specific.
+- Name a concrete tension, question, or move he keeps coming back to. Something a reader could disagree with.
+
+Good (concrete, specific): "He keeps testing whether nonviolence has a limit, and never quite finds one."
+Good (concrete, named tension): "Practice without striving — the cycle he can't stop describing."
+Bad (vague verb pattern): "Matthew explores compassion for sentient beings."
+Bad (generic): "An exploration of consciousness and reality."
+
+Output ONE sentence, no quotes, no markdown, no preface.` },
       { role: 'user', content: `Theme: ${theme.name}\n\nPosts:\n${titleList}\n\nSample passages:\n${passages}` }
     ], { maxTokens: 80, temperature: 0.5 });
     theme.blurb = blurb.trim().replace(/^["']|["']$/g, '').split('\n')[0];
+    }
 
+    if (needSynth) {
     process.stderr.write(`synthesis: ${theme.id}\n`);
     const synth = await chat([
       { role: 'system', content: `${VOICE_PREAMBLE}\n\nTask: Write 3-5 sentences synthesizing this theme across the archive. Cite posts by title and year. Note how the thread evolved if dates show evolution. Plain prose. Markdown links allowed in form [title](/blog/slug/).` },
       { role: 'user', content: `Theme: ${theme.name}\n\nPosts:\n${titleList}\n\nSample passages:\n${passages}` }
     ], { maxTokens: 400, temperature: 0.6 });
     theme.synthesis = synth.trim();
+    }
 
     done++;
     if (done % 10 === 0) {

@@ -1,5 +1,18 @@
 {
   "slug": "2nd-amendment",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "amazing-talent",
+      "rationale": "Complicates innate ability with learned skill and instinctual response."
+    },
+    {
+      "slug": "martial-arts-super-show",
+      "rationale": "Picks up self-defense thread and pushes it into martial arts terrain."
+    },
+    {
+      "slug": "bodhisattvah-cat",
+      "rationale": "Complicates violence with domestic chaos."
+    }
+  ]
 }

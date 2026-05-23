@@ -4,5 +4,18 @@
     "career-change",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up the theme of change and complicates it with Buddhist teachings."
+    },
+    {
+      "slug": "bardo-the-intermediate-state",
+      "rationale": "Picks up the theme of change and pushes it into Buddhist teachings on transition."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up the thread of impermanence and pushes it into personal relationships."
+    }
+  ]
 }

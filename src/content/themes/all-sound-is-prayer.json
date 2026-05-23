@@ -4,5 +4,18 @@
     "enlightenment",
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "sunday-bright-and-shiny",
+      "rationale": "Picks up the thread of sacred sound and pushes it into mystic symbolism."
+    },
+    {
+      "slug": "perspective-and-context",
+      "rationale": "Picks up prayer as presence in daily life, shifting from birds to human ritual."
+    },
+    {
+      "slug": "dragonfly-magic",
+      "rationale": "Picks up the thread of spirituality in nature and pushes it into insect symbolism."
+    }
+  ]
 }

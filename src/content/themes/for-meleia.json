@@ -5,5 +5,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the wartime backdrop and pushes it into historical conflict."
+    },
+    {
+      "slug": "dream-state-sadness",
+      "rationale": "Picks up the thread of dreamscapes and pushes it into poignant realism."
+    },
+    {
+      "slug": "dreaming-dreams",
+      "rationale": "Picks up the dreamscapes and pushes them into conscious mindfulness."
+    }
+  ]
 }

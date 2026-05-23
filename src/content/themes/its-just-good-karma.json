@@ -6,5 +6,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "bardo-the-intermediate-state",
+      "rationale": "Picks up Tibetan Buddhism thread and pushes it into Bardo territory."
+    },
+    {
+      "slug": "are-dzodgchen-mahamudra-and-moksha-essentially-the-same",
+      "rationale": "Picks up the Dzogchen thread and complicates it with comparisons to Mahamudra and Moksha."
+    },
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up Tibetan Buddhism thread and sharpens focus on daily practice."
+    }
+  ]
 }

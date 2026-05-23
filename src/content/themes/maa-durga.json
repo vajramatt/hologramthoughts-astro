@@ -4,5 +4,18 @@
     "enlightenment",
     "inner-peace"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Picks up the Hindu goddess thread with Hanuman, a divine masculine counterpart."
+    },
+    {
+      "slug": "tara-mother-of-liberation",
+      "rationale": "Picks up the divine feminine thread with Tibetan Buddhism's Tara."
+    },
+    {
+      "slug": "direct-message-from-padmasambhava",
+      "rationale": "Picks up the divine feminine thread with a Tibetan saint's mantra."
+    }
+  ]
 }

@@ -6,5 +6,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "desolation",
+      "rationale": "Picks up transcendence and complicates it with technological isolation."
+    },
+    {
+      "slug": "a-moment-lost",
+      "rationale": "Sharpens the focus on transcendent moments of timelessness."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Doubles down on the dissolution of self in ecstatic experience."
+    }
+  ]
 }

@@ -5,5 +5,18 @@
     "consciousness",
     "family"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Complicates the role of grandparents in his dreams."
+    },
+    {
+      "slug": "dream-state-sadness",
+      "rationale": "Picks up the thread of dream-induced emotional turmoil."
+    },
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the thread of vivid dreamscapes and pushes into wartime narratives."
+    }
+  ]
 }

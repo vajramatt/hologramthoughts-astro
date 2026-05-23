@@ -4,5 +4,18 @@
     "artificial-intelligence",
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-free-fall",
+      "rationale": "Picks up the theme of military operations and pushes it into nocturnal parachuting."
+    },
+    {
+      "slug": "what-the-jungle-keeps",
+      "rationale": "Doubles down on Captain Donnelly's insertion into hostile terrain."
+    },
+    {
+      "slug": "battlefield-demons",
+      "rationale": "Doubles down on tactical vulnerability in hostile environments."
+    }
+  ]
 }

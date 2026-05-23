@@ -4,5 +4,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "quiet-forgiving-loving-kindness-with-chenrezig",
+      "rationale": "Picks up self-criticism and pushes it toward loving kindness practice."
+    },
+    {
+      "slug": "meditation-and-mindfulness",
+      "rationale": "Picks up meditation's challenge and complicates it with self-doubt."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up self-awareness and complicates it with compassion."
+    }
+  ]
 }

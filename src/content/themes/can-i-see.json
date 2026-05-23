@@ -5,5 +5,18 @@
     "enlightenment",
     "human-connection"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "there-are-moments",
+      "rationale": "Picks up the thread of fleeting moments and complicates it with human intimacy."
+    },
+    {
+      "slug": "stuff-ive-tweeted",
+      "rationale": "Picks up the thread of oneness and pushes it into everyday life."
+    },
+    {
+      "slug": "who-are-you",
+      "rationale": "Sharpens the inquiry into identity and reality."
+    }
+  ]
 }

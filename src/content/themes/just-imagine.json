@@ -5,5 +5,18 @@
     "personal-growth",
     "social-commentary"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "military-spending-compassion",
+      "rationale": "Doubles down on prioritizing compassion over military spending."
+    },
+    {
+      "slug": "the-food-crisis-and-suffering",
+      "rationale": "Sharpens outrage over systemic injustices, from war to food waste."
+    },
+    {
+      "slug": "the-saffron-revolution-will-be-televised",
+      "rationale": "Picks up outrage over global suffering and pushes it into specific geopolitical terrain."
+    }
+  ]
 }

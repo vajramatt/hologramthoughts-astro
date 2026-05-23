@@ -3,5 +3,18 @@
   "themeIds": [
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Reverses the supplication, speaking now as the guru."
+    },
+    {
+      "slug": "machigs-last-instructions",
+      "rationale": "Picks up liberation of perception and pushes it into direct mind awareness."
+    },
+    {
+      "slug": "perspective-and-context",
+      "rationale": "Picks up liberation of perception and pushes it into Christian contemplation."
+    }
+  ]
 }

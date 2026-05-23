@@ -5,5 +5,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-universe-tree",
+      "rationale": "Picks up the owl's watchful presence and expands it cosmically."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the thread of mystical wilderness encounters and pushes it into solitude."
+    },
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up the thread of dream analysis and complicates it with ancestral presence."
+    }
+  ]
 }

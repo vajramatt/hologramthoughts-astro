@@ -4,5 +4,18 @@
     "existential-crisis",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "simple-sonnet",
+      "rationale": "Picks up the thread of existential desperation and complicates it with human connection."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Doubles down on the feeling of being lost in a darker, more surreal landscape."
+    },
+    {
+      "slug": "i-am",
+      "rationale": "Picks up the thread of existential longing and complicates it with metaphor."
+    }
+  ]
 }

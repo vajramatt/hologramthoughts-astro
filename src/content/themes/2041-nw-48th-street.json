@@ -3,5 +3,18 @@
   "themeIds": [
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-commercialization-of-the-buddha",
+      "rationale": "Picks up the Oklahoma setting and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "reiki-ii",
+      "rationale": "Picks up the Oklahoma City setting and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "it-isnt-alternative-healing-its-healing",
+      "rationale": "Shifts from real estate to spiritual healing practices."
+    }
+  ]
 }

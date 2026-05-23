@@ -4,5 +4,18 @@
     "cultural-exchange",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "2012-movie",
+      "rationale": "Picks up the thread of unexplained phenomena and pushes it into apocalyptic terrain."
+    },
+    {
+      "slug": "a-carification-about-a-consternation",
+      "rationale": "Complicates the notion of authority with personal humility."
+    },
+    {
+      "slug": "because-i-love-you",
+      "rationale": "Picks up the thread of awe and pushes it into online discoveries."
+    }
+  ]
 }

@@ -1,5 +1,18 @@
 {
   "slug": "food-diary",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "thank-you-mom",
+      "rationale": "Picks up the thread of everyday moments and sharpens it into gratitude."
+    },
+    {
+      "slug": "the-commercialization-of-the-buddha",
+      "rationale": "Picks up spiritual longing and pushes it into critique of cultural appropriation."
+    },
+    {
+      "slug": "strange-dreams",
+      "rationale": "Picks up food obsession and pushes it into surreal terrain."
+    }
+  ]
 }

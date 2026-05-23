@@ -5,5 +5,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "are-you-ready-to-meet-god",
+      "rationale": "Sharpens the Buddhist notion of self-inquiry with Advaita Vedanta's radical non-attachment."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up mindfulness and pushes it into Tibetan mysticism."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Picks up mindfulness thread and pushes into Tibetan Buddhist practice."
+    }
+  ]
 }

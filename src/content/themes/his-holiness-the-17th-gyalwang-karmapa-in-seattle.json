@@ -3,5 +3,18 @@
   "themeIds": [
     "buddhist-philosophy"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "white-tara-comes-to-oklahoma-city",
+      "rationale": "Picks up the Buddhist thread and pushes it into personal encounters."
+    },
+    {
+      "slug": "bardo-the-intermediate-state",
+      "rationale": "Picks up the Tibetan Buddhist thread and pushes it into the concept of transitional states."
+    },
+    {
+      "slug": "wonderlane-in-nepal",
+      "rationale": "Picks up the Buddhist thread and pushes it into Himalayan terrain."
+    }
+  ]
 }

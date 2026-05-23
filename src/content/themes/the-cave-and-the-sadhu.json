@@ -7,5 +7,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the thread of spiritual practice and pushes it into Tibetan mysticism."
+    },
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Doubles down on Eastern spirituality with personal devotion to Hanuman Ji."
+    },
+    {
+      "slug": "a-modern-shiva-poem",
+      "rationale": "Picks up the mantra and doubles down on devotion to Shiva."
+    }
+  ]
 }

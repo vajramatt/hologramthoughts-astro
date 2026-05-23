@@ -3,5 +3,18 @@
   "themeIds": [
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the thread of Buddha-nature and pushes it into Tibetan mysticism."
+    },
+    {
+      "slug": "mystical-oneness",
+      "rationale": "Picks up the thread of non-local consciousness and pushes it into quantum terrain."
+    },
+    {
+      "slug": "watch-these",
+      "rationale": "Picks up cosmic inquiry and pushes it into unexplained phenomena."
+    }
+  ]
 }

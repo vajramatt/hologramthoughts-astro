@@ -6,5 +6,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up dream analysis and pushes into familial symbolism."
+    },
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the thread of shared dreaming and pushes it into historical terrain."
+    },
+    {
+      "slug": "dreams-may-tell-us",
+      "rationale": "Picks up the thread of shared dream experiences and pushes it into personal symbolism."
+    }
+  ]
 }

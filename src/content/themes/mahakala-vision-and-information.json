@@ -3,5 +3,18 @@
   "themeIds": [
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "mahakala-the-great-black-one",
+      "rationale": "Sharpens Mahakala's significance with legendary history and vows."
+    },
+    {
+      "slug": "direct-message-from-padmasambhava",
+      "rationale": "Picks up the thread of Tibetan Buddhist influences and pushes it into personal experience."
+    },
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Picks up the thread of spiritual devotion and complicates it with Hindu influences."
+    }
+  ]
 }

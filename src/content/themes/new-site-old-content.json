@@ -1,5 +1,18 @@
 {
   "slug": "new-site-old-content",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "first-iphone-post",
+      "rationale": "Picks up website overhaul and pushes it into mobile territory."
+    },
+    {
+      "slug": "it-isnt-alternative-healing-its-healing",
+      "rationale": "Picks up the thread of online discovery and pushes it into spiritual practices."
+    },
+    {
+      "slug": "because-i-love-you",
+      "rationale": "Picks up the tech enthusiasm and pushes it into online discovery."
+    }
+  ]
 }

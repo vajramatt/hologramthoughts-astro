@@ -5,5 +5,18 @@
     "human-connection",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "thousand-hand-bodhisattva",
+      "rationale": "Picks up the question of identity and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "who-am-i-or-who-is-me",
+      "rationale": "Picks up the question of identity and complicates it with self-reflection."
+    },
+    {
+      "slug": "are-you-ready-to-meet-god",
+      "rationale": "Picks up the question of identity and complicates it spiritually."
+    }
+  ]
 }

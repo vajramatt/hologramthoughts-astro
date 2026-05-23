@@ -5,5 +5,18 @@
     "enlightenment",
     "inner-peace"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "beautiful-video",
+      "rationale": "Doubles down on Buddhist visual inspiration."
+    },
+    {
+      "slug": "chenrezig-practice",
+      "rationale": "Picks up Buddhist meditation and pushes it into daily practice."
+    },
+    {
+      "slug": "magic-words",
+      "rationale": "Picks up the thread of spiritual power and pushes it into language."
+    }
+  ]
 }

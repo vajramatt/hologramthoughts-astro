@@ -4,5 +4,18 @@
     "buddhist-philosophy",
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "tara-mother-of-liberation",
+      "rationale": "Picks up the thread of Buddhist deities and pushes it into feminine manifestations."
+    },
+    {
+      "slug": "the-buddha-speaks-of-amitabha-sutra",
+      "rationale": "Sharpens focus on buddhas and bodhisattvas."
+    },
+    {
+      "slug": "what-is-chenrezig-to-me",
+      "rationale": "Sharpens the understanding of Buddha Nature through Chenrezig's embodiment."
+    }
+  ]
 }

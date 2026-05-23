@@ -3,5 +3,18 @@
   "themeIds": [
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "feel-my-hand-in-yours",
+      "rationale": "Picks up the thread of love and loss, but shifts to living intimacy."
+    },
+    {
+      "slug": "nightmare",
+      "rationale": "Doubles down on the darkness and fear of being trapped."
+    },
+    {
+      "slug": "snowy-dream",
+      "rationale": "Picks up the thread of mortality and pushes it into a surreal landscape."
+    }
+  ]
 }

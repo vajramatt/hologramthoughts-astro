@@ -3,5 +3,18 @@
   "themeIds": [
     "family"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "waiting-for-the-sun",
+      "rationale": "Picks up the desert campfire scene and sharpens its familial edges."
+    },
+    {
+      "slug": "2nd-amendment",
+      "rationale": "Picks up the theme of masculinity and complicates it with firearms."
+    },
+    {
+      "slug": "meditations-on-now-and-suchness",
+      "rationale": "Picks up the thread of presence around a desert fire."
+    }
+  ]
 }

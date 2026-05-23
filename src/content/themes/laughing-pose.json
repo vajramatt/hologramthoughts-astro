@@ -1,5 +1,18 @@
 {
   "slug": "laughing-pose",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up the thread of loving-kindness and pushes it into personal practice."
+    },
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up the thread of mindfulness and pushes it into Buddhist practice."
+    },
+    {
+      "slug": "thank-you-mom",
+      "rationale": "Sharpens focus on kindness from global to personal relationships."
+    }
+  ]
 }

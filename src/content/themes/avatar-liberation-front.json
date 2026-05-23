@@ -1,5 +1,18 @@
 {
   "slug": "avatar-liberation-front",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "amazing-talent",
+      "rationale": "Picks up the idea of self-representation and complicates it with innate talent."
+    },
+    {
+      "slug": "what-makes-us-special",
+      "rationale": "Picks up identity questions and pushes them into online persona territory."
+    },
+    {
+      "slug": "are-you-ready-to-meet-god",
+      "rationale": "Picks up the thread of self-image and pushes it into spiritual terrain."
+    }
+  ]
 }

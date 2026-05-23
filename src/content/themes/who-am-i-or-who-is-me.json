@@ -5,5 +5,18 @@
     "impermanence",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "oneness",
+      "rationale": "Picks up the question of self and pushes it into unity with others."
+    },
+    {
+      "slug": "observations-on-the-human-experience",
+      "rationale": "Picks up self-inquiry and complicates it with inner conflict."
+    },
+    {
+      "slug": "who-are-you",
+      "rationale": "Sharpens the question of identity into a present-moment awareness."
+    }
+  ]
 }

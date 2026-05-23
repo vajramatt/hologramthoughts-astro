@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "2nd-amendment",
+      "rationale": "Complicates innate talent with learned skill and experience."
+    },
+    {
+      "slug": "maxfield-parrish",
+      "rationale": "Picks up the thread of artistic talent and pushes it into mystique."
+    },
+    {
+      "slug": "avatar-liberation-front",
+      "rationale": "Picks up the idea of latent identity and pushes it into digital personas."
+    }
+  ]
 }

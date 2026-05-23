@@ -5,5 +5,18 @@
     "human-connection",
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the elemental narrative and pushes it into drought-stricken terrain."
+    },
+    {
+      "slug": "the-tree-a-cloud-and-rains",
+      "rationale": "Picks up Tree's gentle voice and pushes it into a poignant conversation."
+    },
+    {
+      "slug": "to-breathe-a-tree",
+      "rationale": "Picks up the tree's perspective and pushes it into human experience."
+    }
+  ]
 }

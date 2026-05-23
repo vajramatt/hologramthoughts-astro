@@ -3,5 +3,18 @@
   "themeIds": [
     "human-connection"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "i-am-brahman",
+      "rationale": "Picks up the thread of online identity and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "top-25-censored-stories-of-2007",
+      "rationale": "Picks up media critique and pushes it into censorship territory."
+    },
+    {
+      "slug": "beautiful-video",
+      "rationale": "Picks up the social media thread and pushes it into visual curation."
+    }
+  ]
 }

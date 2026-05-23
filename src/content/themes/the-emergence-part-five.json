@@ -4,5 +4,18 @@
     "artificial-intelligence",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-emergence-part-eight",
+      "rationale": "Complicates Eos's emergence with Ka Wai's aggressive sentience."
+    },
+    {
+      "slug": "the-emergence-part-three",
+      "rationale": "Doubles down on Eos' initial contact with the elusive presence."
+    },
+    {
+      "slug": "the-emergence-part-two",
+      "rationale": "Picks up the thread of Eos' growth and complicates its early encounters."
+    }
+  ]
 }

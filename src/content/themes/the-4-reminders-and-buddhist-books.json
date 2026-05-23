@@ -5,5 +5,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "what-is-chenrezig-to-me",
+      "rationale": "Picks up the thread of Buddhist teachings and complicates it with Chenrezig."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up the thread of Buddhist teachings and applies it to family life."
+    },
+    {
+      "slug": "the-essence-of-buddhas-teaching",
+      "rationale": "Sharpens the Four Reminders with the Four Noble Truths."
+    }
+  ]
 }

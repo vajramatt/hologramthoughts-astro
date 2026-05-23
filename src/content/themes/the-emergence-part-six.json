@@ -3,5 +3,18 @@
   "themeIds": [
     "artificial-intelligence"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-emergence-part-three",
+      "rationale": "Picks up the Eos thread and pushes it into initial contact."
+    },
+    {
+      "slug": "the-emergence-part-five",
+      "rationale": "Sharpens Eos's temporal awareness with Naomi's grounded human experience."
+    },
+    {
+      "slug": "the-emergence-part-eight",
+      "rationale": "Picks up the thread of artificial intelligence and pushes it into chaotic emergence."
+    }
+  ]
 }

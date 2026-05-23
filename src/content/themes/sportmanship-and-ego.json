@@ -3,5 +3,18 @@
   "themeIds": [
     "compassion"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "basketball-with-the-buddha",
+      "rationale": "Picks up the basketball theme and pushes it into mindfulness terrain."
+    },
+    {
+      "slug": "kids-compassion-and-life",
+      "rationale": "Picks up the thread of parental behavior and complicates it with self-reflection."
+    },
+    {
+      "slug": "oneness",
+      "rationale": "Complicates ego with a vision of oneness."
+    }
+  ]
 }

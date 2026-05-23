@@ -4,5 +4,18 @@
     "childhood",
     "existential-crisis"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dreams-and-tears",
+      "rationale": "Complicates the role of grandparents in his dreams."
+    },
+    {
+      "slug": "dream-state-sadness",
+      "rationale": "Picks up the thread of dreams and loss, pushing into grief terrain."
+    },
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the thread of dream analysis and pushes it into historical terrain."
+    }
+  ]
 }

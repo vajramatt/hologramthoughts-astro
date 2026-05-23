@@ -4,5 +4,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "more-alan-watts-goodness",
+      "rationale": "Picks up spiritual inspiration with another Alan Watts video."
+    },
+    {
+      "slug": "2012-movie",
+      "rationale": "Picks up apocalyptic anxiety and pushes it into catastrophic spectacle."
+    },
+    {
+      "slug": "beautiful-video",
+      "rationale": "Doubles down on uplifting video content."
+    }
+  ]
 }

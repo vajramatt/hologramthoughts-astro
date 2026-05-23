@@ -3,5 +3,18 @@
   "themeIds": [
     "family"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-trail",
+      "rationale": "Picks up the Oklahoma setting and pushes it into wilderness terrain."
+    },
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the thread of oral tradition and pushes it into indigenous storytelling."
+    },
+    {
+      "slug": "waiting-for-the-sun",
+      "rationale": "Picks up the thread of summertime nostalgia and rural American atmosphere."
+    }
+  ]
 }

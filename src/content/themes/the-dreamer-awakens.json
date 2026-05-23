@@ -1,5 +1,18 @@
 {
   "slug": "the-dreamer-awakens",
   "themeIds": [],
-  "related": []
+  "related": [
+    {
+      "slug": "twilight",
+      "rationale": "Picks up the thread of awakening and pushes it into the realm of collective unconscious."
+    },
+    {
+      "slug": "eternally-old-shared-among",
+      "rationale": "Picks up the theme of awakening and pushes it into cosmic connection."
+    },
+    {
+      "slug": "into",
+      "rationale": "Complicates the awakening with a deeper dive into consciousness."
+    }
+  ]
 }

@@ -3,5 +3,18 @@
   "themeIds": [
     "compassion"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "twilight",
+      "rationale": "Picks up the devas and pushes them into ancient, formless origins."
+    },
+    {
+      "slug": "stuff-ive-tweeted",
+      "rationale": "Picks up cosmic intimacy and pushes it into everyday mindfulness."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Picks up the theme of transcendent experience and plunges it into dark desperation."
+    }
+  ]
 }

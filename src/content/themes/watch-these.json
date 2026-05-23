@@ -5,5 +5,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "a-book-review-of-the-joyous-cosmology-adventures-in-the-chemistry-of-consciousness",
+      "rationale": "Picks up the unexplained phenomena thread and pushes it into psychedelic spirituality."
+    },
+    {
+      "slug": "promises-from-yeshe-tsogyal",
+      "rationale": "Picks up the thread of unexplained phenomena and pushes it into Buddhist teachings."
+    },
+    {
+      "slug": "the-holographic-universe",
+      "rationale": "Picks up the idea of unexplained phenomena and pushes it into cosmic terrain."
+    }
+  ]
 }

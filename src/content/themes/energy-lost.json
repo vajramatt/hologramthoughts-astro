@@ -3,5 +3,18 @@
   "themeIds": [
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "magic-words",
+      "rationale": "Picks up the idea of energy and pushes it into the power of language."
+    },
+    {
+      "slug": "a-nameless-one-walks",
+      "rationale": "Picks up the idea of released energy and grounds it in ritual practice."
+    },
+    {
+      "slug": "stuff-ive-tweeted",
+      "rationale": "Picks up the energy thread and pushes it into spiritual oneness."
+    }
+  ]
 }

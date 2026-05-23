@@ -3,5 +3,18 @@
   "themeIds": [
     "consciousness"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up the thread of dreams and loss, complicates with familial grief."
+    },
+    {
+      "slug": "dreams-and-tears",
+      "rationale": "Doubles down on emotional resonance of dreams about loved ones and precarious journeys."
+    },
+    {
+      "slug": "historical-dream-1940s-and-1890s",
+      "rationale": "Picks up the thread of emotionally charged dreams and pushes it into wartime terrain."
+    }
+  ]
 }

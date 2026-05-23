@@ -4,5 +4,18 @@
     "family",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "my-grandfathers-treasure",
+      "rationale": "Picks up the thread of meaningful family relationships and complicates it with legacy."
+    },
+    {
+      "slug": "thoughts-on-oneness",
+      "rationale": "Picks up the thread of human connection and pushes it into everyday encounters."
+    },
+    {
+      "slug": "thank-you-mom",
+      "rationale": "Picks up familial love and pushes it into motherly kindness."
+    }
+  ]
 }

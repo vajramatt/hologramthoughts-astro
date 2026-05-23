@@ -3,5 +3,18 @@
   "themeIds": [
     "buddhist-philosophy"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "how-to-kill-a-copperhead-and-have-scary-dreams",
+      "rationale": "Picks up the scream and pushes it into a darker, more primal terrain."
+    },
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up the thread of domestic surrealism and pushes it into dreamspace."
+    },
+    {
+      "slug": "the-good-life",
+      "rationale": "Sharpens focus from chaos to tender moments."
+    }
+  ]
 }

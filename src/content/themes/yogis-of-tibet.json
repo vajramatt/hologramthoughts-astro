@@ -5,5 +5,18 @@
     "inner-peace",
     "tibetan-culture"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "its-just-good-karma",
+      "rationale": "Picks up Tibetan Buddhism and pushes into personal practice."
+    },
+    {
+      "slug": "healing-this-reality",
+      "rationale": "Picks up Tibetan suffering and pushes it into collective healing."
+    },
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up Tibetan Buddhism and pushes it into personal practice."
+    }
+  ]
 }

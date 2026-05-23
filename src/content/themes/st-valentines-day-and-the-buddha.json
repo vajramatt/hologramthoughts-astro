@@ -4,5 +4,18 @@
     "enlightenment",
     "inner-peace"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up mindfulness thread and pushes it into Buddhist teachings."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up the mindfulness thread and pushes it into familial compassion."
+    },
+    {
+      "slug": "white-tara-comes-to-oklahoma-city",
+      "rationale": "Picks up the mindfulness thread and pushes it into Tibetan Buddhist practice."
+    }
+  ]
 }

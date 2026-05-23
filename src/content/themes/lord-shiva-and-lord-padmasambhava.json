@@ -5,5 +5,18 @@
     "enlightenment",
     "human-connection"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "direct-message-from-padmasambhava",
+      "rationale": "Doubles down on Padmasambhava's mantra and its unexpected presence."
+    },
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Doubles down on Hindu deities with a deeper look at Hanuman Ji."
+    },
+    {
+      "slug": "what-is-chenrezig-to-me",
+      "rationale": "Picks up Tibetan Buddhist threads and sharpens the image of compassion."
+    }
+  ]
 }

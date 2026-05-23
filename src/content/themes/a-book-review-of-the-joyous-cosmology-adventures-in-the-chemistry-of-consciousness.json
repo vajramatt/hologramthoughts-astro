@@ -5,5 +5,18 @@
     "enlightenment",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-holographic-universe",
+      "rationale": "Picks up the cosmic thread and pushes it into holographic territory."
+    },
+    {
+      "slug": "watch-these",
+      "rationale": "Picks up the thread of unexplained phenomena and pushes it into personal experience."
+    },
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up psychedelic terrain and pushes it into Tibetan mysticism."
+    }
+  ]
 }

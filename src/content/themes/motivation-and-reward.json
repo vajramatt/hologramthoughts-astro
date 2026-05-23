@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "getting-fit",
+      "rationale": "Picks up motivation thread and pushes it into actionable fitness plan."
+    },
+    {
+      "slug": "the-dyer-dozen",
+      "rationale": "Complicates motivation with spiritual intention."
+    },
+    {
+      "slug": "hidden-agenda",
+      "rationale": "Complicates motivation with self-interest and hidden desires."
+    }
+  ]
 }

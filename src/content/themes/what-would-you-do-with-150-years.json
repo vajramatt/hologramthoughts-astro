@@ -4,5 +4,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "living-forever",
+      "rationale": "Picks up the question of extreme longevity and pushes it into emotional terrain."
+    },
+    {
+      "slug": "healing-this-reality",
+      "rationale": "Picks up longevity and pushes it into collective healing."
+    },
+    {
+      "slug": "bardo-the-intermediate-state",
+      "rationale": "Picks up the question of longevity and pushes it into spiritual transition."
+    }
+  ]
 }

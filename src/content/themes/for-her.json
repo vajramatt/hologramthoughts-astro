@@ -3,5 +3,18 @@
   "themeIds": [
     "nature"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "for-love-of-darkness-2",
+      "rationale": "Picks up longing and complicates it with despair."
+    },
+    {
+      "slug": "for-love-of-darkness",
+      "rationale": "Picks up the longing for connection and complicates it with darkness."
+    },
+    {
+      "slug": "some-random-poems",
+      "rationale": "Picks up the celestial theme and pushes it into intimate terrain."
+    }
+  ]
 }

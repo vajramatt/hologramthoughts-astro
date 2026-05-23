@@ -3,5 +3,18 @@
   "themeIds": [
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "simple-sonnet",
+      "rationale": "Picks up the longing for connection and complicates it with absence."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Doubles down on the struggle with the dark, silent, underwater world."
+    },
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the theme of longing and complicates it with paternal love."
+    }
+  ]
 }

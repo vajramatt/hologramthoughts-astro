@@ -3,5 +3,18 @@
   "themeIds": [
     "enlightenment"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "tara-mother-of-liberation",
+      "rationale": "Picks up Buddhist thread and sharpens focus on feminine principle."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Picks up Guru Padmasambhava and pushes into his spiritual teachings."
+    },
+    {
+      "slug": "his-holiness-the-17th-gyalwang-karmapa-in-seattle",
+      "rationale": "Picks up the Buddhist thread and pushes it into personal devotion."
+    }
+  ]
 }

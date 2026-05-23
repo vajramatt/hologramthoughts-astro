@@ -5,5 +5,18 @@
     "human-connection",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "the-calling",
+      "rationale": "Answers the question of calling divinity with specific ancestral and elemental invocations."
+    },
+    {
+      "slug": "are-you-ready-to-meet-god",
+      "rationale": "Picks up the question of divinity and answers with radical surrender."
+    },
+    {
+      "slug": "hanuman-ji",
+      "rationale": "Picks up the search for divinity and complicates it with Hindu influences."
+    }
+  ]
 }

@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "out-of-the-ashes",
+      "rationale": "Picks up the narrative thread of Atalanta's transformation and resurrection."
+    },
+    {
+      "slug": "court-of-flowers",
+      "rationale": "Picks up the thread of feminine vulnerability and complicates it with violence."
+    },
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Picks up the thread of disorienting descent into the unknown."
+    }
+  ]
 }

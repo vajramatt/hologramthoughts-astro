@@ -3,5 +3,18 @@
   "themeIds": [
     "human-connection"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "more-alan-watts-goodness",
+      "rationale": "Doubles down on interest in spiritual thinkers like Alan Watts."
+    },
+    {
+      "slug": "buddhist-robots",
+      "rationale": "Picks up the thread of technology and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "amazing-talent",
+      "rationale": "Picks up the thread of latent talent and pushes it into personal reflection."
+    }
+  ]
 }

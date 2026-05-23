@@ -5,5 +5,18 @@
     "inner-peace",
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dharma-talk",
+      "rationale": "Picks up mindfulness thread and pushes it into Buddhist terrain."
+    },
+    {
+      "slug": "mothers-day-and-compassion",
+      "rationale": "Picks up mindfulness thread, pushing it into compassion practices."
+    },
+    {
+      "slug": "healing-this-reality",
+      "rationale": "Picks up mindfulness and pushes it into collective healing."
+    }
+  ]
 }

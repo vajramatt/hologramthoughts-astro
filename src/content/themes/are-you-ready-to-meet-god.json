@@ -6,5 +6,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "a-bit-of-the-sky-dancer",
+      "rationale": "Picks up the thread of spiritual surrender and pushes it into tantric terrain."
+    },
+    {
+      "slug": "113-thoughts-from-the-buddha",
+      "rationale": "Picks up the thread of spiritual inquiry and sharpens it with Buddhist wisdom."
+    },
+    {
+      "slug": "prayer-by-guru-rinpoche-to-wake-us-up",
+      "rationale": "Picks up the thread of non-attachment and pushes it into Tibetan Buddhism."
+    }
+  ]
 }

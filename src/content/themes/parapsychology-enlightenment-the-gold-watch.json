@@ -5,5 +5,18 @@
     "enlightenment",
     "inner-peace"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "dreams-and-meanings",
+      "rationale": "Picks up childhood memories and pushes them into surreal dreamscapes."
+    },
+    {
+      "slug": "nisargadatta-maharaj-explains",
+      "rationale": "Picks up the thread of altered consciousness and pushes it into spiritual terrain."
+    },
+    {
+      "slug": "chi-energy-coincidence-and-the-big-bang",
+      "rationale": "Picks up parapsychology thread and pushes it into chi energy terrain."
+    }
+  ]
 }

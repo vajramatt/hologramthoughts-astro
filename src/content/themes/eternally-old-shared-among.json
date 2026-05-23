@@ -6,5 +6,18 @@
     "personal-growth",
     "spirituality"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "i-am",
+      "rationale": "Picks up the cosmic imagery and complicates it with longing."
+    },
+    {
+      "slug": "the-dreamer-awakens",
+      "rationale": "Complicates serenity with echoes of turmoil."
+    },
+    {
+      "slug": "all-the-colors-of-the-rainbow",
+      "rationale": "Picks up the theme of interconnectedness and pushes it into tangible landscapes."
+    }
+  ]
 }

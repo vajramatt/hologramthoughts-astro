@@ -3,5 +3,18 @@
   "themeIds": [
     "artificial-intelligence"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "macbook-pro-too-much-to-ask-for",
+      "rationale": "Picks up the tech speculation thread and pushes it into personal desire."
+    },
+    {
+      "slug": "living-forever",
+      "rationale": "Picks up the idea of transcending human limits and pushes it into existential terrain."
+    },
+    {
+      "slug": "watch-these",
+      "rationale": "Picks up the thread of unexplained phenomena and pushes it into personal experience."
+    }
+  ]
 }

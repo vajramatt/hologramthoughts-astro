@@ -3,5 +3,18 @@
   "themeIds": [
     "personal-growth"
   ],
-  "related": []
+  "related": [
+    {
+      "slug": "who-am-i-or-who-is-me",
+      "rationale": "Picks up the question of identity and complicates it with self-doubt."
+    },
+    {
+      "slug": "can-i-see",
+      "rationale": "Picks up the question of identity and pushes it into cosmic awareness."
+    },
+    {
+      "slug": "meditations-on-now-and-suchness",
+      "rationale": "Picks up the thread of present awareness and complicates it with temporal distortions."
+    }
+  ]
 }
