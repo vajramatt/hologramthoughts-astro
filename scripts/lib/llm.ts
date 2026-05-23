@@ -15,21 +15,38 @@ const EMBED_MODEL = process.env.MUSE_EMBED_MODEL ?? '@cf/baai/bge-base-en-v1.5';
 export interface ChatMessage { role: 'system' | 'user' | 'assistant'; content: string; }
 
 async function callRelay(model: string, body: unknown): Promise<any> {
-  let r: Response;
-  try {
-    r = await fetch(`${RELAY}/run`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ model, body })
-    });
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    throw new Error(`relay unreachable at ${RELAY} — is \`wrangler dev\` running in scripts/relay-worker/? (${msg})`);
+  const MAX_ATTEMPTS = 5;
+  let lastErr: string = '';
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    let r: Response;
+    try {
+      r = await fetch(`${RELAY}/run`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ model, body })
+      });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      lastErr = `fetch failed: ${msg}`;
+      if (attempt === MAX_ATTEMPTS) {
+        throw new Error(`relay unreachable at ${RELAY} after ${MAX_ATTEMPTS} attempts — is \`wrangler dev\` running in scripts/relay-worker/? (${msg})`);
+      }
+      await new Promise(res => setTimeout(res, 1000 * attempt));
+      continue;
+    }
+    if (r.ok) return r.json();
+    // Retry on 5xx (wrangler dev restarts mid-request, AI overload, etc.)
+    // Don't retry on 4xx (our bug or bad input).
+    const text = await r.text();
+    lastErr = `${r.status} ${text}`;
+    if (r.status >= 500 && attempt < MAX_ATTEMPTS) {
+      process.stderr.write(`relay ${model} attempt ${attempt} got ${r.status}, retrying...\n`);
+      await new Promise(res => setTimeout(res, 1500 * attempt));
+      continue;
+    }
+    throw new Error(`relay ${model} failed: ${lastErr}`);
   }
-  if (!r.ok) {
-    throw new Error(`relay ${model} failed: ${r.status} ${await r.text()}`);
-  }
-  return r.json();
+  throw new Error(`relay ${model} failed after ${MAX_ATTEMPTS} attempts: ${lastErr}`);
 }
 
 export async function chat(messages: ChatMessage[], opts: { maxTokens?: number; temperature?: number } = {}): Promise<string> {
