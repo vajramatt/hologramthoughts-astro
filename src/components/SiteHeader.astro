@@ -1,107 +1,25 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-
-interface Props {
-  activePage: 'home' | 'archive' | 'categories' | 'search';
-}
-
-const { activePage } = Astro.props;
+const nav = [
+  { href: '/', label: 'home' },
+  { href: '/archive/1', label: 'archive' },
+  { href: '/themes', label: 'themes' },
+  { href: '/search', label: 'search' }
+];
+const path = Astro.url.pathname;
 ---
-
-<header class="terminal-header">
-  <div class="terminal-titlebar">
-    <div class="titlebar-dharma">☸</div>
-    <div class="titlebar-title">dharma://hologram.thoughts</div>
-    <div class="titlebar-toggle">
+<header class="sticky top-0 z-30 backdrop-blur-md bg-[color-mix(in_oklch,var(--color-bone)_70%,transparent)] border-b border-[var(--glass-border)]">
+  <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+    <a href="/" class="text-xl tracking-tight no-underline" style="font-family: var(--font-display);">
+      <span class="bg-gradient-to-r from-[var(--color-moss)] via-[var(--color-sky-deep)] to-[var(--color-sun)] bg-clip-text text-transparent">hologram thoughts</span>
+    </a>
+    <nav class="flex items-center gap-6 text-sm">
+      {nav.map(n => (
+        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-moss-deep)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]']}>
+          {n.label}
+        </a>
+      ))}
       <ThemeToggle />
-    </div>
+    </nav>
   </div>
-  <nav class="terminal-nav">
-    <a href="/" class:list={[{ active: activePage === 'home' }]}>hologram-thoughts</a>
-    <a href="/archive" class:list={[{ active: activePage === 'archive' }]}>archive</a>
-    <a href="/categories" class:list={[{ active: activePage === 'categories' }]}>categories</a>
-    <a href="/search" class:list={[{ active: activePage === 'search' }]}>search</a>
-  </nav>
 </header>
-
-<style>
-  .terminal-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--term-bg);
-  }
-
-  .terminal-titlebar {
-    background: var(--term-titlebar-bg);
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--term-border);
-  }
-
-  .titlebar-dharma {
-    font-size: 18px;
-    color: var(--term-accent);
-    text-shadow: var(--term-glow);
-    flex-shrink: 0;
-    line-height: 1;
-  }
-
-  .titlebar-title {
-    flex: 1;
-    text-align: center;
-    color: var(--term-muted);
-    font-size: 13px;
-    font-family: var(--font-mono);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .titlebar-toggle {
-    flex-shrink: 0;
-  }
-
-  .terminal-nav {
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--term-border);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0 24px;
-    background: var(--term-bg);
-  }
-
-  .terminal-nav a {
-    color: var(--term-fg-dim);
-    text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.15s;
-    font-family: var(--font-mono);
-    font-size: 14px;
-  }
-
-  .terminal-nav a::before {
-    content: "→ ";
-    color: var(--term-muted);
-  }
-
-  .terminal-nav a:hover,
-  .terminal-nav a.active {
-    color: var(--term-accent);
-    text-shadow: var(--term-glow);
-  }
-
-  @media (max-width: 50rem) {
-    .terminal-nav {
-      padding: 10px 16px;
-      gap: 0 16px;
-    }
-
-    .titlebar-title {
-      font-size: 11px;
-    }
-  }
-</style>
