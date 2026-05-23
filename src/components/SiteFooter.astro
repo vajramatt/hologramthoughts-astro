@@ -1,13 +1,19 @@
 ---
 const year = new Date().getFullYear();
 ---
-<footer class="mt-32 border-t border-[var(--glass-border)]">
-  <div class="mx-auto max-w-5xl px-6 py-10 flex flex-wrap items-center justify-between gap-4 text-sm text-[var(--color-ink-soft)]">
-    <p>© {year} Matthew Williamson</p>
-    <nav class="flex gap-6">
-      <a href="/rss.xml" class="no-underline hover:text-[var(--color-ink)]">rss</a>
-      <a href="/agent-index.md" class="no-underline hover:text-[var(--color-ink)]">agents</a>
-      <a href="/archive/1" class="no-underline hover:text-[var(--color-ink)]">archive</a>
-    </nav>
+<footer class="mt-32 relative">
+  <svg aria-hidden="true" class="absolute top-0 left-0 right-0 w-full h-8 opacity-30" viewBox="0 0 1200 32" preserveAspectRatio="none">
+    <path d="M0,32 Q150,4 300,16 T600,12 T900,20 T1200,8 L1200,32 Z" fill="none" stroke="var(--color-spore)" stroke-width="0.6" stroke-opacity="0.5"/>
+    <path d="M0,24 Q200,32 400,18 T800,26 T1200,16" fill="none" stroke="var(--color-bioluminescent)" stroke-width="0.4" stroke-opacity="0.4"/>
+  </svg>
+  <div class="border-t border-[var(--color-border)] pt-10 mt-8">
+    <div class="mx-auto max-w-5xl px-6 pb-10 flex flex-wrap items-center justify-between gap-4 text-sm text-[var(--color-ink-faint)]" style="font-family: var(--font-ui);">
+      <p>© {year} Matthew Williamson · grown over twenty years</p>
+      <nav class="flex gap-6">
+        <a href="/rss.xml" class="no-underline hover:text-[var(--color-bioluminescent)]">rss</a>
+        <a href="/agent-index.md" class="no-underline hover:text-[var(--color-bioluminescent)]">agents</a>
+        <a href="/archive/1" class="no-underline hover:text-[var(--color-bioluminescent)]">archive</a>
+      </nav>
+    </div>
   </div>
 </footer>

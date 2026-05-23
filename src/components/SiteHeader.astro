@@ -8,14 +8,14 @@ const nav = [
 ];
 const path = Astro.url.pathname;
 ---
-<header class="sticky top-0 z-30 backdrop-blur-md bg-[color-mix(in_oklch,var(--color-bone)_70%,transparent)] border-b border-[var(--glass-border)]">
-  <div class="mx-auto max-w-5xl px-4 md:px-6 h-16 flex items-center justify-between gap-3">
-    <a href="/" class="text-lg md:text-xl tracking-tight no-underline shrink-0" style="font-family: var(--font-display);">
-      <span class="bg-gradient-to-r from-[var(--color-moss)] via-[var(--color-sky-deep)] to-[var(--color-sun)] bg-clip-text text-transparent">hologram thoughts</span>
+<header class="sticky top-0 z-30 backdrop-blur-md border-b border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-bg) 75%, transparent);">
+  <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+    <a href="/" class="text-xl tracking-tight no-underline" style="font-family: var(--font-display);">
+      <span class="prismatic">hologram thoughts</span>
     </a>
-    <nav class="flex items-center gap-3 md:gap-6 text-sm flex-wrap justify-end">
+    <nav class="flex items-center gap-6 text-sm" style="font-family: var(--font-ui);">
       {nav.map(n => (
-        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-moss-deep)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]']}>
+        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-bioluminescent)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-bioluminescent)]']}>
           {n.label}
         </a>
       ))}
