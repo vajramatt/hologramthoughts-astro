@@ -8,7 +8,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "build:tag": "tsx scripts/01-tag-posts.ts",
+    "build:canonicalize": "tsx scripts/02-canonicalize.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",
