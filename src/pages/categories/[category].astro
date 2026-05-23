@@ -1,8 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
+import PostCard from '../../components/PostCard.astro';
+
+function getExcerpt(body: string, maxLength = 160) {
+  const text = body
+    .replace(/^---[\s\S]*?---\n?/, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/#+\s+/g, '')
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/`[^`]+`/g, '')
+    .replace(/^\s*[-*+]\s+/gm, '')
+    .replace(/---/g, '')
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\n+/g, ' ')
+    .trim();
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength).replace(/\s+\S*$/, '') + '…';
+}
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -29,119 +46,49 @@ export async function getStaticPaths() {
 
 const { categoryName, posts } = Astro.props;
 
-const descriptions = {
+const descriptions: Record<string, string> = {
   'Dharma Writings':            'Explorations of Buddhist teachings, philosophy, and the path',
   'Creative Writing':            'Fiction, poetry, and imaginative works',
   'Consciousness & Philosophy':  'Reflections on mind, reality, and the nature of existence',
   'Practice & Inner Life':       'Meditation, dreams, and spiritual practices',
   'Other':                        'Various topics and musings'
 };
+
+const slugOf = (p: any) => p.data.slug ?? p.slug;
+
+const themeIdsBySlug: Record<string, string[]> = {};
+for (const p of posts) {
+  const s = slugOf(p);
+  try {
+    const sc = await import(`../../content/themes/${s}.json`);
+    themeIdsBySlug[s] = sc.default.themeIds ?? [];
+  } catch {
+    themeIdsBySlug[s] = [];
+  }
+}
 ---
 
-<Layout title={`${categoryName} - Hologram Thoughts`}>
-  <SiteHeader activePage="categories" />
+<Layout title={`${categoryName} — Hologram Thoughts`}>
+  <header class="mb-12">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">
+      <a href="/categories" class="no-underline hover:text-[var(--color-moss-deep)]">Categories</a> · {posts.length} posts
+    </p>
+    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">{categoryName}</h1>
+    <p class="text-[var(--color-ink-soft)] mt-3 italic">{descriptions[categoryName]}</p>
+  </header>
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
-          </span>
-          <span class="shell-cmd">ls -lt categories/{categoryName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}/ &nbsp;# {posts.length} posts</span>
-        </div>
-
-        <div class="shell-output breadcrumb">
-          <a href="/categories">categories/</a><span class="sep">/</span><span>{categoryName}</span>
-          <span class="cat-desc">— {descriptions[categoryName]}</span>
-        </div>
-
-        <div class="shell-output">
-          <div class="posts-list">
-            {posts.map(post => (
-              <div class="post-entry">
-                <span class="post-date">
-                  {new Date(post.data.pubDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit'
-                  })}
-                </span>
-                <a href={`/blog/${post.slug}`} class="post-title">{post.data.title}</a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <SiteFooter />
+  <section class="space-y-2">
+    {posts.map((post: any) => {
+      const s = slugOf(post);
+      return (
+        <PostCard
+          slug={s}
+          title={post.data.title}
+          pubDate={post.data.pubDate}
+          excerpt={getExcerpt(post.body)}
+          themeIds={themeIdsBySlug[s]}
+        />
+      );
+    })}
+  </section>
 </Layout>
-
-<style>
-  main { margin: 0; padding: 0; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg-dim); }
-  .ps1-dir    { color: #818cf8; }
-  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg-dim); }
-
-  .shell-output { color: var(--term-fg-dim); margin-bottom: 0.5rem; }
-
-  .breadcrumb {
-    margin-bottom: 1rem;
-    font-size: 13px;
-  }
-
-  .breadcrumb a {
-    color: #818cf8;
-    text-decoration: none;
-  }
-
-  .breadcrumb a:hover { color: var(--term-accent); }
-
-  .sep { margin: 0 0.2rem; color: var(--term-muted); }
-
-  .cat-desc {
-    color: var(--term-muted);
-    font-size: 12px;
-    margin-left: 0.5rem;
-  }
-
-  .posts-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .post-entry {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 4px 0;
-    border-bottom: 1px dashed var(--term-border);
-  }
-
-  .post-entry:last-child { border-bottom: none; }
-
-  .post-date {
-    color: var(--term-muted);
-    font-size: 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .post-title {
-    color: var(--term-accent);
-    text-decoration: none;
-    font-weight: 600;
-    line-height: 1.4;
-  }
-
-  .post-title:hover { color: var(--term-accent-hover); }
-</style>

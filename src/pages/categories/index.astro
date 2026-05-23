@@ -1,8 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import SiteHeader from '../../components/SiteHeader.astro';
-import SiteFooter from '../../components/SiteFooter.astro';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 
@@ -14,7 +12,7 @@ const categories = [
   { name: 'Other',                        description: 'Various topics and musings', slug: 'other' },
 ];
 
-const categoryCounts = {};
+const categoryCounts: Record<string, number> = {};
 allPosts.forEach(post => {
   post.data.categories.forEach(category => {
     categoryCounts[category] = (categoryCounts[category] || 0) + 1;
@@ -27,86 +25,26 @@ const categoriesWithCounts = categories.map(cat => ({
 }));
 ---
 
-<Layout title="Categories - Hologram Thoughts">
-  <SiteHeader activePage="categories" />
+<Layout title="Categories — Hologram Thoughts">
+  <header class="mb-12">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Browse</p>
+    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">Categories</h1>
+    <p class="text-[var(--color-ink-soft)] mt-3 max-w-xl">
+      Five broad gardens for twenty years of writing.
+    </p>
+  </header>
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
-          </span>
-          <span class="shell-cmd">ls categories/</span>
-        </div>
-
-        <div class="shell-output">
-          {categoriesWithCounts.map(category => (
-            <div class="category-entry">
-              <span class="entry-arrow">→</span>
-              <div class="entry-info">
-                <a href={`/categories/${category.slug}`} class="category-name">{category.name}/</a>
-                <span class="category-desc">{category.description} ({category.count} posts)</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <SiteFooter />
+  <ul class="space-y-6">
+    {categoriesWithCounts.map(category => (
+      <li class="border-b border-[var(--glass-border)] pb-6">
+        <a href={`/categories/${category.slug}`} class="block group no-underline">
+          <div class="flex items-baseline justify-between gap-4">
+            <h2 class="text-2xl group-hover:text-[var(--color-moss-deep)] transition-colors" style="font-family: var(--font-display);">{category.name}</h2>
+            <span class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">{category.count} posts</span>
+          </div>
+          <p class="text-[var(--color-ink-soft)] mt-2 italic">{category.description}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
 </Layout>
-
-<style>
-  main { margin: 0; padding: 0; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg-dim); }
-  .ps1-dir    { color: #818cf8; }
-  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg-dim); }
-
-  .shell-output {
-    color: var(--term-fg-dim);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .category-entry {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-  }
-
-  .entry-arrow {
-    color: var(--term-muted);
-    flex-shrink: 0;
-  }
-
-  .entry-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-  }
-
-  .category-name {
-    color: #818cf8;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .category-name:hover {
-    color: var(--term-accent);
-  }
-
-  .category-desc {
-    color: var(--term-muted);
-    font-size: 12px;
-  }
-</style>

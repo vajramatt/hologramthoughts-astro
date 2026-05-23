@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
@@ -15,119 +13,53 @@ const searchablePosts = allPosts.map(post => ({
 }));
 ---
 
-<Layout title="Search - Hologram Thoughts">
-  <SiteHeader activePage="search" />
+<Layout title="Search — Hologram Thoughts">
+  <header class="mb-8">
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Find</p>
+    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">Search the archive</h1>
+    <p class="text-[var(--color-ink-soft)] mt-3 max-w-xl">
+      Twenty years of writing, indexed by title, description, and category.
+    </p>
+  </header>
 
-  <main>
-    <div class="terminal-main">
-      <div class="shell-session">
-        <div class="shell-line">
-          <span class="ps1">
-            <span class="ps1-user">matt@samsara</span><span class="ps1-sep">:</span><span class="ps1-dir">~/dharma</span><span class="ps1-dollar"> →</span>
-          </span>
-          <span class="shell-cmd">grep -r "" posts/</span>
-        </div>
+  <div class="mb-10">
+    <input
+      type="search"
+      id="search-input"
+      class="w-full bg-transparent border border-[var(--glass-border)] rounded-full px-5 py-3 text-base text-[var(--color-ink)] placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-moss)] focus:shadow-[var(--shadow-soft)] transition-all"
+      placeholder="buddhism, dreams, emptiness…"
+      autocomplete="off"
+    />
+  </div>
 
-        <div class="shell-output search-area">
-          <div class="searchbox">
-            <span class="search-prefix">pattern: </span>
-            <input type="search" id="search-input" placeholder="buddhism, dreams, emptiness..." autocomplete="off">
-          </div>
-          <div id="search-results"></div>
-        </div>
+  <section>
+    <h2 class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-4" id="search-heading">Results</h2>
+    <div id="search-results"></div>
+  </section>
 
-        <div class="shell-output tips-area">
-          <p class="tips-header"># search tips</p>
-          <p>topics: "buddhism", "meditation", "chenrezig"</p>
-          <p>stories: "fiction", "emergence", "jyoti"</p>
-          <p>concepts: "oneness", "dharma", "enlightenment"</p>
-          <p>practices: "reiki", "yoga", "mindfulness"</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <SiteFooter />
+  <aside class="mt-16 pt-8 border-t border-[var(--glass-border)] text-sm text-[var(--color-ink-soft)]">
+    <p class="text-xs uppercase tracking-[0.18em] mb-3">Try</p>
+    <ul class="space-y-1.5">
+      <li>topics: buddhism, meditation, chenrezig</li>
+      <li>stories: fiction, emergence, jyoti</li>
+      <li>concepts: oneness, dharma, enlightenment</li>
+      <li>practices: reiki, yoga, mindfulness</li>
+    </ul>
+  </aside>
 </Layout>
 
 <style>
-  main { margin: 0; padding: 0; min-height: 70vh; }
-
-  .shell-session { font-size: 14px; line-height: 1.5; }
-  .shell-line { margin-bottom: 0.5rem; }
-
-  .ps1 { font-weight: 700; margin-right: 0.5em; }
-  .ps1-user   { color: var(--term-green); }
-  .ps1-sep    { color: var(--term-fg-dim); }
-  .ps1-dir    { color: #818cf8; }
-  .ps1-dollar { color: var(--term-muted); margin-left: 0.1em; }
-  .shell-cmd  { color: var(--term-fg-dim); }
-
-  .shell-output { color: var(--term-fg-dim); margin-bottom: 1rem; }
-
-  /* Search input */
-  .searchbox {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--term-border);
-    border-radius: 4px;
-    padding: 8px 12px;
-    background: var(--term-code-bg);
-    max-width: 520px;
-  }
-
-  .search-prefix {
-    color: var(--term-muted);
-    white-space: nowrap;
-    font-size: 13px;
-  }
-
-  .searchbox input[type="search"] {
-    border: none;
-    background: transparent;
-    color: var(--term-fg);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    outline: none;
-    width: 100%;
-    -webkit-appearance: none;
-  }
-
-  .searchbox input[type="search"]::placeholder {
-    color: var(--term-muted);
-    opacity: 0.7;
-  }
-
-  .searchbox:focus-within {
-    border-color: var(--term-accent);
-  }
-
-  #search-results { margin-bottom: 1rem; }
-
-  /* Tips */
-  .tips-area p {
-    margin: 0.15rem 0;
-    font-size: 13px;
-    color: var(--term-muted);
-  }
-
-  .tips-header {
-    color: var(--term-fg-dim) !important;
-    margin-bottom: 0.25rem !important;
-  }
-
-  /* JS-generated results */
   :global(.results-count) {
-    color: var(--term-muted);
-    font-size: 12px;
-    margin-bottom: 1rem;
+    color: var(--color-ink-soft);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 1.5rem;
   }
 
   :global(.search-result) {
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--term-border);
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--glass-border);
   }
 
   :global(.search-result:last-child) {
@@ -135,42 +67,45 @@ const searchablePosts = allPosts.map(post => ({
   }
 
   :global(.search-result-title) {
-    margin: 0 0 0.25rem;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: var(--font-mono);
+    margin: 0 0 0.35rem;
+    font-size: 1.25rem;
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
   }
 
   :global(.search-result-title a) {
-    color: var(--term-accent);
+    color: var(--color-ink);
     text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-bloom);
   }
 
   :global(.search-result-title a:hover) {
-    color: var(--term-accent-hover);
+    color: var(--color-moss-deep);
   }
 
   :global(.search-result-excerpt) {
-    color: var(--term-fg-dim);
-    line-height: 1.5;
-    margin: 0 0 0.25rem;
-    font-size: 12px;
+    color: var(--color-ink-soft);
+    line-height: 1.6;
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
   }
 
   :global(.search-result-categories) {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
   }
 
   :global(.category-tag) {
-    color: var(--term-muted);
-    font-size: 11px;
+    color: var(--color-ink-soft);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
   }
 
   :global(.no-results) {
-    color: var(--term-muted);
-    font-size: 13px;
+    color: var(--color-ink-soft);
+    font-style: italic;
     padding: 1rem 0;
   }
 </style>
@@ -179,12 +114,6 @@ const searchablePosts = allPosts.map(post => ({
   document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('search-input');
     const searchResults = document.getElementById('search-results');
-
-    function esc(str) {
-      const d = document.createElement('div');
-      d.textContent = str;
-      return d.innerHTML;
-    }
 
     function performSearch(query) {
       if (query.length < 2) {
@@ -241,7 +170,7 @@ const searchablePosts = allPosts.map(post => ({
 
         const excerpt = document.createElement('p');
         excerpt.className = 'search-result-excerpt';
-        excerpt.textContent = result.description || 'click to read...';
+        excerpt.textContent = result.description || 'click to read…';
         article.appendChild(excerpt);
 
         if (result.categories.length > 0) {
@@ -250,7 +179,7 @@ const searchablePosts = allPosts.map(post => ({
           result.categories.forEach(cat => {
             const tag = document.createElement('span');
             tag.className = 'category-tag';
-            tag.textContent = '# ' + cat;
+            tag.textContent = cat;
             cats.appendChild(tag);
           });
           article.appendChild(cats);
