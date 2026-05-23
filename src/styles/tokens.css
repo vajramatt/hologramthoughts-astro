@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+@theme {
+  --color-sun: oklch(0.91 0.16 95);
+  --color-sun-bright: oklch(0.95 0.18 95);
+  --color-moss: oklch(0.55 0.13 145);
+  --color-moss-deep: oklch(0.32 0.10 150);
+  --color-sky: oklch(0.78 0.10 220);
+  --color-sky-deep: oklch(0.45 0.14 235);
+  --color-bone: oklch(0.97 0.01 90);
+  --color-bone-soft: oklch(0.93 0.02 85);
+  --color-ink: oklch(0.22 0.03 270);
+  --color-ink-soft: oklch(0.40 0.03 270);
+  --color-night: oklch(0.18 0.04 250);
+  --color-night-deep: oklch(0.12 0.05 260);
+  --color-glow: oklch(0.78 0.18 95);
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter Tight", -apple-system, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --ease-bloom: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-breathe: cubic-bezier(0.42, 0, 0.58, 1);
+  --dur-fast: 180ms;
+  --dur-med: 360ms;
+  --dur-slow: 720ms;
+  --dur-breathe: 4200ms;
+
+  --glass-bg: color-mix(in oklch, var(--color-bone) 78%, transparent);
+  --glass-border: color-mix(in oklch, var(--color-moss) 22%, transparent);
+  --glass-blur: 14px;
+  --shadow-soft: 0 1px 2px oklch(0.22 0.03 270 / 0.06), 0 8px 24px oklch(0.22 0.03 270 / 0.08);
+  --shadow-bloom: 0 0 0 1px var(--glass-border), 0 12px 36px color-mix(in oklch, var(--color-sun) 28%, transparent);
+}
+
+[data-theme="dark"] {
+  --color-bone: var(--color-night-deep);
+  --color-bone-soft: var(--color-night);
+  --color-ink: oklch(0.94 0.02 90);
+  --color-ink-soft: oklch(0.78 0.04 90);
+  --glass-bg: color-mix(in oklch, var(--color-night) 72%, transparent);
+  --glass-border: color-mix(in oklch, var(--color-glow) 18%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
