@@ -9,6 +9,13 @@ const KILLED_SLUGS = [
   '2041-nw-48th-street'
 ];
 
+// A slug is only safe to interpolate into a _redirects line if it is a plain
+// path segment. This forbids whitespace/newlines (which could inject an extra
+// redirect rule) and slashes/colons (which could turn a target into an external
+// or protocol-relative URL). Guarantees every emitted redirect stays same-origin.
+const SAFE_SLUG = /^[A-Za-z0-9._~-]+$/;
+const isSafeSlug = (s: unknown): s is string => typeof s === 'string' && SAFE_SLUG.test(s);
+
 export function emitThemeIndex(): AstroIntegration {
   return {
     name: 'emit-theme-index',
@@ -36,10 +43,16 @@ export function emitThemeIndex(): AstroIntegration {
           const filenameBase = bf.replace(/\.md$/, '');
           const slug = data.slug ?? filenameBase;
           meta[slug] = { slug, title: data.title, pubDate: new Date(data.pubDate).toISOString() };
-          // Legacy URL redirect: filename-based slug (often YYYY-MM-DD-foo) → clean frontmatter slug
+          // Legacy URL redirect: filename-based slug (often YYYY-MM-DD-foo) → clean frontmatter slug.
+          // Only emit when both sides are safe path segments — never let a malformed slug
+          // inject an extra rule or point a reader off-site.
           if (filenameBase !== slug) {
-            redirects.push(`/blog/${filenameBase}/ /blog/${slug}/ 301`);
-            redirects.push(`/blog/${filenameBase} /blog/${slug}/ 301`);
+            if (isSafeSlug(filenameBase) && isSafeSlug(slug)) {
+              redirects.push(`/blog/${filenameBase}/ /blog/${slug}/ 301`);
+              redirects.push(`/blog/${filenameBase} /blog/${slug}/ 301`);
+            } else {
+              console.warn(`[emit-theme-index] skipping redirect for unsafe slug: ${JSON.stringify({ filenameBase, slug })}`);
+            }
           }
         }
 
@@ -53,6 +66,10 @@ export function emitThemeIndex(): AstroIntegration {
         // doesn't support standalone 410 status — redirect to 404 is cleaner).
         const killed: string[] = [];
         for (const k of KILLED_SLUGS) {
+          if (!isSafeSlug(k)) {
+            console.warn(`[emit-theme-index] skipping unsafe killed slug: ${JSON.stringify(k)}`);
+            continue;
+          }
           killed.push(`/blog/${k}/ /404 301`);
           killed.push(`/blog/${k} /404 301`);
         }

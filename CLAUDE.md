@@ -449,6 +449,16 @@ Llama 3.3 70B auto-parses JSON when the prompt asks for JSON. The Workers AI res
 
 Avoid copy-pasting multi-line shell snippets with `# comments` inline. zsh treats `#` as literal and passes it to commands. Either prefix with `setopt interactivecomments` or strip comments from CLI examples.
 
+### Raw-HTML output must go through `sanitize-synthesis`
+
+`set:html` / `{@html}` / `innerHTML` are XSS sinks. The corpus is LLM-shaped (post bodies feed the model, output is committed), so a missed payload in `synthesis`/`blurb`/`rationale` would otherwise ship verbatim to the production origin. The **only** sanctioned raw-HTML sink is `src/pages/themes/[id].astro`, which renders `synthesis` via `renderSynthesis()` in `src/utils/sanitize-synthesis.ts` — it HTML-escapes the whole string and allow-lists links to this site only (relative, `#`, `hologramthoughts.com`). Drop-anything-else. Tests live in `tests/sanitize-synthesis.test.ts`.
+
+**Rule:** never interpolate Muse/LLM/frontmatter content into raw HTML directly. Route it through `renderSynthesis()` (or `escapeHtml()` for non-link text). Everywhere else, keep using Astro/Svelte `{...}` interpolation, which auto-escapes — do not switch those to `set:html`.
+
+### `_redirects` slugs are validated
+
+`emit-theme-index.ts` only emits a redirect line when both the filename base and frontmatter slug match `^[A-Za-z0-9._~-]+$` (`isSafeSlug`). This blocks whitespace/newline (rule injection) and slash/colon (external or protocol-relative targets), keeping every redirect same-origin. A malformed slug is skipped with a `console.warn`, not silently emitted — if a post stops redirecting, check the build log for that warning.
+
 ---
 
 ## 12. Markdown for Agents (existing system, preserved)
@@ -512,6 +522,8 @@ export PATH="/opt/homebrew/bin:$PATH"
 - Add runtime LLM calls — Muse stays build-time only. No chat surface. No streaming endpoint
 - Re-enable `ClientRouter` / view transitions without solving the static-route conflict + script re-binding
 - Skip hand-review of Muse-generated text before commit — taxonomy.json and per-post sidecars ship verbatim
+- Render Muse/LLM/frontmatter content via `set:html`/`{@html}` directly — route it through `renderSynthesis()`/`escapeHtml()` in `src/utils/sanitize-synthesis.ts` (the lone sanctioned raw-HTML sink is `themes/[id].astro`)
+- Loosen the `isSafeSlug` allow-list in `emit-theme-index.ts` to emit redirect lines for slugs containing whitespace, `/`, or `:` — that re-opens redirect injection / off-site targets
 - Skip the legacy `_redirects` generation (the integration is silent but critical for inbound links from old URLs)
 - Deploy without the user's explicit go-ahead — Cloudflare deploy is direct-to-prod
 - Force-push `main` without `--force-with-lease`

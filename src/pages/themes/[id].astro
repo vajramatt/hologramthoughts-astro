@@ -4,6 +4,7 @@ import taxonomy from '../../content/themes/taxonomy.json';
 import { getCollection } from 'astro:content';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { renderSynthesis } from '../../utils/sanitize-synthesis';
 
 export async function getStaticPaths() {
   const themes = (taxonomy as any).themes;
@@ -46,17 +47,11 @@ const posts = (slugs as string[])
     <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">{theme.name}</h1>
     {theme.blurb && <p class="text-xl text-[var(--color-ink-soft)] italic mt-4">{theme.blurb}</p>}
   </header>
-  {theme.synthesis && (() => {
-    // Convert markdown links and paragraph breaks to HTML
-    let html = theme.synthesis as string;
-    // Normalize bare hologram-thoughts.com URLs that the model sometimes emits
-    html = html.replace(/https?:\/\/hologram-thoughts\.com/g, '');
-    // Markdown links → anchors
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="underline decoration-[var(--color-border-strong)] underline-offset-[3px] hover:text-[var(--color-bioluminescent)]">$1</a>');
-    // Paragraph breaks
-    html = `<p>${html.replace(/\n\n+/g, '</p><p>')}</p>`;
-    return <div class="text-[var(--color-ink)] leading-relaxed mb-16" set:html={html} />;
-  })()}
+  {theme.synthesis && (
+    /* renderSynthesis() HTML-escapes the LLM text and restricts links to this
+       site before it reaches set:html — see src/utils/sanitize-synthesis.ts */
+    <div class="text-[var(--color-ink)] leading-relaxed mb-16" set:html={renderSynthesis(theme.synthesis as string)} />
+  )}
   <section>
     <h2 class="text-xl mb-6" style="font-family: var(--font-display);">{posts.length} posts, in order</h2>
     <ul class="space-y-6">
