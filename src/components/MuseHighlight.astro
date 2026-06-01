@@ -7,9 +7,13 @@ interface Props {
   latestSlugs: string[];
   activeThemes: { id: string; name: string; blurb: string; postCount: number }[];
   stories: StoryItem[];
+  themeIdsBySlug: Record<string, string[]>;
 }
-const { latestSlugs, activeThemes, stories } = Astro.props;
+const { latestSlugs, activeThemes, stories, themeIdsBySlug } = Astro.props;
 import { getCollection } from 'astro:content';
+import ThemeChip from './ThemeChip.astro';
+import taxonomy from '../content/themes/taxonomy.json';
+const themeName = new Map<string, string>((taxonomy as any).themes.map((t: any) => [t.id, t.name]));
 const all = await getCollection('blog', ({ data }) => !data.draft);
 // Multi-key index: frontmatter slug, astro slug, id base
 const bySlug = new Map<string, any>();
@@ -33,12 +37,22 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
     <div>
       <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Latest</h3>
       <ul class="space-y-3 text-sm">
-        {latest.map(p => (
-          <li><a href={`/blog/${(p as any).slug ?? p!.id.replace(/\.md$/, '')}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">
-            <p>{p!.data.title}</p>
-            <p class="text-xs text-[var(--color-ink-soft)]">{new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' })}</p>
-          </a></li>
-        ))}
+        {latest.map(p => {
+          const urlSlug = (p as any).slug ?? p!.id.replace(/\.md$/, '');
+          const ids = (themeIdsBySlug[urlSlug] ?? []).slice(0, 2);
+          const date = new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' });
+          return (
+            <li>
+              <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">
+                <p>{p!.data.title}</p>
+              </a>
+              <div class="flex flex-wrap items-center gap-1.5 mt-1">
+                {ids.map(id => themeName.has(id) && <ThemeChip id={id} name={themeName.get(id)!} small />)}
+                <span class="text-xs text-[var(--color-ink-soft)]">· {date}</span>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </div>
     <div>
