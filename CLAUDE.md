@@ -207,10 +207,23 @@ npm run build         # then static build
 
 ### Adding a new post
 
-1. Drop the `.md` file in `src/content/blog/` with proper frontmatter (`slug`, `pubDate`, `title`, optional `series`/`seriesOrder`, optional `contentType: story`)
+> **⚠️ DESTRUCTIVE-COMMAND WARNING — do NOT run these to add a post:**
+> `build:canonicalize`, `build:consolidate`, `build:related`. They are **global regenerations**, not incremental:
+> - `02-canonicalize` rebuilds the **raw 166-theme** taxonomy (wipes every blurb + synthesis) and overwrites **every** sidecar with `related: []` + raw themeIds.
+> - `06-compute-related` blanks `related` + rationale on **every** sidecar.
+>
+> Running either throws away the curated 26-theme taxonomy and all ~850 hand-reviewed rationales, and forces a full re-review (gates #2/#4/#5). They are only for a deliberate from-scratch taxonomy rebuild. The curated taxonomy + sidecars are committed to git — if you nuke them, `git restore src/content/themes/` recovers everything.
+
+Use this **incremental** flow instead (touches only the new post, preserves the curated taxonomy):
+
+1. Drop the `.md` file in `src/content/blog/` with proper frontmatter (`title` + `pubDate` required; optional `slug`, `categories`, `tags`, `series`/`seriesOrder`, `contentType`). The LLM does NOT write frontmatter — you do; remark plugins auto-add `description`/`readingTime`/`wordCount`/`complexity`.
 2. Make sure relay is running
-3. `npm run build:tag` — resumes from cache, only new posts hit Llama
-4. `npm run build:canonicalize && npm run build:embed && npm run build:related && npm run build:rationale` — picks up the new post throughout
+3. `npm run build:tag` — resumes from cache, only new posts hit Llama (note: the merge-map remap in `.cache/theme-merges.json` won't map a new post's novel raw tags, so assign themeIds by hand in step 4b)
+4. Add the new post incrementally — **do not** regenerate the corpus:
+   - a. `npm run build:embed` — recomputes `.cache/embeddings.json` (safe; writes only the cache, no sidecars)
+   - b. Hand-write `src/content/themes/<slug>.json` = `{ slug, themeIds: [...], related: [{slug, rationale: ''} × 3] }`. Pick `themeIds` by fit from the 26 in `taxonomy.json`; pick `related` as cosine top-3 (compute against the cache) or hand-pick. Leave `rationale: ''`.
+   - c. `npm run build:rationale` — idempotent; fills ONLY the new empty pairs, skips all existing
+   - d. Recompute `postCount` for every theme from the sidecars and write back into `taxonomy.json` (don't hand-edit counts). Spot-check the new rationale (gate #5).
 5. Optionally re-run `04` if you want the new post mentioned in synthesis paragraphs (existing syntheses won't auto-include new posts)
 6. `npm run build && npx wrangler pages deploy ./dist --project-name=hologramthoughts --branch=main`
 
@@ -546,13 +559,13 @@ npm test                             # vitest run
 npm run muse:relay                   # start the relay (leave running)
 npm run build:tag                    # tag posts (resumes from cache)
 npm run build:tag -- --limit=5       # smoke 5 posts
-npm run build:canonicalize           # raw taxonomy from cached tags
-npm run build:consolidate            # LLM-driven merge to ~26 themes
+npm run build:canonicalize           # DESTRUCTIVE: rebuilds raw taxonomy, wipes blurbs + all sidecar related/rationale
+npm run build:consolidate            # DESTRUCTIVE: re-rolls taxonomy via LLM, blanks all blurbs/synthesis
 npm run build:bio                    # derive matthew-bio.md
 npm run build:blurbs                 # write theme blurbs + synthesis
 npm run build:blurbs -- --force-blurbs   # rewrite only blurbs
-npm run build:embed                  # embed all posts
-npm run build:related                # cosine top-3 per post
+npm run build:embed                  # embed all posts (safe: writes only .cache/embeddings.json)
+npm run build:related                # DESTRUCTIVE: blanks ALL sidecar related + rationale, recomputes cosine top-3
 npm run build:rationale              # write Muse rationale for related-post pairs
 npm run build:rationale -- --force   # rewrite all rationale
 npm run build:muse                   # full pipeline sequentially

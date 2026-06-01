@@ -1,0 +1,23 @@
+{
+  "slug": "the-willow-and-the-river",
+  "themeIds": [
+    "cultural-exchange",
+    "human-connection",
+    "nature",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "surviving-the-aftermath",
+      "rationale": "Complicates the stranger's enigmatic presence with corporate power struggles."
+    },
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the elemental thread and weaves it into ancestral ritual."
+    },
+    {
+      "slug": "the-shade-was-good",
+      "rationale": "Picks up the green-coated figure and pushes it into mystical outdoor terrain."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "slug": "the-shade-was-good",
+  "themeIds": [
+    "human-connection",
+    "nature",
+    "spirituality"
+  ],
+  "related": [
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the mystic natural world and sharpens its mythic edges."
+    },
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the thread of natural world spirituality and pushes it into indigenous terrain."
+    },
+    {
+      "slug": "the-willow-and-the-river",
+      "rationale": "Picks up the mysterious green-coated figure in a new, indoor setting."
+    }
+  ]
+}
