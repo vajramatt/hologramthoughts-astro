@@ -17,6 +17,13 @@ describe('serializeJsonLd', () => {
     const data = { a: '<x>', b: 1 };
     expect(JSON.parse(serializeJsonLd(data))).toEqual(data);
   });
+  it('escapes > and & to block ]]> CDATA breakout, round-trips', () => {
+    const out = serializeJsonLd({ title: 'a]]>b & c' });
+    expect(out).not.toContain(']]>');
+    expect(out).toContain('\\u003e');
+    expect(out).toContain('\\u0026');
+    expect(JSON.parse(out)).toEqual({ title: 'a]]>b & c' });
+  });
 });
 
 describe('websiteGraph', () => {

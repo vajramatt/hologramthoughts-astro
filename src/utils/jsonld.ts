@@ -1,8 +1,9 @@
 // schema.org JSON-LD builders + a script-safe serializer.
-// The serializer escapes `<` to < so a frontmatter value containing
-// "</script>" cannot break out of the <script type="application/ld+json"> tag.
-// (HTML entities are NOT decoded inside <script>, so < is the only correct
-// escape here — it keeps the payload valid JSON.)
+// serializeJsonLd escapes <, >, and & to their JSON Unicode escapes (<,
+// >, &) so a frontmatter- or LLM-derived value containing "</script>"
+// or "]]>" cannot break out of the <script type="application/ld+json"> tag.
+// JSON Unicode escapes are decoded by the JSON parser, not the HTML parser, so
+// the payload stays valid JSON while being inert to the HTML tokenizer.
 
 const SITE = 'https://hologramthoughts.com';
 const SITE_NAME = 'Hologram Thoughts';
@@ -12,7 +13,10 @@ const SITE_DESC =
 const PERSON = { '@type': 'Person', name: 'Matthew Williamson', url: SITE } as const;
 
 export function serializeJsonLd(data: object | object[]): string {
-  return JSON.stringify(data).replace(/</g, '\\u003c');
+  return JSON.stringify(data)
+    .replace(/</g, '\\u003c')
+    .replace(/>/g, '\\u003e')
+    .replace(/&/g, '\\u0026');
 }
 
 export function websiteGraph(): any[] {
