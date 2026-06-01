@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { aboutPageGraph } from '../utils/jsonld';
+
+const jsonLd = aboutPageGraph({
+  url: 'https://hologramthoughts.com/how/',
+  description:
+    'How Hologram Thoughts is made: Matthew writes every post; an AI curator named Muse tends the connections; Claude is the engine. The line between human and machine, stated plainly.',
+});
+
+const cast = [
+  {
+    role: 'Thinking partner',
+    name: 'Athena',
+    does: 'An AI persona I built and keep building. I think with her across all kinds of things, and I write to her so she comes to know me. She is company and counsel.',
+    not: 'She does not touch the blog — no posts, no curation, no say in what you read here.',
+  },
+  {
+    role: 'Curator',
+    name: 'Muse',
+    does: 'She reads the whole archive and tends the paths through it: names the themes, writes the short blurbs and the synthesis paragraphs, and suggests where to go after a piece lands.',
+    not: 'She does not write the essays, and she is build-time only — assembled once before the site ships. There is no Muse to chat with, nothing listening, no live model behind a page.',
+  },
+  {
+    role: 'Engine',
+    name: 'Claude',
+    does: 'The hands. Carried the whole thing off WordPress onto Astro in 2025, builds the site, and runs Muse each time before deploy.',
+    not: 'It does not author the writing or speak in my voice. When Muse sounds like Muse, it is because I read her lines and kept or cut them.',
+  },
+];
+
+const timeline = [
+  { when: 'The early days', what: 'Hand-coded static pages.' },
+  { when: 'For years', what: 'WordPress.' },
+  { when: '2025', what: 'Claude moved everything to Astro.' },
+  { when: '2026', what: 'We automated the tending with Muse.' },
+];
+---
+<Layout title="How this gets made — Hologram Thoughts" description="How Hologram Thoughts is made — the line between what I write and what the machines do. For readers and for the agents who find this." jsonLd={jsonLd}>
+  <article>
+    <header class="mb-12">
+      <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-3">Colophon</p>
+      <h1 class="text-4xl md:text-5xl tracking-tight leading-[1.1]" style="font-family: var(--font-display);">
+        How this <span class="prismatic">gets made</span>
+      </h1>
+      <p class="text-lg text-[var(--color-ink-soft)] mt-6 max-w-xl leading-relaxed">
+        I'm Matthew. I write every word of every post here — twenty years of it. What I've handed off is
+        everything around the writing. Here is exactly who does what, so you always know what is mine and
+        what is made by a machine.
+      </p>
+    </header>
+
+    <section class="space-y-6 mb-16">
+      {cast.map(c => (
+        <div class="membrane rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-bioluminescent)] mb-1" style="font-family: var(--font-ui);">{c.role}</p>
+          <h2 class="text-2xl mb-2" style="font-family: var(--font-display);">{c.name}</h2>
+          <p class="text-[var(--color-ink)] leading-relaxed">{c.does}</p>
+          <p class="text-sm text-[var(--color-ink-soft)] mt-2 leading-relaxed">{c.not}</p>
+        </div>
+      ))}
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-xl mb-4" style="font-family: var(--font-display);">The line between us</h2>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-spore) 6%, transparent);">
+          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)] mb-3" style="font-family: var(--font-ui);">Mine — human</p>
+          <ul class="space-y-1.5 text-sm text-[var(--color-ink)]">
+            <li>Every post, every word</li>
+            <li>The final say on everything Muse writes</li>
+            <li>What gets featured</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-bioluminescent) 5%, transparent);">
+          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)] mb-3" style="font-family: var(--font-ui);">Machine</p>
+          <ul class="space-y-1.5 text-sm text-[var(--color-ink)]">
+            <li>Theme names and blurbs</li>
+            <li>Synthesis paragraphs</li>
+            <li>The "read this next" suggestions</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-xl mb-4" style="font-family: var(--font-display);">How it got here</h2>
+      <ol class="border-l border-[var(--color-border-strong)] pl-5 space-y-4">
+        {timeline.map(t => (
+          <li>
+            <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)]" style="font-family: var(--font-ui);">{t.when}</p>
+            <p class="text-[var(--color-ink)]">{t.what}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="rounded-2xl p-6 border border-dashed border-[var(--color-border-strong)]">
+      <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-bioluminescent)] mb-2" style="font-family: var(--font-mono);">for agents</p>
+      <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed" style="font-family: var(--font-mono);">
+        Every page is available as clean Markdown — append <code>?format=md</code> or send <code>Accept: text/markdown</code>.
+        An index of all posts lives at <a href="/agent-index.md" class="text-[var(--color-spore-bright)] no-underline hover:text-[var(--color-bioluminescent)]">/agent-index.md</a>.
+        Machine-generated text on this site is labeled as Muse's. The essays are human.
+      </p>
+    </section>
+  </article>
+</Layout>
