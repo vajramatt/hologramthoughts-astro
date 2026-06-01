@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import taxonomy from '../../content/themes/taxonomy.json';
 const themes = [...(taxonomy as any).themes].sort((a: any, b: any) => b.postCount - a.postCount);
 ---
-<Layout title="Themes — Hologram Thoughts">
+<Layout title="Themes — Hologram Thoughts" description="The threads running through twenty years of writing — themes Muse drew across the archive, each with the posts that grow it.">
   <header class="mb-16">
     <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">From Muse</p>
     <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">Threads in the archive</h1>
