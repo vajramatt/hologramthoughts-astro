@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { guardTaxonomy } from './lib/guard';
 
 export interface ProposedTags { slug: string; tags: string[]; }
 export interface CanonicalizeOptions { minCount?: number; }
@@ -41,6 +42,7 @@ export function canonicalizeThemes(proposed: ProposedTags[], opts: CanonicalizeO
 }
 
 async function main() {
+  await guardTaxonomy('02-canonicalize');
   const proposed: ProposedTags[] = JSON.parse(await readFile('.cache/proposed-tags.json', 'utf8'));
   const { taxonomy, sidecars } = canonicalizeThemes(proposed, { minCount: 2 });
   await mkdir('src/content/themes', { recursive: true });

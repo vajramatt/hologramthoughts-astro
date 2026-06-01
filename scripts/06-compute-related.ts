@@ -4,6 +4,7 @@
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { guardRationale } from './lib/guard';
 
 export function cosineSim(a: number[], b: number[]): number {
   let dot = 0, na = 0, nb = 0;
@@ -28,6 +29,7 @@ export function topK(slug: string, vectors: Record<string, { values: number[] }>
 }
 
 async function main() {
+  await guardRationale('06-compute-related');
   const vectors = JSON.parse(await readFile('.cache/embeddings.json', 'utf8'));
   const themesDir = 'src/content/themes';
   const files = (await readdir(themesDir)).filter(f => f.endsWith('.json') && f !== 'taxonomy.json');

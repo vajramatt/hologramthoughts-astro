@@ -213,6 +213,8 @@ npm run build         # then static build
 > - `06-compute-related` blanks `related` + rationale on **every** sidecar.
 >
 > Running either throws away the curated 26-theme taxonomy and all ~850 hand-reviewed rationales, and forces a full re-review (gates #2/#4/#5). They are only for a deliberate from-scratch taxonomy rebuild. The curated taxonomy + sidecars are committed to git — if you nuke them, `git restore src/content/themes/` recovers everything.
+>
+> **These three stages are guarded** (`scripts/lib/guard.ts`): they abort with instructions if a curated taxonomy (non-empty blurbs) or hand-reviewed rationale is present. Pass `--force` (or use `npm run build:muse:force`) only for an intentional from-scratch rebuild.
 
 Use this **incremental** flow instead (touches only the new post, preserves the curated taxonomy):
 
@@ -568,7 +570,8 @@ npm run build:embed                  # embed all posts (safe: writes only .cache
 npm run build:related                # DESTRUCTIVE: blanks ALL sidecar related + rationale, recomputes cosine top-3
 npm run build:rationale              # write Muse rationale for related-post pairs
 npm run build:rationale -- --force   # rewrite all rationale
-npm run build:muse                   # full pipeline sequentially
+npm run build:muse                   # full pipeline (GUARDED: aborts if curated taxonomy/rationale exists)
+npm run build:muse:force             # intentional from-scratch rebuild (passes --force to destructive stages)
 
 # OG image
 npm run render:og                    # public/og-image.svg → public/og-image.png

@@ -19,7 +19,8 @@
     "build:embed": "tsx scripts/05-embed-posts.ts",
     "build:related": "tsx scripts/06-compute-related.ts",
     "build:rationale": "tsx scripts/07-write-rationale.ts",
-    "build:muse": "npm run build:tag && npm run build:canonicalize && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related && npm run build:rationale"
+    "build:muse": "npm run build:tag && npm run build:canonicalize && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related && npm run build:rationale",
+    "build:muse:force": "npm run build:tag && npm run build:canonicalize -- --force && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related -- --force && npm run build:rationale"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.15",

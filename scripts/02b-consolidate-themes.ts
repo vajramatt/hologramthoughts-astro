@@ -8,6 +8,7 @@
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { chat } from './lib/llm';
+import { guardTaxonomy } from './lib/guard';
 
 const SYSTEM = `You are consolidating a noisy LLM-generated theme taxonomy for a writing archive. Input: a list of themes with post counts. Many are synonyms or near-duplicates that should merge under one canonical theme. Some are too narrow (single-essay artifacts) and should be dropped. Some are too generic and should also be dropped.
 
@@ -30,6 +31,7 @@ Rules:
 - Drop themes that are basically tags rather than ideas (e.g. specific proper nouns that appear in just 2-3 posts)`;
 
 async function main() {
+  await guardTaxonomy('02b-consolidate-themes');
   const taxonomy = JSON.parse(await readFile('src/content/themes/taxonomy.json', 'utf8'));
   const themes: Array<{ id: string; name: string; postCount: number }> = taxonomy.themes;
   process.stderr.write(`consolidating ${themes.length} themes...\n`);
