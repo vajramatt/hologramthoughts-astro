@@ -5,6 +5,7 @@ import { getCollection } from 'astro:content';
 import { readdir, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { renderSynthesis } from '../../utils/sanitize-synthesis';
+import { collectionPageGraph } from '../../utils/jsonld';
 
 export async function getStaticPaths() {
   const themes = (taxonomy as any).themes;
@@ -40,8 +41,17 @@ const posts = (slugs as string[])
   .map(s => bySlug.get(s))
   .filter(Boolean)
   .sort((a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+const jsonLd = collectionPageGraph({
+  name: theme.name,
+  description: theme.blurb || `Posts on ${theme.name}.`,
+  url: `https://hologramthoughts.com/themes/${theme.id}/`,
+  posts: posts.map((p: any) => ({
+    title: p.data.title,
+    url: `https://hologramthoughts.com/blog/${(p as any).slug ?? p.id.replace(/\.md$/, '')}/`,
+  })),
+});
 ---
-<Layout title={`${theme.name} — Hologram Thoughts`} description={theme.blurb}>
+<Layout title={`${theme.name} — Hologram Thoughts`} description={theme.blurb} jsonLd={jsonLd}>
   <header class="mb-12">
     <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Thread</p>
     <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">{theme.name}</h1>
