@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MuseHighlight from '../components/MuseHighlight.astro';
-import PostCard from '../components/PostCard.astro';
 import { getCollection } from 'astro:content';
 import taxonomy from '../content/themes/taxonomy.json';
 import { readFile } from 'node:fs/promises';
@@ -79,20 +78,20 @@ const activeThemes = (picks.threads?.length
 
 const featuredNote = picks.featured_note?.trim() || null;
 
-const featured = all.slice(0, 6);
-const themeIdsBySlug: Record<string, string[]> = {};
-for (const p of featured) {
-  const urlSlug = slugOf(p);
-  const key = sidecarKey(p);
+// themeIds for each Latest post (URL-slug keyed; sidecar looked up by multi-key)
+const themeIdsByLatestSlug: Record<string, string[]> = {};
+for (const s of latestSlugs) {
+  const p = postBySlug.get(s);
+  if (!p) { themeIdsByLatestSlug[s] = []; continue; }
   try {
-    const sc = await import(`../content/themes/${key}.json`);
-    themeIdsBySlug[urlSlug] = sc.default.themeIds ?? [];
+    const sc = await import(`../content/themes/${sidecarKey(p)}.json`);
+    themeIdsByLatestSlug[s] = sc.default.themeIds ?? [];
   } catch {
-    themeIdsBySlug[urlSlug] = [];
+    themeIdsByLatestSlug[s] = [];
   }
 }
 ---
-<Layout title="Hologram Thoughts">
+<Layout title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — an archive of attention, curated by Muse.">
   <section class="mt-8 mb-16">
     <h1 class="text-5xl md:text-7xl tracking-tight leading-[1.05]" style="font-family: var(--font-display);">
       <span class="prismatic" style="background-size: 240% 100%; animation: vine-shift 30s linear infinite;">
@@ -110,15 +109,5 @@ for (const p of featured) {
     )}
   </section>
 
-  <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} stories={stories} />
-
-  <section class="my-16">
-    <h2 class="text-3xl mb-8" style="font-family: var(--font-display);">Recent</h2>
-    <div class="space-y-2">
-      {featured.map(p => {
-        const s = slugOf(p);
-        return <PostCard slug={s} title={p.data.title} pubDate={p.data.pubDate} themeIds={themeIdsBySlug[s]} />;
-      })}
-    </div>
-  </section>
+  <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} stories={stories} themeIdsBySlug={themeIdsByLatestSlug} />
 </Layout>
