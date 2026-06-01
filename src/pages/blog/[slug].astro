@@ -6,6 +6,7 @@ import TableOfContents from '../../components/TableOfContents.astro';
 import ThemeChipStrip from '../../components/ThemeChipStrip.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 import type { PostSidecar } from '../../lib/themes';
+import { blogPostingGraph } from '../../utils/jsonld';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -69,6 +70,17 @@ const publishedTime = post.data.pubDate?.toISOString();
 const canonicalUrl = `https://hologramthoughts.com/blog/${post.slug}/`;
 const readingTime = remarkPluginFrontmatter?.readingTime;
 const isSeries = !!post.data.series;
+const jsonLd = blogPostingGraph({
+  title: post.data.title,
+  description: ogDescription,
+  url: canonicalUrl,
+  datePublished: publishedTime!,
+  image: 'https://hologramthoughts.com/og-image.png',
+  tags: post.data.tags,
+  categories: post.data.categories,
+  wordCount: remarkPluginFrontmatter?.wordCount ?? post.data.wordCount,
+  readingTime,
+});
 ---
 
 <Layout
@@ -78,6 +90,7 @@ const isSeries = !!post.data.series;
   publishedTime={publishedTime}
   tags={post.data.tags}
   canonicalUrl={canonicalUrl}
+  jsonLd={jsonLd}
 >
   <ReadingProgress />
 
