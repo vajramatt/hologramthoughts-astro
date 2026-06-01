@@ -68,7 +68,7 @@ for (const p of posts) {
 }
 ---
 
-<Layout title={`${categoryName} — Hologram Thoughts`}>
+<Layout title={`${categoryName} — Hologram Thoughts`} description={descriptions[categoryName] ?? `Posts in ${categoryName}.`}>
   <header class="mb-12">
     <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">
       <a href="/categories" class="no-underline hover:text-[var(--color-bioluminescent)]">Categories</a> · {posts.length} posts

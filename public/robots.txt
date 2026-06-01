@@ -20,5 +20,7 @@ User-agent: CCBot
 Allow: /
 User-agent: Applebot-Extended
 Allow: /
+User-agent: Bytespider
+Allow: /
 
 Sitemap: https://hologramthoughts.com/sitemap-index.xml
