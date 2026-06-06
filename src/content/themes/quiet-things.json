@@ -1,0 +1,23 @@
+{
+  "slug": "quiet-things",
+  "themeIds": [
+    "buddhist-philosophy",
+    "inner-peace",
+    "nonconformity",
+    "social-commentary"
+  ],
+  "related": [
+    {
+      "slug": "dreamstate-dialogue",
+      "rationale": "Picks up the thread of inner calm and pushes it into dark turmoil."
+    },
+    {
+      "slug": "desolation",
+      "rationale": "Picks up the thread of inner calm and complicates it with existential dread."
+    },
+    {
+      "slug": "are-you-ready-to-meet-god",
+      "rationale": "Picks up the stillness thread and pushes it into spiritual terrain."
+    }
+  ]
+}
