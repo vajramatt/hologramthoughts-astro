@@ -18,6 +18,7 @@ body {
   -webkit-font-smoothing: antialiased;
   position: relative;
   min-height: 100vh;
+  overflow-x: clip; /* lets full-bleed sections (e.g. the mycelial map) span 100vw without a horizontal scrollbar */
 }
 
 [data-theme="light"] body {

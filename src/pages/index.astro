@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MuseHighlight from '../components/MuseHighlight.astro';
+import MyceliumMap from '../components/MyceliumMap.svelte';
 import { getCollection } from 'astro:content';
 import taxonomy from '../content/themes/taxonomy.json';
 import { readFile } from 'node:fs/promises';
@@ -78,6 +79,97 @@ const activeThemes = (picks.threads?.length
 
 const featuredNote = picks.featured_note?.trim() || null;
 
+// ── Mycelial subway map: themes as stations on flowing, time-ordered lines ──
+// Each theme is a station. x = when the thread was most active (median post date),
+// so the whole map flows left→right across the archive's lifetime. Themes are grouped
+// into "lines" by which hub-theme they co-occur with most. Cross-line links = interchanges.
+// All positions are computed here at build time (deterministic, no physics → no load jitter).
+const validThemeIds = new Set<string>((taxonomy as any).themes.map((t: any) => t.id));
+const sidecarMods = import.meta.glob('../content/themes/*.json', { eager: true });
+const cooccur = new Map<string, number>();
+const themeDates = new Map<string, number[]>();
+const pairKey = (a: string, b: string) => (a < b ? `${a}|${b}` : `${b}|${a}`);
+for (const mod of Object.values(sidecarMods)) {
+  const sc = (mod as any).default;
+  if (!sc || !Array.isArray(sc.themeIds)) continue; // skip taxonomy.json
+  const ids = [...new Set<string>(sc.themeIds.filter((id: string) => validThemeIds.has(id)))].sort();
+  const post = postBySlug.get(sc.slug);
+  const ms = post ? post.data.pubDate.valueOf() : null;
+  for (const id of ids) {
+    if (ms == null) continue;
+    if (!themeDates.has(id)) themeDates.set(id, []);
+    themeDates.get(id)!.push(ms);
+  }
+  for (let i = 0; i < ids.length; i++)
+    for (let j = i + 1; j < ids.length; j++) {
+      const k = `${ids[i]}|${ids[j]}`;
+      cooccur.set(k, (cooccur.get(k) ?? 0) + 1);
+    }
+}
+const coW = (a: string, b: string) => cooccur.get(pairKey(a, b)) ?? 0;
+const median = (arr: number[]) => { const s = [...arr].sort((a, b) => a - b); return s.length ? s[Math.floor(s.length / 2)] : null; };
+
+const mapThemes = [...(taxonomy as any).themes].filter((t: any) => t.postCount > 0);
+const times = all.map((p: any) => p.data.pubDate.valueOf());
+const minT = Math.min(...times), maxT = Math.max(...times);
+const span = maxT - minT || 1;
+
+// lines: top-K themes by postCount become hub anchors; each other theme joins the hub it shares most posts with
+const LANES = 7;
+const seeds = [...mapThemes].sort((a, b) => b.postCount - a.postCount).slice(0, LANES).map((t: any) => t.id);
+// Balanced assignment: each non-seed joins the hub it co-occurs with most, but lines are capped
+// so the big hubs don't swallow everything — this keeps all LANES populated as real lines.
+const laneOf = new Map<string, number>();
+const laneFill = new Array(LANES).fill(0);
+for (const t of mapThemes) { const si = seeds.indexOf(t.id); if (si >= 0) { laneOf.set(t.id, si); laneFill[si]++; } }
+const cap = Math.ceil(mapThemes.length / LANES);
+const nonSeeds = [...mapThemes].filter((t: any) => !seeds.includes(t.id)).sort((a: any, b: any) => b.postCount - a.postCount);
+for (const t of nonSeeds) {
+  const ranked = seeds.map((s: string, i: number) => ({ i, w: coW(t.id, s) })).sort((a, b) => b.w - a.w);
+  const pick = ranked.find((o) => laneFill[o.i] < cap) ?? ranked[0];
+  laneOf.set(t.id, pick.i); laneFill[pick.i]++;
+}
+
+const X0 = 0.05, X1 = 0.95;
+const laneBase = (i: number) => 0.15 + (LANES > 1 ? (i / (LANES - 1)) * 0.7 : 0);
+const infoById = new Map((taxonomy as any).themes.map((t: any) => [t.id, t]));
+let stations = mapThemes.map((t: any) => {
+  const md = median(themeDates.get(t.id) ?? []) ?? minT;
+  const lane = laneOf.get(t.id)!;
+  const x = X0 + ((md - minT) / span) * (X1 - X0);
+  const info: any = infoById.get(t.id);
+  return { id: t.id, name: t.name, postCount: t.postCount, lane, x, y: 0, isHub: seeds.includes(t.id),
+    blurb: info?.blurb ?? '', synthesis: info?.synthesis ?? '' };
+});
+// spacing pass within each line so stations near the same date don't stack, then a wavier wander for organic flow
+const MINGAP = 0.055;
+for (let i = 0; i < LANES; i++) {
+  const lane = stations.filter((s) => s.lane === i).sort((a, b) => a.x - b.x);
+  for (let j = 1; j < lane.length; j++)
+    if (lane[j].x - lane[j - 1].x < MINGAP) lane[j].x = Math.min(X1, lane[j - 1].x + MINGAP);
+  for (const s of lane) s.y = laneBase(i) + Math.sin(s.x * Math.PI * 3.5 + i * 1.7) * 0.05;
+}
+
+// underweb: every cross-line pair that ever shared a post. Weight = shared count; the
+// component fades each thread by weight, so single-post bonds whisper and strong bonds read.
+// (Same-line pairs are already joined by their line's spline, so skip those.)
+const laneById = new Map(stations.map((s) => [s.id, s.lane]));
+const interchanges: { a: string; b: string; w: number }[] = [];
+for (const [k, w] of cooccur.entries()) {
+  const [a, b] = k.split('|');
+  if (!laneById.has(a) || !laneById.has(b)) continue;
+  if (laneById.get(a) === laneById.get(b)) continue;
+  interchanges.push({ a, b, w });
+}
+
+const yearOf = (ms: number) => new Date(ms).getFullYear();
+const minYear = yearOf(minT), maxYear = yearOf(maxT);
+const yearTicks: { year: number; x: number }[] = [];
+for (let y = Math.ceil(minYear / 5) * 5; y <= maxYear; y += 5)
+  yearTicks.push({ year: y, x: X0 + ((new Date(y, 0, 1).valueOf() - minT) / span) * (X1 - X0) });
+
+const mapData = { stations, interchanges, laneCount: LANES, yearTicks };
+
 // themeIds for each Latest post (URL-slug keyed; sidecar looked up by multi-key)
 const themeIdsByLatestSlug: Record<string, string[]> = {};
 for (const s of latestSlugs) {
@@ -110,4 +202,17 @@ for (const s of latestSlugs) {
   </section>
 
   <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} stories={stories} themeIdsBySlug={themeIdsByLatestSlug} />
+
+  <section class="mt-24 mb-12">
+    <div class="text-center max-w-xl mx-auto mb-6">
+      <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">The understory</p>
+      <h2 class="text-3xl md:text-4xl mt-1" style="font-family: var(--font-display);">Lines through the archive</h2>
+      <p class="text-sm text-[var(--color-ink-soft)] mt-3 leading-relaxed">
+        Every thread laid along the years it ran, grouped into the lines they travel together. Spores drift forward through time. Touch a station to open it below.
+      </p>
+    </div>
+    <div style="width:100vw;position:relative;left:50%;transform:translateX(-50%);">
+      <MyceliumMap data={mapData} client:visible />
+    </div>
+  </section>
 </Layout>
