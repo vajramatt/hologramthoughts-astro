@@ -1,0 +1,23 @@
+{
+  "slug": "the-kiss-at-the-spring",
+  "themeIds": [
+    "impermanence",
+    "nature",
+    "artificial-intelligence",
+    "consciousness"
+  ],
+  "related": [
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the ecological thread and pushes it into drought terrain."
+    },
+    {
+      "slug": "tree-mountain-valley-and-cloud",
+      "rationale": "Picks up the verdant landscape and complicates it with parental love."
+    },
+    {
+      "slug": "court-of-flowers",
+      "rationale": "Complicates the fall of a golden age with a warrior's bloody sacrifice."
+    }
+  ]
+}
