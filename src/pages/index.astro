@@ -111,8 +111,7 @@ const median = (arr: number[]) => { const s = [...arr].sort((a, b) => a - b); re
 
 const mapThemes = [...(taxonomy as any).themes].filter((t: any) => t.postCount > 0);
 const times = all.map((p: any) => p.data.pubDate.valueOf());
-const minT = Math.min(...times), maxT = Math.max(...times);
-const span = maxT - minT || 1;
+const minT = Math.min(...times);
 
 // lines: top-K themes by postCount become hub anchors; each other theme joins the hub it shares most posts with
 const LANES = 7;
@@ -133,22 +132,104 @@ for (const t of nonSeeds) {
 const X0 = 0.05, X1 = 0.95;
 const laneBase = (i: number) => 0.15 + (LANES > 1 ? (i / (LANES - 1)) * 0.7 : 0);
 const infoById = new Map((taxonomy as any).themes.map((t: any) => [t.id, t]));
+
+// Transit maps distort space for legibility: stations keep their chronological ORDER
+// (by median post date) but are spaced by rank, not by elapsed time — otherwise the
+// early-archive cluster crushes into the left edge and most of the canvas is dead.
+// Year ticks are interpolated back onto the rank scale below, so time stays readable.
+const medById = new Map<string, number>();
+for (const t of mapThemes) medById.set(t.id, median(themeDates.get(t.id) ?? []) ?? minT);
+const sortedMeds = [...medById.values()].sort((a, b) => a - b);
+const nMed = sortedMeds.length;
+// The axis runs from the oldest post to today, blending two scales: a rank scale
+// (anchors: oldest post → theme medians evenly spaced → today) that decompresses the
+// early-archive cluster, and a linear-time component that keeps the years honestly
+// proportioned so ticks land readably out to the present. Stations and ticks share
+// the same mapping, so a station always sits over its true era.
+const NOW = Date.now();
+const anchors = [minT, ...sortedMeds, Math.max(NOW, (sortedMeds[nMed - 1] ?? NOW) + 1)];
+const nA = anchors.length;
+const anchorX = (i: number) => X0 + (i / (nA - 1)) * (X1 - X0);
+const xRank = (d: number) => {
+  if (d <= anchors[0]) return X0;
+  if (d >= anchors[nA - 1]) return X1;
+  let i = 0;
+  while (i < nA - 2 && anchors[i + 1] < d) i++;
+  return anchorX(i + (d - anchors[i]) / (anchors[i + 1] - anchors[i] || 1));
+};
+const xLin = (d: number) => Math.min(X1, Math.max(X0, X0 + ((d - minT) / (NOW - minT || 1)) * (X1 - X0)));
+const BLEND = 0.35; // how much linear time to mix back in
+const xOfDate = (d: number) => BLEND * xLin(d) + (1 - BLEND) * xRank(d);
+
 let stations = mapThemes.map((t: any) => {
-  const md = median(themeDates.get(t.id) ?? []) ?? minT;
   const lane = laneOf.get(t.id)!;
-  const x = X0 + ((md - minT) / span) * (X1 - X0);
   const info: any = infoById.get(t.id);
-  return { id: t.id, name: t.name, postCount: t.postCount, lane, x, y: 0, isHub: seeds.includes(t.id),
-    blurb: info?.blurb ?? '', synthesis: info?.synthesis ?? '' };
+  return { id: t.id, name: t.name, postCount: t.postCount, lane, x: xOfDate(medById.get(t.id)!), y: 0,
+    isHub: seeds.includes(t.id), below: false, blurb: info?.blurb ?? '', synthesis: info?.synthesis ?? '' };
 });
-// spacing pass within each line so stations near the same date don't stack, then a wavier wander for organic flow
+// spacing pass within each line so same-rank neighbours don't stack (forward then backward,
+// so nothing piles up at the right edge), then a gentle wander for organic flow.
+// Labels alternate above/below along each line to halve collisions.
 const MINGAP = 0.055;
 for (let i = 0; i < LANES; i++) {
   const lane = stations.filter((s) => s.lane === i).sort((a, b) => a.x - b.x);
   for (let j = 1; j < lane.length; j++)
     if (lane[j].x - lane[j - 1].x < MINGAP) lane[j].x = Math.min(X1, lane[j - 1].x + MINGAP);
-  for (const s of lane) s.y = laneBase(i) + Math.sin(s.x * Math.PI * 3.5 + i * 1.7) * 0.05;
+  for (let j = lane.length - 2; j >= 0; j--)
+    if (lane[j + 1].x - lane[j].x < MINGAP) lane[j].x = Math.max(X0, lane[j + 1].x - MINGAP);
+  lane.forEach((s, j) => {
+    s.y = laneBase(i) + Math.sin(s.x * Math.PI * 3.5 + i * 1.7) * 0.04;
+    s.below = (j + i) % 2 === 1;
+  });
 }
+// cross-line collision relax: big hubs on adjacent lines can still overlap after the
+// wander. Nudge colliding pairs apart vertically — x is time order, so y gives way.
+// Approximate px space matches the component's stationDia and a typical canvas size.
+const stationDia = (pc: number) => (5.5 + Math.sqrt(pc) * 2.1) * 2;
+const PXW = 1300, PXH = 600;
+for (let pass = 0; pass < 6; pass++) {
+  for (let a = 0; a < stations.length; a++)
+    for (let b = a + 1; b < stations.length; b++) {
+      const A = stations[a], B = stations[b];
+      const dx = (A.x - B.x) * PXW, dy = (A.y - B.y) * PXH;
+      const need = (stationDia(A.postCount) + stationDia(B.postCount)) / 2 + 8;
+      const d = Math.hypot(dx, dy);
+      if (d >= need) continue;
+      const push = (need - d) / 2 / PXH;
+      const dir = A.y <= B.y ? -1 : 1;
+      A.y = Math.min(0.88, Math.max(0.08, A.y + dir * push));
+      B.y = Math.min(0.88, Math.max(0.08, B.y - dir * push));
+    }
+}
+// label sides: the per-lane alternation above is only a seed — refine it greedily
+// (biggest stations claim space first), flipping each label to whichever side of its
+// station overlaps less with already-placed labels and neighbouring dots.
+const placedBoxes: { x0: number; x1: number; y0: number; y1: number }[] = [];
+for (const s of stations) {
+  const r = stationDia(s.postCount) / 2 + 2;
+  placedBoxes.push({ x0: s.x * PXW - r, x1: s.x * PXW + r, y0: s.y * PXH - r, y1: s.y * PXH + r });
+}
+const labelBox = (s: any, below: boolean) => {
+  const wpx = s.name.length * 4.8 + 8, hpx = 13;
+  const cx = s.x * PXW;
+  const off = stationDia(s.postCount) / 2 + 4 + hpx / 2;
+  const cy = s.y * PXH + (below ? off : -off);
+  return { x0: cx - wpx / 2, x1: cx + wpx / 2, y0: cy - hpx / 2, y1: cy + hpx / 2 };
+};
+const overlapArea = (r: { x0: number; x1: number; y0: number; y1: number }) =>
+  placedBoxes.reduce((sum, p) => {
+    const ox = Math.max(0, Math.min(r.x1, p.x1) - Math.max(r.x0, p.x0));
+    const oy = Math.max(0, Math.min(r.y1, p.y1) - Math.max(r.y0, p.y0));
+    return sum + ox * oy;
+  }, 0);
+for (const s of [...stations].sort((a, b) => b.postCount - a.postCount)) {
+  const up = labelBox(s, false), down = labelBox(s, true);
+  const ovUp = overlapArea(up), ovDown = overlapArea(down);
+  if (ovDown !== ovUp) s.below = ovDown < ovUp;
+  placedBoxes.push(s.below ? down : up);
+}
+// keyboard tab order follows the lines: lane by lane, left to right
+stations.sort((a, b) => a.lane - b.lane || a.x - b.x);
 
 // underweb: every cross-line pair that ever shared a post. Weight = shared count; the
 // component fades each thread by weight, so single-post bonds whisper and strong bonds read.
@@ -162,11 +243,21 @@ for (const [k, w] of cooccur.entries()) {
   interchanges.push({ a, b, w });
 }
 
+// year ticks live on the anchor scale — unevenly spaced, which honestly shows where the
+// archive ran hot. Oldest post to today, every 2 years, dropping ticks that would crowd.
 const yearOf = (ms: number) => new Date(ms).getFullYear();
-const minYear = yearOf(minT), maxYear = yearOf(maxT);
-const yearTicks: { year: number; x: number }[] = [];
-for (let y = Math.ceil(minYear / 5) * 5; y <= maxYear; y += 5)
-  yearTicks.push({ year: y, x: X0 + ((new Date(y, 0, 1).valueOf() - minT) / span) * (X1 - X0) });
+const minYear = yearOf(minT), maxYear = yearOf(NOW);
+const yearTicks: { year: number | string; x: number }[] = [];
+let lastTickX = -1;
+for (let y = Math.ceil(minYear / 2) * 2; y <= maxYear; y += 2) {
+  const x = xOfDate(new Date(y, 0, 1).valueOf());
+  if (x - lastTickX < 0.045) continue;
+  yearTicks.push({ year: y, x });
+  lastTickX = x;
+}
+// the right edge is the present — give it its own marker
+while (yearTicks.length && X1 - yearTicks[yearTicks.length - 1].x < 0.05) yearTicks.pop();
+yearTicks.push({ year: 'now', x: X1 });
 
 const mapData = { stations, interchanges, laneCount: LANES, yearTicks };
 
