@@ -1,0 +1,23 @@
+{
+  "slug": "all-of-it-is-true",
+  "themeIds": [
+    "spirituality",
+    "nature-worship",
+    "female-empowerment",
+    "consciousness"
+  ],
+  "related": [
+    {
+      "slug": "mosaic",
+      "rationale": "Picks up the thread of ancient wisdom and weaves it into indigenous ritual."
+    },
+    {
+      "slug": "a-nameless-one-walks",
+      "rationale": "Picks up the cosmic dance and pushes it into embodied ritual practice."
+    },
+    {
+      "slug": "a-meditation-on-chenrezig",
+      "rationale": "Doubles down on the mystical, invoking Chenrezig amidst sensory detail."
+    }
+  ]
+}
