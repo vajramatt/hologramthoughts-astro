@@ -262,7 +262,7 @@
               <li>
                 <a href={`/blog/${p.slug}/`}>
                   <span class="pt">{p.title}</span>
-                  <span class="pd">{new Date(p.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' })}</span>
+                  <span class="pd">{new Date(p.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short', timeZone: 'UTC' })}</span>
                 </a>
               </li>
             {/each}

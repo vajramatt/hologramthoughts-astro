@@ -65,7 +65,7 @@
             {#each posts as p}
               <li><a href={`/blog/${p.slug}/`} class="block group no-underline">
                 <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)]">{p.title}</p>
-                <p class="text-xs text-[var(--color-ink-soft)]">{new Date(p.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' })}</p>
+                <p class="text-xs text-[var(--color-ink-soft)]">{new Date(p.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short', timeZone: 'UTC' })}</p>
               </a></li>
             {/each}
           </ul>

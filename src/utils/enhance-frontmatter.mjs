@@ -43,8 +43,8 @@ export function remarkEnhanceFrontmatter() {
     // Add publication year for filtering/grouping
     if (frontmatter.pubDate) {
       const date = new Date(frontmatter.pubDate);
-      frontmatter.pubYear = date.getFullYear();
-      frontmatter.pubMonth = date.getMonth() + 1;
+      frontmatter.pubYear = date.getUTCFullYear();
+      frontmatter.pubMonth = date.getUTCMonth() + 1;
     }
     
     // Calculate content complexity score

@@ -40,7 +40,7 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
         {latest.map(p => {
           const urlSlug = (p as any).slug ?? p!.id.replace(/\.md$/, '');
           const ids = (themeIdsBySlug[urlSlug] ?? []).slice(0, 2);
-          const date = new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' });
+          const date = new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short', timeZone: 'UTC' });
           return (
             <li>
               <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">

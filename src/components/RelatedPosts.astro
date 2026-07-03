@@ -28,7 +28,7 @@ const items = related
           <a href={`/blog/${(post as any).slug ?? post!.id.replace(/\.md$/, '')}/`} class="block group no-underline">
             <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">
               {post!.data.title}
-              <span class="text-xs text-[var(--color-ink-soft)] ml-2 align-middle">({new Date(post!.data.pubDate).getFullYear()})</span>
+              <span class="text-xs text-[var(--color-ink-soft)] ml-2 align-middle">({new Date(post!.data.pubDate).getUTCFullYear()})</span>
             </p>
             <p class="text-sm text-[var(--color-ink-soft)] mt-1 italic">{rationale}</p>
           </a>

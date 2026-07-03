@@ -71,7 +71,7 @@ const jsonLd = collectionPageGraph({
           <li>
             <a href={`/blog/${slug}/`} class="block group no-underline">
               <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">
-                {new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'long' })}
+                {new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
               </p>
               <p class="text-xl mt-1 text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{p!.data.title}</p>
               {p!.data.description && <p class="text-sm text-[var(--color-ink-soft)] mt-1">{p!.data.description}</p>}
