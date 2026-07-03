@@ -104,7 +104,7 @@ const jsonLd = blogPostingGraph({
           <span> · {post.data.categories.join(' · ')}</span>
         )}
       </p>
-      <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05] text-[var(--color-mycelium)]" style="font-family: var(--font-display); font-weight: 600; text-shadow: 0 0 30px color-mix(in oklch, var(--color-mycelium) 28%, transparent);">{post.data.title}</h1>
+      <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-mycelium); text-shadow: 0 0 30px color-mix(in oklch, var(--color-mycelium) 28%, transparent);">{post.data.title}</h1>
       {post.data.description && (
         <p class="text-lg text-[var(--color-ink-soft)] mt-4 leading-relaxed">{post.data.description}</p>
       )}
