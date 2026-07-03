@@ -5,9 +5,9 @@
      so the piece reads the same in either site theme. Fonts resolve to the
      site's loaded JetBrains Mono (--font-mono) / Inter Tight (--font-ui). */
 
-  type Cat = 'vedic' | 'vaishnava' | 'shaiva' | 'shakta' | 'liminal';
+  type Cat = 'vedic' | 'vaishnava' | 'shaiva' | 'shakta' | 'liminal' | 'asura';
   type Span = [number, number, number, number]; // [start, end, startOpacity, endOpacity]
-  type Deity = { n: string; s: string; c: Cat; first: string; note: string; spans: Span[] };
+  type Deity = { n: string; s: string; c: Cat; first: string; note: string; spans: Span[]; kind?: 'concept' };
   type Group = { name: string; sub: string; deities: Deity[] };
 
   const T0 = -1500, T1 = 1200, SPAN = T1 - T0, X0 = 14;
@@ -15,7 +15,7 @@
   const xp = (y: number) => X0 + ((100 - X0) * pct(y)) / 100;
 
   const COLORS: Record<Cat, string> = {
-    vedic: '#ff9e64', vaishnava: '#e0af68', shaiva: '#7aa2f7', shakta: '#f7768e', liminal: '#73daca',
+    vedic: '#ff9e64', vaishnava: '#e0af68', shaiva: '#7aa2f7', shakta: '#f7768e', liminal: '#73daca', asura: '#bb9af7',
   };
 
   // opacity floor: prominence reads as intensity, nothing becomes invisible
@@ -26,13 +26,19 @@
   }
 
   const GROUPS: Group[] = [
-    { name: 'The Vedic Old Guard', sub: 'dominant 1500–800 BCE', deities: [
-      { n: 'Indra', s: 'इन्द्र', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — 250 hymns, more than any other god', note: 'The undisputed king of the Vedic pantheon: storm, war, soma-drinking slayer of the serpent Vritra. He never disappears — he\'s demoted. In epic and Puranic literature he\'s an insecure heavenly administrator, repeatedly humbled by Krishna, Shiva, and ascetic sages. His lifeline stays visible but thin: present in stories, never again their hero.', spans: [[-1500, -500, 1, .85], [-500, 1200, .3, .18]] },
-      { n: 'Agni', s: 'अग्नि', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — ~200 hymns, the divine priest', note: 'God of fire and the mouth through which all offerings reach the gods. As the sacrifice-centered religion gave way to temple devotion, Agni contracted from major deity to ritual function — still invoked at every wedding and cremation, but no longer a protagonist of myth.', spans: [[-1500, -500, 1, .8], [-500, 1200, .25, .15]] },
-      { n: 'Soma', s: 'सोम', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — an entire mandala (Book 9) is his', note: 'Deified ritual plant-pressing and its ecstatic drink. When the soma rite faded, so did the god — later tradition quietly merged him with the moon (Chandra). One of the clearest cases of a deity whose existence depended on a specific ritual technology.', spans: [[-1500, -800, 1, .7], [-800, -300, .4, .08]] },
-      { n: 'Varuna', s: 'वरुण', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — guardian of ṛta, cosmic order', note: 'Early on, arguably the most theologically profound Vedic god: all-seeing enforcer of cosmic and moral law, closer to a supreme deity than Indra. By the epics he\'s been demoted to god of oceans and rivers — a regional administrator in a cosmos now run by others.', spans: [[-1500, -800, 1, .75], [-800, 1200, .28, .12]] },
+    { name: 'The Vedic Old Guard', sub: 'dominant 1500–800 BCE, then demoted or gone', deities: [
+      { n: 'Indra', s: 'इन्द्र', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — 250 hymns, more than any other god', note: 'The undisputed king of the Vedic pantheon: storm, war, soma-drinking slayer of the serpent Vritra, hero of more hymns than any other god. He never disappears — he is demoted. In epic and Puranic story he becomes an insecure celestial administrator, sending apsaras to break the concentration of ascetics and getting humbled by Krishna at Govardhana; even his signature kill is rewritten so that slaying Vritra stains him with the sin of brahmin-murder. Present in the room forever, its hero never again.', spans: [[-1500, -500, 1, .85], [-500, 1200, .3, .18]] },
+      { n: 'Agni', s: 'अग्नि', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — ~200 hymns, the divine priest', note: 'God of fire and the mouth through which every offering reaches the gods — the priest among the gods, second only to Indra in Rigvedic hymns. As the sacrifice-centered religion gave way to temple devotion, Agni contracted from cosmic protagonist to ritual necessity: still lit at every wedding and cremation, but no longer the subject of myth.', spans: [[-1500, -500, 1, .8], [-500, 1200, .25, .15]] },
+      { n: 'Soma', s: 'सोम', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — an entire mandala (Book 9) is his', note: 'Deified ritual pressing and the ecstatic drink it made — an entire book of the Rigveda (Mandala 9) sings it. When the soma rite faded the god had nowhere to live, and tradition quietly folded him into Chandra, the moon. One of the clearest cases of a deity whose existence depended on a single piece of ritual technology.', spans: [[-1500, -800, 1, .7], [-800, -300, .4, .08]] },
+      { n: 'Varuna', s: 'वरुण', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — guardian of ṛta, cosmic order', note: 'Early on, arguably the most morally serious of the Vedic gods: all-seeing binder of ṛta, the cosmic and ethical order, punisher of the lie — and called an asura in the word\'s older, honorific sense of "lord." By the epics he has been demoted to a god of oceans and rivers, a departmental administrator in a cosmos now run by others.', spans: [[-1500, -800, 1, .75], [-800, 1200, .28, .12]] },
       { n: 'Ushas', s: 'उषस्', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — the dawn, in some of its finest poetry', note: 'Goddess of dawn, recipient of some of the Rigveda\'s most beautiful hymns. She has no later career at all — no epic role, no Puranic cult, no temples. The clearest example of a deity who simply ends when her stratum ends.', spans: [[-1500, -900, .9, .4], [-900, -500, .3, .04]] },
-      { n: 'Mitra', s: 'मित्र', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — usually paired with Varuna', note: 'God of contracts, friendship, and the honored bond. Faded from Indian worship early — while, remarkably, his Iranian twin Mithra went on to a massive second career in the Persian and Roman worlds. In India, effectively gone before Buddhism began.', spans: [[-1500, -1000, .85, .4], [-1000, -500, .25, .03]] },
+      { n: 'Mitra', s: 'मित्र', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — usually paired with Varuna', note: 'God of the sworn contract, of friendship and the honored bond, usually invoked in one breath with Varuna. He faded from Indian worship early — while his Iranian twin Mithra went on to a massive second career across the Persian and Roman worlds. In India he was effectively gone before the Buddha was born.', spans: [[-1500, -1000, .85, .4], [-1000, -500, .25, .03]] },
+    ]},
+    { name: 'The Persistent Powers', sub: 'Vedic gods who kept a niche — never supreme, never gone', deities: [
+      { n: 'Surya', s: 'सूर्य', c: 'vedic', first: 'Rigveda, c. 1500–1200 BCE — the sun, in a chariot of seven horses', note: 'The visible sun, crossing the sky behind seven horses. Unlike his fading Vedic peers he holds a thin, continuous cult straight through: the Gayatri mantra addresses his aspect Savitr, and the medieval sun-temples of Konark and Modhera are his. Later absorbed as an aspect of Vishnu and Shiva, but never fully surrendered.', spans: [[-1500, -500, .7, .55], [-500, 1200, .5, .45]] },
+      { n: 'Yama', s: 'यम', c: 'vedic', first: 'Rigveda — the first mortal to die, and so king of the dead', note: 'The first mortal to die, and therefore the one who found the road — hence king of the dead, and later Dharmaraja, judge of the departed. A stable function-god who neither rises to supremacy nor vanishes; the Katha Upanishad stages its whole teaching on death as Yama instructing the boy Nachiketa.', spans: [[-1500, -500, .6, .5], [-500, 1200, .55, .55]] },
+      { n: 'Vayu', s: 'वायु', c: 'vedic', first: 'Rigveda — wind, and the breath (prāṇa) the word also names', note: 'Wind, and the breath — prana — that the same word names. Paired with Indra in the Rigveda, he later lives mostly as a father: of Hanuman, of Bhima, and of the vital airs in yogic physiology. Madhva\'s Dvaita school elevates him to chief deity as Mukhyaprana — a startling late, regional promotion of a mid-tier god.', spans: [[-1500, -500, .55, .4], [-500, 1200, .4, .5]] },
+      { n: 'Chandra', s: 'चन्द्र', c: 'liminal', first: 'Vedic Soma\'s heir; a distinct moon-god by the epics', note: 'The moon, who inherits what the fading Soma left behind — name, substance, and the old drink\'s ecstatic associations. Husband of the twenty-seven lunar mansions, marked by the waxing-and-waning curse. A rare case of a dying god\'s identity migrating wholesale into a surviving one.', spans: [[-800, -300, .3, .45], [-300, 1200, .5, .55]] },
     ]},
     { name: 'The Transformed', sub: 'minor Vedic figures who became supreme', deities: [
       { n: 'Vishnu', s: 'विष्णु', c: 'vaishnava', first: 'Rigveda (5 hymns, the "three strides") → supreme by the epics', note: 'A minor solar deity in the Rigveda, notable mainly for striding across the cosmos in three steps. His rise runs through the Brahmanas (identified with the sacrifice itself), then the epics fuse him with the hero-cults of Krishna and Rama via the avatar doctrine — an absorption engine that let Vaishnavism swallow rival gods rather than fight them.', spans: [[-1500, -900, .18, .3], [-900, -400, .4, .7], [-400, 1200, .9, 1]] },
@@ -49,9 +55,18 @@
     ]},
     { name: 'Puranic Arrivals', sub: 'the newest gods, c. 100 – 600 CE', deities: [
       { n: 'Parvati', s: 'पार्वती', c: 'shakta', first: 'Epics & early Puranas; central by Kālidāsa\'s Kumārasambhava, c. 400 CE', note: 'Daughter of the mountain, consort of Shiva, mother of the Shaiva household. Later Vedic texts name a Umā Haimavatī, but Parvati as a developed mythological person is epic-and-after. Shakta theology then reads her as one face of the singular Great Goddess.', spans: [[-200, 300, .3, .6], [300, 1200, .75, .95]] },
-      { n: 'Ganesha', s: 'गणेश', c: 'shaiva', first: 'Clear iconography & cult from the Gupta era, c. 400–500 CE', note: 'The most beloved god in the pantheon is also among its youngest. Earlier "Ganapati" references are ambiguous (troop-lords, sometimes obstacle-causing spirits to be appeased). The elephant-headed remover of obstacles emerges clearly only in the Gupta period — likely an absorbed folk or yaksha deity — then spreads with astonishing speed across every sect and to Southeast Asia.', spans: [[400, 700, .5, .85], [700, 1200, .9, 1]] },
+      { n: 'Ganesha', s: 'गणेश', c: 'shaiva', first: 'Clear iconography & cult from the Gupta era, c. 400–500 CE', note: 'The most beloved god in the pantheon is also among its youngest. Earlier "Ganapati" references are ambiguous — troop-lords, sometimes the obstacle-causing spirits one appeases. The elephant-headed remover of obstacles emerges clearly only in the Gupta period, likely an absorbed folk or yaksha deity, then spreads with astonishing speed across every sect and out to Southeast Asia — turning from the god who sets obstacles into the god who clears them.', spans: [[400, 700, .5, .85], [700, 1200, .9, 1]] },
       { n: 'Durga', s: 'दुर्गा', c: 'shakta', first: 'Hints from c. 100 CE; Devī Māhātmya, c. 400–600 CE', note: 'The buffalo-demon-slaying warrior goddess, likely synthesizing non-Vedic and village goddess traditions. The Devi Mahatmya is her manifesto: the gods, defeated, pool their powers to produce her — a myth that is itself a theological statement that the Goddess precedes and exceeds the male pantheon.', spans: [[100, 400, .25, .5], [400, 1200, .8, 1]] },
       { n: 'Kali', s: 'काली', c: 'shakta', first: 'Devī Māhātmya, c. 400–600 CE (as a battlefield emanation of Durga)', note: 'Earlier occurrences of the word (a flame-name in the Muṇḍaka Upaniṣad) aren\'t the goddess. Kali enters mythology springing from Durga\'s brow in battle — and her greatest devotional prominence, especially in Bengal, lies centuries beyond this chart\'s edge, still rising.', spans: [[400, 800, .4, .6], [800, 1200, .65, .85]] },
+    ]},
+    { name: 'The Adversaries & the Word That Fell', sub: 'the antagonist stratum — how "lord" became "demon"', deities: [
+      { n: 'the word "asura"', s: 'असुर', c: 'asura', kind: 'concept', first: 'Rigveda, c. 1500–1200 BCE — first as an honorific for the gods', note: 'Not a being but a word. In the early Rigveda "asura" means lord, and the highest gods wear it — Varuna, Mitra, even Indra. Only later does it curdle into the name for the gods\' enemies, by a folk etymology (a-sura, "not-gods") that reads the opposition backward into the word. Its Iranian cognate ahura went the other way and stayed divine — Ahura Mazda is the supreme god of Zoroastrianism. The same root, blessed on one side of the mountains and cursed on the other.', spans: [[-1500, -800, .65, .6], [-800, 1200, .6, .9]] },
+      { n: 'Vritra', s: 'वृत्र', c: 'asura', first: 'Rigveda — the drought-serpent of Indra\'s central combat', note: 'The serpent of drought who holds back the waters until Indra splits him open — the central combat myth of the Rigveda, the deed that defines Indra\'s heroism. Recast in the Puranas as a brahmin, so that killing him now burdens Indra with the sin of brahmin-murder: the oldest victory rewritten, centuries later, as a crime.', spans: [[-1500, -500, 1, .75], [-500, 1200, .35, .25]] },
+      { n: 'Vala', s: 'वल', c: 'asura', first: 'Rigveda — the cave that hoards the cows and the dawn', note: 'The rock-cave demon who imprisons the cows (or the dawns) until Indra and the Angirasa singers break him open with sound. Purely Vedic — he ends when his ritual-poetic world does, leaving no Puranic career at all. An adversary who fades exactly as his god\'s stratum fades.', spans: [[-1500, -800, .7, .4], [-800, -300, .3, .05]] },
+      { n: 'Hiranyakashipu', s: 'हिरण्यकशिपु', c: 'asura', first: 'Epic & Puranic; the Narasimha myth, c. 300 BCE – 500 CE', note: 'The tyrant father of the devotee Prahlada, granted a boon against death by man or beast, indoors or out, by day or night. Vishnu tears through a pillar at dusk as Narasimha, the man-lion, and kills him on a threshold that is none of those things. A demon defined entirely by the loophole in his own protection.', spans: [[-300, 200, .3, .55], [200, 1200, .65, .8]] },
+      { n: 'Mahishasura', s: 'महिषासुर', c: 'asura', first: 'Devī Māhātmya, c. 400–600 CE (hints from c. 100 CE)', note: 'The buffalo-demon whose slaying is the whole reason the Devi Mahatmya exists. He arrives already built to be a foil — a measure of the Goddess\'s power more than a character in his own right. The gods pool their fury into Durga precisely because he has beaten them; the adversary calls the deity into being.', spans: [[100, 400, .2, .5], [400, 1200, .7, .9]] },
+      { n: 'Ravana', s: 'रावण', c: 'asura', first: 'Rāmāyaṇa, c. 500–200 BCE', note: 'The ten-headed king of Lanka — strictly a rakshasa, and a brahmin by birth, not an asura proper, though folk tradition files all the great adversaries together. A scholar and fierce devotee of Shiva, he is the type of the noble enemy: the story needs him to be vast so that defeating him can make Rama a god.', spans: [[-500, -100, .5, .8], [-100, 1200, .75, .9]] },
+      { n: 'Bali', s: 'बलि', c: 'asura', first: 'Vedic seed (the three strides); developed in epics & Puranas', note: 'The asura king so just and generous that Vishnu cannot defeat him, only trick him — as the dwarf Vamana, begging three paces of land, then growing to stride across all creation and press Bali into the underworld. Kerala still welcomes him home each year at Onam. The clearest proof that "asura" was never a synonym for evil.', spans: [[-400, 200, .35, .55], [200, 1200, .6, .7]] },
     ]},
   ];
 
@@ -67,7 +82,8 @@
 
   const LEGEND: [Cat | 'grad', string][] = [
     ['vedic', 'vedic old guard'], ['vaishnava', 'vaishnava orbit'], ['shaiva', 'shaiva orbit'],
-    ['shakta', 'shakta / goddess'], ['liminal', 'liminal / crosses camps'], ['grad', 'opacity = prominence'],
+    ['shakta', 'shakta / goddess'], ['liminal', 'liminal / crosses camps'], ['asura', 'asuras / adversaries'],
+    ['grad', 'opacity = prominence'],
   ];
 
   let active = $state<{ g: number; d: number } | null>(null);
@@ -115,7 +131,11 @@
               >
                 <div class="pt-tlabel">{d.n}<small>{d.s}</small></div>
                 {#each d.spans as sp}
-                  <div class="pt-band" style="left:{xp(sp[0])}%; width:{xp(sp[1]) - xp(sp[0])}%; background:linear-gradient(90deg,{rgba(COLORS[d.c], sp[2])},{rgba(COLORS[d.c], sp[3])})"></div>
+                  {#if d.kind === 'concept'}
+                    <div class="pt-band concept" style="left:{xp(sp[0])}%; width:{xp(sp[1]) - xp(sp[0])}%; border-color:{COLORS[d.c]}"></div>
+                  {:else}
+                    <div class="pt-band" style="left:{xp(sp[0])}%; width:{xp(sp[1]) - xp(sp[0])}%; background:linear-gradient(90deg,{rgba(COLORS[d.c], sp[2])},{rgba(COLORS[d.c], sp[3])})"></div>
+                  {/if}
                 {/each}
                 <div class="pt-marker" style="left:{xp(d.spans[0][0])}%; background:{COLORS[d.c]}"></div>
               </div>
@@ -198,11 +218,13 @@
   .pt-grouph small { font-weight: 400; font-size: 10px; letter-spacing: 0.08em; color: var(--pt-faint); margin-left: 10px; }
   .pt-track { position: relative; height: 34px; margin: 3px 0; cursor: pointer; border-radius: 6px; transition: background 0.15s; }
   .pt-track:hover, .pt-track:focus-visible { background: rgba(192, 202, 245, 0.06); outline: none; }
-  .pt-track.active { background: rgba(187, 154, 247, 0.12); }
+  .pt-track.active { background: rgba(192, 202, 245, 0.12); }
   .pt-tlabel { position: absolute; left: 0; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 12.5px; color: var(--pt-fg); width: 118px; z-index: 2; white-space: nowrap; line-height: 1.25; }
   .pt-tlabel small { display: block; font-size: 10px; color: var(--pt-faint); font-weight: 400; }
   .pt-band { position: absolute; top: 50%; transform: translateY(-50%); height: 13px; border-radius: 4px; z-index: 1; box-shadow: 0 0 0 1px rgba(192, 202, 245, 0.1); }
   .pt-marker { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 5px; height: 21px; border-radius: 2px; z-index: 2; }
+  /* the "asura" row is a word, not a being — draw it as a dashed outline, not a solid cult-band */
+  .pt-band.concept { background: transparent; border: 1.5px dashed; box-shadow: none; opacity: 0.9; }
 
   .pt-axis { position: relative; height: 36px; border-top: 1px solid var(--pt-line); min-width: 860px; margin-top: 10px; }
   .pt-tick { position: absolute; top: 8px; transform: translateX(-50%); font-family: var(--font-mono); font-size: 10px; color: var(--pt-faint); }
