@@ -7,6 +7,7 @@ import ThemeChipStrip from '../../components/ThemeChipStrip.astro';
 import RelatedPosts from '../../components/RelatedPosts.astro';
 import type { PostSidecar } from '../../lib/themes';
 import { blogPostingGraph } from '../../utils/jsonld';
+import { categoryColor } from '../../utils/category-color';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -98,11 +99,11 @@ const jsonLd = blogPostingGraph({
   <article>
     <header class="mb-12">
       <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-3">
-        {dateStr}
-        {readingTime && <span> · {readingTime} min</span>}
-        {post.data.categories && post.data.categories.length > 0 && (
-          <span> · {post.data.categories.join(' · ')}</span>
-        )}
+        <span style="color: var(--color-spore-bright)">{dateStr}</span>
+        {readingTime && <span> · <span style="color: var(--color-spore-bright)">{readingTime} min</span></span>}
+        {post.data.categories && post.data.categories.length > 0 && post.data.categories.map(c => (
+          <span> · <span style={`color: ${categoryColor(c)}`}>{c}</span></span>
+        ))}
       </p>
       <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-mycelium-hot);">{post.data.title}</h1>
       {post.data.description && (

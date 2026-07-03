@@ -18,6 +18,8 @@
   --color-spore-bright: #ff9e64;              /* TokyoNight orange */
   --color-mycelium: #bb9af7;                  /* TokyoNight magenta */
   --color-mycelium-hot: #ff007c;              /* TokyoNight magenta2 — hot pink, headline punch */
+  --color-blue: #7aa2f7;                       /* TokyoNight blue — function / links */
+  --color-green: #9ece6a;                      /* TokyoNight green — string / tags */
   --color-bioluminescent: #7dcfff;            /* TokyoNight cyan — primary interactive */
 
   --color-border: rgba(192, 202, 245, 0.10);      /* membrane (ink-tinted) */

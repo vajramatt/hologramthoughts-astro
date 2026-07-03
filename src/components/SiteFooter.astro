@@ -1,12 +1,7 @@
 ---
 const year = new Date().getFullYear();
 ---
-<footer class="mt-32 relative overflow-hidden">
-  <svg aria-hidden="true" class="root-curves absolute top-0 left-0 w-[200%] h-10 opacity-40 pointer-events-none" viewBox="0 0 2400 40" preserveAspectRatio="none">
-    <path d="M0,40 Q150,4 300,18 T600,12 T900,24 T1200,8 T1500,20 T1800,10 T2100,22 T2400,12 L2400,40 Z" fill="none" stroke="var(--color-spore)" stroke-width="0.6" stroke-opacity="0.55"/>
-    <path d="M0,28 Q200,40 400,18 T800,30 T1200,14 T1600,26 T2000,16 T2400,22" fill="none" stroke="var(--color-bioluminescent)" stroke-width="0.4" stroke-opacity="0.45"/>
-    <path d="M0,18 Q250,30 500,10 T1000,22 T1500,8 T2000,18 T2400,12" fill="none" stroke="var(--color-mycelium)" stroke-width="0.3" stroke-opacity="0.35"/>
-  </svg>
+<footer class="mt-32 relative">
   <div class="border-t border-[var(--color-border)] pt-12 mt-10">
     <div class="mx-auto max-w-5xl px-6 pb-10 flex flex-wrap items-center justify-between gap-4 text-sm text-[var(--color-ink-faint)]" style="font-family: var(--font-ui);">
       <p>© {year} Matthew Williamson · grown over twenty years · curated by <abbr title="Mycelial Underground Synthesis Editor" class="no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-bioluminescent)] hover:text-[var(--color-bioluminescent)] transition-colors">Muse</abbr></p>
@@ -19,16 +14,3 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
-
-<style>
-  .root-curves {
-    animation: root-drift 72s linear infinite;
-  }
-  @keyframes root-drift {
-    from { transform: translateX(-50%); }
-    to { transform: translateX(0); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .root-curves { animation: none; }
-  }
-</style>

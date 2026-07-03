@@ -1,0 +1,27 @@
+// Syntax-highlight the "type / class" role: each category maps to a stable
+// TokyoNight hue, returned as a CSS var so the print palette overrides apply.
+// Unknown categories hash into the accent set. Numbers use --color-spore-bright
+// (orange) directly; this is only for the category token.
+const KNOWN: Record<string, string> = {
+  'Dharma Writings': 'var(--color-mycelium)',
+  'Creative Writing': 'var(--color-green)',
+  'Consciousness & Philosophy': 'var(--color-bioluminescent)',
+  'Practice & Inner Life': 'var(--color-blue)',
+  'Other': 'var(--color-spore)',
+};
+
+const FALLBACK = [
+  'var(--color-blue)',
+  'var(--color-green)',
+  'var(--color-bioluminescent)',
+  'var(--color-mycelium)',
+  'var(--color-spore)',
+];
+
+export function categoryColor(category: string): string {
+  const key = category.trim();
+  if (KNOWN[key]) return KNOWN[key];
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  return FALLBACK[h % FALLBACK.length];
+}
