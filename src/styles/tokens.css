@@ -1,23 +1,26 @@
 @import "tailwindcss";
 
 @theme {
-  /* Forest floor — DEFAULT (was: dark-mode override) */
-  --color-bg: oklch(0.15 0.025 150);         /* deep forest black-green */
-  --color-bg-soft: oklch(0.19 0.03 150);
-  --color-surface: oklch(0.22 0.035 152);    /* card */
-  --color-surface-soft: oklch(0.26 0.04 152);
+  /* TokyoNight (Night) — DEFAULT dark theme (replaced the forest-floor palette).
+     Token *names* are kept so every component keeps working; only the hues change.
+     The accent trio now reads spore=yellow/amber, bioluminescent=cyan (interactive),
+     mycelium=magenta — TokyoNight's own family. Light theme (below) is unchanged. */
+  --color-bg: #1a1b26;                       /* TokyoNight bg */
+  --color-bg-soft: #1f2335;                  /* raised (pre / code bg) */
+  --color-surface: #24283b;                  /* card */
+  --color-surface-soft: #2a2e42;
 
-  --color-ink: oklch(0.93 0.02 85);          /* warm bioluminescent off-white */
-  --color-ink-soft: oklch(0.74 0.035 130);   /* muted sage */
-  --color-ink-faint: oklch(0.55 0.04 140);
+  --color-ink: #c0caf5;                       /* lavender foreground */
+  --color-ink-soft: #a9b1d6;                  /* fg_dark — muted */
+  --color-ink-faint: #737aa2;
 
-  --color-spore: oklch(0.80 0.14 78);        /* spore gold / amber */
-  --color-spore-bright: oklch(0.86 0.15 80);
-  --color-mycelium: oklch(0.62 0.13 295);    /* mycelial violet */
-  --color-bioluminescent: oklch(0.78 0.13 175); /* teal interactive */
+  --color-spore: #e0af68;                     /* TokyoNight yellow — warm accent */
+  --color-spore-bright: #ff9e64;              /* TokyoNight orange */
+  --color-mycelium: #bb9af7;                  /* TokyoNight magenta */
+  --color-bioluminescent: #7dcfff;            /* TokyoNight cyan — primary interactive */
 
-  --color-border: oklch(0.93 0.02 85 / 0.10);     /* membrane */
-  --color-border-strong: oklch(0.93 0.02 85 / 0.20);
+  --color-border: rgba(192, 202, 245, 0.10);      /* membrane (ink-tinted) */
+  --color-border-strong: rgba(192, 202, 245, 0.20);
 
   /* Typography — bookish, archaic, warm */
   --font-display: "Spectral", "Fraunces", Georgia, serif;

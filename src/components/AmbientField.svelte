@@ -8,8 +8,8 @@
     const dpr = devicePixelRatio || 1;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let w = 0, h = 0;
-    // Spore-gold (75°), mycelial-violet (295°), bioluminescent-teal (175°)
-    const hues = [75, 75, 75, 75, 75, 175, 175, 295];
+    // TokyoNight drift — blue (266°) dominant, with cyan (230°) and magenta (305°)
+    const hues = [266, 266, 266, 230, 230, 305, 305, 85];
     const motes = Array.from({ length: reduced ? 0 : 18 }, (_, i) => ({
       x: Math.random(), y: Math.random(),
       r: 0.8 + Math.random() * 2.0,
