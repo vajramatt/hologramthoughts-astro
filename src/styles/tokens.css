@@ -17,6 +17,7 @@
   --color-spore: #e0af68;                     /* TokyoNight yellow — warm accent */
   --color-spore-bright: #ff9e64;              /* TokyoNight orange */
   --color-mycelium: #bb9af7;                  /* TokyoNight magenta */
+  --color-mycelium-hot: #ff007c;              /* TokyoNight magenta2 — hot pink, headline punch */
   --color-bioluminescent: #7dcfff;            /* TokyoNight cyan — primary interactive */
 
   --color-border: rgba(192, 202, 245, 0.10);      /* membrane (ink-tinted) */
@@ -71,6 +72,7 @@
     --color-spore: oklch(0.62 0.16 72);        /* intensified gold */
     --color-spore-bright: oklch(0.72 0.18 75);
     --color-mycelium: oklch(0.45 0.18 295);
+    --color-mycelium-hot: oklch(0.5 0.2 352);  /* calmer deep rose on paper */
     --color-bioluminescent: oklch(0.52 0.14 180);
 
     --color-border: oklch(0.22 0.06 150 / 0.12);
