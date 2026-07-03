@@ -23,6 +23,7 @@
     "build:muse:force": "npm run build:tag && npm run build:canonicalize -- --force && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related -- --force && npm run build:rationale"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.3.14",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/svelte": "^7.2.5",
