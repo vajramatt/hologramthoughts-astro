@@ -379,8 +379,8 @@ const sizeCls = small ? 'px-2 py-0.5 text-[10px] gap-1' : 'px-3 py-1 text-xs gap
 ---
 <button
   type="button"
-  class={`theme-chip inline-flex items-center ${sizeCls} rounded-full font-medium text-[var(--color-ink)] border border-[var(--color-border-strong)] transition-all duration-[var(--dur-med)] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[var(--color-bioluminescent)] hover:text-[var(--color-bioluminescent)]`}
-  style="background: color-mix(in oklch, var(--color-spore) 8%, transparent); font-family: var(--font-ui);"
+  class={`theme-chip inline-flex items-center ${sizeCls} rounded-full font-medium text-[var(--color-ink)] border border-[var(--color-border-strong)] transition-all duration-[var(--dur-med)] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-[var(--color-cyan)] hover:text-[var(--color-cyan)]`}
+  style="background: color-mix(in oklch, var(--color-amber) 8%, transparent); font-family: var(--font-ui);"
   data-theme={id}
   aria-label={`Explore theme: ${name}`}
 >
@@ -447,7 +447,7 @@ Replace the Latest `<ul>` block:
 ```astro
       <ul class="space-y-3 text-sm">
         {latest.map(p => (
-          <li><a href={`/blog/${(p as any).slug ?? p!.id.replace(/\.md$/, '')}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">
+          <li><a href={`/blog/${(p as any).slug ?? p!.id.replace(/\.md$/, '')}/`} class="no-underline hover:text-[var(--color-cyan)]">
             <p>{p!.data.title}</p>
             <p class="text-xs text-[var(--color-ink-soft)]">{new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' })}</p>
           </a></li>
@@ -465,7 +465,7 @@ with:
           const date = new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short' });
           return (
             <li>
-              <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">
+              <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-cyan)]">
                 <p>{p!.data.title}</p>
               </a>
               <div class="flex flex-wrap items-center gap-1.5 mt-1">
@@ -849,8 +849,8 @@ const timeline = [
 
     <section class="space-y-6 mb-16">
       {cast.map(c => (
-        <div class="membrane rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-bioluminescent)] mb-1" style="font-family: var(--font-ui);">{c.role}</p>
+        <div class="panel rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-cyan)] mb-1" style="font-family: var(--font-ui);">{c.role}</p>
           <h2 class="text-2xl mb-2" style="font-family: var(--font-display);">{c.name}</h2>
           <p class="text-[var(--color-ink)] leading-relaxed">{c.does}</p>
           <p class="text-sm text-[var(--color-ink-soft)] mt-2 leading-relaxed">{c.not}</p>
@@ -861,7 +861,7 @@ const timeline = [
     <section class="mb-16">
       <h2 class="text-xl mb-4" style="font-family: var(--font-display);">The line between us</h2>
       <div class="grid sm:grid-cols-2 gap-4">
-        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-spore) 6%, transparent);">
+        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-amber) 6%, transparent);">
           <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)] mb-3" style="font-family: var(--font-ui);">Mine — human</p>
           <ul class="space-y-1.5 text-sm text-[var(--color-ink)]">
             <li>Every post, every word</li>
@@ -869,7 +869,7 @@ const timeline = [
             <li>What gets featured</li>
           </ul>
         </div>
-        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-bioluminescent) 5%, transparent);">
+        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-cyan) 5%, transparent);">
           <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)] mb-3" style="font-family: var(--font-ui);">Machine</p>
           <ul class="space-y-1.5 text-sm text-[var(--color-ink)]">
             <li>Theme names and blurbs</li>
@@ -893,10 +893,10 @@ const timeline = [
     </section>
 
     <section class="rounded-2xl p-6 border border-dashed border-[var(--color-border-strong)]">
-      <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-bioluminescent)] mb-2" style="font-family: var(--font-mono);">for agents</p>
+      <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-cyan)] mb-2" style="font-family: var(--font-mono);">for agents</p>
       <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed" style="font-family: var(--font-mono);">
         Every page is available as clean Markdown — append <code>?format=md</code> or send <code>Accept: text/markdown</code>.
-        An index of all posts lives at <a href="/agent-index.md" class="text-[var(--color-spore-bright)] no-underline hover:text-[var(--color-bioluminescent)]">/agent-index.md</a>.
+        An index of all posts lives at <a href="/agent-index.md" class="text-[var(--color-amber-bright)] no-underline hover:text-[var(--color-cyan)]">/agent-index.md</a>.
         Machine-generated text on this site is labeled as Muse's. The essays are human.
       </p>
     </section>
@@ -932,9 +932,9 @@ Replace:
 
 ```astro
       <nav class="flex gap-6">
-        <a href="/rss.xml" class="no-underline hover:text-[var(--color-bioluminescent)]">rss</a>
-        <a href="/agent-index.md" class="no-underline hover:text-[var(--color-bioluminescent)]">agents</a>
-        <a href="/archive/" class="no-underline hover:text-[var(--color-bioluminescent)]">archive</a>
+        <a href="/rss.xml" class="no-underline hover:text-[var(--color-cyan)]">rss</a>
+        <a href="/agent-index.md" class="no-underline hover:text-[var(--color-cyan)]">agents</a>
+        <a href="/archive/" class="no-underline hover:text-[var(--color-cyan)]">archive</a>
       </nav>
 ```
 
@@ -942,10 +942,10 @@ with:
 
 ```astro
       <nav class="flex gap-6">
-        <a href="/how/" class="no-underline hover:text-[var(--color-bioluminescent)]">how it's made</a>
-        <a href="/rss.xml" class="no-underline hover:text-[var(--color-bioluminescent)]">rss</a>
-        <a href="/agent-index.md" class="no-underline hover:text-[var(--color-bioluminescent)]">agents</a>
-        <a href="/archive/" class="no-underline hover:text-[var(--color-bioluminescent)]">archive</a>
+        <a href="/how/" class="no-underline hover:text-[var(--color-cyan)]">how it's made</a>
+        <a href="/rss.xml" class="no-underline hover:text-[var(--color-cyan)]">rss</a>
+        <a href="/agent-index.md" class="no-underline hover:text-[var(--color-cyan)]">agents</a>
+        <a href="/archive/" class="no-underline hover:text-[var(--color-cyan)]">archive</a>
       </nav>
 ```
 

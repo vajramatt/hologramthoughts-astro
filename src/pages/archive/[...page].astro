@@ -72,7 +72,7 @@ for (const p of page.data) {
 
   <nav class="flex justify-between items-center mt-12 pt-8 border-t border-[var(--color-border-strong)] text-sm">
     {page.url.prev ? (
-      <a href={page.url.prev} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-spore)_8%,transparent)] hover:border-[var(--color-bioluminescent)] transition-all">
+      <a href={page.url.prev} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-amber)_8%,transparent)] hover:border-[var(--color-cyan)] transition-all">
         Newer
       </a>
     ) : <span />}
@@ -80,7 +80,7 @@ for (const p of page.data) {
       Page {page.currentPage} of {page.lastPage}
     </span>
     {page.url.next ? (
-      <a href={page.url.next} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-spore)_8%,transparent)] hover:border-[var(--color-bioluminescent)] transition-all">
+      <a href={page.url.next} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-amber)_8%,transparent)] hover:border-[var(--color-cyan)] transition-all">
         Older
       </a>
     ) : <span />}

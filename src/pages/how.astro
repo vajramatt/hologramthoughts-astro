@@ -52,8 +52,8 @@ const timeline = [
 
     <section class="space-y-6 mb-16">
       {cast.map(c => (
-        <div class="membrane rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-bioluminescent)] mb-1" style="font-family: var(--font-ui);">{c.role}</p>
+        <div class="panel rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-cyan)] mb-1" style="font-family: var(--font-ui);">{c.role}</p>
           <h2 class="text-2xl mb-2" style="font-family: var(--font-display);">{c.name}</h2>
           <p class="text-[var(--color-ink)] leading-relaxed">{c.does}</p>
           <p class="text-sm text-[var(--color-ink-soft)] mt-2 leading-relaxed">{c.not}</p>
@@ -64,7 +64,7 @@ const timeline = [
     <section class="mb-16">
       <h2 class="text-xl mb-4" style="font-family: var(--font-display);">The line between us</h2>
       <div class="grid sm:grid-cols-2 gap-4">
-        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-spore) 6%, transparent);">
+        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-amber) 6%, transparent);">
           <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)] mb-3" style="font-family: var(--font-ui);">Mine — human</p>
           <ul class="space-y-1.5 text-sm text-[var(--color-ink)]">
             <li>Every post, every word</li>
@@ -72,7 +72,7 @@ const timeline = [
             <li>What gets featured</li>
           </ul>
         </div>
-        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-bioluminescent) 5%, transparent);">
+        <div class="rounded-2xl p-5 border border-[var(--color-border)]" style="background: color-mix(in oklch, var(--color-cyan) 5%, transparent);">
           <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-ink-soft)] mb-3" style="font-family: var(--font-ui);">Machine</p>
           <ul class="space-y-1.5 text-sm text-[var(--color-ink)]">
             <li>Theme names and blurbs</li>
@@ -96,10 +96,10 @@ const timeline = [
     </section>
 
     <section class="rounded-2xl p-6 border border-dashed border-[var(--color-border-strong)]">
-      <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-bioluminescent)] mb-2" style="font-family: var(--font-mono);">for agents</p>
+      <p class="text-xs uppercase tracking-[0.12em] text-[var(--color-cyan)] mb-2" style="font-family: var(--font-mono);">for agents</p>
       <p class="text-sm text-[var(--color-ink-soft)] leading-relaxed" style="font-family: var(--font-mono);">
         Every page is available as clean Markdown — append <code>?format=md</code> or send <code>Accept: text/markdown</code>.
-        An index of all posts lives at <a href="/agent-index.md" class="text-[var(--color-spore-bright)] no-underline hover:text-[var(--color-bioluminescent)]">/agent-index.md</a>.
+        An index of all posts lives at <a href="/agent-index.md" class="text-[var(--color-amber-bright)] no-underline hover:text-[var(--color-cyan)]">/agent-index.md</a>.
         Machine-generated text on this site is labeled as Muse's. The essays are human.
       </p>
     </section>

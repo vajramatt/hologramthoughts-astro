@@ -43,45 +43,46 @@ The site has THREE faces:
 
 **Aesthetic concept:** technology as mycelium. Library that grew itself. Forest floor by default; canopy morning when toggled to light. Amber-on-deep-green, bioluminescent teal, mycelial violet. Subtle organic grain. One prismatic moment (the wordmark).
 
-**Dark is the default.** Light mode is opt-in via `[data-theme="light"]` on `<html>`. The FOUC script in `Layout.astro` only writes `data-theme="light"` when needed; absence of the attribute = dark.
+**TokyoNight is the only on-screen theme — there is no light/dark toggle.** The old "canopy morning" light palette is now PRINT-ONLY: a `@media print` block in `tokens.css` (+ print cleanup in `global.css`) renders a post as dark-ink-on-paper. `ThemeToggle.astro` and the FOUC theme script were removed; `<html>` never gets `data-theme`.
 
 ### Tokens (`src/styles/tokens.css`)
 
 | Token | Role |
 |---|---|
 | `--color-bg` / `--color-bg-soft` | Page bg + soft variant (forest black-green on dark, parchment on light) |
-| `--color-surface` / `--color-surface-soft` | Cards / membrane surfaces |
+| `--color-surface` / `--color-surface-soft` | Cards / panel surfaces |
 | `--color-ink` / `--color-ink-soft` / `--color-ink-faint` | Text tiers |
-| `--color-spore` / `--color-spore-bright` | Spore-gold accent — primary highlight, link color |
-| `--color-mycelium` | Secondary accent (TokyoNight magenta) |
-| `--color-bioluminescent` | Teal — hover/active state, focus ring |
-| `--color-border` / `--color-border-strong` | Membrane borders |
+| `--color-amber` / `--color-amber-bright` | Spore-gold accent — primary highlight, link color |
+| `--color-magenta` | Secondary accent (TokyoNight magenta) |
+| `--color-cyan` | Teal — hover/active state, focus ring |
+| `--color-border` / `--color-border-strong` | Panel borders |
 | `--font-display` / `--font-body` / `--font-ui` / `--font-mono` | Spectral / Newsreader / Inter Tight / JetBrains Mono |
 | `--ease-grow` / `--ease-breathe` | Easings for organic motion |
 | `--dur-fast` / `--dur-med` / `--dur-slow` / `--dur-breathe` | 220ms / 480ms / 900ms / 5400ms |
 | `--prism` | 4-stop linear gradient (spore → teal → violet → spore) used by `.prismatic` class |
 
-The `[data-theme="light"]` block overrides only the colors that change; type/motion/prism stay constant.
+The `@media print` block overrides only the colors that change (to the paper palette); type/motion/prism stay constant.
+
+**Syntax-highlight roles (IDE aesthetic).** The chrome is colored like an editor: numbers (dates, reading time, counts) use `--color-amber-bright` (orange); categories take a per-type hue via `categoryColor()` in `src/utils/category-color.ts` (magenta/green/cyan/blue). Tokens `--color-blue` / `--color-green` back this. Because Tailwind color utilities lose to unlayered `h1{}`/`a{}` rules in `global.css`, apply these via inline `style="color: var(--…)"`, not `text-[var(--…)]` classes.
 
 ### Reusable classes (`src/styles/global.css`)
 
 - **`.prose`** — applied to blog-post bodies. Spectral blockquotes with spore-gold left border, moss dot bullets with soft glow, crystalline gold edge atop code blocks, gradient hr separators
-- **`.membrane`** — frosted glass surface (backdrop-blur + transparent bg)
-- **`.glass`** — alias for `.membrane` so legacy refs don't break. Was a `@apply` originally but Tailwind 4 doesn't allow `@apply` of custom classes; expanded to literal CSS
+- **`.panel`** — frosted glass surface (backdrop-blur + transparent bg)
+- **`.glass`** — alias for `.panel` so legacy refs don't break. Was a `@apply` originally but Tailwind 4 doesn't allow `@apply` of custom classes; expanded to literal CSS
 - **`.prismatic`** — 4-stop gradient with bg-clip text. Used on the logo wordmark + the hero `<h1>` on the homepage. Hover transitions `background-position` 0% → 100%
-- **`.vine-progress`** — `--prism` background with `vine-shift` keyframe (18-30s linear infinite hue drift)
+- **`.scanline`** — `--prism` background with `scanline-shift` keyframe (18-30s linear infinite hue drift)
 - **`.skip-link`** — a11y skip-to-main link
 
 ### Atmospheric overlays
 
 - **Body grain** — fixed SVG `feTurbulence` noise at `opacity: 0.035`, `mix-blend-mode: overlay`. Painted via `body::before`
-- **Ambient motes** — `AmbientField.svelte` paints 18 drifting motes on a fixed canvas (z-index 0). Spore-gold dominant, occasional teal/violet, every 12th mote slowly hue-cycles via sin wave (prismatic shimmer). `prefers-reduced-motion` → 0 motes
-- **Canopy curves** — `SiteHeader.astro` has 3 stacked SVG paths (spore/teal/violet) drifting horizontally over 48s
-- **Mycelial roots** — `SiteFooter.astro` mirrors the curves above its border, drifting opposite direction over 72s
+- **Ambient motes** — `ParticleField.svelte` paints 18 drifting motes on a fixed canvas (z-index 0). Spore-gold dominant, occasional teal/violet, every 12th mote slowly hue-cycles via sin wave (prismatic shimmer). `prefers-reduced-motion` → 0 motes
+- **Terminal caret** — `SiteHeader.astro` renders a blinking green block caret after the wordmark: the site's one bit of ambient motion, CLI-style. Reduced-motion → steady (no blink). The old canopy-curve / mycelial-root SVGs were removed.
 
 ### Reduced motion
 
-Tokens have a `@media (prefers-reduced-motion: reduce)` block that clamps all animations/transitions to 0.01ms globally. Components that gate their own animation (AmbientField, canopy/root curves) also check explicitly via `matchMedia`. Always honor it; don't add motion that ignores this.
+Tokens have a `@media (prefers-reduced-motion: reduce)` block that clamps all animations/transitions to 0.01ms globally. Components that gate their own animation (ParticleField, the terminal caret) also honor reduced-motion. Always honor it; don't add motion that ignores this.
 
 ### Focus + a11y
 
@@ -318,21 +319,20 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 ## 9. Component map
 
 ### Layouts (`src/layouts/`)
-- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG, Twitter, fonts), FOUC theme script (dark default), skip link, mounts `<AmbientField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`
+- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG, Twitter, fonts), FOUC theme script (dark default), skip link, mounts `<ParticleField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`
 - **`BlogPostLayout.astro`** — legacy, mostly unused. The active blog post template is `src/pages/blog/[slug].astro`. Kept around for safety; mirrors the new pattern
 
 ### Components (`src/components/`)
-- **`SiteHeader.astro`** — sticky frosted header. Prismatic logo wordmark. Nav (`home`, `archive`, `themes`, `search`). Theme toggle. Animated canopy SVG curves at the bottom edge
-- **`SiteFooter.astro`** — animated mycelial roots SVG at top. © line + nav + Muse attribution
-- **`ThemeToggle.astro`** — sun/moon SVG button. Writes `data-theme="light"` or removes attribute to revert to dark default. localStorage persisted. Inline script syncs icon visibility
-- **`AmbientField.svelte`** — fixed canvas, drifting motes. Reduced-motion gate
+- **`SiteHeader.astro`** — sticky frosted header. Prismatic logo wordmark + blinking terminal caret. Nav (`home`, `archive`, `themes`, `search`). No theme toggle (TokyoNight-only)
+- **`SiteFooter.astro`** — © line + nav + Muse attribution (static; the animated roots SVG was removed)
+- **`ParticleField.svelte`** — fixed canvas, drifting motes. Reduced-motion gate
 - **`ThemeDrawer.svelte`** — global click listener for `.theme-chip` elements. Opens side drawer with theme details fetched from `/themes/reverse-index.json` + `/themes/post-meta.json`
 - **`ThemeChip.astro`** — single theme chip. `data-theme="<id>"` triggers drawer
 - **`ThemeChipStrip.astro`** — chip strip rendered at end of blog posts (themes for this post)
 - **`RelatedPosts.astro`** — "If this landed, Muse suggests" block. Renders sidecar `related[]`. **Critical**: uses multi-key `bySlug` map because sidecar slugs and Astro post slugs sometimes diverge (see Gotchas §11)
 - **`PostCard.astro`** — listing card with date / title / excerpt / chip preview. Used on homepage Recent, archive, categories
 - **`MuseHighlight.astro`** — 3-column block on homepage (Latest / Threads / Stories). Stories column supports series groups via `<details>` expander
-- **`ReadingProgress.astro`** — fixed-position progress bar at top of blog posts. `vine-shift` gradient animation
+- **`ReadingProgress.astro`** — fixed-position progress bar at top of blog posts. `scanline-shift` gradient animation
 - **`TableOfContents.astro`** — auto-generated from headings, shown when 2+ exist. Glass card
 
 ### Pages (`src/pages/`)
@@ -435,8 +435,8 @@ For URL generation, always use `p.slug` (matches `getStaticPaths`). For sidecar 
 
 Tailwind 4 doesn't allow `@apply .my-custom-class`. Only utility classes work. If you need composition, expand literally:
 ```css
-/* bad */ .foo { @apply membrane; }
-/* good */ .foo { background: var(--membrane-bg); backdrop-filter: blur(var(--membrane-blur)); /* ... */ }
+/* bad */ .foo { @apply panel; }
+/* good */ .foo { background: var(--panel-bg); backdrop-filter: blur(var(--panel-blur)); /* ... */ }
 ```
 
 ### Cloudflare Pages edge cache vs deleted files

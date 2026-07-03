@@ -14,7 +14,7 @@ const path = Astro.url.pathname;
     </a>
     <nav class="flex items-center gap-6 text-sm" style="font-family: var(--font-ui);">
       {nav.map(n => (
-        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-bioluminescent)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-bioluminescent)]']}>
+        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-cyan)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-cyan)]']}>
           {n.label}
         </a>
       ))}

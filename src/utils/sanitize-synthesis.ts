@@ -16,7 +16,7 @@
  */
 
 const ANCHOR_CLASS =
-  'underline decoration-[var(--color-border-strong)] underline-offset-[3px] hover:text-[var(--color-bioluminescent)]';
+  'underline decoration-[var(--color-border-strong)] underline-offset-[3px] hover:text-[var(--color-cyan)]';
 
 /** Escape the five HTML-significant characters. */
 export function escapeHtml(s: string): string {

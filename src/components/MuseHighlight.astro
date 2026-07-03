@@ -28,8 +28,8 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
 ---
 <section class="my-16">
   <header class="mb-8">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-mycelium)] mb-2">
-      From <abbr title="Mycelial Underground Synthesis Editor" class="no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-bioluminescent)] hover:text-[var(--color-bioluminescent)] transition-colors">Muse</abbr>
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-magenta)] mb-2">
+      From <abbr title="Mycelial Underground Synthesis Editor" class="no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-cyan)] hover:text-[var(--color-cyan)] transition-colors">Muse</abbr>
     </p>
     <h2 class="text-4xl" style="font-family: var(--font-display);">What's alive in the archive</h2>
   </header>
@@ -43,7 +43,7 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
           const date = new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short', timeZone: 'UTC' });
           return (
             <li>
-              <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-bioluminescent)]">
+              <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-cyan)]">
                 <p>{p!.data.title}</p>
               </a>
               <div class="flex flex-wrap items-center gap-1.5 mt-1">
@@ -64,7 +64,7 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
           {activeThemes.map(t => (
             <li>
               <a href={`/themes/${t.id}/`} class="no-underline">
-                <p class="text-[var(--color-ink)] hover:text-[var(--color-bioluminescent)]">{t.name} <span class="text-[var(--color-ink-soft)] text-xs">({t.postCount})</span></p>
+                <p class="text-[var(--color-ink)] hover:text-[var(--color-cyan)]">{t.name} <span class="text-[var(--color-ink-soft)] text-xs">({t.postCount})</span></p>
                 {t.blurb && <p class="text-xs text-[var(--color-ink-soft)] italic mt-0.5">{t.blurb}</p>}
               </a>
             </li>
@@ -78,12 +78,12 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
         {stories.map(item => (
           item.kind === 'post' ? (
             <li>
-              <a href={`/blog/${item.slug}/`} class="no-underline text-[var(--color-ink)] hover:text-[var(--color-bioluminescent)]">{item.title}</a>
+              <a href={`/blog/${item.slug}/`} class="no-underline text-[var(--color-ink)] hover:text-[var(--color-cyan)]">{item.title}</a>
             </li>
           ) : (
             <li>
               <details class="group">
-                <summary class="cursor-pointer list-none flex items-center gap-1.5 text-[var(--color-ink)] hover:text-[var(--color-bioluminescent)]">
+                <summary class="cursor-pointer list-none flex items-center gap-1.5 text-[var(--color-ink)] hover:text-[var(--color-cyan)]">
                   <svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true" class="transition-transform group-open:rotate-90 shrink-0">
                     <path d="M3 1 L7 5 L3 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -93,7 +93,7 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
                 <ol class="mt-2 ml-4 pl-3 border-l border-[var(--color-border)] space-y-1.5 text-xs">
                   {item.parts.map(part => (
                     <li>
-                      <a href={`/blog/${part.slug}/`} class="no-underline text-[var(--color-ink-soft)] hover:text-[var(--color-bioluminescent)]">{part.title}</a>
+                      <a href={`/blog/${part.slug}/`} class="no-underline text-[var(--color-ink-soft)] hover:text-[var(--color-cyan)]">{part.title}</a>
                     </li>
                   ))}
                 </ol>

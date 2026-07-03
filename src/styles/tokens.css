@@ -14,15 +14,15 @@
   --color-ink-soft: #a9b1d6;                  /* fg_dark — muted */
   --color-ink-faint: #737aa2;
 
-  --color-spore: #e0af68;                     /* TokyoNight yellow — warm accent */
-  --color-spore-bright: #ff9e64;              /* TokyoNight orange */
-  --color-mycelium: #bb9af7;                  /* TokyoNight magenta */
-  --color-mycelium-hot: #ff007c;              /* TokyoNight magenta2 — hot pink, headline punch */
+  --color-amber: #e0af68;                     /* TokyoNight yellow — warm accent */
+  --color-amber-bright: #ff9e64;              /* TokyoNight orange */
+  --color-magenta: #bb9af7;                  /* TokyoNight magenta */
+  --color-magenta-hot: #ff007c;              /* TokyoNight magenta2 — hot pink, headline punch */
   --color-blue: #7aa2f7;                       /* TokyoNight blue — function / links */
   --color-green: #9ece6a;                      /* TokyoNight green — string / tags */
-  --color-bioluminescent: #7dcfff;            /* TokyoNight cyan — primary interactive */
+  --color-cyan: #7dcfff;            /* TokyoNight cyan — primary interactive */
 
-  --color-border: rgba(192, 202, 245, 0.10);      /* membrane (ink-tinted) */
+  --color-border: rgba(192, 202, 245, 0.10);      /* panel (ink-tinted) */
   --color-border-strong: rgba(192, 202, 245, 0.20);
 
   /* Typography — bookish, archaic, warm */
@@ -40,20 +40,20 @@
   --dur-breathe: 5400ms;
 
   /* Surfaces */
-  --membrane-bg: color-mix(in oklch, var(--color-surface) 82%, transparent);
-  --membrane-blur: 18px;
+  --panel-bg: color-mix(in oklch, var(--color-surface) 82%, transparent);
+  --panel-blur: 18px;
   --shadow-deep: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 32px oklch(0 0 0 / 0.35);
   --shadow-bloom: 0 0 0 1px var(--color-border-strong),
-                  0 0 24px color-mix(in oklch, var(--color-spore) 22%, transparent),
+                  0 0 24px color-mix(in oklch, var(--color-amber) 22%, transparent),
                   0 12px 36px oklch(0 0 0 / 0.4);
 
   /* Holographic prism — used sparingly */
   --prism: linear-gradient(
     100deg,
-    var(--color-spore) 0%,
-    var(--color-bioluminescent) 35%,
-    var(--color-mycelium) 65%,
-    var(--color-spore) 100%
+    var(--color-amber) 0%,
+    var(--color-cyan) 35%,
+    var(--color-magenta) 65%,
+    var(--color-amber) 100%
   );
 }
 
@@ -71,16 +71,16 @@
     --color-ink-soft: oklch(0.42 0.06 145);
     --color-ink-faint: oklch(0.58 0.05 140);
 
-    --color-spore: oklch(0.62 0.16 72);        /* intensified gold */
-    --color-spore-bright: oklch(0.72 0.18 75);
-    --color-mycelium: oklch(0.45 0.18 295);
-    --color-mycelium-hot: oklch(0.5 0.2 352);  /* calmer deep rose on paper */
-    --color-bioluminescent: oklch(0.52 0.14 180);
+    --color-amber: oklch(0.62 0.16 72);        /* intensified gold */
+    --color-amber-bright: oklch(0.72 0.18 75);
+    --color-magenta: oklch(0.45 0.18 295);
+    --color-magenta-hot: oklch(0.5 0.2 352);  /* calmer deep rose on paper */
+    --color-cyan: oklch(0.52 0.14 180);
 
     --color-border: oklch(0.22 0.06 150 / 0.12);
     --color-border-strong: oklch(0.22 0.06 150 / 0.25);
 
-    --membrane-bg: color-mix(in oklch, var(--color-surface) 88%, transparent);
+    --panel-bg: color-mix(in oklch, var(--color-surface) 88%, transparent);
     --shadow-deep: none;
     --shadow-bloom: none;
   }

@@ -99,13 +99,13 @@ const jsonLd = blogPostingGraph({
   <article>
     <header class="mb-12">
       <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-3">
-        <span style="color: var(--color-spore-bright)">{dateStr}</span>
-        {readingTime && <span> · <span style="color: var(--color-spore-bright)">{readingTime} min</span></span>}
+        <span style="color: var(--color-amber-bright)">{dateStr}</span>
+        {readingTime && <span> · <span style="color: var(--color-amber-bright)">{readingTime} min</span></span>}
         {post.data.categories && post.data.categories.length > 0 && post.data.categories.map(c => (
           <span> · <span style={`color: ${categoryColor(c)}`}>{c}</span></span>
         ))}
       </p>
-      <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-mycelium-hot);">{post.data.title}</h1>
+      <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-magenta-hot);">{post.data.title}</h1>
       {post.data.description && (
         <p class="text-lg text-[var(--color-ink-soft)] mt-4 leading-relaxed">{post.data.description}</p>
       )}
@@ -128,7 +128,7 @@ const jsonLd = blogPostingGraph({
           <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">
             {isSeries ? '← Previous' : '← Older'}
           </p>
-          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{prevPost.data.title}</p>
+          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">{prevPost.data.title}</p>
         </a>
       ) : <span />}
       {nextPost ? (
@@ -136,7 +136,7 @@ const jsonLd = blogPostingGraph({
           <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">
             {isSeries ? 'Next →' : 'Newer →'}
           </p>
-          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{nextPost.data.title}</p>
+          <p class="text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">{nextPost.data.title}</p>
         </a>
       ) : <span />}
     </nav>
@@ -195,8 +195,8 @@ const jsonLd = blogPostingGraph({
   .post-content :global(strong) { font-weight: 600; }
 
   .post-content :global(code) {
-    background: color-mix(in oklch, var(--color-bioluminescent) 12%, transparent);
-    color: var(--color-spore-bright);
+    background: color-mix(in oklch, var(--color-cyan) 12%, transparent);
+    color: var(--color-amber-bright);
     padding: 0.1rem 0.4rem;
     border-radius: 4px;
     font-size: 0.92em;
@@ -237,7 +237,7 @@ const jsonLd = blogPostingGraph({
   }
 
   .post-content :global(a) {
-    color: var(--color-spore-bright);
+    color: var(--color-amber-bright);
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -245,7 +245,7 @@ const jsonLd = blogPostingGraph({
   }
 
   .post-content :global(a:hover) {
-    color: var(--color-bioluminescent);
+    color: var(--color-cyan);
   }
 
   .post-content :global(img) {

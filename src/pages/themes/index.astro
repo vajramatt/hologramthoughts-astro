@@ -17,7 +17,7 @@ const themes = [...(taxonomy as any).themes].sort((a: any, b: any) => b.postCoun
         <li class="border-b border-[var(--color-border-strong)] pb-6">
           <a href={`/themes/${t.id}/`} class="block group no-underline">
             <div class="flex items-baseline justify-between gap-4">
-              <h2 class="text-2xl group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">{t.name}</h2>
+              <h2 class="text-2xl group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">{t.name}</h2>
               <span class="text-xs text-[var(--color-ink-soft)]">{t.postCount} posts</span>
             </div>
             {t.blurb && <p class="text-[var(--color-ink-soft)] mt-2 italic">{t.blurb}</p>}

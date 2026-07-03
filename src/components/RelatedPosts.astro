@@ -21,12 +21,12 @@ const items = related
 ---
 {items.length > 0 && (
   <aside class="mt-12 pt-8 border-t border-[var(--color-border-strong)]">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-mycelium)] mb-4">If this landed, <abbr title="Mycelial Underground Synthesis Editor" class="no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-bioluminescent)]">Muse</abbr> suggests</p>
+    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-magenta)] mb-4">If this landed, <abbr title="Mycelial Underground Synthesis Editor" class="no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-cyan)]">Muse</abbr> suggests</p>
     <ul class="space-y-5">
       {items.map(({ post, rationale }) => (
         <li>
           <a href={`/blog/${(post as any).slug ?? post!.id.replace(/\.md$/, '')}/`} class="block group no-underline">
-            <p class="text-[var(--color-ink)] group-hover:text-[var(--color-bioluminescent)] transition-colors" style="font-family: var(--font-display);">
+            <p class="text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">
               {post!.data.title}
               <span class="text-xs text-[var(--color-ink-soft)] ml-2 align-middle">({new Date(post!.data.pubDate).getUTCFullYear()})</span>
             </p>

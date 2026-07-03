@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MuseHighlight from '../components/MuseHighlight.astro';
-import MyceliumMap from '../components/MyceliumMap.svelte';
+import NetworkMap from '../components/NetworkMap.svelte';
 import { getCollection } from 'astro:content';
 import taxonomy from '../content/themes/taxonomy.json';
 import { readFile } from 'node:fs/promises';
@@ -277,7 +277,7 @@ for (const s of latestSlugs) {
 <Layout title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — an archive of attention, curated by Muse.">
   <section class="mt-8 mb-16">
     <h1 class="text-5xl md:text-7xl tracking-tight leading-[1.05]" style="font-family: var(--font-display);">
-      <span class="prismatic" style="background-size: 240% 100%; animation: vine-shift 30s linear infinite;">
+      <span class="prismatic" style="background-size: 240% 100%; animation: scanline-shift 30s linear infinite;">
         An archive of attention.
       </span>
     </h1>
@@ -285,7 +285,7 @@ for (const s of latestSlugs) {
       Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — kept here so it doesn't get lost in the scroll.
     </p>
     {featuredNote && (
-      <aside class="mt-10 max-w-xl pl-4 border-l-2 border-[var(--color-spore)]">
+      <aside class="mt-10 max-w-xl pl-4 border-l-2 border-[var(--color-amber)]">
         <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">From Muse</p>
         <p class="text-base text-[var(--color-ink)] italic leading-relaxed" style="font-family: var(--font-display);">{featuredNote}</p>
       </aside>
@@ -303,7 +303,7 @@ for (const s of latestSlugs) {
       </p>
     </div>
     <div style="width:100vw;position:relative;left:50%;transform:translateX(-50%);">
-      <MyceliumMap data={mapData} client:visible />
+      <NetworkMap data={mapData} client:visible />
     </div>
   </section>
 </Layout>

@@ -363,8 +363,8 @@
   .panel-inner {
     position: relative;
     width: min(56rem, 92vw);
-    background: var(--membrane-bg);
-    backdrop-filter: blur(var(--membrane-blur));
+    background: var(--panel-bg);
+    backdrop-filter: blur(var(--panel-blur));
     border: 1px solid var(--color-border);
     border-top: 2px solid oklch(0.78 0.13 var(--hue) / 0.6);
     border-radius: 14px;
@@ -381,8 +381,8 @@
   .panel-title { font-family: var(--font-display); font-size: 1.9rem; line-height: 1.1; margin: 0.15rem 0 0.5rem; }
   .panel-blurb { font-family: var(--font-display); font-style: italic; color: var(--color-ink-soft); margin-bottom: 0.6rem; }
   .panel-synth { color: var(--color-ink); line-height: 1.65; margin-bottom: 0.9rem; max-width: 44rem; }
-  .panel-link { display: inline-block; margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--color-spore-bright); }
-  .panel-link:hover { color: var(--color-bioluminescent); }
+  .panel-link { display: inline-block; margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--color-amber-bright); }
+  .panel-link:hover { color: var(--color-cyan); }
   .panel-loading { color: var(--color-ink-soft); }
 
   .panel-posts {
@@ -392,7 +392,7 @@
   }
   .panel-posts a { display: flex; flex-direction: column; text-decoration: none; padding: 0.25rem 0; }
   .panel-posts .pt { color: var(--color-ink); line-height: 1.3; }
-  .panel-posts a:hover .pt { color: var(--color-bioluminescent); }
+  .panel-posts a:hover .pt { color: var(--color-cyan); }
   .panel-posts .pd { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-ink-faint); }
 
   @media (max-width: 720px) {

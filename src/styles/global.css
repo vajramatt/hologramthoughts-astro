@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: var(--color-spore-bright);
+  color: var(--color-amber-bright);
   text-decoration-color: var(--color-border-strong);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -44,15 +44,15 @@ a {
               text-decoration-color var(--dur-fast) var(--ease-grow);
 }
 a:hover {
-  color: var(--color-bioluminescent);
-  text-decoration-color: var(--color-bioluminescent);
+  color: var(--color-cyan);
+  text-decoration-color: var(--color-cyan);
 }
 
 /* Membrane surface — replaces .glass */
-.membrane {
-  background: var(--membrane-bg);
-  backdrop-filter: blur(var(--membrane-blur));
-  -webkit-backdrop-filter: blur(var(--membrane-blur));
+.panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(var(--panel-blur));
+  -webkit-backdrop-filter: blur(var(--panel-blur));
   border: 1px solid var(--color-border);
   border-radius: 12px;
   box-shadow: var(--shadow-deep);
@@ -60,9 +60,9 @@ a:hover {
 
 /* Legacy alias so existing .glass usages don't crash */
 .glass {
-  background: var(--membrane-bg);
-  backdrop-filter: blur(var(--membrane-blur));
-  -webkit-backdrop-filter: blur(var(--membrane-blur));
+  background: var(--panel-bg);
+  backdrop-filter: blur(var(--panel-blur));
+  -webkit-backdrop-filter: blur(var(--panel-blur));
   border: 1px solid var(--color-border);
   border-radius: 12px;
   box-shadow: var(--shadow-deep);
@@ -83,12 +83,12 @@ a:hover {
 }
 
 /* Vine reading-progress — gradient that subtly hue-rotates */
-.vine-progress {
+.scanline {
   background: var(--prism);
   background-size: 200% 100%;
-  animation: vine-shift 18s linear infinite;
+  animation: scanline-shift 18s linear infinite;
 }
-@keyframes vine-shift {
+@keyframes scanline-shift {
   to { background-position: 200% 0; }
 }
 
@@ -103,10 +103,10 @@ a:hover {
 .prose h2 { font-size: 1.85rem; margin: 2.6em 0 0.55em; font-weight: 480; }
 .prose h3 { font-size: 1.4rem; margin: 2em 0 0.5em; font-weight: 480; }
 .prose p { margin: 1.1em 0; }
-.prose a { color: var(--color-spore-bright); text-decoration: underline; text-decoration-color: var(--color-border-strong); text-underline-offset: 3px; }
-.prose a:hover { color: var(--color-bioluminescent); }
+.prose a { color: var(--color-amber-bright); text-decoration: underline; text-decoration-color: var(--color-border-strong); text-underline-offset: 3px; }
+.prose a:hover { color: var(--color-cyan); }
 .prose blockquote {
-  border-left: 2px solid var(--color-spore);
+  border-left: 2px solid var(--color-amber);
   padding: 0.4em 0 0.4em 1.4em;
   margin: 1.6em 0;
   font-style: italic;
@@ -116,12 +116,12 @@ a:hover {
   line-height: 1.55;
 }
 /* alternate blockquote accents gold → magenta so the pink reads as a real co-accent */
-.prose blockquote:nth-of-type(even) { border-left-color: var(--color-mycelium); }
+.prose blockquote:nth-of-type(even) { border-left-color: var(--color-magenta); }
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.88em;
-  background: color-mix(in oklch, var(--color-bioluminescent) 12%, transparent);
-  color: var(--color-spore-bright);
+  background: color-mix(in oklch, var(--color-cyan) 12%, transparent);
+  color: var(--color-amber-bright);
   padding: 0.15em 0.4em;
   border-radius: 4px;
   border: 1px solid var(--color-border);
@@ -140,7 +140,7 @@ a:hover {
   position: absolute;
   top: 0; left: 12px; right: 12px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-spore), transparent);
+  background: linear-gradient(90deg, transparent, var(--color-amber), transparent);
   opacity: 0.5;
 }
 .prose pre code { background: none; padding: 0; border: none; color: var(--color-ink); }
@@ -153,8 +153,8 @@ a:hover {
   left: -1.1em; top: 0.78em;
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: var(--color-spore);
-  box-shadow: 0 0 8px color-mix(in oklch, var(--color-spore) 60%, transparent);
+  background: var(--color-amber);
+  box-shadow: 0 0 8px color-mix(in oklch, var(--color-amber) 60%, transparent);
 }
 .prose hr {
   border: none;
@@ -165,7 +165,7 @@ a:hover {
 
 /* Focus ring — bioluminescent */
 *:focus-visible {
-  outline: 2px solid var(--color-bioluminescent);
+  outline: 2px solid var(--color-cyan);
   outline-offset: 3px;
   border-radius: 4px;
 }
