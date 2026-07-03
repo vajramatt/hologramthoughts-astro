@@ -115,6 +115,8 @@ a:hover {
   font-size: 1.12em;
   line-height: 1.55;
 }
+/* alternate blockquote accents gold → magenta so the pink reads as a real co-accent */
+.prose blockquote:nth-of-type(even) { border-left-color: var(--color-mycelium); }
 .prose code {
   font-family: var(--font-mono);
   font-size: 0.88em;
