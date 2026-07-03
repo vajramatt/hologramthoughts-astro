@@ -88,13 +88,13 @@ Tokens have a `@media (prefers-reduced-motion: reduce)` block that clamps all an
 
 - `*:focus-visible` rule: 2px bioluminescent outline, 3px offset
 - Skip link: rendered as first body child, hidden off-screen until focused
-- `<abbr title="...">` used for "MUSE" disclosure (dotted underline, hover reveals "Mycelial Underground Synthesis Editor")
+- `<abbr title="...">` used for "MUSE" disclosure (dotted underline, hover reveals "Machine Underground Synthesis Editor")
 
 ### What this is NOT
 
 - No `@apply` of custom non-utility classes (Tailwind 4 limitation)
 - No `var(--color-moss*)`, `--color-sun*`, `--color-sky*`, `--color-bone*`, `--glass-*` — these were old solarpunk-pastel tokens, purged
-- No terminal/PS1/scanline/dharma:// styling (legacy aesthetic, dead)
+- No `dharma://` framing or the old PS1 terminal-mysticism (that legacy aesthetic is dead). NOTE: a light IDE/CLI motif is now deliberate — the blinking terminal caret, `.scanline` gradient, and syntax-highlighted metadata are current, not legacy
 - No `ClientRouter`/`ViewTransitions` — was tried, caused homepage HTML to be served at blog URLs; removed
 - No runtime LLM calls in the deployed site
 
@@ -102,7 +102,7 @@ Tokens have a `@media (prefers-reduced-motion: reduce)` block that clamps all an
 
 ## 4. Muse — the editorial voice
 
-**MUSE = Mycelial Underground Synthesis Editor** (revealed via `<abbr>` tooltips throughout the site).
+**MUSE = Machine Underground Synthesis Editor** (revealed via `<abbr>` tooltips throughout the site).
 
 Muse is a **build-time only** curator. She has no chat surface, no runtime Worker, no streaming endpoint. Everything she "says" is generated locally by the build scripts, committed to the repo, hand-reviewable, then shipped as static HTML/JSON. Visitors hit zero LLM endpoints. No abuse surface.
 
