@@ -182,3 +182,21 @@ a:hover {
   z-index: 9999;
 }
 .skip-link:focus { left: 1rem; }
+
+/* Print = the paper theme. Strip the screen chrome (ambient field, sticky header,
+   footer roots, drawer, progress bar, grain) and the dark-theme glows/blur so a
+   post prints as clean dark-ink-on-paper. Palette overrides live in tokens.css. */
+@media print {
+  body::before { display: none !important; }          /* organic grain overlay */
+  header, footer, canvas, .skip-link,
+  .reading-progress, [role="dialog"] { display: none !important; }
+  main { max-width: none !important; padding: 0 !important; }
+  *, *::before, *::after {
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .prose h1, .prose h2, .prose h3, h1, h2, h3 { break-after: avoid; }
+  .prose pre, .prose blockquote, figure { break-inside: avoid; }
+  a { color: inherit; }
+}

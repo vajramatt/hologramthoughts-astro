@@ -54,30 +54,32 @@
   );
 }
 
-/* Light mode = canopy morning, opt-in via data-theme="light" */
-[data-theme="light"] {
-  --color-bg: oklch(0.97 0.018 90);          /* warm parchment */
-  --color-bg-soft: oklch(0.94 0.025 90);
-  --color-surface: oklch(0.99 0.012 90);
-  --color-surface-soft: oklch(0.95 0.022 90);
+/* The old "canopy morning" light palette is now the PRINT-ONLY paper theme.
+   TokyoNight is the sole on-screen theme; when a reader prints a post we fall
+   back to dark-ink-on-paper so it reads and saves toner. No on-screen toggle. */
+@media print {
+  :root {
+    --color-bg: oklch(0.97 0.018 90);          /* warm parchment */
+    --color-bg-soft: oklch(0.94 0.025 90);
+    --color-surface: oklch(0.99 0.012 90);
+    --color-surface-soft: oklch(0.95 0.022 90);
 
-  --color-ink: oklch(0.22 0.06 150);         /* deep forest text */
-  --color-ink-soft: oklch(0.42 0.06 145);
-  --color-ink-faint: oklch(0.58 0.05 140);
+    --color-ink: oklch(0.22 0.06 150);         /* deep forest text */
+    --color-ink-soft: oklch(0.42 0.06 145);
+    --color-ink-faint: oklch(0.58 0.05 140);
 
-  --color-spore: oklch(0.62 0.16 72);        /* intensified gold */
-  --color-spore-bright: oklch(0.72 0.18 75);
-  --color-mycelium: oklch(0.45 0.18 295);
-  --color-bioluminescent: oklch(0.52 0.14 180);
+    --color-spore: oklch(0.62 0.16 72);        /* intensified gold */
+    --color-spore-bright: oklch(0.72 0.18 75);
+    --color-mycelium: oklch(0.45 0.18 295);
+    --color-bioluminescent: oklch(0.52 0.14 180);
 
-  --color-border: oklch(0.22 0.06 150 / 0.12);
-  --color-border-strong: oklch(0.22 0.06 150 / 0.25);
+    --color-border: oklch(0.22 0.06 150 / 0.12);
+    --color-border-strong: oklch(0.22 0.06 150 / 0.25);
 
-  --membrane-bg: color-mix(in oklch, var(--color-surface) 88%, transparent);
-  --shadow-deep: 0 1px 2px oklch(0.22 0.06 150 / 0.06), 0 8px 24px oklch(0.22 0.06 150 / 0.08);
-  --shadow-bloom: 0 0 0 1px var(--color-border-strong),
-                  0 0 18px color-mix(in oklch, var(--color-spore) 28%, transparent),
-                  0 12px 36px oklch(0.22 0.06 150 / 0.10);
+    --membrane-bg: color-mix(in oklch, var(--color-surface) 88%, transparent);
+    --shadow-deep: none;
+    --shadow-bloom: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
