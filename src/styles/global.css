@@ -68,6 +68,23 @@ a:hover {
   box-shadow: var(--shadow-deep);
 }
 
+/* Wordmark — the one holographic moment, swept across the full TokyoNight accent set */
+.wordmark {
+  background-image: linear-gradient(100deg,
+    var(--color-blue) 0%,
+    var(--color-cyan) 22%,
+    var(--color-green) 46%,
+    var(--color-magenta) 72%,
+    var(--color-amber) 100%);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-position var(--dur-slow) var(--ease-grow);
+}
+.wordmark:hover, a:hover > .wordmark { background-position: 100% 50%; }
+
 /* Holographic prismatic accent — used ONE place: the logo on hover. */
 .prismatic {
   background-image: var(--prism);
