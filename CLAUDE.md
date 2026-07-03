@@ -53,7 +53,7 @@ The site has THREE faces:
 | `--color-surface` / `--color-surface-soft` | Cards / membrane surfaces |
 | `--color-ink` / `--color-ink-soft` / `--color-ink-faint` | Text tiers |
 | `--color-spore` / `--color-spore-bright` | Spore-gold accent — primary highlight, link color |
-| `--color-mycelium` | Mycelial violet — secondary accent, bottom vignette |
+| `--color-mycelium` | Secondary accent (TokyoNight magenta) |
 | `--color-bioluminescent` | Teal — hover/active state, focus ring |
 | `--color-border` / `--color-border-strong` | Membrane borders |
 | `--font-display` / `--font-body` / `--font-ui` / `--font-mono` | Spectral / Newsreader / Inter Tight / JetBrains Mono |
@@ -75,7 +75,6 @@ The `[data-theme="light"]` block overrides only the colors that change; type/mot
 ### Atmospheric overlays
 
 - **Body grain** — fixed SVG `feTurbulence` noise at `opacity: 0.035`, `mix-blend-mode: overlay`. Painted via `body::before`
-- **Bottom vignette** — radial gradient on body bg. Dark: mycelial violet rising from base. Light: deep forest green rising from base
 - **Ambient motes** — `AmbientField.svelte` paints 18 drifting motes on a fixed canvas (z-index 0). Spore-gold dominant, occasional teal/violet, every 12th mote slowly hue-cycles via sin wave (prismatic shimmer). `prefers-reduced-motion` → 0 motes
 - **Canopy curves** — `SiteHeader.astro` has 3 stacked SVG paths (spore/teal/violet) drifting horizontally over 48s
 - **Mycelial roots** — `SiteFooter.astro` mirrors the curves above its border, drifting opposite direction over 72s

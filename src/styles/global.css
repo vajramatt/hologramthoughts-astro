@@ -5,13 +5,7 @@ html { color-scheme: dark light; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  /* Bottom-vignette: page color fades into accent at the bottom.
-     Dark = mycelial violet rising from the forest floor.
-     Light = deep forest green at the base of the page. */
-  background:
-    radial-gradient(120% 60% at 50% 100%, color-mix(in oklch, var(--color-mycelium) 32%, transparent) 0%, transparent 70%),
-    var(--color-bg);
-  background-attachment: fixed;
+  background: var(--color-bg);
   color: var(--color-ink);
   font-feature-settings: "ss01", "cv11", "liga", "dlig";
   line-height: 1.7;
@@ -19,13 +13,6 @@ body {
   position: relative;
   min-height: 100vh;
   overflow-x: clip; /* lets full-bleed sections (e.g. the mycelial map) span 100vw without a horizontal scrollbar */
-}
-
-[data-theme="light"] body {
-  background:
-    radial-gradient(120% 60% at 50% 100%, color-mix(in oklch, oklch(0.45 0.13 145) 28%, transparent) 0%, transparent 70%),
-    var(--color-bg);
-  background-attachment: fixed;
 }
 
 /* Subtle organic grain — turbulence noise overlay, very low opacity */
