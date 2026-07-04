@@ -77,8 +77,12 @@ The `@media print` block overrides only the colors that change (to the paper pal
 ### Atmospheric overlays
 
 - **Body grain** — fixed SVG `feTurbulence` noise at `opacity: 0.035`, `mix-blend-mode: overlay`. Painted via `body::before`
+- **CRT scanfield** — `body::after` paints fixed hairline horizontal raster lines (3px period) at `opacity: 0.05`. Static (no animation), hidden in print
 - **Ambient motes** — `ParticleField.svelte` paints 18 drifting motes on a fixed canvas (z-index 0). Spore-gold dominant, occasional teal/violet, every 12th mote slowly hue-cycles via sin wave (prismatic shimmer). `prefers-reduced-motion` → 0 motes
-- **Terminal caret** — `SiteHeader.astro` renders a blinking green block caret after the wordmark: the site's one bit of ambient motion, CLI-style. Reduced-motion → steady (no blink). The old canopy-curve / mycelial-root SVGs were removed.
+- **Terminal caret** — `SiteHeader.astro` renders a blinking green block caret (with a soft neon glow) after the wordmark, CLI-style. Reduced-motion → steady (no blink). The old canopy-curve / mycelial-root SVGs were removed.
+- **Typewriter hero** (`index.astro`) — the homepage opens as a Muse terminal session: a mono prompt line (`muse@hologram:~$ replay ./archive --era 2006..2026`) types itself, then the serif prismatic `<h1>` types under a large glowing green block caret that keeps blinking, then the subline/featured-note fade in. Full text ships in the HTML (SEO / no-JS); a ghost/overlay twin reserves layout so there's no CLS; the inline script is one elapsed-time event timeline driven by rAF + a timeout fallback (background/occluded tabs fast-forward instead of stalling). Skipped entirely under `prefers-reduced-motion`.
+- **Hot-pink `::selection`** — selected text inverts to `--color-magenta-hot` on `--color-bg`
+- **Footer sign-off** — faint mono `// end of transmission` line at the bottom of every page
 
 ### Reduced motion
 

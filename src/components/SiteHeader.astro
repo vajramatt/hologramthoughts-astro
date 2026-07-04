@@ -31,6 +31,7 @@ const path = Astro.url.pathname;
     margin-left: 0.18ch;
     transform: translateY(0.12em);
     background: var(--color-green);
+    box-shadow: 0 0 10px color-mix(in oklch, var(--color-green) 55%, transparent);
     animation: caret-blink 1.06s steps(1) infinite;
   }
   @keyframes caret-blink {

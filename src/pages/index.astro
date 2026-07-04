@@ -276,21 +276,81 @@ for (const s of latestSlugs) {
 ---
 <Layout title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — an archive of attention, curated by Muse.">
   <section class="mt-8 mb-16">
-    <h1 class="text-5xl md:text-7xl tracking-tight leading-[1.05]" style="font-family: var(--font-display);">
-      <span class="prismatic" style="background-size: 240% 100%; animation: scanline-shift 30s linear infinite;">
-        An archive of attention.
-      </span>
+    <p class="text-xs md:text-sm mb-6" style="font-family: var(--font-mono);" aria-hidden="true"><span style="color: var(--color-green);">muse@hologram</span><span style="color: var(--color-ink-faint);">:</span><span style="color: var(--color-blue);">~</span><span style="color: var(--color-ink-faint);">$</span> <span class="term-cmd-wrap"><span class="term-ghost">replay ./archive --era 2006..2026</span><span class="term-cmd" style="color: var(--color-ink-soft);"><span data-tw-cmd>replay ./archive --era 2006..2026</span><span class="term-mini-caret" data-cmd-caret></span></span></span></p>
+    <h1 class="relative text-5xl md:text-7xl tracking-tight leading-[1.05]" style="font-family: var(--font-display);" aria-label="An archive of attention.">
+      <span class="hero-ghost" aria-hidden="true">An archive of attention.</span>
+      <span class="hero-typed" aria-hidden="true"><span class="prismatic" style="background-size: 240% 100%; animation: scanline-shift 30s linear infinite;" data-tw-h1>An archive of attention.</span><span class="hero-caret" data-h1-caret></span></span>
     </h1>
-    <p class="text-lg text-[var(--color-ink-soft)] mt-6 max-w-xl leading-relaxed">
+    <p class="hero-reveal text-lg text-[var(--color-ink-soft)] mt-6 max-w-xl leading-relaxed" data-tw-reveal>
       Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — kept here so it doesn't get lost in the scroll.
     </p>
     {featuredNote && (
-      <aside class="mt-10 max-w-xl pl-4 border-l-2 border-[var(--color-amber)]">
+      <aside class="hero-reveal mt-10 max-w-xl pl-4 border-l-2 border-[var(--color-amber)]" data-tw-reveal>
         <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">From Muse</p>
         <p class="text-base text-[var(--color-ink)] italic leading-relaxed" style="font-family: var(--font-display);">{featuredNote}</p>
       </aside>
     )}
   </section>
+  <script is:inline>
+    // Muse types the session in: prompt command first, then the headline. The full
+    // text ships in the HTML (SEO / no-JS); this only animates when motion is allowed.
+    (() => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const cmd = document.querySelector('[data-tw-cmd]');
+      const h1 = document.querySelector('[data-tw-h1]');
+      const cmdCaret = document.querySelector('[data-cmd-caret]');
+      const h1Caret = document.querySelector('[data-h1-caret]');
+      const reveals = document.querySelectorAll('[data-tw-reveal]');
+      if (!cmd || !h1 || !cmdCaret || !h1Caret) return;
+      const cmdText = cmd.textContent;
+      const h1Text = h1.textContent;
+      cmd.textContent = '';
+      h1.textContent = '';
+      h1Caret.classList.add('caret-off');
+      reveals.forEach((el) => el.classList.add('tw-wait'));
+
+      // The whole sequence is one elapsed-time event list, replayed idempotently.
+      // Driven by rAF (smooth in the foreground) with a timeout fallback, because
+      // browsers throttle/pause both in hidden or occluded tabs — on any tick the
+      // timeline catches up to wall-clock, so a backgrounded load just fast-forwards.
+      const events = [];
+      let t = 250;
+      events.push([t, () => cmdCaret.classList.add('caret-typing')]);
+      for (let k = 0; k < cmdText.length; k++) {
+        t += 30 * (0.6 + Math.random() * 0.9);
+        const n = k + 1;
+        events.push([t, () => { cmd.textContent = cmdText.slice(0, n); }]);
+      }
+      events.push([t += 120, () => cmdCaret.classList.remove('caret-typing')]);
+      events.push([t += 380, () => {
+        h1Caret.classList.remove('caret-off');
+        h1Caret.classList.add('caret-typing');
+      }]);
+      for (let k = 0; k < h1Text.length; k++) {
+        t += 52 * (0.6 + Math.random() * 0.9);
+        const n = k + 1;
+        events.push([t, () => { h1.textContent = h1Text.slice(0, n); }]);
+      }
+      events.push([t += 150, () => h1Caret.classList.remove('caret-typing')]);
+      events.push([t += 250, () => reveals.forEach((el) => el.classList.remove('tw-wait'))]);
+
+      const startAt = performance.now();
+      let idx = 0;
+      let tid = 0;
+      let rid = 0;
+      const step = () => {
+        clearTimeout(tid);
+        cancelAnimationFrame(rid);
+        const elapsed = performance.now() - startAt;
+        while (idx < events.length && events[idx][0] <= elapsed) events[idx++][1]();
+        if (idx < events.length) {
+          rid = requestAnimationFrame(step);
+          tid = setTimeout(step, 150);
+        }
+      };
+      step();
+    })();
+  </script>
 
   <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} stories={stories} themeIdsBySlug={themeIdsByLatestSlug} />
 
@@ -307,3 +367,47 @@ for (const s of latestSlugs) {
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Ghost/overlay typewriter: the invisible full text reserves layout (no CLS),
+     the absolutely-positioned twin types over it. Same font metrics → same wrap. */
+  .term-cmd-wrap { position: relative; display: inline-block; }
+  .term-ghost { visibility: hidden; white-space: pre; }
+  .term-cmd { position: absolute; left: 0; top: 0; white-space: pre; }
+  .term-mini-caret {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1em;
+    margin-left: 0.12ch;
+    transform: translateY(0.18em);
+    background: var(--color-green);
+    opacity: 0;
+  }
+  .term-mini-caret.caret-typing { opacity: 1; }
+
+  .hero-ghost { visibility: hidden; }
+  .hero-typed { position: absolute; inset: 0; }
+  .hero-caret {
+    display: inline-block;
+    width: 0.48ch;
+    height: 0.78em;
+    margin-left: 0.14ch;
+    transform: translateY(0.06em);
+    background: var(--color-green);
+    box-shadow: 0 0 18px color-mix(in oklch, var(--color-green) 55%, transparent);
+    animation: hero-blink 1.06s steps(1) infinite;
+  }
+  .hero-caret.caret-typing { animation: none; opacity: 1; }
+  .hero-caret.caret-off { animation: none; opacity: 0; }
+  @keyframes hero-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+
+  .hero-reveal { transition: opacity 600ms var(--ease-grow), transform 600ms var(--ease-grow); }
+  .hero-reveal.tw-wait { opacity: 0; transform: translateY(10px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-caret { animation: none; opacity: 1; }
+  }
+</style>
