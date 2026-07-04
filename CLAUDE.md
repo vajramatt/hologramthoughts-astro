@@ -79,7 +79,7 @@ The `@media print` block overrides only the colors that change (to the paper pal
 
 - **Body grain** — fixed SVG `feTurbulence` noise at `opacity: 0.035`, `mix-blend-mode: overlay`. Painted via `body::before`
 - **CRT scanfield** — `body::after` paints fixed hairline horizontal raster lines (3px period) at `opacity: 0.05`. Static (no animation), hidden in print
-- **Ambient motes** — `ParticleField.svelte` paints 18 drifting motes on a fixed canvas (z-index 0). Spore-gold dominant, occasional teal/violet, every 12th mote slowly hue-cycles via sin wave (prismatic shimmer). `prefers-reduced-motion` → 0 motes
+- **Ambient data packets** — `ParticleField.svelte` paints ~8–16 packets on a fixed canvas (z-index 0): small glowing square heads traveling invisible circuit traces (straight runs, 45°/90° bends) with short fading trails. The ambient twin of the homepage transit map. Cyan dominant, blue/magenta/green accents, no gold (the solarpunk spore motes are gone). Movement is dt-clamped rAF. `prefers-reduced-motion` → empty canvas
 - **Terminal caret** — `SiteHeader.astro` renders a blinking green block caret (with a soft neon glow) after the wordmark, CLI-style. Reduced-motion → steady (no blink). The old canopy-curve / mycelial-root SVGs were removed.
 - **Typewriter hero** (`index.astro`) — the homepage opens as a Muse terminal session: a mono prompt line (`muse@hologram:~$ replay ./archive --era 2006..2026`) types itself, then the serif prismatic `<h1>` types under a large glowing green block caret that keeps blinking, then the subline/featured-note fade in. Full text ships in the HTML (SEO / no-JS); a ghost/overlay twin reserves layout so there's no CLS; the inline script is one elapsed-time event timeline driven by rAF + a timeout fallback (background/occluded tabs fast-forward instead of stalling). Skipped entirely under `prefers-reduced-motion`.
 - **Hot-pink `::selection`** — selected text inverts to `--color-magenta-hot` on `--color-bg`
@@ -330,7 +330,7 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 ### Components (`src/components/`)
 - **`SiteHeader.astro`** — sticky frosted header. Mono shimmer-gradient wordmark (`.wordmark`, Athena/Izakaya family look) + blinking terminal caret. Nav (`home`, `archive`, `themes`, `search`). No theme toggle (TokyoNight-only)
 - **`SiteFooter.astro`** — © line + nav + Muse attribution (static; the animated roots SVG was removed)
-- **`ParticleField.svelte`** — fixed canvas, drifting motes. Reduced-motion gate
+- **`ParticleField.svelte`** — fixed canvas, data packets on circuit traces (square heads, angular bends, fading trails). Reduced-motion gate
 - **`ThemeDrawer.svelte`** — global click listener for `.theme-chip` elements. Opens side drawer with theme details fetched from `/themes/reverse-index.json` + `/themes/post-meta.json`
 - **`ThemeChip.astro`** — single theme chip. `data-theme="<id>"` triggers drawer
 - **`ThemeChipStrip.astro`** — chip strip rendered at end of blog posts (themes for this post)
