@@ -90,22 +90,27 @@ a:hover {
   box-shadow: var(--shadow-deep);
 }
 
-/* Wordmark — the one holographic moment, swept across the full TokyoNight accent set */
+/* Wordmark — mono machine-plate, same family look as the Athena and Izakaya
+   sites: TokyoNight blue→cyan→magenta loop, continuously shimmering. */
 .wordmark {
-  background-image: linear-gradient(100deg,
-    var(--color-blue) 0%,
-    var(--color-cyan) 22%,
-    var(--color-green) 46%,
-    var(--color-magenta) 72%,
-    var(--color-amber) 100%);
-  background-size: 220% 100%;
-  background-position: 0% 50%;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background-image: linear-gradient(110deg,
+    var(--color-blue),
+    var(--color-cyan),
+    var(--color-magenta),
+    var(--color-cyan),
+    var(--color-blue));
+  background-size: 220% auto;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  transition: background-position var(--dur-slow) var(--ease-grow);
+  animation: wordmark-flow 8s linear infinite;
 }
-.wordmark:hover, a:hover > .wordmark { background-position: 100% 50%; }
+@keyframes wordmark-flow {
+  to { background-position: 220% center; }
+}
 
 /* Instant hover/focus tooltip (replaces the slow native title= on the MUSE abbr) */
 .tip { position: relative; }

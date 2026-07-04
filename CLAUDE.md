@@ -70,7 +70,8 @@ The `@media print` block overrides only the colors that change (to the paper pal
 - **`.prose`** — applied to blog-post bodies. Spectral blockquotes with spore-gold left border, moss dot bullets with soft glow, crystalline gold edge atop code blocks, gradient hr separators
 - **`.panel`** — frosted glass surface (backdrop-blur + transparent bg)
 - **`.glass`** — alias for `.panel` so legacy refs don't break. Was a `@apply` originally but Tailwind 4 doesn't allow `@apply` of custom classes; expanded to literal CSS
-- **`.prismatic`** — 4-stop gradient with bg-clip text. Used on the logo wordmark + the hero `<h1>` on the homepage. Hover transitions `background-position` 0% → 100%
+- **`.prismatic`** — 4-stop gradient with bg-clip text. Used on the hero `<h1>` on the homepage. Hover transitions `background-position` 0% → 100%
+- **`.wordmark`** — the header logo: JetBrains Mono weight 500, TokyoNight blue→cyan→magenta→cyan→blue gradient clipped to text, continuously shimmering (`wordmark-flow` 8s linear infinite). Deliberately the same family treatment as the Athena (`✦ ATHENA`) and Izakaya sites
 - **`.scanline`** — `--prism` background with `scanline-shift` keyframe (18-30s linear infinite hue drift)
 - **`.skip-link`** — a11y skip-to-main link
 
@@ -327,7 +328,7 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 - **`BlogPostLayout.astro`** — legacy, mostly unused. The active blog post template is `src/pages/blog/[slug].astro`. Kept around for safety; mirrors the new pattern
 
 ### Components (`src/components/`)
-- **`SiteHeader.astro`** — sticky frosted header. Prismatic logo wordmark + blinking terminal caret. Nav (`home`, `archive`, `themes`, `search`). No theme toggle (TokyoNight-only)
+- **`SiteHeader.astro`** — sticky frosted header. Mono shimmer-gradient wordmark (`.wordmark`, Athena/Izakaya family look) + blinking terminal caret. Nav (`home`, `archive`, `themes`, `search`). No theme toggle (TokyoNight-only)
 - **`SiteFooter.astro`** — © line + nav + Muse attribution (static; the animated roots SVG was removed)
 - **`ParticleField.svelte`** — fixed canvas, drifting motes. Reduced-motion gate
 - **`ThemeDrawer.svelte`** — global click listener for `.theme-chip` elements. Opens side drawer with theme details fetched from `/themes/reverse-index.json` + `/themes/post-meta.json`
