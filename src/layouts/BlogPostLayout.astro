@@ -26,9 +26,9 @@ const dateStr = frontmatter.pubDate?.toLocaleDateString('en-US', {
         <time datetime={frontmatter.pubDate?.toISOString()}>{dateStr}</time>
       </p>
       <h1 class="text-4xl md:text-5xl tracking-tight leading-[1.1] text-[var(--color-ink)]" style="font-family: var(--font-display);">{frontmatter.title}</h1>
-      {frontmatter.description && (
-        <p class="text-lg text-[var(--color-ink-soft)] mt-4 leading-relaxed">{frontmatter.description}</p>
-      )}
+      <p class="text-sm mt-4 text-[var(--color-ink-soft)]" style="font-family: var(--font-ui);">
+        by <span style="color: var(--color-cyan)">Matthew Williamson</span>
+      </p>
     </header>
 
     <div class="post-content">

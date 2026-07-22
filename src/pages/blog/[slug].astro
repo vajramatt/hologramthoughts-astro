@@ -106,9 +106,9 @@ const jsonLd = blogPostingGraph({
         ))}
       </p>
       <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-magenta-hot);">{post.data.title}</h1>
-      {post.data.description && (
-        <p class="text-lg text-[var(--color-ink-soft)] mt-4 leading-relaxed">{post.data.description}</p>
-      )}
+      <p class="text-sm mt-4 text-[var(--color-ink-soft)]" style="font-family: var(--font-ui);">
+        by <span style="color: var(--color-cyan)">Matthew Williamson</span>
+      </p>
     </header>
 
     <TableOfContents headings={headings} />
