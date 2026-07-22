@@ -116,14 +116,18 @@ const jsonLd = blogPostingGraph({
         ))}
       </p>
       <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-magenta-hot);">{post.data.title}</h1>
-      <div class="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-        <p class="text-sm text-[var(--color-ink-soft)]" style="font-family: var(--font-ui);">
-          by <span style="color: var(--color-cyan)">Matthew Williamson</span>
+      <div class="byline-bar mt-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <p class="byline">
+          <span class="tok-key">author</span><span class="tok-punct">:</span>
+          <span class="tok-punct">"</span><span class="tok-string">Matthew Williamson</span><span class="tok-punct">"</span>
         </p>
         <div class="story-scale" role="group" aria-label="Story text size">
-          <button type="button" data-scale="dec" aria-label="Decrease story text size">A−</button>
-          <button type="button" data-scale="reset" aria-label="Reset story text size" data-scale-readout>100%</button>
-          <button type="button" data-scale="inc" aria-label="Increase story text size">A+</button>
+          <button type="button" class="scale-key" data-scale="dec" aria-label="Decrease story text size">−</button>
+          <button type="button" class="scale-decl" data-scale="reset" aria-label="Reset story text size to 100%">
+            <span class="tok-prop">font-size</span><span class="tok-punct">:</span>
+            <span class="tok-val" data-scale-readout>100%</span><span class="tok-punct">;</span>
+          </button>
+          <button type="button" class="scale-key" data-scale="inc" aria-label="Increase story text size">+</button>
         </div>
       </div>
     </header>
@@ -272,42 +276,93 @@ const jsonLd = blogPostingGraph({
     margin: 1.5rem 0;
   }
 
+  /* Byline bar — a status line of syntax-highlighted key:value pairs.
+     Left: the post's frontmatter author line. Right: a live CSS declaration the reader can edit. */
+  .byline-bar {
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .byline { letter-spacing: 0.01em; }
+
+  .tok-key    { color: var(--color-magenta); }
+  .tok-prop   { color: var(--color-cyan); }
+  .tok-punct  { color: var(--color-ink-faint); }
+  .tok-string { color: var(--color-green); font-weight: 500; }
+
   .story-scale {
     display: inline-flex;
     align-items: center;
-    gap: 2px;
-    padding: 2px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--color-ink-soft);
+    gap: 0.45rem;
+    font-size: 0.75rem;
   }
 
-  .story-scale button {
+  .scale-key {
+    width: 1.7rem;
+    height: 1.7rem;
+    display: grid;
+    place-items: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    color: var(--color-ink-soft);
+    font: inherit;
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-grow), border-color var(--dur-fast) var(--ease-grow), box-shadow var(--dur-fast) var(--ease-grow), transform var(--dur-fast) var(--ease-grow);
+  }
+
+  .scale-key:hover {
+    color: var(--color-cyan);
+    border-color: var(--color-cyan);
+    box-shadow: 0 0 10px color-mix(in oklch, var(--color-cyan) 30%, transparent);
+  }
+
+  .scale-key:active {
+    transform: translateY(1px);
+    border-bottom-width: 1px;
+  }
+
+  .scale-decl {
     background: none;
     border: none;
     font: inherit;
-    color: inherit;
-    padding: 0.3rem 0.55rem;
+    padding: 0.25rem 0.45rem;
     border-radius: 6px;
     cursor: pointer;
-    transition: color var(--dur-fast) var(--ease-grow), background var(--dur-fast) var(--ease-grow);
+    transition: background var(--dur-fast) var(--ease-grow);
   }
 
-  .story-scale button:hover {
-    color: var(--color-cyan);
-    background: color-mix(in oklch, var(--color-cyan) 10%, transparent);
+  .scale-decl:hover {
+    background: color-mix(in oklch, var(--color-cyan) 8%, transparent);
   }
 
-  .story-scale [data-scale-readout] {
-    min-width: 3.4em;
-    text-align: center;
+  .tok-val {
+    display: inline-block;
+    min-width: 3.1em;
+    text-align: right;
     color: var(--color-amber-bright);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tok-val.flash {
+    animation: scale-flash 0.45s var(--ease-grow);
+  }
+
+  @keyframes scale-flash {
+    0% {
+      color: var(--color-green);
+      text-shadow: 0 0 10px color-mix(in oklch, var(--color-green) 55%, transparent);
+    }
   }
 
   @media print {
     .story-scale { display: none; }
+    .byline-bar { border-top-color: transparent; }
   }
 </style>
 
@@ -325,7 +380,12 @@ const jsonLd = blogPostingGraph({
   function apply() {
     scale = Math.min(MAX, Math.max(MIN, Math.round(scale * 10) / 10));
     document.documentElement.style.setProperty('--story-scale', String(scale));
-    if (readout) readout.textContent = `${Math.round(scale * 100)}%`;
+    if (readout) {
+      readout.textContent = `${Math.round(scale * 100)}%`;
+      readout.classList.remove('flash');
+      void (readout as HTMLElement).offsetWidth;
+      readout.classList.add('flash');
+    }
     try { localStorage.setItem(KEY, String(scale)); } catch {}
   }
 
