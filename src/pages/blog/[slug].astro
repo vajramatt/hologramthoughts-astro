@@ -96,6 +96,16 @@ const jsonLd = blogPostingGraph({
 >
   <ReadingProgress />
 
+  <!-- Applies the saved scale before the prose paints, so a resized reader never sees a size flash -->
+  <script is:inline>
+    (() => {
+      try {
+        const v = parseFloat(localStorage.getItem('ht-story-scale') || '');
+        if (v >= 0.9 && v <= 1.6) document.documentElement.style.setProperty('--story-scale', String(v));
+      } catch {}
+    })();
+  </script>
+
   <article>
     <header class="mb-12">
       <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-3">
@@ -106,9 +116,16 @@ const jsonLd = blogPostingGraph({
         ))}
       </p>
       <h1 class="text-5xl md:text-6xl tracking-tight leading-[1.05]" style="font-family: var(--font-display); font-weight: 600; color: var(--color-magenta-hot);">{post.data.title}</h1>
-      <p class="text-sm mt-4 text-[var(--color-ink-soft)]" style="font-family: var(--font-ui);">
-        by <span style="color: var(--color-cyan)">Matthew Williamson</span>
-      </p>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <p class="text-sm text-[var(--color-ink-soft)]" style="font-family: var(--font-ui);">
+          by <span style="color: var(--color-cyan)">Matthew Williamson</span>
+        </p>
+        <div class="story-scale" role="group" aria-label="Story text size">
+          <button type="button" data-scale="dec" aria-label="Decrease story text size">A−</button>
+          <button type="button" data-scale="reset" aria-label="Reset story text size" data-scale-readout>100%</button>
+          <button type="button" data-scale="inc" aria-label="Increase story text size">A+</button>
+        </div>
+      </div>
     </header>
 
     <TableOfContents headings={headings} />
@@ -144,8 +161,9 @@ const jsonLd = blogPostingGraph({
 </Layout>
 
 <style>
+  /* --story-scale is the reader-set text size (A− / A+ control); headings use em so they scale with it */
   .post-content {
-    font-size: 1.0625rem;
+    font-size: calc(1.0625rem * var(--story-scale, 1));
     line-height: 1.75;
     color: var(--color-ink);
   }
@@ -165,10 +183,10 @@ const jsonLd = blogPostingGraph({
     line-height: 1.25;
   }
 
-  .post-content :global(h1) { font-size: 2rem; }
-  .post-content :global(h2) { font-size: 1.65rem; }
-  .post-content :global(h3) { font-size: 1.35rem; }
-  .post-content :global(h4) { font-size: 1.15rem; }
+  .post-content :global(h1) { font-size: 1.882em; }
+  .post-content :global(h2) { font-size: 1.553em; }
+  .post-content :global(h3) { font-size: 1.271em; }
+  .post-content :global(h4) { font-size: 1.082em; }
 
   .post-content :global(p) {
     margin-bottom: 1.5rem;
@@ -253,4 +271,73 @@ const jsonLd = blogPostingGraph({
     border-radius: 10px;
     margin: 1.5rem 0;
   }
+
+  .story-scale {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 2px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-ink-soft);
+  }
+
+  .story-scale button {
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color var(--dur-fast) var(--ease-grow), background var(--dur-fast) var(--ease-grow);
+  }
+
+  .story-scale button:hover {
+    color: var(--color-cyan);
+    background: color-mix(in oklch, var(--color-cyan) 10%, transparent);
+  }
+
+  .story-scale [data-scale-readout] {
+    min-width: 3.4em;
+    text-align: center;
+    color: var(--color-amber-bright);
+  }
+
+  @media print {
+    .story-scale { display: none; }
+  }
 </style>
+
+<script>
+  const KEY = 'ht-story-scale';
+  const MIN = 0.9, MAX = 1.6, STEP = 0.1;
+  let scale = 1;
+  try {
+    const saved = parseFloat(localStorage.getItem(KEY) || '');
+    if (saved >= MIN && saved <= MAX) scale = saved;
+  } catch {}
+
+  const readout = document.querySelector('[data-scale-readout]');
+
+  function apply() {
+    scale = Math.min(MAX, Math.max(MIN, Math.round(scale * 10) / 10));
+    document.documentElement.style.setProperty('--story-scale', String(scale));
+    if (readout) readout.textContent = `${Math.round(scale * 100)}%`;
+    try { localStorage.setItem(KEY, String(scale)); } catch {}
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-scale]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.scale;
+      if (action === 'inc') scale += STEP;
+      else if (action === 'dec') scale -= STEP;
+      else scale = 1;
+      apply();
+    });
+  });
+
+  if (readout && scale !== 1) readout.textContent = `${Math.round(scale * 100)}%`;
+</script>

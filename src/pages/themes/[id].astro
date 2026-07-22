@@ -41,6 +41,14 @@ const posts = (slugs as string[])
   .map(s => bySlug.get(s))
   .filter(Boolean)
   .sort((a: any, b: any) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+// Chronological groups — one per year the thread was active
+const byYear: Array<{ year: number; group: any[] }> = [];
+for (const p of posts) {
+  const year = p.data.pubDate.getUTCFullYear();
+  const last = byYear[byYear.length - 1];
+  if (last && last.year === year) last.group.push(p);
+  else byYear.push({ year, group: [p] });
+}
 const jsonLd = collectionPageGraph({
   name: theme.name,
   description: theme.blurb || `Posts on ${theme.name}.`,
@@ -63,22 +71,26 @@ const jsonLd = collectionPageGraph({
     <div class="text-[var(--color-ink)] leading-relaxed mb-16" set:html={renderSynthesis(theme.synthesis as string)} />
   )}
   <section>
-    <h2 class="text-xl mb-6" style="font-family: var(--font-display);">{posts.length} posts, in order</h2>
-    <ul class="space-y-6">
-      {posts.map((p: any) => {
-        const slug = (p as any).slug ?? p!.id.replace(/\.md$/, '');
-        return (
-          <li>
-            <a href={`/blog/${slug}/`} class="block group no-underline">
-              <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">
-                {new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
-              </p>
-              <p class="text-xl mt-1 text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">{p!.data.title}</p>
-              {p!.data.description && <p class="text-sm text-[var(--color-ink-soft)] mt-1">{p!.data.description}</p>}
-            </a>
-          </li>
-        );
-      })}
-    </ul>
+    <h2 class="text-xl mb-8" style="font-family: var(--font-display);"><span style="color: var(--color-amber-bright)">{posts.length}</span> posts, in order</h2>
+    {byYear.map(({ year, group }) => (
+      <div class="mb-10">
+        <p class="text-xs uppercase tracking-[0.18em] mb-2 pb-2 border-b border-[var(--color-border)]" style="font-family: var(--font-mono); color: var(--color-amber-bright);">{year}</p>
+        <ul>
+          {group.map((p: any) => {
+            const slug = (p as any).slug ?? p!.id.replace(/\.md$/, '');
+            return (
+              <li>
+                <a href={`/blog/${slug}/`} class="block group no-underline p-4 -mx-4 rounded-xl border border-transparent hover:border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-amber)_6%,transparent)] transition-all duration-[var(--dur-med)]">
+                  <p class="text-xs uppercase tracking-[0.18em]" style="color: var(--color-amber-bright)">
+                    {new Date(p!.data.pubDate).toLocaleDateString('en', { month: 'long', day: 'numeric', timeZone: 'UTC' })}
+                  </p>
+                  <p class="text-xl mt-1 text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">{p!.data.title}</p>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
   </section>
 </Layout>

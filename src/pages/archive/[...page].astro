@@ -4,24 +4,6 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import PostCard from '../../components/PostCard.astro';
 
-function getExcerpt(body: string, maxLength = 160) {
-  const text = body
-    .replace(/^---[\s\S]*?---\n?/, '')
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
-    .replace(/https?:\/\/\S+/g, '')
-    .replace(/#+\s+/g, '')
-    .replace(/\*\*(.*?)\*\*/g, '$1')
-    .replace(/\*(.*?)\*/g, '$1')
-    .replace(/`[^`]+`/g, '')
-    .replace(/^\s*[-*+]\s+/gm, '')
-    .replace(/---/g, '')
-    .replace(/\s{2,}/g, ' ')
-    .replace(/\n+/g, ' ')
-    .trim();
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength).replace(/\s+\S*$/, '') + '…';
-}
-
 export const getStaticPaths = (async ({ paginate }) => {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
   const sortedPosts = allPosts.sort((a, b) =>
@@ -63,7 +45,6 @@ for (const p of page.data) {
           slug={s}
           title={post.data.title}
           pubDate={post.data.pubDate}
-          excerpt={getExcerpt(post.body)}
           themeIds={themeIdsBySlug[s]}
         />
       );
