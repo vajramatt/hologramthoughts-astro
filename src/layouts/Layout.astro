@@ -10,6 +10,7 @@ import { websiteGraph } from '../utils/jsonld';
 export interface Props {
   title: string;
   description?: string;
+  wide?: boolean;
   ogType?: 'website' | 'article';
   ogImage?: string;
   publishedTime?: string;
@@ -21,6 +22,7 @@ export interface Props {
 const {
   title,
   description = 'Hologram Thoughts — an archive of writing on consciousness, dharma, and the strange edges of culture.',
+  wide = false,
   ogType = 'website',
   ogImage = 'https://hologramthoughts.com/og-image.png',
   publishedTime,
@@ -80,7 +82,13 @@ const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathn
     <a href="#main" class="skip-link">Skip to main content</a>
     <ParticleField client:idle />
     <SiteHeader />
-    <main id="main" class="mx-auto max-w-3xl px-6 py-16">
+    <main
+      id="main"
+      class:list={[
+        'mx-auto w-full px-5 sm:px-6 py-10 sm:py-16',
+        wide ? 'max-w-6xl' : 'max-w-3xl'
+      ]}
+    >
       <slot />
     </main>
     <SiteFooter />

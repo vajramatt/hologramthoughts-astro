@@ -1,50 +1,261 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { categoryColor } from '../../utils/category-color';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const categories = [
-  { name: 'Dharma Writings',            description: 'Explorations of Buddhist teachings, philosophy, and the path', slug: 'dharma-writings' },
-  { name: 'Creative Writing',            description: 'Fiction, poetry, and imaginative works', slug: 'creative-writing' },
-  { name: 'Consciousness & Philosophy',  description: 'Reflections on mind, reality, and the nature of existence', slug: 'consciousness-philosophy' },
-  { name: 'Practice & Inner Life',       description: 'Meditation, dreams, and spiritual practices', slug: 'practice-inner-life' },
-  { name: 'Other',                        description: 'Various topics and musings', slug: 'other' },
+const categoryDefinitions = [
+  { name: 'Dharma Writings', description: 'Buddhist teachings, devotion, philosophy, and the long work of practice.', slug: 'dharma-writings', code: 'DHARMA' },
+  { name: 'Creative Writing', description: 'Poetry, fiction, myth, dreamwork, and worlds built to hold a question.', slug: 'creative-writing', code: 'CREATE' },
+  { name: 'Consciousness & Philosophy', description: 'Mind, reality, divinity, identity, and the strange architecture of being.', slug: 'consciousness-philosophy', code: 'MIND' },
+  { name: 'Practice & Inner Life', description: 'Meditation, dreams, healing, and what changes when attention turns inward.', slug: 'practice-inner-life', code: 'INNER' },
+  { name: 'Other', description: 'Technology, culture, daily life, and transmissions that resist a cleaner label.', slug: 'other', code: 'OTHER' },
 ];
 
-const categoryCounts: Record<string, number> = {};
-allPosts.forEach(post => {
-  post.data.categories.forEach(category => {
-    categoryCounts[category] = (categoryCounts[category] || 0) + 1;
-  });
+const categories = categoryDefinitions.map((category) => {
+  const posts = allPosts.filter(post => post.data.categories.includes(category.name));
+  return {
+    ...category,
+    count: posts.length,
+    latest: posts.slice(0, 2),
+    oldestYear: posts.at(-1)?.data.pubDate.getUTCFullYear(),
+    newestYear: posts[0]?.data.pubDate.getUTCFullYear(),
+    color: categoryColor(category.name),
+  };
 });
-
-const categoriesWithCounts = categories.map(cat => ({
-  ...cat,
-  count: categoryCounts[cat.name] || 0
-}));
 ---
 
-<Layout title="Categories — Hologram Thoughts" description="Browse Hologram Thoughts by category — dharma writings, creative work, consciousness and philosophy, and more.">
-  <header class="mb-12">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Browse</p>
-    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">Categories</h1>
-    <p class="text-[var(--color-ink-soft)] mt-3 max-w-xl">
-      Five broad gardens for twenty years of writing.
-    </p>
+<Layout wide title="Categories — Hologram Thoughts" description="Browse Hologram Thoughts by category — dharma writings, creative work, consciousness and philosophy, and more.">
+  <header class="categories-hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div>
+      <p class="hero-kicker"><span></span> Archive / broad classifications</p>
+      <h1>Five districts.<br /><em>One living archive.</em></h1>
+    </div>
+    <p>Categories are the broad shelves: stable places to begin when you know the kind of writing you want. For subtler connections, follow the <a href="/themes/">themes Muse found</a>.</p>
   </header>
 
-  <ul class="space-y-6">
-    {categoriesWithCounts.map(category => (
-      <li class="border-b border-[var(--color-border-strong)] pb-6">
-        <a href={`/categories/${category.slug}`} class="block group no-underline">
-          <div class="flex items-baseline justify-between gap-4">
-            <h2 class="text-2xl group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">{category.name}</h2>
-            <span class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">{category.count} posts</span>
-          </div>
-          <p class="text-[var(--color-ink-soft)] mt-2 italic">{category.description}</p>
-        </a>
-      </li>
-    ))}
-  </ul>
+  <section class="districts" aria-labelledby="districts-title">
+    <header>
+      <div>
+        <p>// choose a district</p>
+        <h2 id="districts-title">Enter by kind of writing.</h2>
+      </div>
+      <span>{allPosts.length} entries / {categories.length} classifications</span>
+    </header>
+
+    <ol class="district-grid">
+      {categories.map((category, index) => (
+        <li class:list={[index < 2 && 'district-wide']} style={`--district:${category.color}`}>
+          <a href={`/categories/${category.slug}/`}>
+            <div class="district-code">
+              <span>{String(index + 1).padStart(2, '0')} / {category.code}</span>
+              <span>{category.oldestYear}—{category.newestYear}</span>
+            </div>
+            <h3>{category.name}</h3>
+            <p>{category.description}</p>
+            <div class="district-latest">
+              <span>Latest in district</span>
+              {category.latest.map(post => (
+                <span>{post.data.title}</span>
+              ))}
+            </div>
+            <footer>
+              <strong>{category.count}</strong>
+              <span>{category.count === 1 ? 'entry' : 'entries'}</span>
+              <b aria-hidden="true">Enter →</b>
+            </footer>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
 </Layout>
+
+<style>
+  .categories-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.68fr);
+    gap: clamp(2rem, 7vw, 7rem);
+    align-items: end;
+    min-height: 32rem;
+    margin: -1.5rem 0 0;
+    padding: clamp(2rem, 5vw, 4rem);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 2px 2px 1.25rem 1.25rem;
+    background:
+      radial-gradient(circle at 82% 18%, color-mix(in oklch, var(--color-cyan) 12%, transparent), transparent 30%),
+      radial-gradient(circle at 12% 90%, color-mix(in oklch, var(--color-amber) 12%, transparent), transparent 32%),
+      color-mix(in oklch, var(--color-surface) 48%, transparent);
+    box-shadow: 0 30px 80px oklch(0 0 0 / 0.2);
+  }
+  .hero-grid {
+    position: absolute; z-index: -1; inset: 0; opacity: 0.18;
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+  }
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1.2rem;
+    color: var(--color-ink-soft);
+    font: 500 0.65rem/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .hero-kicker span {
+    width: 0.42rem; height: 0.42rem; border-radius: 50%;
+    background: var(--color-amber); box-shadow: 0 0 12px var(--color-amber);
+  }
+  .categories-hero h1 {
+    margin: 0;
+    font-size: clamp(3.3rem, 7vw, 6.7rem);
+    font-weight: 480;
+    letter-spacing: -0.055em;
+    line-height: 0.9;
+  }
+  .categories-hero h1 em { color: var(--color-cyan); font-weight: inherit; }
+  .categories-hero > p {
+    margin: 0 0 0.3rem;
+    color: var(--color-ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.65;
+  }
+  .categories-hero > p a { color: var(--color-cyan); }
+  .districts { margin-top: clamp(4rem, 9vw, 8rem); }
+  .districts > header {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+  }
+  .districts > header p {
+    margin: 0 0 0.4rem;
+    color: var(--color-amber-bright);
+    font: 0.61rem/1 var(--font-mono);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+  .districts > header h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 450; }
+  .districts > header > span {
+    color: var(--color-ink-faint);
+    font: 0.6rem/1.5 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .district-grid {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .district-grid li { grid-column: span 2; display: flex; min-width: 0; }
+  .district-grid .district-wide { grid-column: span 3; }
+  .district-grid a {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 23rem;
+    flex-direction: column;
+    padding: 1.4rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background:
+      linear-gradient(145deg, color-mix(in oklch, var(--district) 10%, transparent), transparent 54%),
+      color-mix(in oklch, var(--color-surface) 46%, transparent);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: transform var(--dur-fast), border-color var(--dur-fast);
+  }
+  .district-grid a::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 1.4rem; right: 1.4rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--district), transparent);
+    opacity: 0.65;
+  }
+  .district-grid a:hover { transform: translateY(-3px); border-color: color-mix(in oklch, var(--district) 55%, transparent); }
+  .district-code {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--color-ink-faint);
+    font: 0.58rem/1 var(--font-mono);
+    letter-spacing: 0.08em;
+  }
+  .district-code span:first-child { color: var(--district); }
+  .district-grid h3 {
+    max-width: 16ch;
+    margin: 2rem 0 0;
+    font-size: clamp(1.75rem, 3.5vw, 2.8rem);
+    font-weight: 450;
+    line-height: 1;
+    text-wrap: balance;
+  }
+  .district-grid p {
+    max-width: 42ch;
+    margin: 0.75rem 0 0;
+    color: var(--color-ink-soft);
+    font: italic 0.9rem/1.5 var(--font-display);
+  }
+  .district-latest {
+    display: grid;
+    gap: 0.32rem;
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+  .district-latest > span:first-child {
+    margin-bottom: 0.15rem;
+    color: var(--color-ink-faint);
+    font: 0.55rem/1 var(--font-mono);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .district-latest > span:not(:first-child) {
+    overflow: hidden;
+    color: var(--color-ink-soft);
+    font: 0.76rem/1.35 var(--font-ui);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .district-grid footer {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.4rem;
+    align-items: baseline;
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .district-grid footer strong { color: var(--district); font: 500 1.35rem/1 var(--font-display); }
+  .district-grid footer span { color: var(--color-ink-faint); font: 0.58rem/1 var(--font-mono); text-transform: uppercase; }
+  .district-grid footer b { color: var(--color-cyan); font: 400 0.64rem/1 var(--font-mono); transition: transform var(--dur-fast); }
+  .district-grid a:hover footer b { transform: translateX(4px); }
+  @media (max-width: 900px) {
+    .categories-hero { grid-template-columns: 1fr; min-height: 31rem; align-content: end; }
+    .district-grid li, .district-grid .district-wide { grid-column: span 3; }
+  }
+  @media (max-width: 600px) {
+    .categories-hero { margin: -1rem -0.2rem 0; padding: 1.25rem; }
+    .categories-hero h1 { font-size: clamp(3rem, 15vw, 4.5rem); }
+    .districts > header { display: block; }
+    .districts > header > span { display: block; margin-top: 0.75rem; }
+    .district-grid { grid-template-columns: 1fr; }
+    .district-grid li, .district-grid .district-wide { grid-column: auto; }
+    .district-grid a { min-height: 20rem; }
+  }
+</style>

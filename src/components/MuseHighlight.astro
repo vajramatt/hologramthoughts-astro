@@ -4,12 +4,13 @@ type StoryItem =
   | { kind: 'series'; name: string; parts: Array<{ slug: string; title: string; pubDate: Date; order: number }> };
 
 interface Props {
-  latestSlugs: string[];
+  postSlugs: string[];
   activeThemes: { id: string; name: string; blurb: string; postCount: number }[];
   stories: StoryItem[];
   themeIdsBySlug: Record<string, string[]>;
+  featuredNote?: string | null;
 }
-const { latestSlugs, activeThemes, stories, themeIdsBySlug } = Astro.props;
+const { postSlugs, activeThemes, stories, themeIdsBySlug, featuredNote = null } = Astro.props;
 import { getCollection } from 'astro:content';
 import ThemeChip from './ThemeChip.astro';
 import taxonomy from '../content/themes/taxonomy.json';
@@ -24,77 +25,103 @@ for (const p of all) {
   bySlug.set(idBase, p);
 }
 
-const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
+const resurfaced = postSlugs.map(s => bySlug.get(s)).filter(Boolean);
+const lead = resurfaced[0];
+const supporting = resurfaced.slice(1, 3);
 ---
-<section class="my-16">
-  <header class="mb-8">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-magenta)] mb-2">
-      From <abbr data-tip="Machine Underground Synthesis Editor" aria-label="Machine Underground Synthesis Editor" tabindex="0" class="tip no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-cyan)] hover:text-[var(--color-cyan)] transition-colors">Muse</abbr>
-    </p>
-    <h2 class="text-4xl" style="font-family: var(--font-display);">What's alive in the archive</h2>
-  </header>
-  <div class="grid md:grid-cols-3 gap-8">
-    <div>
-      <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Latest</h3>
-      <ul class="space-y-3 text-sm">
-        {latest.map(p => {
-          const urlSlug = (p as any).slug ?? p!.id.replace(/\.md$/, '');
-          const ids = (themeIdsBySlug[urlSlug] ?? []).slice(0, 2);
-          const date = new Date(p!.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'short', timeZone: 'UTC' });
-          return (
-            <li>
-              <a href={`/blog/${urlSlug}/`} class="no-underline hover:text-[var(--color-cyan)]">
-                <p>{p!.data.title}</p>
-              </a>
-              <div class="flex flex-wrap items-center gap-1.5 mt-1">
-                {ids.map(id => themeName.has(id) && <ThemeChip id={id} name={themeName.get(id)!} small />)}
-                <span class="text-xs text-[var(--color-ink-soft)]">· {date}</span>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+<section class="muse-workspace" aria-labelledby="muse-title">
+  <header class="muse-bar">
+    <div class="muse-file">
+      <span class="muse-glyph" aria-hidden="true">✦</span>
+      <div>
+        <p>From <abbr data-tip="Machine Underground Synthesis Editor" aria-label="Machine Underground Synthesis Editor" tabindex="0" class="tip">Muse</abbr></p>
+        <h2 id="muse-title">MUSE.md</h2>
+      </div>
     </div>
-    <div>
-      <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Threads</h3>
+    <p class="indexed">Indexed <time datetime={new Date().toISOString()}>{new Date().toLocaleDateString('en', { month: 'short', year: 'numeric' })}</time></p>
+  </header>
+
+  {featuredNote && (
+    <blockquote class="muse-note">
+      <p>{featuredNote}</p>
+    </blockquote>
+  )}
+
+  <div class="muse-grid">
+    <section class="muse-lead" aria-labelledby="resurfaced-title">
+      <p class="column-label"><span>01</span> Resurfaced</p>
+      {lead ? (() => {
+        const urlSlug = (lead as any).slug ?? lead.id.replace(/\.md$/, '');
+        const ids = (themeIdsBySlug[urlSlug] ?? []).slice(0, 3);
+        return (
+          <article>
+            <time datetime={lead.data.pubDate.toISOString()}>
+              {new Date(lead.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
+            </time>
+            <h3 id="resurfaced-title"><a href={`/blog/${urlSlug}/`}>{lead.data.title}</a></h3>
+            <p class="lead-description">{lead.data.description || 'A signal recovered from deeper in the archive.'}</p>
+            <div class="lead-themes">
+              {ids.map(id => themeName.has(id) && <ThemeChip id={id} name={themeName.get(id)!} small />)}
+            </div>
+            <a class="open-signal" href={`/blog/${urlSlug}/`}>Open this signal <span aria-hidden="true">→</span></a>
+          </article>
+        );
+      })() : <p class="empty">The archive is listening.</p>}
+
+      {supporting.length > 0 && (
+        <ul class="supporting-posts">
+          {supporting.map((post: any) => {
+            const urlSlug = post.slug ?? post.id.replace(/\.md$/, '');
+            return (
+              <li>
+                <a href={`/blog/${urlSlug}/`}>
+                  <span>{post.data.title}</span>
+                  <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.getUTCFullYear()}</time>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </section>
+
+    <section class="muse-column" aria-labelledby="threads-title">
+      <p class="column-label"><span>02</span> Threads</p>
+      <h3 id="threads-title">What keeps returning</h3>
       {activeThemes.length === 0 ? (
-        <p class="text-xs text-[var(--color-ink-soft)] italic">Coming soon.</p>
+        <p class="empty">Coming soon.</p>
       ) : (
-        <ul class="space-y-3 text-sm">
-          {activeThemes.map(t => (
+        <ul class="thread-list">
+          {activeThemes.slice(0, 4).map(t => (
             <li>
-              <a href={`/themes/${t.id}/`} class="no-underline">
-                <p class="text-[var(--color-ink)] hover:text-[var(--color-cyan)]">{t.name} <span class="text-[var(--color-ink-soft)] text-xs">({t.postCount})</span></p>
-                {t.blurb && <p class="text-xs text-[var(--color-ink-soft)] italic mt-0.5">{t.blurb}</p>}
+              <a href={`/themes/${t.id}/`}>
+                <span class="thread-name">{t.name}</span>
+                <span class="thread-count">{t.postCount}</span>
+                {t.blurb && <span class="thread-blurb">{t.blurb}</span>}
               </a>
             </li>
           ))}
         </ul>
       )}
-    </div>
-    <div>
-      <h3 class="text-sm font-semibold mb-3 uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Stories</h3>
-      <ul class="space-y-3 text-sm">
+    </section>
+
+    <section class="muse-column" aria-labelledby="stories-title">
+      <p class="column-label"><span>03</span> Stories</p>
+      <h3 id="stories-title">Longer transmissions</h3>
+      <ul class="story-list">
         {stories.map(item => (
           item.kind === 'post' ? (
-            <li>
-              <a href={`/blog/${item.slug}/`} class="no-underline text-[var(--color-ink)] hover:text-[var(--color-cyan)]">{item.title}</a>
-            </li>
+            <li><a href={`/blog/${item.slug}/`}>{item.title}<span aria-hidden="true">→</span></a></li>
           ) : (
             <li>
-              <details class="group">
-                <summary class="cursor-pointer list-none flex items-center gap-1.5 text-[var(--color-ink)] hover:text-[var(--color-cyan)]">
-                  <svg width="9" height="9" viewBox="0 0 10 10" aria-hidden="true" class="transition-transform group-open:rotate-90 shrink-0">
-                    <path d="M3 1 L7 5 L3 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                  <span style="font-family: var(--font-display);">{item.name}</span>
-                  <span class="text-xs text-[var(--color-ink-soft)]">({item.parts.length})</span>
+              <details>
+                <summary>
+                  <span>{item.name}</span>
+                  <span class="thread-count">{item.parts.length}</span>
                 </summary>
-                <ol class="mt-2 ml-4 pl-3 border-l border-[var(--color-border)] space-y-1.5 text-xs">
+                <ol>
                   {item.parts.map(part => (
-                    <li>
-                      <a href={`/blog/${part.slug}/`} class="no-underline text-[var(--color-ink-soft)] hover:text-[var(--color-cyan)]">{part.title}</a>
-                    </li>
+                    <li><a href={`/blog/${part.slug}/`}>{part.title}</a></li>
                   ))}
                 </ol>
               </details>
@@ -102,6 +129,157 @@ const latest = latestSlugs.map(s => bySlug.get(s)).filter(Boolean);
           )
         ))}
       </ul>
-    </div>
+    </section>
   </div>
 </section>
+
+<style>
+  .muse-workspace {
+    position: relative;
+    margin: clamp(4rem, 10vw, 8rem) 0;
+    padding: clamp(1.25rem, 4vw, 2.75rem);
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 8% 0%, color-mix(in oklch, var(--color-blue) 11%, transparent), transparent 38%),
+      radial-gradient(circle at 100% 20%, color-mix(in oklch, var(--color-magenta) 10%, transparent), transparent 38%),
+      color-mix(in oklch, var(--color-surface) 84%, transparent);
+    border: 1px solid var(--color-border-strong);
+    border-radius: 18px;
+    box-shadow: 0 28px 80px oklch(0 0 0 / 0.3);
+  }
+  .muse-workspace::before {
+    content: "";
+    position: absolute;
+    inset: 0 1.25rem auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-blue), var(--color-magenta), transparent);
+  }
+  .muse-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .muse-file { display: flex; align-items: center; gap: 0.8rem; }
+  .muse-glyph { color: var(--color-magenta); text-shadow: 0 0 14px color-mix(in oklch, var(--color-magenta) 65%, transparent); }
+  .muse-file p, .indexed {
+    margin: 0;
+    color: var(--color-ink-faint);
+    font: 0.61rem var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .muse-file h2 { margin: 0.08rem 0 0; font: 500 1rem var(--font-mono); letter-spacing: 0.02em; }
+  .muse-file .tip { color: var(--color-magenta); border-bottom: 1px dotted var(--color-border-strong); }
+  .indexed time { color: var(--color-amber-bright); }
+  .muse-note {
+    max-width: 54rem;
+    margin: 1.5rem 0 0;
+    padding-left: 1.1rem;
+    border-left: 1px solid var(--color-magenta);
+    color: var(--color-ink);
+    font: italic clamp(1.05rem, 2vw, 1.28rem)/1.5 var(--font-display);
+  }
+  .muse-note p { margin: 0; }
+  .muse-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(14rem, 0.75fr) minmax(14rem, 0.72fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding-top: clamp(1.8rem, 4vw, 3rem);
+  }
+  .muse-lead, .muse-column { min-width: 0; }
+  .muse-column { padding-left: clamp(0rem, 2vw, 1.5rem); border-left: 1px solid var(--color-border); }
+  .column-label {
+    display: flex;
+    gap: 0.55rem;
+    margin: 0 0 1rem;
+    color: var(--color-magenta);
+    font: 0.64rem var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .column-label span { color: var(--color-blue); }
+  .muse-lead article > time {
+    color: var(--color-amber-bright);
+    font: 0.62rem var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .muse-lead h3 { margin: 0.4rem 0 0; font-size: clamp(1.7rem, 3.2vw, 2.65rem); line-height: 1.05; }
+  .muse-lead h3 a { color: var(--color-ink); text-decoration: none; }
+  .muse-lead h3 a:hover { color: var(--color-cyan); }
+  .lead-description { margin: 0.8rem 0 0; max-width: 34rem; color: var(--color-ink-soft); line-height: 1.55; }
+  .lead-themes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .open-signal {
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-top: 1.15rem;
+    color: var(--color-cyan);
+    font: 0.72rem var(--font-mono);
+    text-decoration: none;
+  }
+  .supporting-posts { margin: 1.7rem 0 0; padding: 0; border-top: 1px solid var(--color-border); list-style: none; }
+  .supporting-posts a {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-ink-soft);
+    font-size: 0.88rem;
+    text-decoration: none;
+  }
+  .supporting-posts a:hover span:first-child { color: var(--color-cyan); }
+  .supporting-posts time { color: var(--color-amber-bright); font: 0.62rem var(--font-mono); }
+  .muse-column > h3 { margin: 0 0 1rem; font-size: 1.15rem; }
+  .thread-list, .story-list { margin: 0; padding: 0; list-style: none; }
+  .thread-list li, .story-list > li { border-top: 1px solid var(--color-border); }
+  .thread-list a { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 0.75rem; padding: 0.85rem 0; text-decoration: none; }
+  .thread-name { color: var(--color-ink); font: 500 0.95rem var(--font-display); }
+  .thread-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.55rem;
+    height: 1.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-amber-bright);
+    font: 0.58rem var(--font-mono);
+  }
+  .thread-blurb { grid-column: 1 / -1; color: var(--color-ink-soft); font-size: 0.76rem; line-height: 1.4; }
+  .thread-list a:hover .thread-name { color: var(--color-cyan); }
+  .story-list > li > a, .story-list summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    min-height: 44px;
+    padding: 0.7rem 0;
+    color: var(--color-ink);
+    font-size: 0.88rem;
+    text-decoration: none;
+  }
+  .story-list summary { cursor: pointer; list-style: none; }
+  .story-list summary::-webkit-details-marker { display: none; }
+  .story-list ol { margin: 0 0 0.7rem; padding-left: 1.2rem; border-left: 1px solid var(--color-border); }
+  .story-list ol li { padding: 0.22rem 0; }
+  .story-list ol a { color: var(--color-ink-soft); font-size: 0.76rem; text-decoration: none; }
+  .story-list a:hover { color: var(--color-cyan); }
+  .empty { color: var(--color-ink-soft); font-style: italic; }
+
+  @media (max-width: 900px) {
+    .muse-grid { grid-template-columns: 1fr 1fr; }
+    .muse-lead { grid-column: 1 / -1; }
+    .muse-column:first-of-type { padding-left: 0; border-left: 0; }
+  }
+  @media (max-width: 620px) {
+    .muse-workspace { margin-inline: -0.25rem; padding: 1.15rem; }
+    .indexed { display: none; }
+    .muse-grid { grid-template-columns: 1fr; }
+    .muse-lead { grid-column: auto; }
+    .muse-column { padding: 1.2rem 0 0; border-left: 0; border-top: 1px solid var(--color-border); }
+    .muse-column > .column-label { margin-bottom: 0.6rem; }
+  }
+</style>

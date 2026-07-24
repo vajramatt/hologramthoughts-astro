@@ -2,68 +2,319 @@
 import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import PostCard from '../../components/PostCard.astro';
+import ThemeChip from '../../components/ThemeChip.astro';
+import taxonomy from '../../content/themes/taxonomy.json';
 
-export const getStaticPaths = (async ({ paginate }) => {
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-  const sortedPosts = allPosts.sort((a, b) =>
-    new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
-  );
-  return paginate(sortedPosts, { pageSize: 20 });
+export const getStaticPaths = (async () => {
+  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  return [{ params: { page: undefined }, props: { posts } }];
 }) satisfies GetStaticPaths;
 
-const { page } = Astro.props;
-const slugOf = (p: any) => p.data.slug ?? p.slug;
+const { posts } = Astro.props;
+const slugOf = (post: any) => post.data.slug ?? post.slug ?? post.id.replace(/\.md$/, '');
+const sidecarKey = (post: any) => post.data.slug ?? post.slug ?? post.id.replace(/\.md$/, '');
+const themeById = new Map<string, any>((taxonomy as any).themes.map((theme: any) => [theme.id, theme]));
+const sidecars = import.meta.glob('../../content/themes/*.json', { eager: true });
 
-// Load sidecars for posts on this page
-const themeIdsBySlug: Record<string, string[]> = {};
-for (const p of page.data) {
-  const s = slugOf(p);
-  try {
-    const sc = await import(`../../content/themes/${s}.json`);
-    themeIdsBySlug[s] = sc.default.themeIds ?? [];
-  } catch {
-    themeIdsBySlug[s] = [];
-  }
+const themeIdsFor = (post: any) => {
+  const key = `../../content/themes/${sidecarKey(post)}.json`;
+  return ((sidecars[key] as any)?.default?.themeIds ?? []) as string[];
+};
+
+const groups = new Map<number, any[]>();
+for (const post of posts) {
+  const year = post.data.pubDate.getUTCFullYear();
+  if (!groups.has(year)) groups.set(year, []);
+  groups.get(year)!.push(post);
 }
+const years = [...groups.entries()]
+  .map(([year, yearPosts]) => ({ year, posts: yearPosts }))
+  .sort((a, b) => b.year - a.year);
 ---
 
-<Layout title={`Archive${page.currentPage > 1 ? ` — Page ${page.currentPage}` : ''} — Hologram Thoughts`} description="Every post, newest to oldest — the full archive of Hologram Thoughts.">
-  <header class="mb-12">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Archive</p>
-    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">All posts</h1>
-    <p class="text-[var(--color-ink-soft)] mt-3">
-      {page.total} posts, newest first.
-    </p>
+<Layout wide title="Archive — Hologram Thoughts" description="Every post from 2006 to today, grouped by year — the full archive of Hologram Thoughts.">
+  <header class="archive-hero">
+    <div>
+      <p class="archive-kicker">Archive · 2006—{years[0]?.year}</p>
+      <h1>Every transmission,<br /><span>still within reach.</span></h1>
+    </div>
+    <div class="archive-summary">
+      <p><strong>{posts.length}</strong> posts across <strong>{years.length}</strong> years.</p>
+      <p>Move through time, or search for the phrase you still remember.</p>
+      <a href="/search/">Search the archive <span aria-hidden="true">→</span></a>
+    </div>
   </header>
 
-  <section class="space-y-2">
-    {page.data.map((post: any) => {
-      const s = slugOf(post);
-      return (
-        <PostCard
-          slug={s}
-          title={post.data.title}
-          pubDate={post.data.pubDate}
-          themeIds={themeIdsBySlug[s]}
-        />
-      );
-    })}
-  </section>
+  <div class="archive-layout">
+    <aside class="year-index" aria-label="Archive years">
+      <p>// jump to year</p>
+      <nav>
+        {years.map(({ year, posts: yearPosts }) => (
+          <a href={`#year-${year}`} data-year-jump>
+            <span>{year}</span>
+            <span>{yearPosts.length}</span>
+          </a>
+        ))}
+      </nav>
+    </aside>
 
-  <nav class="flex justify-between items-center mt-12 pt-8 border-t border-[var(--color-border-strong)] text-sm">
-    {page.url.prev ? (
-      <a href={page.url.prev} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-amber)_8%,transparent)] hover:border-[var(--color-cyan)] transition-all">
-        Newer
-      </a>
-    ) : <span />}
-    <span class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">
-      Page {page.currentPage} of {page.lastPage}
-    </span>
-    {page.url.next ? (
-      <a href={page.url.next} class="no-underline px-4 py-2 rounded-full border border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-amber)_8%,transparent)] hover:border-[var(--color-cyan)] transition-all">
-        Older
-      </a>
-    ) : <span />}
-  </nav>
+    <div class="year-groups">
+      {years.map(({ year, posts: yearPosts }) => (
+        <section class="year-group" id={`year-${year}`} aria-labelledby={`heading-${year}`}>
+          <header>
+            <h2 id={`heading-${year}`}>{year}</h2>
+            <span>{yearPosts.length} {yearPosts.length === 1 ? 'post' : 'posts'}</span>
+          </header>
+          <ol>
+            {yearPosts.map((post: any) => {
+              const slug = slugOf(post);
+              const themes = themeIdsFor(post)
+                .slice(0, 2)
+                .map((id) => themeById.get(id))
+                .filter(Boolean);
+              return (
+                <li>
+                  <article>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {post.data.pubDate.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' })}
+                    </time>
+                    <div class="post-copy">
+                      <a class="post-title" href={`/blog/${slug}/`}>{post.data.title}</a>
+                      {themes.length > 0 && (
+                        <div class="post-themes">
+                          {themes.map((theme: any) => <ThemeChip id={theme.id} name={theme.name} small />)}
+                        </div>
+                      )}
+                    </div>
+                    <a class="post-arrow" href={`/blog/${slug}/`} aria-label={`Read ${post.data.title}`}>→</a>
+                  </article>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ))}
+    </div>
+  </div>
 </Layout>
+
+<style>
+  :global(html) { scroll-padding-top: 6rem; }
+  .archive-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    gap: clamp(2rem, 7vw, 7rem);
+    align-items: end;
+    padding: clamp(2rem, 6vw, 5rem) 0 clamp(2.5rem, 6vw, 5rem);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+  .archive-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 48rem;
+    height: 30rem;
+    left: -18rem;
+    top: -8rem;
+    background: radial-gradient(circle, color-mix(in oklch, var(--color-blue) 15%, transparent), transparent 66%);
+    filter: blur(20px);
+  }
+  .archive-kicker {
+    margin: 0 0 1rem;
+    color: var(--color-amber-bright);
+    font: 0.68rem var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .archive-hero h1 {
+    margin: 0;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+  }
+  .archive-hero h1 span {
+    background: linear-gradient(95deg, var(--color-ink), var(--color-blue), var(--color-magenta));
+    background-clip: text;
+    color: transparent;
+  }
+  .archive-summary { padding-bottom: 0.45rem; color: var(--color-ink-soft); }
+  .archive-summary p { margin: 0 0 0.55rem; }
+  .archive-summary strong { color: var(--color-cyan); font-weight: 500; }
+  .archive-summary a {
+    display: inline-flex;
+    gap: 0.5rem;
+    min-height: 44px;
+    align-items: center;
+    color: var(--color-cyan);
+    font: 0.72rem var(--font-mono);
+    text-decoration: none;
+  }
+  .archive-layout {
+    display: grid;
+    grid-template-columns: 8.5rem minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+  }
+  .year-index {
+    position: sticky;
+    top: 6rem;
+    max-height: calc(100vh - 8rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .year-index > p {
+    margin: 0 0 0.65rem;
+    color: var(--color-magenta);
+    font: 0.58rem var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .year-index nav { display: flex; flex-direction: column; }
+  .year-index a {
+    display: flex;
+    justify-content: space-between;
+    min-height: 34px;
+    align-items: center;
+    padding: 0.18rem 0.4rem;
+    border-left: 1px solid var(--color-border);
+    color: var(--color-ink-soft);
+    font: 0.7rem var(--font-mono);
+    text-decoration: none;
+  }
+  .year-index a span:last-child { color: var(--color-ink-faint); font-size: 0.58rem; }
+  .year-index a:hover {
+    border-left-color: var(--color-cyan);
+    background: color-mix(in oklch, var(--color-blue) 7%, transparent);
+    color: var(--color-cyan);
+  }
+  .year-groups { min-width: 0; }
+  .year-group {
+    scroll-margin-top: 6rem;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+  .year-group > header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+  .year-group h2 {
+    margin: 0;
+    color: var(--color-blue);
+    font: 500 clamp(2.2rem, 5vw, 4rem)/1 var(--font-display);
+  }
+  .year-group > header span {
+    color: var(--color-amber-bright);
+    font: 0.64rem var(--font-mono);
+    text-transform: uppercase;
+  }
+  .year-group ol { margin: 0; padding: 0; list-style: none; }
+  .year-group li { border-bottom: 1px solid var(--color-border); }
+  .year-group article {
+    display: grid;
+    grid-template-columns: 3.75rem minmax(0, 1fr) 2rem;
+    gap: 1rem;
+    align-items: center;
+    min-height: 78px;
+    padding: 0.85rem 0.4rem;
+    transition: background var(--dur-fast) var(--ease-grow);
+  }
+  .year-group article:hover { background: linear-gradient(90deg, color-mix(in oklch, var(--color-blue) 6%, transparent), transparent); }
+  .year-group time { color: var(--color-amber-bright); font: 0.62rem var(--font-mono); text-transform: uppercase; }
+  .post-copy { min-width: 0; }
+  .post-title {
+    display: inline;
+    color: var(--color-ink);
+    font: 500 clamp(1rem, 2vw, 1.2rem)/1.25 var(--font-display);
+    text-decoration: none;
+  }
+  .post-title:hover { color: var(--color-cyan); }
+  .post-themes { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
+  .post-arrow {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    color: var(--color-ink-faint);
+    text-decoration: none;
+  }
+  .year-group article:hover .post-arrow { color: var(--color-magenta); }
+
+  @media (max-width: 760px) {
+    .archive-hero { grid-template-columns: 1fr; gap: 1.5rem; }
+    .archive-layout { grid-template-columns: 1fr; }
+    .year-index {
+      position: sticky;
+      z-index: 5;
+      top: 64px;
+      max-height: none;
+      margin-inline: -1.25rem;
+      padding: 0.65rem 1.25rem;
+      overflow-x: auto;
+      background: color-mix(in oklch, var(--color-bg) 92%, transparent);
+      border-block: 1px solid var(--color-border);
+      backdrop-filter: blur(16px);
+    }
+    .year-index > p { display: none; }
+    .year-index nav { width: max-content; flex-direction: row; }
+    .year-index a {
+      min-width: 64px;
+      min-height: 44px;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .year-group article { grid-template-columns: 3.1rem minmax(0, 1fr) 2rem; gap: 0.55rem; }
+  }
+  @media (max-width: 440px) {
+    .archive-hero h1 { font-size: clamp(2.75rem, 14vw, 4rem); }
+    .post-themes { display: none; }
+    .year-group article { min-height: 66px; }
+  }
+</style>
+
+<script>
+  const yearLinks = document.querySelectorAll<HTMLAnchorElement>('[data-year-jump]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  yearLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      const id = link.hash.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      event.preventDefault();
+      const offset = window.innerWidth <= 760 ? 128 : 88;
+      const start = window.scrollY;
+      const destination = Math.max(0, target.getBoundingClientRect().top + start - offset);
+
+      history.pushState(null, '', link.hash);
+
+      if (reducedMotion.matches) {
+        window.scrollTo(0, destination);
+        return;
+      }
+
+      const distance = destination - start;
+      const duration = Math.min(1050, Math.max(520, Math.abs(distance) * 0.13));
+      const startedAt = performance.now();
+
+      // Quintic ease-out: immediate travel, then a long, soft arrival.
+      const glide = (now: number) => {
+        const elapsed = Math.min(1, (now - startedAt) / duration);
+        const eased = 1 - Math.pow(1 - elapsed, 5);
+        window.scrollTo(0, start + distance * eased);
+        if (elapsed < 1) requestAnimationFrame(glide);
+        else target.querySelector<HTMLElement>('h2')?.focus({ preventScroll: true });
+      };
+
+      requestAnimationFrame(glide);
+    });
+  });
+</script>

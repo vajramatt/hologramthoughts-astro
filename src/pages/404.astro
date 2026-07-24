@@ -1,17 +1,675 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const slugOf = (post: any) => post.slug ?? post.data.slug ?? post.id.replace(/\.md$/, '');
+const currentYear = new Date().getUTCFullYear();
+const latest = allPosts[0];
+const latestSlug = slugOf(latest);
+const deepCuts = allPosts
+  .filter(post => post.data.pubDate.getUTCFullYear() <= currentYear - 5)
+  .map(post => ({
+    title: post.data.title,
+    url: `/blog/${slugOf(post)}/`,
+    year: post.data.pubDate.getUTCFullYear(),
+    description: post.data.description || 'A recovered signal from deeper in the archive.',
+  }));
 ---
-<Layout title="Not found — Hologram Thoughts" description="This thread doesn't grow here — but the rest of the archive is still alive.">
-  <section class="mt-16 mb-32 text-center">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-3">404</p>
-    <h1 class="text-5xl tracking-tight mb-6" style="font-family: var(--font-display);">
-      <span class="prismatic">This thread doesn't grow here.</span>
-    </h1>
-    <p class="text-lg text-[var(--color-ink-soft)] max-w-xl mx-auto leading-relaxed">
-      The link you followed has gone to seed, or never sprouted. Try the
-      <a href="/archive/" class="text-[var(--color-amber-bright)] hover:text-[var(--color-cyan)]">archive</a>,
-      ask the <a href="/themes/" class="text-[var(--color-amber-bright)] hover:text-[var(--color-cyan)]">threads</a>,
-      or wander back to the <a href="/" class="text-[var(--color-amber-bright)] hover:text-[var(--color-cyan)]">home page</a>.
-    </p>
+
+<Layout
+  wide
+  title="Signal lost — Hologram Thoughts"
+  description="There is no page at this coordinate. Search the archive, recover an older signal, or return to the map."
+>
+  <section class="lost-signal" aria-labelledby="lost-title">
+    <div class="coordinate-bar">
+      <p><span class="status-light" aria-hidden="true"></span> Archive routing / unresolved coordinate</p>
+      <p><span>request</span> <code id="requested-coordinate">unknown</code></p>
+    </div>
+
+    <div class="signal-visual" aria-hidden="true">
+      <div class="visual-grid"></div>
+      <svg viewBox="0 0 1000 420" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="route-gradient" x1="0" x2="1">
+            <stop offset="0" stop-color="var(--color-blue)" stop-opacity=".08" />
+            <stop offset=".42" stop-color="var(--color-cyan)" stop-opacity=".72" />
+            <stop offset=".58" stop-color="var(--color-magenta)" stop-opacity=".72" />
+            <stop offset="1" stop-color="var(--color-blue)" stop-opacity=".08" />
+          </linearGradient>
+        </defs>
+
+        <path class="ghost-route ghost-route-a" d="M-30 292 L118 292 L190 220 L310 220 L374 156 L448 156" />
+        <path class="ghost-route ghost-route-b" d="M552 156 L634 156 L708 230 L810 230 L888 152 L1030 152" />
+        <path class="ghost-route ghost-route-c" d="M-20 116 L124 116 L214 206" />
+        <path class="ghost-route ghost-route-d" d="M788 250 L868 330 L1020 330" />
+
+        <g class="outer-nodes">
+          <circle cx="118" cy="292" r="5" />
+          <circle cx="190" cy="220" r="7" />
+          <circle cx="310" cy="220" r="5" />
+          <circle cx="634" cy="156" r="5" />
+          <circle cx="708" cy="230" r="7" />
+          <circle cx="888" cy="152" r="5" />
+          <circle cx="124" cy="116" r="5" />
+          <circle cx="868" cy="330" r="5" />
+        </g>
+
+        <circle class="fault-orbit fault-orbit-outer" cx="500" cy="156" r="82" />
+        <circle class="fault-orbit fault-orbit-inner" cx="500" cy="156" r="58" />
+        <path class="fault-slash" d="M468 196 L486 168 L478 148 L503 113 L516 143 L508 164 L532 121" />
+        <circle class="fault-point" cx="500" cy="156" r="7" />
+        <text class="error-code" x="500" y="350" text-anchor="middle">404</text>
+      </svg>
+      <div class="scan-probe"></div>
+      <p class="visual-status"><span>route probe</span><b>connection refused</b></p>
+    </div>
+
+    <div class="recovery-grid">
+      <header class="recovery-intro">
+        <p class="eyebrow">// no page at this coordinate</p>
+        <h1 id="lost-title">The archive is intact.<br /><em>This signal is missing.</em></h1>
+        <p>
+          The address may have moved, dissolved, or never existed. Give the archive a phrase,
+          or let it send you somewhere you did not mean to go.
+        </p>
+      </header>
+
+      <form class="recovery-search" action="/search/" method="get">
+        <label for="recovery-query">Search for another signal</label>
+        <div>
+          <span aria-hidden="true">›</span>
+          <input
+            id="recovery-query"
+            name="q"
+            type="search"
+            placeholder="A title, image, question, or half-memory"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit">Search archive <span aria-hidden="true">→</span></button>
+        </div>
+      </form>
+    </div>
+
+    <section class="reroutes" aria-labelledby="reroutes-title">
+      <header>
+        <p>// available reroutes</p>
+        <h2 id="reroutes-title">Choose a surviving path.</h2>
+      </header>
+
+      <div class="reroute-grid">
+        <a class="route-card latest-route" href={`/blog/${latestSlug}/`}>
+          <span class="route-index">01 / latest transmission</span>
+          <div>
+            <time datetime={latest.data.pubDate.toISOString()}>
+              {latest.data.pubDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
+            </time>
+            <h3>{latest.data.title}</h3>
+            <p>{latest.data.description}</p>
+          </div>
+          <strong>Open newest signal <span aria-hidden="true">→</span></strong>
+        </a>
+
+        <article class="route-card deep-route">
+          <span class="route-index">02 / deep archive</span>
+          <div class="deep-cut" aria-live="polite">
+            <time id="deep-cut-year"></time>
+            <h3 id="deep-cut-title">Locating an older signal…</h3>
+            <p id="deep-cut-description">Probing the archive beyond the recent record.</p>
+          </div>
+          <div class="deep-actions">
+            <a id="deep-cut-link" href="/archive/">Open recovered signal <span aria-hidden="true">→</span></a>
+            <button id="reacquire" type="button">
+              <span class="reacquire-icon" aria-hidden="true">↻</span> Reacquire
+            </button>
+          </div>
+        </article>
+
+        <a class="route-card map-route" href="/#understory">
+          <span class="route-index">03 / network overview</span>
+          <div class="mini-network" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i>
+            <svg viewBox="0 0 260 88" preserveAspectRatio="none">
+              <path d="M0 58 L45 58 L78 24 L132 24 L168 66 L218 66 L260 34" />
+              <path d="M14 18 L62 18 L106 62 L154 62 L204 20 L252 20" />
+            </svg>
+          </div>
+          <div>
+            <h3>Return to the living map</h3>
+            <p>See the themes and years that still connect across the archive.</p>
+          </div>
+          <strong>View the network <span aria-hidden="true">→</span></strong>
+        </a>
+      </div>
+    </section>
   </section>
 </Layout>
+
+<style>
+  .lost-signal {
+    --fault: var(--color-magenta);
+    margin-top: -1.5rem;
+  }
+
+  .coordinate-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--color-border);
+    border-bottom: 0;
+    color: var(--color-ink-faint);
+    background: color-mix(in oklch, var(--color-surface) 56%, transparent);
+    font: 500 0.65rem/1.4 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .coordinate-bar p {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0;
+  }
+
+  .coordinate-bar code {
+    display: inline-block;
+    max-width: min(42vw, 34rem);
+    overflow: hidden;
+    color: var(--color-ink-soft);
+    font: inherit;
+    text-overflow: ellipsis;
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  .coordinate-bar p:last-child span { color: var(--color-cyan); }
+
+  .status-light {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--fault);
+    box-shadow: 0 0 12px color-mix(in oklch, var(--fault) 68%, transparent);
+    animation: status-flicker 2.8s steps(1) infinite;
+  }
+
+  .signal-visual {
+    position: relative;
+    min-height: clamp(23rem, 46vw, 36rem);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background:
+      radial-gradient(circle at 50% 34%, color-mix(in oklch, var(--color-magenta) 10%, transparent), transparent 26%),
+      radial-gradient(circle at 70% 30%, color-mix(in oklch, var(--color-blue) 12%, transparent), transparent 38%),
+      linear-gradient(145deg, color-mix(in oklch, var(--color-surface) 86%, transparent), color-mix(in oklch, var(--color-bg) 94%, transparent));
+  }
+
+  .visual-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.28;
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 3.5rem 3.5rem;
+    mask-image: radial-gradient(ellipse at center, black 15%, transparent 76%);
+  }
+
+  .signal-visual svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ghost-route {
+    fill: none;
+    stroke: url("#route-gradient");
+    stroke-width: 1.5;
+    stroke-dasharray: 7 8;
+    vector-effect: non-scaling-stroke;
+    animation: route-search 12s linear infinite;
+  }
+
+  .ghost-route-b,
+  .ghost-route-d { animation-direction: reverse; }
+
+  .outer-nodes circle {
+    fill: var(--color-bg);
+    stroke: var(--color-cyan);
+    stroke-width: 1.5;
+    opacity: 0.62;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .fault-orbit {
+    fill: none;
+    stroke: var(--fault);
+    vector-effect: non-scaling-stroke;
+    transform-origin: 500px 156px;
+  }
+
+  .fault-orbit-outer {
+    opacity: 0.16;
+    stroke-width: 1;
+    stroke-dasharray: 2 11;
+    animation: orbit 24s linear infinite;
+  }
+
+  .fault-orbit-inner {
+    opacity: 0.5;
+    stroke-width: 1.5;
+    stroke-dasharray: 32 12 4 12;
+    animation: orbit 15s linear infinite reverse;
+  }
+
+  .fault-slash {
+    fill: none;
+    stroke: var(--color-ink);
+    stroke-width: 2;
+    opacity: 0.7;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .fault-point {
+    fill: var(--fault);
+    filter: drop-shadow(0 0 12px var(--fault));
+    animation: point-fault 3.4s var(--ease-breathe) infinite;
+  }
+
+  .error-code {
+    fill: var(--color-ink);
+    font: 500 10.5rem/1 var(--font-display);
+    letter-spacing: -0.07em;
+    opacity: 0.92;
+  }
+
+  .scan-probe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 18%;
+    left: -20%;
+    opacity: 0.25;
+    background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--color-cyan) 34%, transparent), transparent);
+    transform: skewX(-12deg);
+    animation: probe 7s var(--ease-breathe) infinite;
+  }
+
+  .visual-status {
+    position: absolute;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    display: flex;
+    gap: 0.7rem;
+    margin: 0;
+    font: 500 0.62rem/1 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .visual-status span { color: var(--color-ink-faint); }
+  .visual-status b { color: var(--fault); font-weight: 500; }
+
+  .recovery-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.72fr);
+    gap: clamp(3rem, 8vw, 8rem);
+    align-items: end;
+    padding: clamp(3.5rem, 8vw, 7rem) 0;
+  }
+
+  .eyebrow,
+  .reroutes > header p {
+    margin: 0 0 0.7rem;
+    color: var(--color-cyan);
+    font: 500 0.67rem/1.4 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .recovery-intro h1 {
+    margin: 0;
+    font-size: clamp(3.2rem, 6.4vw, 6.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  .recovery-intro h1 em {
+    color: var(--color-cyan);
+    font-weight: inherit;
+  }
+
+  .recovery-intro > p:last-child {
+    max-width: 42rem;
+    margin: 2rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    line-height: 1.65;
+  }
+
+  .recovery-search {
+    padding: 1.2rem;
+    border: 1px solid var(--color-border-strong);
+    background: color-mix(in oklch, var(--color-surface) 74%, transparent);
+    box-shadow: var(--shadow-deep);
+  }
+
+  .recovery-search label {
+    display: block;
+    margin: 0 0 0.75rem;
+    color: var(--color-ink-soft);
+    font: 500 0.68rem/1.4 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .recovery-search > div {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.55rem 0.65rem 0.55rem 0.9rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .recovery-search > div > span {
+    color: var(--color-cyan);
+    font: 1.1rem var(--font-mono);
+  }
+
+  .recovery-search input {
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    color: var(--color-ink);
+    background: transparent;
+    font: 0.86rem/1.4 var(--font-mono);
+  }
+
+  .recovery-search input::placeholder { color: var(--color-ink-faint); }
+
+  .recovery-search button {
+    padding: 0.72rem 0.9rem;
+    border: 1px solid color-mix(in oklch, var(--color-cyan) 34%, transparent);
+    color: var(--color-bg);
+    background: var(--color-cyan);
+    font: 500 0.68rem/1 var(--font-mono);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-grow), transform var(--dur-fast) var(--ease-grow);
+  }
+
+  .recovery-search button:hover {
+    background: var(--color-ink);
+    transform: translateY(-1px);
+  }
+
+  .reroutes {
+    padding: 0 0 clamp(3rem, 7vw, 6rem);
+  }
+
+  .reroutes > header {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 1.5rem;
+  }
+
+  .reroutes > header p { margin: 0; }
+
+  .reroutes > header h2 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+  }
+
+  .reroute-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border-strong);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .route-card {
+    position: relative;
+    display: flex;
+    min-height: 27rem;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: clamp(1.35rem, 3vw, 2rem);
+    overflow: hidden;
+    color: var(--color-ink);
+    background: color-mix(in oklch, var(--color-surface) 48%, transparent);
+    text-decoration: none;
+  }
+
+  .route-card + .route-card { border-left: 1px solid var(--color-border-strong); }
+
+  a.route-card {
+    transition: background var(--dur-med) var(--ease-grow);
+  }
+
+  a.route-card:hover {
+    color: var(--color-ink);
+    background: color-mix(in oklch, var(--color-surface) 82%, transparent);
+  }
+
+  .route-index {
+    color: var(--color-ink-faint);
+    font: 500 0.62rem/1.4 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .route-card time {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: var(--color-amber-bright);
+    font: 500 0.65rem/1.4 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .route-card h3 {
+    margin: 0;
+    font-size: clamp(1.7rem, 2.8vw, 2.35rem);
+    line-height: 1.08;
+  }
+
+  .route-card p {
+    display: -webkit-box;
+    margin: 0.8rem 0 0;
+    overflow: hidden;
+    color: var(--color-ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .route-card strong,
+  .deep-actions a,
+  .deep-actions button {
+    color: var(--color-cyan);
+    font: 500 0.68rem/1.4 var(--font-mono);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+
+  .deep-route { transition: background var(--dur-med) var(--ease-grow); }
+  .deep-route.is-scanning { background: color-mix(in oklch, var(--color-blue) 10%, var(--color-surface)); }
+  .deep-route.is-scanning .deep-cut { animation: cut-flicker 320ms steps(2); }
+
+  .deep-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .deep-actions button {
+    padding: 0;
+    border: 0;
+    color: var(--color-ink-faint);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .deep-actions button:hover { color: var(--color-magenta); }
+  .reacquire-icon { display: inline-block; transition: transform var(--dur-med) var(--ease-grow); }
+  .deep-actions button:hover .reacquire-icon { transform: rotate(180deg); }
+
+  .mini-network {
+    position: relative;
+    height: 5.5rem;
+    margin: auto 0;
+  }
+
+  .mini-network svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mini-network path {
+    fill: none;
+    stroke: var(--color-cyan);
+    stroke-width: 1;
+    opacity: 0.34;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .mini-network i {
+    position: absolute;
+    z-index: 1;
+    width: 0.42rem;
+    height: 0.42rem;
+    border: 1px solid var(--color-magenta);
+    border-radius: 50%;
+    background: var(--color-bg);
+  }
+
+  .mini-network i:nth-child(1) { left: 16%; top: 63%; }
+  .mini-network i:nth-child(2) { left: 29%; top: 22%; }
+  .mini-network i:nth-child(3) { left: 50%; top: 62%; }
+  .mini-network i:nth-child(4) { left: 69%; top: 20%; }
+  .mini-network i:nth-child(5) { left: 84%; top: 64%; }
+
+  @keyframes route-search { to { stroke-dashoffset: -120; } }
+  @keyframes orbit { to { transform: rotate(360deg); } }
+  @keyframes probe {
+    0%, 14% { left: -20%; opacity: 0; }
+    24% { opacity: 0.25; }
+    70%, 100% { left: 110%; opacity: 0; }
+  }
+  @keyframes point-fault {
+    0%, 100% { opacity: 0.9; transform: scale(1); transform-origin: 500px 156px; }
+    46% { opacity: 0.35; transform: scale(0.7); transform-origin: 500px 156px; }
+    49% { opacity: 1; transform: scale(1.4); transform-origin: 500px 156px; }
+  }
+  @keyframes status-flicker {
+    0%, 82%, 100% { opacity: 1; }
+    84%, 88% { opacity: 0.2; }
+    86%, 92% { opacity: 0.7; }
+  }
+  @keyframes cut-flicker {
+    0% { opacity: 1; transform: translateX(0); }
+    35% { opacity: 0.3; transform: translateX(3px); }
+    70% { opacity: 0.6; transform: translateX(-2px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  @media (max-width: 900px) {
+    .recovery-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .reroute-grid { grid-template-columns: 1fr; }
+    .route-card { min-height: 21rem; }
+    .route-card + .route-card {
+      border-top: 1px solid var(--color-border-strong);
+      border-left: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lost-signal { margin-top: -1rem; }
+    .coordinate-bar { align-items: flex-start; flex-direction: column; gap: 0.4rem; }
+    .coordinate-bar code { max-width: 74vw; }
+    .signal-visual { min-height: 23rem; }
+    .signal-visual svg { width: 165%; left: -32.5%; }
+    .error-code { font-size: 9rem; }
+    .recovery-grid { padding: 3.5rem 0 4.5rem; }
+    .recovery-intro h1 { font-size: clamp(2.9rem, 14vw, 4.3rem); }
+    .recovery-search > div { grid-template-columns: auto minmax(0, 1fr); }
+    .recovery-search button { grid-column: 1 / -1; width: 100%; }
+    .reroutes > header { display: block; }
+    .reroutes > header p { margin-bottom: 0.65rem; }
+    .route-card { min-height: 20rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ghost-route,
+    .fault-orbit,
+    .fault-point,
+    .scan-probe,
+    .status-light { animation: none; }
+    .scan-probe { display: none; }
+  }
+</style>
+
+<script define:vars={{ deepCuts }}>
+  const coordinate = document.querySelector('#requested-coordinate');
+  const deepCard = document.querySelector('.deep-route');
+  const deepTitle = document.querySelector('#deep-cut-title');
+  const deepYear = document.querySelector('#deep-cut-year');
+  const deepDescription = document.querySelector('#deep-cut-description');
+  const deepLink = document.querySelector('#deep-cut-link');
+  const reacquire = document.querySelector('#reacquire');
+  let activeIndex = -1;
+
+  if (coordinate) {
+    coordinate.textContent = `${window.location.pathname}${window.location.search}`;
+  }
+
+  const hashCoordinate = (value) => {
+    let hash = 2166136261;
+    for (let index = 0; index < value.length; index += 1) {
+      hash ^= value.charCodeAt(index);
+      hash = Math.imul(hash, 16777619);
+    }
+    return Math.abs(hash);
+  };
+
+  const showDeepCut = (index, animate = false) => {
+    if (!deepCuts.length || !deepTitle || !deepYear || !deepDescription || !deepLink) return;
+    activeIndex = ((index % deepCuts.length) + deepCuts.length) % deepCuts.length;
+    const post = deepCuts[activeIndex];
+
+    if (animate && deepCard) {
+      deepCard.classList.remove('is-scanning');
+      void deepCard.offsetWidth;
+      deepCard.classList.add('is-scanning');
+    }
+
+    deepYear.textContent = `${post.year} / recovered signal`;
+    deepTitle.textContent = post.title;
+    deepDescription.textContent = post.description;
+    deepLink.href = post.url;
+  };
+
+  showDeepCut(hashCoordinate(window.location.pathname) % Math.max(deepCuts.length, 1));
+
+  reacquire?.addEventListener('click', () => {
+    if (deepCuts.length < 2) return;
+    let next = activeIndex;
+    while (next === activeIndex) next = Math.floor(Math.random() * deepCuts.length);
+    showDeepCut(next, true);
+  });
+</script>

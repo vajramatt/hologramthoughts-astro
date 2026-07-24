@@ -1,75 +1,463 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import PostCard from '../../components/PostCard.astro';
+import ThemeChip from '../../components/ThemeChip.astro';
+import taxonomy from '../../content/themes/taxonomy.json';
+import { categoryColor } from '../../utils/category-color';
+
+const categoryDefinitions = [
+  { name: 'Dharma Writings', slug: 'dharma-writings', description: 'Buddhist teachings, devotion, philosophy, and the long work of practice.', code: 'DHARMA' },
+  { name: 'Creative Writing', slug: 'creative-writing', description: 'Poetry, fiction, myth, dreamwork, and worlds built to hold a question.', code: 'CREATE' },
+  { name: 'Consciousness & Philosophy', slug: 'consciousness-philosophy', description: 'Mind, reality, divinity, identity, and the strange architecture of being.', code: 'MIND' },
+  { name: 'Practice & Inner Life', slug: 'practice-inner-life', description: 'Meditation, dreams, healing, and what changes when attention turns inward.', code: 'INNER' },
+  { name: 'Other', slug: 'other', description: 'Technology, culture, daily life, and transmissions that resist a cleaner label.', code: 'OTHER' },
+];
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-
-  const categories = [
-    { name: 'Dharma Writings',           slug: 'dharma-writings' },
-    { name: 'Creative Writing',           slug: 'creative-writing' },
-    { name: 'Consciousness & Philosophy', slug: 'consciousness-philosophy' },
-    { name: 'Practice & Inner Life',      slug: 'practice-inner-life' },
-    { name: 'Other',                       slug: 'other' }
+  const definitions = [
+    { name: 'Dharma Writings', slug: 'dharma-writings', description: 'Buddhist teachings, devotion, philosophy, and the long work of practice.', code: 'DHARMA' },
+    { name: 'Creative Writing', slug: 'creative-writing', description: 'Poetry, fiction, myth, dreamwork, and worlds built to hold a question.', code: 'CREATE' },
+    { name: 'Consciousness & Philosophy', slug: 'consciousness-philosophy', description: 'Mind, reality, divinity, identity, and the strange architecture of being.', code: 'MIND' },
+    { name: 'Practice & Inner Life', slug: 'practice-inner-life', description: 'Meditation, dreams, healing, and what changes when attention turns inward.', code: 'INNER' },
+    { name: 'Other', slug: 'other', description: 'Technology, culture, daily life, and transmissions that resist a cleaner label.', code: 'OTHER' },
   ];
-
-  return categories.map(category => {
-    const categoryPosts = allPosts
-      .filter(post => post.data.categories.includes(category.name))
-      .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf());
-
-    return {
-      params: { category: category.slug },
-      props: { categoryName: category.name, posts: categoryPosts }
-    };
-  });
+  return definitions.map((category) => ({
+    params: { category: category.slug },
+    props: {
+      category,
+      posts: allPosts
+        .filter(post => post.data.categories.includes(category.name))
+        .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+    },
+  }));
 }
 
-const { categoryName, posts } = Astro.props;
+const { category, posts } = Astro.props;
+const slugOf = (post: any) => post.slug ?? post.data.slug ?? post.id.replace(/\.md$/, '');
+const themeById = new Map<string, any>((taxonomy as any).themes.map((theme: any) => [theme.id, theme]));
+const sidecars = import.meta.glob('../../content/themes/*.json', { eager: true });
+const themesByPost = new Map<string, string[]>();
+const themeCounts = new Map<string, number>();
 
-const descriptions: Record<string, string> = {
-  'Dharma Writings':            'Explorations of Buddhist teachings, philosophy, and the path',
-  'Creative Writing':            'Fiction, poetry, and imaginative works',
-  'Consciousness & Philosophy':  'Reflections on mind, reality, and the nature of existence',
-  'Practice & Inner Life':       'Meditation, dreams, and spiritual practices',
-  'Other':                        'Various topics and musings'
-};
-
-const slugOf = (p: any) => p.data.slug ?? p.slug;
-
-const themeIdsBySlug: Record<string, string[]> = {};
-for (const p of posts) {
-  const s = slugOf(p);
-  try {
-    const sc = await import(`../../content/themes/${s}.json`);
-    themeIdsBySlug[s] = sc.default.themeIds ?? [];
-  } catch {
-    themeIdsBySlug[s] = [];
-  }
+for (const post of posts) {
+  const slug = post.data.slug ?? post.slug ?? post.id.replace(/\.md$/, '');
+  const key = `../../content/themes/${slug}.json`;
+  const ids = ((sidecars[key] as any)?.default?.themeIds ?? []) as string[];
+  themesByPost.set(slugOf(post), ids);
+  ids.forEach(id => themeCounts.set(id, (themeCounts.get(id) ?? 0) + 1));
 }
+
+const dominantThemes = [...themeCounts.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 5)
+  .map(([id]) => themeById.get(id))
+  .filter(Boolean);
+
+const groups = new Map<number, any[]>();
+for (const post of posts) {
+  const year = post.data.pubDate.getUTCFullYear();
+  if (!groups.has(year)) groups.set(year, []);
+  groups.get(year)!.push(post);
+}
+const years = [...groups.entries()]
+  .map(([year, yearPosts]) => ({ year, posts: yearPosts }))
+  .sort((a, b) => b.year - a.year);
+const newestYear = years[0]?.year;
+const oldestYear = years.at(-1)?.year;
+const accent = categoryColor(category.name);
+const otherCategories = categoryDefinitions.filter(item => item.slug !== category.slug);
 ---
 
-<Layout title={`${categoryName} — Hologram Thoughts`} description={descriptions[categoryName] ?? `Posts in ${categoryName}.`}>
-  <header class="mb-12">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">
-      <a href="/categories" class="no-underline hover:text-[var(--color-cyan)]">Categories</a> · {posts.length} posts
-    </p>
-    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">{categoryName}</h1>
-    <p class="text-[var(--color-ink-soft)] mt-3 italic">{descriptions[categoryName]}</p>
+<Layout wide title={`${category.name} — Hologram Thoughts`} description={category.description}>
+  <header class="category-hero" style={`--accent:${accent}`}>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <a href="/categories/" class="back-link">← all districts</a>
+    <p class="category-kicker"><span></span> Archive district / {category.code}</p>
+    <h1>{category.name}</h1>
+    <p class="category-deck">{category.description}</p>
+    <dl class="category-stats">
+      <div><dt>Entries</dt><dd>{posts.length}</dd></div>
+      <div><dt>Range</dt><dd>{oldestYear}—{newestYear}</dd></div>
+      <div><dt>Active years</dt><dd>{years.length}</dd></div>
+    </dl>
   </header>
 
-  <section class="space-y-2">
-    {posts.map((post: any) => {
-      const s = slugOf(post);
-      return (
-        <PostCard
-          slug={s}
-          title={post.data.title}
-          pubDate={post.data.pubDate}
-          themeIds={themeIdsBySlug[s]}
-        />
-      );
-    })}
+  <section class="category-overview" style={`--accent:${accent}`}>
+    <div class="latest-district">
+      <header>
+        <div>
+          <p>// latest arrivals</p>
+          <h2>Newest in this district</h2>
+        </div>
+        <a href="#district-archive">Enter chronology ↓</a>
+      </header>
+      <ol>
+        {posts.slice(0, 3).map((post: any, index: number) => {
+          const slug = slugOf(post);
+          return (
+            <li>
+              <a href={`/blog/${slug}/`}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('en', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}
+                  </time>
+                  <h3>{post.data.title}</h3>
+                  {post.data.description && <p>{post.data.description}</p>}
+                </div>
+                <b aria-hidden="true">→</b>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+
+    <aside class="district-profile">
+      <p>// recurring threads</p>
+      <h2>What grows here</h2>
+      {dominantThemes.length ? (
+        <div>{dominantThemes.map((theme: any) => <ThemeChip id={theme.id} name={theme.name} />)}</div>
+      ) : <p class="empty">Muse is still mapping this district.</p>}
+      <span>Categories tell you what kind of writing this is. Themes reveal what moves through it.</span>
+    </aside>
   </section>
+
+  <section class="district-archive" id="district-archive" style={`--accent:${accent}`} aria-labelledby="archive-title">
+    <header class="archive-heading">
+      <div>
+        <p>// complete district index</p>
+        <h2 id="archive-title">Every {category.name.toLowerCase()} entry.</h2>
+      </div>
+      <p>Newest first. Jump to a year or move straight through the record.</p>
+    </header>
+
+    <div class="archive-layout">
+      <aside class="year-index" aria-label="Years in this category">
+        <p>Jump to year</p>
+        <nav>
+          {years.map(({ year, posts: yearPosts }) => (
+            <a href={`#year-${year}`} data-year-jump><span>{year}</span><small>{yearPosts.length}</small></a>
+          ))}
+        </nav>
+      </aside>
+
+      <div class="year-groups">
+        {years.map(({ year, posts: yearPosts }) => (
+          <section class="year-group" id={`year-${year}`}>
+            <header><h3>{year}</h3><span>{yearPosts.length} {yearPosts.length === 1 ? 'entry' : 'entries'}</span></header>
+            <ol>
+              {yearPosts.map((post: any) => {
+                const slug = slugOf(post);
+                const themes = (themesByPost.get(slug) ?? []).slice(0, 2).map(id => themeById.get(id)).filter(Boolean);
+                return (
+                  <li>
+                    <a href={`/blog/${slug}/`}>
+                      <time datetime={post.data.pubDate.toISOString()}>
+                        {post.data.pubDate.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' })}
+                      </time>
+                      <span class="entry-copy">
+                        <strong>{post.data.title}</strong>
+                        {themes.length > 0 && <span>{themes.map((theme: any) => theme.name).join(' / ')}</span>}
+                      </span>
+                      <b aria-hidden="true">→</b>
+                    </a>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <nav class="district-switcher" aria-label="Other categories">
+    <p>Cross into another district</p>
+    <div>
+      {otherCategories.map(item => (
+        <a href={`/categories/${item.slug}/`}>{item.name}<span aria-hidden="true">↗</span></a>
+      ))}
+    </div>
+  </nav>
 </Layout>
+
+<style>
+  :global(html) { scroll-padding-top: 6rem; }
+  .category-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: 31rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: -1.5rem 0 0;
+    padding: clamp(2rem, 5vw, 4rem);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 2px 2px 1.25rem 1.25rem;
+    background:
+      radial-gradient(circle at 78% 22%, color-mix(in oklch, var(--accent) 16%, transparent), transparent 30%),
+      radial-gradient(circle at 12% 90%, color-mix(in oklch, var(--color-blue) 12%, transparent), transparent 34%),
+      color-mix(in oklch, var(--color-surface) 48%, transparent);
+    box-shadow: 0 30px 80px oklch(0 0 0 / 0.2);
+  }
+  .hero-grid {
+    position: absolute; z-index: -1; inset: 0; opacity: 0.18;
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 92%);
+  }
+  .back-link {
+    position: absolute;
+    top: 1.5rem;
+    left: clamp(2rem, 5vw, 4rem);
+    color: var(--color-ink-soft);
+    font: 500 0.65rem/1 var(--font-mono);
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  .back-link:hover { color: var(--color-cyan); }
+  .category-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    color: var(--color-ink-soft);
+    font: 500 0.64rem/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .category-kicker span {
+    width: 0.42rem; height: 0.42rem; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 12px var(--accent);
+  }
+  .category-hero h1 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(3.5rem, 8vw, 7.2rem);
+    font-weight: 480;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    text-wrap: balance;
+  }
+  .category-deck {
+    max-width: 56ch;
+    margin: 1.3rem 0 0;
+    color: var(--color-ink-soft);
+    font: italic 1.13rem/1.55 var(--font-display);
+  }
+  .category-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 36rem;
+    margin: 2.5rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border-strong);
+  }
+  .category-stats dt {
+    color: var(--color-ink-faint);
+    font: 0.56rem/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .category-stats dd { margin-top: 0.4rem; color: var(--accent); font: 0.72rem/1 var(--font-mono); }
+  .category-overview {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-top: clamp(4rem, 8vw, 7rem);
+  }
+  .latest-district > header {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+  .latest-district header p, .district-profile > p, .archive-heading > div > p {
+    margin: 0 0 0.35rem;
+    color: var(--accent);
+    font: 0.59rem/1 var(--font-mono);
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+  .latest-district h2, .district-profile h2 { margin: 0; font-size: 1.7rem; font-weight: 450; }
+  .latest-district header > a { color: var(--color-cyan); font: 0.62rem/1 var(--font-mono); text-decoration: none; }
+  .latest-district ol { margin: 0; padding: 0; list-style: none; }
+  .latest-district li { border-bottom: 1px solid var(--color-border); }
+  .latest-district li > a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) 2rem;
+    gap: 1rem;
+    align-items: center;
+    min-height: 9rem;
+    padding: 1rem 0.4rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background var(--dur-fast);
+  }
+  .latest-district li > a:hover { background: linear-gradient(90deg, color-mix(in oklch, var(--accent) 7%, transparent), transparent); }
+  .latest-district li > a > span { color: var(--accent); font: 0.58rem/1 var(--font-mono); }
+  .latest-district time { color: var(--color-amber-bright); font: 0.57rem/1 var(--font-mono); text-transform: uppercase; }
+  .latest-district h3 { margin: 0.35rem 0 0; font-size: 1.35rem; font-weight: 450; }
+  .latest-district li p {
+    display: -webkit-box;
+    margin: 0.35rem 0 0;
+    overflow: hidden;
+    color: var(--color-ink-faint);
+    font-size: 0.8rem;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .latest-district li b { color: var(--color-ink-faint); font-weight: 400; }
+  .latest-district li a:hover h3 { color: var(--color-cyan); }
+  .latest-district li a:hover b { color: var(--color-magenta); }
+  .district-profile {
+    align-self: start;
+    padding: 1.4rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: linear-gradient(145deg, color-mix(in oklch, var(--accent) 8%, transparent), color-mix(in oklch, var(--color-surface) 46%, transparent));
+  }
+  .district-profile > div { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .district-profile > span {
+    display: block;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-ink-faint);
+    font: italic 0.8rem/1.5 var(--font-display);
+  }
+  .district-archive { margin-top: clamp(5rem, 10vw, 9rem); scroll-margin-top: 5rem; }
+  .archive-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.6fr);
+    gap: 3rem;
+    align-items: end;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+  .archive-heading h2 { margin: 0; font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 450; }
+  .archive-heading > p { margin: 0; color: var(--color-ink-soft); }
+  .archive-layout {
+    display: grid;
+    grid-template-columns: 8rem minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+    padding-top: 2.5rem;
+  }
+  .year-index { position: sticky; top: 6rem; max-height: calc(100vh - 8rem); overflow-y: auto; }
+  .year-index > p {
+    margin: 0 0 0.6rem;
+    color: var(--accent);
+    font: 0.57rem/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .year-index nav { display: flex; flex-direction: column; }
+  .year-index a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 33px;
+    padding: 0.18rem 0.4rem;
+    border-left: 1px solid var(--color-border);
+    color: var(--color-ink-soft);
+    font: 0.68rem/1 var(--font-mono);
+    text-decoration: none;
+  }
+  .year-index a:hover { border-left-color: var(--accent); color: var(--accent); }
+  .year-index small { color: var(--color-ink-faint); font-size: 0.55rem; }
+  .year-group { scroll-margin-top: 6rem; margin-bottom: 4rem; }
+  .year-group > header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+  .year-group h3 { margin: 0; color: var(--accent); font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 500; }
+  .year-group > header span { color: var(--color-ink-faint); font: 0.58rem/1 var(--font-mono); text-transform: uppercase; }
+  .year-group ol { margin: 0; padding: 0; list-style: none; }
+  .year-group li { border-bottom: 1px solid var(--color-border); }
+  .year-group li > a {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr) 2rem;
+    gap: 1rem;
+    align-items: center;
+    min-height: 76px;
+    padding: 0.8rem 0.4rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background var(--dur-fast);
+  }
+  .year-group li > a:hover { background: linear-gradient(90deg, color-mix(in oklch, var(--accent) 7%, transparent), transparent); }
+  .year-group time { color: var(--color-amber-bright); font: 0.58rem/1 var(--font-mono); text-transform: uppercase; }
+  .entry-copy strong { display: block; font: 450 1.12rem/1.2 var(--font-display); }
+  .entry-copy > span { display: block; margin-top: 0.3rem; color: var(--color-ink-faint); font: 0.56rem/1 var(--font-ui); letter-spacing: 0.06em; text-transform: uppercase; }
+  .year-group li b { color: var(--color-ink-faint); font-weight: 400; }
+  .year-group li a:hover strong { color: var(--color-cyan); }
+  .year-group li a:hover b { color: var(--color-magenta); }
+  .district-switcher {
+    margin-top: 6rem;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: 9px;
+    background: color-mix(in oklch, var(--color-surface) 40%, transparent);
+  }
+  .district-switcher > p { margin: 0 0 0.8rem; color: var(--color-ink-faint); font: 0.58rem/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; }
+  .district-switcher > div { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  .district-switcher a { display: flex; gap: 0.5rem; color: var(--color-ink-soft); font: 0.8rem/1.4 var(--font-ui); text-decoration: none; }
+  .district-switcher a:hover { color: var(--color-cyan); }
+  @media (max-width: 800px) {
+    .category-overview, .archive-heading { grid-template-columns: 1fr; }
+    .archive-layout { grid-template-columns: 1fr; }
+    .year-index { position: sticky; z-index: 5; top: 64px; max-height: none; overflow-x: auto; margin-inline: -1.25rem; padding: 0.65rem 1.25rem; border-block: 1px solid var(--color-border); background: color-mix(in oklch, var(--color-bg) 92%, transparent); backdrop-filter: blur(16px); }
+    .year-index > p { display: none; }
+    .year-index nav { width: max-content; flex-direction: row; }
+    .year-index a { min-width: 62px; min-height: 40px; flex-direction: column; justify-content: center; border-left: 0; border-bottom: 1px solid var(--color-border); }
+  }
+  @media (max-width: 600px) {
+    .category-hero { min-height: 28rem; margin: -1rem -0.2rem 0; padding: 4rem 1.25rem 1.5rem; }
+    .back-link { left: 1.25rem; }
+    .category-hero h1 { font-size: clamp(3rem, 15vw, 4.6rem); }
+    .latest-district li > a { grid-template-columns: 1.5rem minmax(0, 1fr); gap: 0.6rem; }
+    .latest-district li b { display: none; }
+    .year-group li > a { grid-template-columns: 3rem minmax(0, 1fr); gap: 0.5rem; }
+    .year-group li b { display: none; }
+  }
+</style>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-year-jump]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  links.forEach((link) => link.addEventListener('click', (event) => {
+    const target = document.getElementById(link.hash.slice(1));
+    if (!target) return;
+    event.preventDefault();
+    const offset = window.innerWidth <= 800 ? 126 : 88;
+    const start = window.scrollY;
+    const destination = Math.max(0, target.getBoundingClientRect().top + start - offset);
+    history.pushState(null, '', link.hash);
+    if (reducedMotion.matches) {
+      window.scrollTo(0, destination);
+      return;
+    }
+    const distance = destination - start;
+    const duration = Math.min(1000, Math.max(500, Math.abs(distance) * 0.12));
+    const startedAt = performance.now();
+    const glide = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      window.scrollTo(0, start + distance * (1 - Math.pow(1 - progress, 5)));
+      if (progress < 1) requestAnimationFrame(glide);
+    };
+    requestAnimationFrame(glide);
+  }));
+</script>

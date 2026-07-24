@@ -20,20 +20,94 @@ const items = related
   .filter(x => x.post);
 ---
 {items.length > 0 && (
-  <aside class="mt-12 pt-8 border-t border-[var(--color-border-strong)]">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-magenta)] mb-4">If this landed, <abbr data-tip="Machine Underground Synthesis Editor" aria-label="Machine Underground Synthesis Editor" tabindex="0" class="tip no-underline border-b border-dotted border-[var(--color-border-strong)] cursor-help hover:border-[var(--color-cyan)]">Muse</abbr> suggests</p>
-    <ul class="space-y-5">
+  <aside class="related">
+    <div class="related-heading">
+      <span>MUSE.md</span>
+      <p>If this landed, <abbr data-tip="Machine Underground Synthesis Editor" aria-label="Machine Underground Synthesis Editor" tabindex="0" class="tip">Muse</abbr> suggests</p>
+    </div>
+    <ul>
       {items.map(({ post, rationale }) => (
         <li>
-          <a href={`/blog/${(post as any).slug ?? post!.id.replace(/\.md$/, '')}/`} class="block group no-underline">
-            <p class="text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors" style="font-family: var(--font-display);">
-              {post!.data.title}
-              <span class="text-xs text-[var(--color-ink-soft)] ml-2 align-middle">({new Date(post!.data.pubDate).getUTCFullYear()})</span>
-            </p>
-            <p class="text-sm text-[var(--color-ink-soft)] mt-1 italic">{rationale}</p>
+          <a href={`/blog/${(post as any).slug ?? post!.id.replace(/\.md$/, '')}/`}>
+            <small>{new Date(post!.data.pubDate).getUTCFullYear()} / related signal</small>
+            <strong>{post!.data.title}</strong>
+            <p>{rationale}</p>
+            <span aria-hidden="true">Open signal →</span>
           </a>
         </li>
       ))}
     </ul>
   </aside>
 )}
+
+<style>
+  .related { margin-top: 3.5rem; }
+  .related-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+  .related-heading > span {
+    color: var(--color-magenta);
+    font: 500 0.65rem/1 var(--font-mono);
+    letter-spacing: 0.12em;
+  }
+  .related-heading p {
+    color: var(--color-ink-soft);
+    font: italic 0.9rem/1.4 var(--font-display);
+  }
+  .related-heading abbr { text-decoration: none; border-bottom: 1px dotted var(--color-border-strong); cursor: help; }
+  .related ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .related li { display: flex; }
+  .related a {
+    display: flex;
+    width: 100%;
+    min-height: 12rem;
+    flex-direction: column;
+    padding: 1.15rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: color-mix(in oklch, var(--color-surface) 45%, transparent);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast);
+  }
+  .related a:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklch, var(--color-cyan) 50%, transparent);
+    background: color-mix(in oklch, var(--color-blue) 7%, var(--color-surface));
+  }
+  .related small {
+    color: var(--color-ink-faint);
+    font: 0.59rem/1.4 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .related strong {
+    margin-top: 0.7rem;
+    font: 450 1.15rem/1.18 var(--font-display);
+  }
+  .related p {
+    margin-top: 0.55rem;
+    color: var(--color-ink-soft);
+    font: italic 0.8rem/1.45 var(--font-display);
+  }
+  .related a > span {
+    margin-top: auto;
+    padding-top: 1rem;
+    color: var(--color-cyan);
+    font: 0.63rem/1 var(--font-mono);
+  }
+  @media (max-width: 540px) {
+    .related-heading { display: block; }
+    .related-heading p { margin-top: 0.5rem; }
+    .related ul { grid-template-columns: 1fr; }
+    .related a { min-height: 10rem; }
+  }
+</style>

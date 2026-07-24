@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import MuseHighlight from '../components/MuseHighlight.astro';
 import NetworkMap from '../components/NetworkMap.svelte';
+import ThemeChip from '../components/ThemeChip.astro';
 import { getCollection } from 'astro:content';
 import taxonomy from '../content/themes/taxonomy.json';
 import { readFile } from 'node:fs/promises';
@@ -40,8 +41,21 @@ const pickToSlug = (s: string) => {
   return p ? slugOf(p) : null;
 };
 
-const latestSlugs = (picks.latest?.length ? picks.latest.map(pickToSlug).filter(Boolean) as string[]
-  : all.slice(0, 5).map(slugOf));
+// Chronological latest is a permanent, non-editorial homepage surface. Muse's
+// hand-picked posts are kept separate so "new" can never mean "recommended".
+const latestPosts = all.slice(0, 3);
+const musePostSlugs = (picks.latest?.length ? picks.latest.map(pickToSlug).filter(Boolean) as string[]
+  : all.slice(3, 8).map(slugOf));
+
+const countByYear = new Map<number, number>();
+for (const post of all) {
+  const year = post.data.pubDate.getUTCFullYear();
+  countByYear.set(year, (countByYear.get(year) ?? 0) + 1);
+}
+const archiveYears = [...countByYear.entries()]
+  .map(([year, count]) => ({ year, count }))
+  .sort((a, b) => b.year - a.year);
+const maxYearCount = Math.max(...archiveYears.map((item) => item.count));
 
 // Stories: mix of single posts and series groups.
 // Single → { kind: 'post', slug, title, pubDate }
@@ -165,6 +179,7 @@ let stations = mapThemes.map((t: any) => {
   const lane = laneOf.get(t.id)!;
   const info: any = infoById.get(t.id);
   return { id: t.id, name: t.name, postCount: t.postCount, lane, x: xOfDate(medById.get(t.id)!), y: 0,
+    year: new Date(medById.get(t.id)!).getUTCFullYear(),
     isHub: seeds.includes(t.id), below: false, blurb: info?.blurb ?? '', synthesis: info?.synthesis ?? '' };
 });
 // spacing pass within each line so same-rank neighbours don't stack (forward then backward,
@@ -261,78 +276,108 @@ yearTicks.push({ year: 'now', x: X1 });
 
 const mapData = { stations, interchanges, laneCount: LANES, yearTicks };
 
-// themeIds for each Latest post (URL-slug keyed; sidecar looked up by multi-key)
-const themeIdsByLatestSlug: Record<string, string[]> = {};
-for (const s of latestSlugs) {
+// Theme ids for both chronological Latest and Muse's resurfaced selections.
+const themeIdsByPostSlug: Record<string, string[]> = {};
+const themedSlugs = [...new Set([...latestPosts.map(slugOf), ...musePostSlugs])];
+for (const s of themedSlugs) {
   const p = postBySlug.get(s);
-  if (!p) { themeIdsByLatestSlug[s] = []; continue; }
+  if (!p) { themeIdsByPostSlug[s] = []; continue; }
   try {
     const sc = await import(`../content/themes/${sidecarKey(p)}.json`);
-    themeIdsByLatestSlug[s] = sc.default.themeIds ?? [];
+    themeIdsByPostSlug[s] = sc.default.themeIds ?? [];
   } catch {
-    themeIdsByLatestSlug[s] = [];
+    themeIdsByPostSlug[s] = [];
   }
 }
 ---
-<Layout title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — an archive of attention, curated by Muse.">
-  <section class="mt-8 mb-16">
-    <p class="text-xs md:text-sm mb-6" style="font-family: var(--font-mono);" aria-hidden="true"><span style="color: var(--color-green);">muse@hologram</span><span style="color: var(--color-ink-faint);">:</span><span style="color: var(--color-blue);">~</span><span style="color: var(--color-ink-faint);">$</span> <span class="term-cmd-wrap"><span class="term-ghost">replay ./archive --era 2006..2026</span><span class="term-cmd" style="color: var(--color-ink-soft);"><span data-tw-cmd>replay ./archive --era 2006..2026</span><span class="term-mini-caret" data-cmd-caret></span></span></span></p>
-    <h1 class="relative text-5xl md:text-7xl tracking-tight leading-[1.05]" style="font-family: var(--font-display);" aria-label="An archive of attention.">
-      <span class="hero-ghost" aria-hidden="true">An archive of attention.</span>
-      <span class="hero-typed" aria-hidden="true"><span class="prismatic" style="background-size: 240% 100%; animation: scanline-shift 30s linear infinite;" data-tw-h1>An archive of attention.</span><span class="hero-caret" data-h1-caret></span></span>
-    </h1>
-    <p class="hero-reveal text-lg text-[var(--color-ink-soft)] mt-6 max-w-xl leading-relaxed" data-tw-reveal>
-      Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — kept here so it doesn't get lost in the scroll.
-    </p>
-    {featuredNote && (
-      <aside class="hero-reveal mt-10 max-w-xl pl-4 border-l-2 border-[var(--color-amber)]" data-tw-reveal>
-        <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-1">From Muse</p>
-        <p class="text-base text-[var(--color-ink)] italic leading-relaxed" style="font-family: var(--font-display);">{featuredNote}</p>
-      </aside>
-    )}
+<Layout wide title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — an archive of attention, curated by Muse.">
+  <section class="home-hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="terminal-line" aria-hidden="true">
+        <span class="prompt-user">muse@hologram</span><span class="prompt-faint">:</span><span class="prompt-path">~</span><span class="prompt-faint">$</span>
+        <span class="term-cmd-wrap">
+          <span class="term-ghost">replay ./archive --era 2006..2026</span>
+          <span class="term-cmd"><span data-tw-cmd>replay ./archive --era 2006..2026</span><span class="term-mini-caret" data-cmd-caret></span></span>
+        </span>
+      </p>
+      <h1 id="home-title" class="hero-title" data-hero-title>
+        <span class="prismatic">An archive</span>
+        <span>of attention.<span class="hero-caret" aria-hidden="true"></span></span>
+      </h1>
+      <p class="hero-intro" data-hero-reveal>
+        Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture—kept here so it doesn’t get lost in the scroll.
+      </p>
+      <div class="hero-actions" data-hero-reveal>
+        <a href="#latest" class="command-link"><span aria-hidden="true">›</span> read --latest</a>
+        <a href="#understory" class="command-link secondary"><span aria-hidden="true">›</span> explore --threads</a>
+      </div>
+    </div>
+
+    <aside id="latest" class="latest-panel" aria-labelledby="latest-title">
+      <div class="latest-heading">
+        <div>
+          <p class="panel-kicker">Live index</p>
+          <h2 id="latest-title">Latest transmissions</h2>
+        </div>
+        <span class="status-dot" aria-label="Archive active"></span>
+      </div>
+      <ol class="latest-list">
+        {latestPosts.map((post: any, index) => {
+          const slug = slugOf(post);
+          const ids = (themeIdsByPostSlug[slug] ?? []).slice(0, 2);
+          return (
+            <li>
+              <a href={`/blog/${slug}/`} class="latest-link">
+                <span class="latest-index">0{index + 1}</span>
+                <span class="latest-copy">
+                  <span class="latest-title">{post.data.title}</span>
+                  <span class="latest-description">{post.data.description || 'Open the transmission.'}</span>
+                  <span class="latest-themes">
+                    {ids.map((id) => {
+                      const theme = themesById.get(id);
+                      return theme && <span>{theme.name}</span>;
+                    })}
+                  </span>
+                </span>
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' })}
+                </time>
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+      <a class="latest-all" href="/archive/">View every post <span aria-hidden="true">→</span></a>
+    </aside>
   </section>
   <script is:inline>
-    // Muse types the session in: prompt command first, then the headline. The full
-    // text ships in the HTML (SEO / no-JS); this only animates when motion is allowed.
+    // Type one short command, then reveal the complete literary headline. Full text
+    // remains in the HTML for SEO/no-JS and reduced-motion visitors.
     (() => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const cmd = document.querySelector('[data-tw-cmd]');
-      const h1 = document.querySelector('[data-tw-h1]');
       const cmdCaret = document.querySelector('[data-cmd-caret]');
-      const h1Caret = document.querySelector('[data-h1-caret]');
-      const reveals = document.querySelectorAll('[data-tw-reveal]');
-      if (!cmd || !h1 || !cmdCaret || !h1Caret) return;
+      const title = document.querySelector('[data-hero-title]');
+      const reveals = document.querySelectorAll('[data-hero-reveal]');
+      if (!cmd || !cmdCaret || !title) return;
       const cmdText = cmd.textContent;
-      const h1Text = h1.textContent;
       cmd.textContent = '';
-      h1.textContent = '';
-      h1Caret.classList.add('caret-off');
-      reveals.forEach((el) => el.classList.add('tw-wait'));
-
-      // The whole sequence is one elapsed-time event list, replayed idempotently.
-      // Driven by rAF (smooth in the foreground) with a timeout fallback, because
-      // browsers throttle/pause both in hidden or occluded tabs — on any tick the
-      // timeline catches up to wall-clock, so a backgrounded load just fast-forwards.
+      title.classList.add('reveal-pending');
+      reveals.forEach((el) => el.classList.add('reveal-pending'));
       const events = [];
-      let t = 250;
+      let t = 120;
       events.push([t, () => cmdCaret.classList.add('caret-typing')]);
       for (let k = 0; k < cmdText.length; k++) {
-        t += 30 * (0.6 + Math.random() * 0.9);
+        t += 18 * (0.72 + Math.random() * 0.55);
         const n = k + 1;
         events.push([t, () => { cmd.textContent = cmdText.slice(0, n); }]);
       }
-      events.push([t += 120, () => cmdCaret.classList.remove('caret-typing')]);
-      events.push([t += 380, () => {
-        h1Caret.classList.remove('caret-off');
-        h1Caret.classList.add('caret-typing');
+      events.push([t += 80, () => cmdCaret.classList.remove('caret-typing')]);
+      events.push([t += 80, () => {
+        title.classList.remove('reveal-pending');
+        title.classList.add('revealed');
+        reveals.forEach((el) => el.classList.remove('reveal-pending'));
       }]);
-      for (let k = 0; k < h1Text.length; k++) {
-        t += 52 * (0.6 + Math.random() * 0.9);
-        const n = k + 1;
-        events.push([t, () => { h1.textContent = h1Text.slice(0, n); }]);
-      }
-      events.push([t += 150, () => h1Caret.classList.remove('caret-typing')]);
-      events.push([t += 250, () => reveals.forEach((el) => el.classList.remove('tw-wait'))]);
 
       const startAt = performance.now();
       let idx = 0;
@@ -352,28 +397,111 @@ for (const s of latestSlugs) {
     })();
   </script>
 
-  <MuseHighlight latestSlugs={latestSlugs} activeThemes={activeThemes} stories={stories} themeIdsBySlug={themeIdsByLatestSlug} />
+  <section class="year-doorway" aria-labelledby="years-title">
+    <div class="year-intro">
+      <p class="section-kicker">Twenty years in the archive</p>
+      <h2 id="years-title">Find the year you remember.</h2>
+      <p>Every year is a doorway. Follow chronology, then let the threads take over.</p>
+    </div>
+    <div class="year-rail-shell">
+      <div class="year-rail" aria-label="Browse archive by year" data-year-rail>
+        {archiveYears.map(({ year, count }) => (
+          <a href={`/archive/#year-${year}`} class="year-link">
+            <span class="year-value">{year}</span>
+            <span class="year-bar" style={`--year-density:${count / maxYearCount}`}></span>
+            <span class="year-count">{count} {count === 1 ? 'post' : 'posts'}</span>
+          </a>
+        ))}
+      </div>
+      <button class="year-scroll-cue" type="button" data-year-scroll aria-label="Show earlier archive years">
+        <span>earlier</span>
+        <b aria-hidden="true">→</b>
+      </button>
+    </div>
+    <a class="browse-archive" href="/archive/">Browse the complete chronology <span aria-hidden="true">→</span></a>
+  </section>
 
-  <section class="mt-24 mb-12">
-    <div class="text-center max-w-xl mx-auto mb-6">
-      <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)]">The understory</p>
-      <h2 class="text-3xl md:text-4xl mt-1" style="font-family: var(--font-display);">Lines through the archive</h2>
-      <p class="text-sm text-[var(--color-ink-soft)] mt-3 leading-relaxed">
+  <script>
+    const rail = document.querySelector<HTMLElement>('[data-year-rail]');
+    const cue = document.querySelector<HTMLButtonElement>('[data-year-scroll]');
+    if (rail && cue) {
+      const updateCue = () => {
+        const atEnd = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 8;
+        cue.classList.toggle('is-hidden', atEnd);
+      };
+      cue.addEventListener('click', () => {
+        rail.scrollBy({
+          left: Math.max(280, rail.clientWidth * 0.72),
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        });
+      });
+      rail.addEventListener('scroll', updateCue, { passive: true });
+      updateCue();
+    }
+  </script>
+
+  <MuseHighlight
+    postSlugs={musePostSlugs}
+    activeThemes={activeThemes}
+    stories={stories}
+    themeIdsBySlug={themeIdsByPostSlug}
+    featuredNote={featuredNote}
+  />
+
+  <section id="understory" class="understory-zone">
+    <div class="understory-heading">
+      <p class="section-kicker">The understory</p>
+      <h2>Lines through the archive</h2>
+      <p>
         Every thread laid along the years it ran, grouped into the lines they travel together. Spores drift forward through time. Touch a station to open it below.
       </p>
     </div>
-    <div style="width:100vw;position:relative;left:50%;transform:translateX(-50%);">
+    <div class="map-bleed">
       <NetworkMap data={mapData} client:visible />
     </div>
   </section>
 </Layout>
 
 <style>
-  /* Ghost/overlay typewriter: the invisible full text reserves layout (no CLS),
-     the absolutely-positioned twin types over it. Same font metrics → same wrap. */
+  .home-hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.92fr);
+    gap: clamp(2rem, 5vw, 5.5rem);
+    align-items: center;
+    min-height: min(690px, calc(100vh - 8rem));
+    padding: clamp(2rem, 6vw, 5.5rem) 0;
+    isolation: isolate;
+  }
+  .home-hero::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: min(760px, 76vw);
+    height: min(640px, 70vw);
+    left: -20%;
+    top: -7%;
+    background:
+      radial-gradient(circle at 50% 44%, color-mix(in oklch, var(--color-blue) 16%, transparent), transparent 48%),
+      radial-gradient(circle at 72% 64%, color-mix(in oklch, var(--color-cyan) 8%, transparent), transparent 40%);
+    filter: blur(24px);
+    opacity: 0.92;
+    pointer-events: none;
+  }
+  .hero-copy { min-width: 0; }
+  .terminal-line {
+    margin: 0 0 1.8rem;
+    min-width: 0;
+    color: var(--color-ink-soft);
+    font: clamp(0.68rem, 1.2vw, 0.8rem) var(--font-mono);
+    white-space: nowrap;
+  }
+  .prompt-user { color: var(--color-green); }
+  .prompt-path { color: var(--color-blue); }
+  .prompt-faint { color: var(--color-ink-faint); }
   .term-cmd-wrap { position: relative; display: inline-block; }
   .term-ghost { visibility: hidden; white-space: pre; }
-  .term-cmd { position: absolute; left: 0; top: 0; white-space: pre; }
+  .term-cmd { position: absolute; left: 0; top: 0; color: var(--color-ink-soft); white-space: pre; }
   .term-mini-caret {
     display: inline-block;
     width: 0.55ch;
@@ -384,9 +512,27 @@ for (const s of latestSlugs) {
     opacity: 0;
   }
   .term-mini-caret.caret-typing { opacity: 1; }
-
-  .hero-ghost { visibility: hidden; }
-  .hero-typed { position: absolute; inset: 0; }
+  .hero-title {
+    margin: 0;
+    font-size: clamp(3.65rem, 7.4vw, 7.1rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+  .hero-title > span { display: block; }
+  .hero-title > span:last-child { color: var(--color-ink); }
+  .hero-title.reveal-pending {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(10px);
+  }
+  .hero-title.revealed {
+    animation: title-bloom 680ms var(--ease-grow) both;
+  }
+  @keyframes title-bloom {
+    from { opacity: 0; transform: translateY(10px); filter: blur(10px); clip-path: inset(0 100% 0 0); }
+    to { opacity: 1; transform: none; filter: blur(0); clip-path: inset(0); }
+  }
   .hero-caret {
     display: inline-block;
     width: 0.48ch;
@@ -397,17 +543,240 @@ for (const s of latestSlugs) {
     box-shadow: 0 0 18px color-mix(in oklch, var(--color-green) 55%, transparent);
     animation: hero-blink 1.06s steps(1) infinite;
   }
-  .hero-caret.caret-typing { animation: none; opacity: 1; }
-  .hero-caret.caret-off { animation: none; opacity: 0; }
   @keyframes hero-blink {
     0%, 50% { opacity: 1; }
     50.01%, 100% { opacity: 0; }
   }
+  .hero-intro {
+    max-width: 38rem;
+    margin: 2rem 0 0;
+    color: var(--color-ink-soft);
+    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
+    line-height: 1.65;
+  }
+  [data-hero-reveal] { transition: opacity 520ms var(--ease-grow), transform 520ms var(--ease-grow); }
+  [data-hero-reveal].reveal-pending { opacity: 0; transform: translateY(8px); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1.75rem; }
+  .command-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    color: var(--color-cyan);
+    font: 0.78rem var(--font-mono);
+    text-decoration: none;
+  }
+  .command-link span { color: var(--color-green); }
+  .command-link.secondary { color: var(--color-ink-soft); }
+  .command-link:hover { color: var(--color-magenta); }
 
-  .hero-reveal { transition: opacity 600ms var(--ease-grow), transform 600ms var(--ease-grow); }
-  .hero-reveal.tw-wait { opacity: 0; transform: translateY(10px); }
+  .latest-panel {
+    position: relative;
+    min-width: 0;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 100% 0%, color-mix(in oklch, var(--color-magenta) 11%, transparent), transparent 42%),
+      color-mix(in oklch, var(--color-surface) 82%, transparent);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 0 24px 70px oklch(0 0 0 / 0.32);
+    backdrop-filter: blur(20px);
+  }
+  .latest-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0.75rem 1.2rem auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-blue), var(--color-magenta), transparent);
+    opacity: 0.7;
+  }
+  .latest-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: start; padding: 0.25rem 0 1rem; }
+  .panel-kicker, .section-kicker {
+    margin: 0 0 0.25rem;
+    color: var(--color-magenta);
+    font: 0.64rem var(--font-mono);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .latest-heading h2 { margin: 0; font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    margin-top: 0.7rem;
+    border-radius: 50%;
+    background: var(--color-green);
+    box-shadow: 0 0 12px color-mix(in oklch, var(--color-green) 75%, transparent);
+  }
+  .latest-list { margin: 0; padding: 0; list-style: none; }
+  .latest-list li { border-top: 1px solid var(--color-border); }
+  .latest-link {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    align-items: start;
+    min-height: 44px;
+    padding: 1rem 0;
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+  .latest-index { padding-top: 0.2rem; color: var(--color-blue); font: 0.62rem var(--font-mono); }
+  .latest-copy { display: flex; min-width: 0; flex-direction: column; }
+  .latest-title { color: var(--color-ink); font: 500 clamp(1.05rem, 1.8vw, 1.25rem)/1.2 var(--font-display); }
+  .latest-description {
+    display: -webkit-box;
+    margin-top: 0.25rem;
+    overflow: hidden;
+    color: var(--color-ink-soft);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .latest-themes { display: flex; flex-wrap: wrap; gap: 0.35rem 0.65rem; margin-top: 0.55rem; }
+  .latest-themes span { color: var(--color-magenta); font: 0.6rem var(--font-mono); text-transform: uppercase; }
+  .latest-link time { padding-top: 0.2rem; color: var(--color-amber-bright); font: 0.6rem var(--font-mono); text-transform: uppercase; }
+  .latest-link:hover .latest-title { color: var(--color-cyan); }
+  .latest-link:hover .latest-index { color: var(--color-magenta); }
+  .latest-all, .browse-archive {
+    display: inline-flex;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    color: var(--color-cyan);
+    font: 0.75rem var(--font-mono);
+    text-decoration: none;
+  }
+
+  .year-doorway {
+    position: relative;
+    margin: clamp(3rem, 7vw, 6rem) 0;
+    padding: clamp(1.5rem, 4vw, 2.75rem);
+    background:
+      linear-gradient(115deg, color-mix(in oklch, var(--color-blue) 7%, transparent), transparent 42%),
+      color-mix(in oklch, var(--color-bg-soft) 56%, transparent);
+    border-block: 1px solid var(--color-border);
+  }
+  .year-intro { display: grid; grid-template-columns: minmax(14rem, 0.75fr) 1fr; gap: 0 3rem; align-items: end; margin-bottom: 1.5rem; }
+  .year-intro .section-kicker { grid-column: 1 / -1; }
+  .year-intro h2 { margin: 0; font-size: clamp(1.8rem, 3vw, 2.65rem); }
+  .year-intro > p:last-child { margin: 0; max-width: 35rem; color: var(--color-ink-soft); }
+  .year-rail-shell { position: relative; }
+  .year-rail {
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    padding: 0.4rem 7rem 0.8rem 0;
+    scrollbar-width: thin;
+    scroll-snap-type: x proximity;
+  }
+  .year-link {
+    flex: 0 0 5.3rem;
+    display: grid;
+    grid-template-rows: auto 3rem auto;
+    gap: 0.35rem;
+    min-height: 88px;
+    padding: 0.65rem 0.7rem;
+    background: color-mix(in oklch, var(--color-surface) 38%, transparent);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    color: var(--color-ink);
+    text-decoration: none;
+    scroll-snap-align: start;
+  }
+  .year-value { color: var(--color-amber-bright); font: 0.76rem var(--font-mono); }
+  .year-bar {
+    align-self: end;
+    width: calc(12% + var(--year-density) * 88%);
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-blue), var(--color-cyan));
+    box-shadow: 0 0 8px color-mix(in oklch, var(--color-cyan) 25%, transparent);
+    transition: width var(--dur-med) var(--ease-grow);
+  }
+  .year-count { color: var(--color-ink-faint); font: 0.58rem var(--font-mono); }
+  .year-link:hover { border-color: var(--color-border-strong); background: color-mix(in oklch, var(--color-blue) 8%, transparent); }
+  .year-link:hover .year-bar { width: 100%; background: linear-gradient(90deg, var(--color-magenta), var(--color-cyan)); }
+  .year-scroll-cue {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0.4rem;
+    width: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0.15rem;
+    padding: 0 0.8rem 0 2.5rem;
+    border: 0;
+    background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--color-bg-soft) 92%, var(--color-bg)) 42%);
+    color: var(--color-cyan);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    transition: opacity var(--dur-fast), visibility var(--dur-fast);
+  }
+  .year-scroll-cue span {
+    color: var(--color-ink-soft);
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .year-scroll-cue b {
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1;
+    animation: year-nudge 1.8s var(--ease-grow) infinite;
+  }
+  .year-scroll-cue:hover b { color: var(--color-magenta); }
+  .year-scroll-cue.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  @keyframes year-nudge {
+    0%, 55%, 100% { transform: translateX(0); }
+    75% { transform: translateX(5px); }
+  }
+
+  .understory-zone {
+    position: relative;
+    margin-top: clamp(4rem, 10vw, 9rem);
+    padding-top: clamp(3rem, 7vw, 6rem);
+  }
+  .understory-zone::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 50% -3rem;
+    width: 100vw;
+    transform: translateX(-50%);
+    background:
+      linear-gradient(color-mix(in oklch, var(--color-blue) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklch, var(--color-blue) 4%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklch, var(--color-bg) 25%, transparent), color-mix(in oklch, black 12%, var(--color-bg)));
+    background-size: 64px 64px, 64px 64px, auto;
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black);
+  }
+  .understory-heading { max-width: 42rem; margin: 0 auto 1.5rem; text-align: center; }
+  .understory-heading h2 { margin: 0.25rem 0 0; font-size: clamp(2rem, 4vw, 3.25rem); }
+  .understory-heading > p:last-child { margin: 0.85rem 0 0; color: var(--color-ink-soft); font-size: 0.95rem; }
+  .map-bleed { width: 100vw; position: relative; left: 50%; transform: translateX(-50%); }
 
   @media (prefers-reduced-motion: reduce) {
     .hero-caret { animation: none; opacity: 1; }
+    .hero-title.reveal-pending,
+    [data-hero-reveal].reveal-pending { opacity: 1; transform: none; filter: none; }
+  }
+  @media (max-width: 900px) {
+    .home-hero { grid-template-columns: 1fr; min-height: auto; padding-top: 2.5rem; }
+    .latest-panel { max-width: 42rem; }
+  }
+  @media (max-width: 620px) {
+    .home-hero { gap: 2.2rem; padding-bottom: 2rem; }
+    .terminal-line { overflow: hidden; margin-bottom: 1.35rem; }
+    .hero-title { font-size: clamp(3.25rem, 17vw, 4.8rem); }
+    .hero-intro { margin-top: 1.35rem; font-size: 1rem; }
+    .hero-actions { margin-top: 1rem; }
+    .latest-panel { margin-inline: -0.25rem; padding: 1.15rem; }
+    .latest-description { -webkit-line-clamp: 1; }
+    .year-doorway { margin-inline: -1.25rem; padding-inline: 1.25rem; }
+    .year-intro { grid-template-columns: 1fr; gap: 0.6rem; }
+    .year-intro .section-kicker { grid-column: auto; }
+    .year-link { flex-basis: 4.9rem; }
   }
 </style>

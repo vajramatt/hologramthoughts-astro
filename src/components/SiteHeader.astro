@@ -1,28 +1,151 @@
 ---
 const nav = [
-  { href: '/', label: 'home' },
+  { href: '/#latest', label: 'latest', section: true },
   { href: '/archive/', label: 'archive' },
   { href: '/themes', label: 'themes' },
   { href: '/search', label: 'search' }
 ];
 const path = Astro.url.pathname;
+const isActive = (href: string) => !href.includes('#') && path.startsWith(href);
 ---
-<header class="sticky top-0 z-30 backdrop-blur-md border-b border-[var(--color-border)] relative" style="background: color-mix(in oklch, var(--color-bg) 75%, transparent);">
-  <div class="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between relative">
-    <a href="/" class="text-lg no-underline">
+<header class="site-header sticky top-0 z-30">
+  <div class="mx-auto max-w-6xl px-5 sm:px-6 h-16 flex items-center justify-between gap-4 relative">
+    <a href="/" class="brand text-lg no-underline shrink-0" aria-label="Hologram Thoughts home">
       <span class="wordmark">hologram thoughts</span><span class="term-caret" aria-hidden="true"></span>
     </a>
-    <nav class="flex items-center gap-6 text-sm" style="font-family: var(--font-ui);">
+    <nav class="desktop-nav items-center gap-7 text-sm" aria-label="Primary">
       {nav.map(n => (
-        <a href={n.href} class:list={["no-underline transition-colors", path.startsWith(n.href) && n.href !== '/' ? 'text-[var(--color-cyan)]' : 'text-[var(--color-ink-soft)] hover:text-[var(--color-cyan)]']}>
+        <a
+          href={n.href}
+          class:list={['nav-link no-underline', isActive(n.href) && 'active']}
+          aria-current={isActive(n.href) ? 'page' : undefined}
+        >
           {n.label}
+          {n.label === 'search' && <kbd>⌘K</kbd>}
         </a>
       ))}
     </nav>
+
+    <details class="mobile-menu">
+      <summary aria-label="Open navigation">
+        <span>menu</span><span class="menu-glyph" aria-hidden="true">+</span>
+      </summary>
+      <nav class="mobile-panel" aria-label="Mobile navigation">
+        <p class="panel-label">// navigate</p>
+        {nav.map((n, index) => (
+          <a
+            href={n.href}
+            class:list={['mobile-link', isActive(n.href) && 'active']}
+            aria-current={isActive(n.href) ? 'page' : undefined}
+          >
+            <span class="link-index">0{index + 1}</span>
+            <span>{n.label}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
+      </nav>
+    </details>
   </div>
 </header>
 
 <style>
+  .site-header {
+    border-bottom: 1px solid var(--color-border);
+    background:
+      linear-gradient(90deg, color-mix(in oklch, var(--color-blue) 4%, transparent), transparent 35%, color-mix(in oklch, var(--color-magenta) 4%, transparent)),
+      color-mix(in oklch, var(--color-bg) 82%, transparent);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .desktop-nav { display: flex; font-family: var(--font-ui); }
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    color: var(--color-ink-soft);
+    transition: color var(--dur-fast) var(--ease-grow);
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-blue), var(--color-cyan));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--dur-fast) var(--ease-grow);
+  }
+  .nav-link:hover,
+  .nav-link.active { color: var(--color-cyan); }
+  .nav-link:hover::after,
+  .nav-link.active::after { transform: scaleX(1); }
+  .nav-link kbd {
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    padding: 0.05rem 0.28rem;
+    color: var(--color-ink-faint);
+    font: 0.62rem var(--font-mono);
+  }
+  .mobile-menu { display: none; position: relative; }
+  .mobile-menu summary {
+    min-width: 68px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    cursor: pointer;
+    list-style: none;
+    color: var(--color-cyan);
+    font: 0.78rem var(--font-mono);
+  }
+  .mobile-menu summary::-webkit-details-marker { display: none; }
+  .menu-glyph {
+    display: inline-grid;
+    place-items: center;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 50%;
+    transition: transform var(--dur-fast) var(--ease-grow);
+  }
+  .mobile-menu[open] .menu-glyph { transform: rotate(45deg); }
+  .mobile-panel {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    padding: 1rem 1.25rem 1.35rem;
+    background:
+      radial-gradient(circle at 90% 0%, color-mix(in oklch, var(--color-magenta) 12%, transparent), transparent 42%),
+      color-mix(in oklch, var(--color-bg-soft) 96%, transparent);
+    border-bottom: 1px solid var(--color-border-strong);
+    box-shadow: 0 18px 40px oklch(0 0 0 / 0.42);
+  }
+  .panel-label {
+    margin: 0 0 0.5rem;
+    color: var(--color-magenta);
+    font: 0.65rem var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .mobile-link {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: center;
+    min-height: 52px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-ink);
+    font: 1rem var(--font-ui);
+    text-decoration: none;
+  }
+  .mobile-link.active { color: var(--color-cyan); }
+  .link-index { color: var(--color-amber-bright); font: 0.65rem var(--font-mono); }
+
   /* terminal caret — the site's one bit of ambient motion, blinks like a CLI prompt */
   .term-caret {
     display: inline-block;
@@ -41,4 +164,32 @@ const path = Astro.url.pathname;
   @media (prefers-reduced-motion: reduce) {
     .term-caret { animation: none; opacity: 1; }
   }
+  @media (max-width: 680px) {
+    .desktop-nav { display: none; }
+    .mobile-menu { display: block; }
+  }
 </style>
+
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+  menu?.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    }
+  });
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => { menu.open = false; });
+  });
+  document.addEventListener('keydown', (event) => {
+    const target = event.target as HTMLElement | null;
+    const isTyping = target?.matches('input, textarea, select, [contenteditable="true"]');
+    const opensSearch = (event.key.toLowerCase() === 'k' && (event.metaKey || event.ctrlKey))
+      || (event.key === '/' && !isTyping);
+    if (!opensSearch) return;
+    event.preventDefault();
+    const input = document.querySelector<HTMLInputElement>('#search-input');
+    if (input) input.focus();
+    else window.location.href = '/search/';
+  });
+</script>

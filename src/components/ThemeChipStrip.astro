@@ -9,10 +9,27 @@ const themes = themeIds
   .filter(Boolean);
 ---
 {themes.length > 0 && (
-  <aside class="mt-16 pt-8 border-t border-[var(--color-border-strong)]">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-4">{label}</p>
-    <div class="flex flex-wrap gap-2">
+  <aside class="theme-strip">
+    <p>{label}</p>
+    <div>
       {themes.map((t: any) => <ThemeChip id={t.id} name={t.name} />)}
     </div>
   </aside>
 )}
+
+<style>
+  .theme-strip {
+    margin-top: 2rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .theme-strip p {
+    margin-bottom: 0.75rem;
+    color: var(--color-ink-faint);
+    font: 500 0.63rem/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .theme-strip > div { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+</style>

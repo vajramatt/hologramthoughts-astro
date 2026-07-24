@@ -2,201 +2,804 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
-const searchablePosts = allPosts.map(post => ({
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const cleanMarkdown = (body: string) => body
+  .replace(/^---[\s\S]*?---\n?/, '')
+  .replace(/!\[([^\]]*)\]\([^)]+\)/g, '$1')
+  .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+  .replace(/<[^>]+>/g, ' ')
+  .replace(/[`*_>#~|]/g, ' ')
+  .replace(/\s+/g, ' ')
+  .trim();
+
+const searchablePosts = allPosts.map((post) => ({
   title: post.data.title,
-  url: `/blog/${post.slug}`,
+  url: `/blog/${post.slug}/`,
   categories: post.data.categories || [],
+  tags: post.data.tags || [],
   description: post.data.description || '',
-  content: post.body.substring(0, 500),
-  date: post.data.pubDate
+  content: cleanMarkdown(post.body),
+  date: post.data.pubDate.toISOString(),
+  year: post.data.pubDate.getUTCFullYear(),
+  type: post.data.contentType || 'reflection',
 }));
+
+const oldestYear = Math.min(...searchablePosts.map((post) => post.year));
+const newestYear = Math.max(...searchablePosts.map((post) => post.year));
 ---
 
-<Layout title="Search — Hologram Thoughts" description="Search the full archive of Hologram Thoughts.">
-  <header class="mb-8">
-    <p class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-2">Find</p>
-    <h1 class="text-5xl tracking-tight" style="font-family: var(--font-display);">Search the archive</h1>
-    <p class="text-[var(--color-ink-soft)] mt-3 max-w-xl">
-      Twenty years of writing, indexed by title, description, and category.
-    </p>
-  </header>
+<Layout wide title="Search — Hologram Thoughts" description="Search the full archive of Hologram Thoughts.">
+  <section class="search-console" aria-labelledby="search-title">
+    <div class="console-grid" aria-hidden="true"></div>
+    <header class="search-hero">
+      <div>
+        <p class="search-kicker"><span></span> Archive retrieval system</p>
+        <h1 id="search-title">Find the signal<br /><em>you remember.</em></h1>
+      </div>
+      <div class="index-status">
+        <p><span>{allPosts.length}</span> entries indexed</p>
+        <p><span>{oldestYear}—{newestYear}</span> temporal range</p>
+        <p><i></i> index online</p>
+      </div>
+    </header>
 
-  <div class="mb-10">
-    <input
-      type="search"
-      id="search-input"
-      class="w-full bg-transparent border border-[var(--color-border-strong)] rounded-full px-5 py-3 text-base text-[var(--color-ink)] placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-cyan)] focus:shadow-[var(--shadow-deep)] transition-all"
-      placeholder="buddhism, dreams, emptiness…"
-      autocomplete="off"
-    />
-  </div>
+    <div class="query-panel">
+      <label for="search-input">Search title, text, theme, or category</label>
+      <div class="query-field">
+        <span class="query-prompt" aria-hidden="true">›</span>
+        <input
+          type="search"
+          id="search-input"
+          placeholder="What are you looking for?"
+          autocomplete="off"
+          spellcheck="false"
+          aria-describedby="search-help"
+        />
+        <kbd>esc</kbd>
+      </div>
+      <div class="query-footer">
+        <p id="search-help">Try a person, image, practice, question, or half-remembered phrase.</p>
+        <span>full archive / local index</span>
+      </div>
+    </div>
 
-  <section>
-    <h2 class="text-xs uppercase tracking-[0.18em] text-[var(--color-ink-soft)] mb-4" id="search-heading">Results</h2>
-    <div id="search-results"></div>
+    <div class="search-paths" aria-label="Suggested searches">
+      <span>Begin somewhere</span>
+      <button type="button" data-query="impermanence">impermanence</button>
+      <button type="button" data-query="dreams">dreams</button>
+      <button type="button" data-query="artificial intelligence">artificial intelligence</button>
+      <button type="button" data-query="compassion">compassion</button>
+      <button type="button" data-query="fatherhood">fatherhood</button>
+    </div>
   </section>
 
-  <aside class="mt-16 pt-8 border-t border-[var(--color-border-strong)] text-sm text-[var(--color-ink-soft)]">
-    <p class="text-xs uppercase tracking-[0.18em] mb-3">Try</p>
-    <ul class="space-y-1.5">
-      <li>topics: buddhism, meditation, chenrezig</li>
-      <li>stories: fiction, emergence, jyoti</li>
-      <li>concepts: oneness, dharma, enlightenment</li>
-      <li>practices: reiki, yoga, mindfulness</li>
-    </ul>
-  </aside>
+  <section class="search-workspace" aria-labelledby="results-heading">
+    <header class="results-toolbar">
+      <div>
+        <p class="toolbar-label">Retrieved signals</p>
+        <h2 id="results-heading" aria-live="polite">Waiting for a query</h2>
+      </div>
+      <div class="result-controls" hidden data-controls>
+        <div class="type-filters" role="group" aria-label="Filter by writing type">
+          <button type="button" class="is-active" data-type="all">All</button>
+          <button type="button" data-type="poetry">Poetry</button>
+          <button type="button" data-type="story">Stories</button>
+          <button type="button" data-type="article">Articles</button>
+          <button type="button" data-type="reflection">Reflections</button>
+        </div>
+        <label class="sort-control">
+          <span>Sort</span>
+          <select id="sort-results">
+            <option value="relevance">Relevance</option>
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <div id="search-results">
+      <div class="search-idle">
+        <span aria-hidden="true">⌕</span>
+        <div>
+          <h3>The index is listening.</h3>
+          <p>Search across two decades of poems, stories, field notes, dreams, dharma, technology, and ordinary life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  :global(.results-count) {
+  .search-console {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    margin: -1.5rem 0 0;
+    padding: clamp(1.5rem, 5vw, 4rem);
+    border: 1px solid var(--color-border);
+    border-radius: 2px 2px 1.25rem 1.25rem;
+    background:
+      radial-gradient(circle at 80% 18%, color-mix(in oklch, var(--color-magenta) 15%, transparent), transparent 28%),
+      radial-gradient(circle at 12% 92%, color-mix(in oklch, var(--color-blue) 15%, transparent), transparent 32%),
+      color-mix(in oklch, var(--color-surface) 50%, transparent);
+    box-shadow: 0 30px 80px oklch(0 0 0 / 0.2);
+  }
+
+  .console-grid {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(var(--color-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 90%);
+  }
+
+  .search-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 3rem;
+    align-items: end;
+  }
+
+  .search-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1.25rem;
     color: var(--color-ink-soft);
-    font-size: 0.75rem;
+    font: 500 0.65rem/1 var(--font-mono);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin-bottom: 1.5rem;
   }
 
-  :global(.search-result) {
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--color-border);
+  .search-kicker span {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--color-green);
+    box-shadow: 0 0 12px var(--color-green);
   }
 
-  :global(.search-result:last-child) {
-    border-bottom: none;
-  }
-
-  :global(.search-result-title) {
-    margin: 0 0 0.35rem;
-    font-size: 1.25rem;
-    font-family: var(--font-display);
-    letter-spacing: -0.015em;
-  }
-
-  :global(.search-result-title a) {
+  .search-hero h1 {
+    margin: 0;
     color: var(--color-ink);
-    text-decoration: none;
-    transition: color var(--dur-fast) var(--ease-grow);
+    font-size: clamp(3.2rem, 7vw, 6.8rem);
+    font-weight: 480;
+    letter-spacing: -0.055em;
+    line-height: 0.88;
+    text-wrap: balance;
   }
 
-  :global(.search-result-title a:hover) {
+  .search-hero h1 em {
+    color: var(--color-blue);
+    font-weight: inherit;
+  }
+
+  .index-status {
+    min-width: 12rem;
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--color-border-strong);
+    color: var(--color-ink-faint);
+    font: 0.62rem/1.9 var(--font-mono);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .index-status p { margin: 0; }
+  .index-status span { color: var(--color-amber-bright); }
+  .index-status i {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: 0.35rem;
+    border-radius: 50%;
+    background: var(--color-green);
+    box-shadow: 0 0 8px var(--color-green);
+  }
+
+  .query-panel {
+    margin-top: clamp(3rem, 7vw, 5.5rem);
+  }
+
+  .query-panel > label {
+    display: block;
+    margin-bottom: 0.65rem;
+    color: var(--color-magenta);
+    font: 500 0.62rem/1 var(--font-mono);
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .query-field {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.8rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    background: color-mix(in oklch, var(--color-bg) 76%, transparent);
+    box-shadow: inset 3px 0 var(--color-cyan);
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+
+  .query-field:focus-within {
+    border-color: color-mix(in oklch, var(--color-cyan) 65%, transparent);
+    box-shadow: inset 3px 0 var(--color-cyan), 0 0 28px color-mix(in oklch, var(--color-cyan) 11%, transparent);
+  }
+
+  .query-prompt {
+    color: var(--color-green);
+    font: 1.7rem/1 var(--font-mono);
+  }
+
+  .query-field input {
+    min-width: 0;
+    width: 100%;
+    padding: 0.15rem 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-ink);
+    font: 450 clamp(1.25rem, 3vw, 2rem)/1.2 var(--font-display);
+    caret-color: var(--color-magenta-hot);
+  }
+
+  .query-field input::placeholder { color: var(--color-ink-faint); opacity: 0.72; }
+  .query-field input::-webkit-search-cancel-button { display: none; }
+
+  .query-field kbd {
+    padding: 0.22rem 0.42rem;
+    border: 1px solid var(--color-border-strong);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    color: var(--color-ink-faint);
+    font: 0.58rem/1 var(--font-mono);
+    text-transform: uppercase;
+  }
+
+  .query-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 0.65rem;
+    color: var(--color-ink-faint);
+    font: 0.62rem/1.5 var(--font-mono);
+  }
+
+  .query-footer p { margin: 0; }
+  .query-footer span { text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .search-paths {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .search-paths > span {
+    margin-right: 0.25rem;
+    color: var(--color-ink-faint);
+    font: 0.61rem/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .search-paths button {
+    min-height: 34px;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--color-magenta) 7%, transparent);
+    color: var(--color-ink-soft);
+    font: 0.7rem/1 var(--font-ui);
+    cursor: pointer;
+    transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+  }
+
+  .search-paths button:hover {
+    border-color: var(--color-cyan);
+    background: color-mix(in oklch, var(--color-cyan) 8%, transparent);
     color: var(--color-cyan);
   }
 
-  :global(.search-result-excerpt) {
-    color: var(--color-ink-soft);
-    line-height: 1.6;
-    margin: 0 0 0.5rem;
-    font-size: 0.9rem;
-  }
+  .search-workspace { margin-top: clamp(3rem, 7vw, 6rem); }
 
-  :global(.search-result-categories) {
+  .results-toolbar {
     display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--color-border-strong);
   }
 
-  :global(.category-tag) {
-    color: var(--color-ink-soft);
-    font-size: 0.7rem;
+  .toolbar-label {
+    margin: 0 0 0.25rem;
+    color: var(--color-magenta);
+    font: 500 0.61rem/1 var(--font-mono);
+    letter-spacing: 0.13em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
   }
 
-  :global(.no-results) {
+  .results-toolbar h2 {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: clamp(1.6rem, 3vw, 2.35rem);
+    font-weight: 450;
+  }
+
+  .result-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .result-controls[hidden] { display: none; }
+
+  .type-filters {
+    display: flex;
+    gap: 0.2rem;
+    padding: 0.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: color-mix(in oklch, var(--color-surface) 40%, transparent);
+  }
+
+  .type-filters button {
+    min-height: 32px;
+    padding: 0.3rem 0.6rem;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--color-ink-faint);
+    font: 0.65rem/1 var(--font-ui);
+    cursor: pointer;
+  }
+
+  .type-filters button:hover { color: var(--color-cyan); }
+  .type-filters button.is-active {
+    background: color-mix(in oklch, var(--color-blue) 14%, var(--color-surface));
+    color: var(--color-ink);
+  }
+
+  .sort-control {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--color-ink-faint);
+    font: 0.62rem/1 var(--font-mono);
+    text-transform: uppercase;
+  }
+
+  .sort-control select {
+    min-height: 38px;
+    padding: 0.35rem 1.8rem 0.35rem 0.55rem;
+    border: 1px solid var(--color-border);
+    border-radius: 5px;
+    background: var(--color-bg-soft);
     color: var(--color-ink-soft);
-    font-style: italic;
-    padding: 1rem 0;
+    font: 0.7rem/1 var(--font-ui);
+  }
+
+  .search-idle,
+  :global(.no-results) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.25rem;
+    max-width: 42rem;
+    padding: clamp(3rem, 8vw, 6rem) 0;
+  }
+
+  .search-idle > span,
+  :global(.no-results > span) {
+    color: color-mix(in oklch, var(--color-magenta) 60%, var(--color-ink-faint));
+    font: 3.5rem/1 var(--font-display);
+  }
+
+  .search-idle h3,
+  :global(.no-results h3) {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 450;
+  }
+
+  .search-idle p,
+  :global(.no-results p) {
+    max-width: 35rem;
+    margin: 0.45rem 0 0;
+    color: var(--color-ink-soft);
+  }
+
+  :global(.results-list) { counter-reset: result; }
+
+  :global(.search-result) {
+    counter-increment: result;
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.3rem minmax(0, 1fr) auto;
+    gap: clamp(1rem, 3vw, 2rem);
+    padding: 1.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: background var(--dur-fast);
+  }
+
+  :global(.search-result::before) {
+    content: counter(result, decimal-leading-zero);
+    padding-top: 0.25rem;
+    color: var(--color-blue);
+    font: 0.62rem/1 var(--font-mono);
+  }
+
+  :global(.search-result:hover) {
+    background: linear-gradient(90deg, color-mix(in oklch, var(--color-blue) 7%, transparent), transparent);
+  }
+
+  :global(.result-copy) { min-width: 0; }
+
+  :global(.result-meta) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.9rem;
+    margin-bottom: 0.45rem;
+    color: var(--color-ink-faint);
+    font: 0.59rem/1.4 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  :global(.result-meta .result-type) { color: var(--color-amber-bright); }
+
+  :global(.search-result-title) {
+    margin: 0;
+    font: 470 clamp(1.35rem, 3vw, 2rem)/1.12 var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  :global(.search-result-title a) { color: var(--color-ink); text-decoration: none; }
+  :global(.search-result-title a:hover) { color: var(--color-cyan); }
+
+  :global(.search-result-excerpt) {
+    max-width: 62rem;
+    margin: 0.65rem 0 0;
+    color: var(--color-ink-soft);
+    font: 0.92rem/1.6 var(--font-body);
+  }
+
+  :global(mark) {
+    padding: 0 0.08em;
+    background: color-mix(in oklch, var(--color-magenta) 22%, transparent);
+    color: var(--color-ink);
+    border-bottom: 1px solid var(--color-magenta);
+  }
+
+  :global(.result-categories) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.85rem;
+  }
+
+  :global(.result-category) {
+    color: var(--color-ink-faint);
+    font: 0.58rem/1 var(--font-ui);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  :global(.result-arrow) {
+    display: grid;
+    place-items: center;
+    align-self: center;
+    width: 44px;
+    height: 44px;
+    color: var(--color-ink-faint);
+    text-decoration: none;
+  }
+
+  :global(.search-result:hover .result-arrow) { color: var(--color-magenta); }
+
+  :global(.result-limit) {
+    margin-top: 1.5rem;
+    color: var(--color-ink-faint);
+    font: 0.65rem/1.5 var(--font-mono);
+    text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .search-hero { grid-template-columns: 1fr; gap: 2rem; }
+    .index-status { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0; border: 0; }
+    .results-toolbar { display: block; }
+    .result-controls { margin-top: 1rem; justify-content: space-between; }
+    .type-filters { max-width: 100%; overflow-x: auto; }
+  }
+
+  @media (max-width: 620px) {
+    .search-console { margin: -1rem -0.2rem 0; padding: 1.25rem; }
+    .search-hero h1 { font-size: clamp(3rem, 15vw, 4.5rem); }
+    .query-panel { margin-top: 3rem; }
+    .query-footer { display: block; }
+    .query-footer span { display: none; }
+    .search-paths > span { flex-basis: 100%; }
+    .result-controls { display: block; }
+    .type-filters { margin-bottom: 0.7rem; }
+    .sort-control { width: fit-content; }
+    :global(.search-result) { grid-template-columns: 2rem minmax(0, 1fr); gap: 0.65rem; padding-inline: 0; }
+    :global(.result-arrow) { display: none; }
+    :global(.search-result-excerpt) { font-size: 0.86rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; }
   }
 </style>
 
 <script define:vars={{ searchablePosts }}>
-  document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    const searchResults = document.getElementById('search-results');
+  document.addEventListener('DOMContentLoaded', () => {
+    const input = document.querySelector('#search-input');
+    const resultsRoot = document.querySelector('#search-results');
+    const heading = document.querySelector('#results-heading');
+    const controls = document.querySelector('[data-controls]');
+    const sortSelect = document.querySelector('#sort-results');
+    const typeButtons = [...document.querySelectorAll('[data-type]')];
+    const queryButtons = [...document.querySelectorAll('[data-query]')];
+    if (!(input instanceof HTMLInputElement) || !resultsRoot || !heading || !(sortSelect instanceof HTMLSelectElement)) return;
 
-    function performSearch(query) {
-      if (query.length < 2) {
-        searchResults.textContent = '';
+    let activeType = 'all';
+    let currentMatches = [];
+    let timer;
+
+    const normalize = (value) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+    const searchable = searchablePosts.map((post) => ({
+      ...post,
+      haystack: normalize([post.title, post.description, post.categories.join(' '), post.tags.join(' '), post.content].join(' ')),
+    }));
+
+    function appendHighlighted(parent, text, terms) {
+      if (!terms.length) {
+        parent.textContent = text;
+        return;
+      }
+      const lower = normalize(text);
+      const ranges = [];
+      for (const term of terms) {
+        let from = 0;
+        while (from < lower.length) {
+          const index = lower.indexOf(term, from);
+          if (index < 0) break;
+          ranges.push([index, index + term.length]);
+          from = index + term.length;
+        }
+      }
+      ranges.sort((a, b) => a[0] - b[0]);
+      const merged = [];
+      for (const range of ranges) {
+        const last = merged[merged.length - 1];
+        if (last && range[0] <= last[1]) last[1] = Math.max(last[1], range[1]);
+        else merged.push([...range]);
+      }
+      let cursor = 0;
+      for (const [start, end] of merged) {
+        if (start > cursor) parent.append(document.createTextNode(text.slice(cursor, start)));
+        const mark = document.createElement('mark');
+        mark.textContent = text.slice(start, end);
+        parent.append(mark);
+        cursor = end;
+      }
+      if (cursor < text.length) parent.append(document.createTextNode(text.slice(cursor)));
+    }
+
+    function excerptFor(post, terms) {
+      if (post.description && terms.some((term) => normalize(post.description).includes(term))) return post.description;
+      const content = post.content || post.description || 'Open this transmission.';
+      const normalized = normalize(content);
+      const positions = terms.map((term) => normalized.indexOf(term)).filter((position) => position >= 0);
+      if (!positions.length) return post.description || content.slice(0, 220);
+      const matchAt = Math.min(...positions);
+      let start = Math.max(0, matchAt - 80);
+      let end = Math.min(content.length, matchAt + 170);
+      if (start > 0) {
+        const nextSpace = content.indexOf(' ', start);
+        if (nextSpace > -1 && nextSpace < matchAt) start = nextSpace + 1;
+      }
+      if (end < content.length) {
+        const previousSpace = content.lastIndexOf(' ', end);
+        if (previousSpace > matchAt) end = previousSpace;
+      }
+      return `${start > 0 ? '…' : ''}${content.slice(start, end).trim()}${end < content.length ? '…' : ''}`;
+    }
+
+    function scorePost(post, terms) {
+      const title = normalize(post.title);
+      const description = normalize(post.description);
+      const categories = normalize(post.categories.join(' '));
+      const tags = normalize(post.tags.join(' '));
+      let score = 0;
+      for (const term of terms) {
+        if (title === term) score += 30;
+        else if (title.includes(term)) score += 14;
+        if (categories.includes(term)) score += 9;
+        if (tags.includes(term)) score += 6;
+        if (description.includes(term)) score += 5;
+        const contentIndex = normalize(post.content).indexOf(term);
+        if (contentIndex >= 0) score += Math.max(1, 3 - contentIndex / 1500);
+      }
+      return score;
+    }
+
+    function render() {
+      const query = input.value.trim();
+      const terms = [...new Set(normalize(query).split(/\s+/).filter((term) => term.length > 1))];
+      resultsRoot.textContent = '';
+
+      if (!terms.length) {
+        heading.textContent = 'Waiting for a query';
+        controls?.setAttribute('hidden', '');
+        const idle = document.createElement('div');
+        idle.className = 'search-idle';
+        const glyph = document.createElement('span');
+        glyph.setAttribute('aria-hidden', 'true');
+        glyph.textContent = '⌕';
+        const copy = document.createElement('div');
+        const title = document.createElement('h3');
+        title.textContent = 'The index is listening.';
+        const body = document.createElement('p');
+        body.textContent = 'Search across two decades of poems, stories, field notes, dreams, dharma, technology, and ordinary life.';
+        copy.append(title, body);
+        idle.append(glyph, copy);
+        resultsRoot.append(idle);
+        history.replaceState(null, '', location.pathname);
         return;
       }
 
-      const lowerQuery = query.toLowerCase();
-      const results = searchablePosts.filter(post =>
-        post.title.toLowerCase().includes(lowerQuery) ||
-        post.description.toLowerCase().includes(lowerQuery) ||
-        post.categories.some(cat => cat.toLowerCase().includes(lowerQuery)) ||
-        post.content.toLowerCase().includes(lowerQuery)
-      );
+      currentMatches = searchable
+        .filter((post) => terms.every((term) => post.haystack.includes(term)))
+        .map((post) => ({ ...post, score: scorePost(post, terms) }));
 
-      results.sort((a, b) => {
-        const aInTitle = a.title.toLowerCase().includes(lowerQuery);
-        const bInTitle = b.title.toLowerCase().includes(lowerQuery);
-        if (aInTitle && !bInTitle) return -1;
-        if (!aInTitle && bInTitle) return 1;
-        return new Date(b.date) - new Date(a.date);
+      const filtered = activeType === 'all'
+        ? [...currentMatches]
+        : currentMatches.filter((post) => post.type === activeType);
+
+      const sortMode = sortSelect.value;
+      filtered.sort((a, b) => {
+        if (sortMode === 'newest') return new Date(b.date) - new Date(a.date);
+        if (sortMode === 'oldest') return new Date(a.date) - new Date(b.date);
+        return b.score - a.score || new Date(b.date) - new Date(a.date);
       });
 
-      // Build DOM nodes safely — no raw HTML injection from user input
-      searchResults.textContent = '';
+      controls?.removeAttribute('hidden');
+      const typeLabel = activeType === 'all' ? '' : ` ${activeType}`;
+      heading.textContent = `${filtered.length} ${typeLabel} signal${filtered.length === 1 ? '' : 's'} found`;
+      history.replaceState(null, '', `${location.pathname}?q=${encodeURIComponent(query)}`);
 
-      const countEl = document.createElement('div');
-      countEl.className = 'results-count';
-      countEl.textContent = results.length + ' result' + (results.length !== 1 ? 's' : '');
-      searchResults.appendChild(countEl);
-
-      if (results.length === 0) {
+      if (!filtered.length) {
         const none = document.createElement('div');
         none.className = 'no-results';
-        none.textContent = 'no results for "' + query + '"';
-        searchResults.appendChild(none);
+        const glyph = document.createElement('span');
+        glyph.setAttribute('aria-hidden', 'true');
+        glyph.textContent = '∅';
+        const copy = document.createElement('div');
+        const title = document.createElement('h3');
+        title.textContent = `No ${activeType === 'all' ? '' : `${activeType} `}signal found.`;
+        const body = document.createElement('p');
+        body.textContent = 'Try fewer words, another spelling, or open the complete archive and move through time.';
+        copy.append(title, body);
+        none.append(glyph, copy);
+        resultsRoot.append(none);
         return;
       }
 
       const list = document.createElement('div');
       list.className = 'results-list';
 
-      results.slice(0, 20).forEach(result => {
+      filtered.slice(0, 40).forEach((result) => {
         const article = document.createElement('article');
         article.className = 'search-result';
 
-        const titleEl = document.createElement('p');
-        titleEl.className = 'search-result-title';
+        const copy = document.createElement('div');
+        copy.className = 'result-copy';
+
+        const meta = document.createElement('div');
+        meta.className = 'result-meta';
+        const year = document.createElement('span');
+        year.textContent = String(result.year);
+        const type = document.createElement('span');
+        type.className = 'result-type';
+        type.textContent = result.type;
+        meta.append(year, type);
+
+        const title = document.createElement('h3');
+        title.className = 'search-result-title';
         const link = document.createElement('a');
         link.href = result.url;
-        link.textContent = result.title;
-        titleEl.appendChild(link);
-        article.appendChild(titleEl);
+        appendHighlighted(link, result.title, terms);
+        title.append(link);
 
         const excerpt = document.createElement('p');
         excerpt.className = 'search-result-excerpt';
-        excerpt.textContent = result.description || 'click to read…';
-        article.appendChild(excerpt);
+        appendHighlighted(excerpt, excerptFor(result, terms), terms);
 
-        if (result.categories.length > 0) {
-          const cats = document.createElement('div');
-          cats.className = 'search-result-categories';
-          result.categories.forEach(cat => {
+        copy.append(meta, title, excerpt);
+
+        if (result.categories.length) {
+          const categories = document.createElement('div');
+          categories.className = 'result-categories';
+          result.categories.forEach((category) => {
             const tag = document.createElement('span');
-            tag.className = 'category-tag';
-            tag.textContent = cat;
-            cats.appendChild(tag);
+            tag.className = 'result-category';
+            tag.textContent = `• ${category}`;
+            categories.append(tag);
           });
-          article.appendChild(cats);
+          copy.append(categories);
         }
 
-        list.appendChild(article);
+        const arrow = document.createElement('a');
+        arrow.className = 'result-arrow';
+        arrow.href = result.url;
+        arrow.setAttribute('aria-label', `Read ${result.title}`);
+        arrow.textContent = '→';
+
+        article.append(copy, arrow);
+        list.append(article);
       });
 
-      searchResults.appendChild(list);
+      resultsRoot.append(list);
+      if (filtered.length > 40) {
+        const limit = document.createElement('p');
+        limit.className = 'result-limit';
+        limit.textContent = `Showing the 40 strongest matches of ${filtered.length}. Refine the query to go deeper.`;
+        resultsRoot.append(limit);
+      }
     }
 
-    let debounceTimer;
-    searchInput.addEventListener('input', function(e) {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => performSearch(e.target.value.trim()), 300);
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(render, 100);
     });
 
-    searchInput.focus();
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && input.value) {
+        event.preventDefault();
+        input.value = '';
+        activeType = 'all';
+        typeButtons.forEach((button) => button.classList.toggle('is-active', button.dataset.type === 'all'));
+        render();
+      }
+      if (event.key === 'ArrowDown') {
+        const firstResult = resultsRoot.querySelector('.search-result-title a');
+        if (firstResult instanceof HTMLElement) {
+          event.preventDefault();
+          firstResult.focus();
+        }
+      }
+    });
+
+    queryButtons.forEach((button) => button.addEventListener('click', () => {
+      input.value = button.dataset.query || '';
+      input.focus();
+      render();
+    }));
+
+    typeButtons.forEach((button) => button.addEventListener('click', () => {
+      activeType = button.dataset.type || 'all';
+      typeButtons.forEach((candidate) => candidate.classList.toggle('is-active', candidate === button));
+      render();
+    }));
+
+    sortSelect.addEventListener('change', render);
+
+    const initialQuery = new URLSearchParams(location.search).get('q');
+    if (initialQuery) {
+      input.value = initialQuery;
+      render();
+    }
+    input.focus();
   });
 </script>
