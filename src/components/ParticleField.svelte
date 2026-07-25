@@ -8,6 +8,8 @@
     const dpr = devicePixelRatio || 1;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let w = 0, h = 0;
+    let running = false;
+    let resumeTimer = 0;
 
     // Data packets on invisible circuit traces — the ambient twin of the homepage
     // transit map: thoughts in motion through a network. Square heads, straight
@@ -53,6 +55,7 @@
 
     let last = performance.now();
     const tick = (now: number) => {
+      if (!running) return;
       const dt = Math.min(0.05, (now - last) / 1000); // clamp: rAF pauses in bg tabs
       last = now;
       ctx.clearRect(0, 0, w, h);
@@ -104,9 +107,40 @@
       }
       raf = requestAnimationFrame(tick);
     };
-    if (!reduced) raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); removeEventListener('resize', resize); };
+
+    const start = () => {
+      if (reduced || running) return;
+      running = true;
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+    const pauseForScroll = () => {
+      stop();
+      clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(start, 140);
+    };
+
+    start();
+    addEventListener('scroll', pauseForScroll, { passive: true });
+
+    return () => {
+      stop();
+      clearTimeout(resumeTimer);
+      removeEventListener('scroll', pauseForScroll);
+      removeEventListener('resize', resize);
+    };
   });
 </script>
 
-<canvas bind:this={canvas} aria-hidden="true" class="fixed inset-0 pointer-events-none z-0"></canvas>
+<canvas bind:this={canvas} aria-hidden="true" class="fixed inset-0 pointer-events-none z-0 particle-field"></canvas>
+
+<style>
+  .particle-field {
+    contain: strict;
+    transform: translateZ(0);
+  }
+</style>

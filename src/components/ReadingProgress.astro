@@ -19,11 +19,13 @@
 
   .reading-progress-bar {
     height: 100%;
-    width: 0%;
+    width: 100%;
     background: var(--prism);
     background-size: 200% 100%;
     animation: scanline-shift 24s linear infinite;
-    transition: width 0.1s ease-out;
+    transform: scaleX(0);
+    transform-origin: left;
+    will-change: transform;
   }
 </style>
 
@@ -36,7 +38,7 @@
       var scrollTop = window.scrollY;
       var docHeight = document.documentElement.scrollHeight - window.innerHeight;
       var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      bar.style.width = Math.min(progress, 100) + '%';
+      bar.style.transform = 'scaleX(' + (Math.min(progress, 100) / 100) + ')';
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true });
