@@ -10,7 +10,7 @@
 
 ## 1. What this site is
 
-Static blog at hologramthoughts.com. 280+ markdown posts spanning 2006–2026 — spiritual, philosophical, creative writing, AI governance, dharma practice, fatherhood, code. Migrated from WordPress; current iteration is a full solarpunk + mycelium rebuild with a build-time curator persona called **Muse**.
+Static blog at hologramthoughts.com. 280+ markdown posts spanning 2006–2026 — spiritual, philosophical, creative writing, AI governance, dharma practice, fatherhood, code. Migrated from WordPress; current iteration is a full TokyoNight terminal rebuild with a build-time curator persona called **Muse**.
 
 The site has THREE faces:
 1. **Standard reader UX** — homepage, archive, search, individual blog posts
@@ -39,9 +39,9 @@ The site has THREE faces:
 
 ---
 
-## 3. Design system — Solarpunk + Mycelium
+## 3. Design system — TokyoNight terminal
 
-**Aesthetic concept:** technology as mycelium. Library that grew itself. Forest floor by default; canopy morning when toggled to light. Amber-on-deep-green, bioluminescent teal, mycelial violet. Subtle organic grain. One prismatic moment (the wordmark).
+**Aesthetic concept:** the archive as an editor buffer. TokyoNight palette, dark only. Deep blue-black ground, hot-magenta headlines, cyan hover/focus, amber numbers, syntax-highlighted metadata. CRT scanfield and organic grain over everything, data packets drifting on circuit traces. Two signature moments: the shimmering mono wordmark and the typewriter hero.
 
 **TokyoNight is the only on-screen theme — there is no light/dark toggle.** The old "canopy morning" light palette is now PRINT-ONLY: a `@media print` block in `tokens.css` (+ print cleanup in `global.css`) renders a post as dark-ink-on-paper. `ThemeToggle.astro` and the FOUC theme script were removed; `<html>` never gets `data-theme`.
 
@@ -49,7 +49,7 @@ The site has THREE faces:
 
 | Token | Role |
 |---|---|
-| `--color-bg` / `--color-bg-soft` | Page bg + soft variant (forest black-green on dark, parchment on light) |
+| `--color-bg` / `--color-bg-soft` | Page bg + soft variant (TokyoNight deep blue-black; paper palette only under `@media print`) |
 | `--color-surface` / `--color-surface-soft` | Cards / panel surfaces |
 | `--color-ink` / `--color-ink-soft` / `--color-ink-faint` | Text tiers |
 | `--color-amber` / `--color-amber-bright` | Spore-gold accent — primary highlight, link color |
@@ -324,7 +324,7 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 ## 9. Component map
 
 ### Layouts (`src/layouts/`)
-- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG, Twitter, fonts), FOUC theme script (dark default), skip link, mounts `<ParticleField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`
+- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG, Twitter, fonts), skip link, mounts `<ParticleField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`. No theme script and no `data-theme` on `<html>` — TokyoNight is the only on-screen theme
 - **`BlogPostLayout.astro`** — legacy, mostly unused. The active blog post template is `src/pages/blog/[slug].astro`. Kept around for safety; mirrors the new pattern
 
 ### Components (`src/components/`)
@@ -506,7 +506,7 @@ curl https://hologramthoughts.com/agent-index.md
 
 ## 13. OpenGraph image
 
-`public/og-image.svg` — solarpunk light-theme OG. Prismatic wordmark, canopy + root curves, spore-mote dots, warm parchment bg with bottom green vignette.
+`public/og-image.svg` — TokyoNight terminal OG card. Mono shimmer wordmark (blue → cyan → magenta), soft cyan bloom, CRT scanfield, neon-glow caret and data packets, Muse prompt line, frontmatter byline, on deep blue-black.
 
 Rendered to `public/og-image.png` (1200×630) via:
 ```sh
