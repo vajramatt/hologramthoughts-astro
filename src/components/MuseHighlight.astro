@@ -34,8 +34,8 @@ const supporting = resurfaced.slice(1, 3);
     <div class="muse-file">
       <span class="muse-glyph" aria-hidden="true">✦</span>
       <div>
-        <p>From <abbr data-tip="Machine Underground Synthesis Editor" aria-label="Machine Underground Synthesis Editor" tabindex="0" class="tip">Muse</abbr></p>
-        <h2 id="muse-title">MUSE.md</h2>
+        <p>From the archive</p>
+        <h2 id="muse-title">Selected paths</h2>
       </div>
     </div>
     <p class="indexed">Indexed <time datetime={new Date().toISOString()}>{new Date().toLocaleDateString('en', { month: 'short', year: 'numeric' })}</time></p>
@@ -49,7 +49,7 @@ const supporting = resurfaced.slice(1, 3);
 
   <div class="muse-grid">
     <section class="muse-lead" aria-labelledby="resurfaced-title">
-      <p class="column-label"><span>01</span> Resurfaced</p>
+      <p class="column-label">Resurfaced</p>
       {lead ? (() => {
         const urlSlug = (lead as any).slug ?? lead.id.replace(/\.md$/, '');
         const ids = (themeIdsBySlug[urlSlug] ?? []).slice(0, 3);
@@ -59,11 +59,11 @@ const supporting = resurfaced.slice(1, 3);
               {new Date(lead.data.pubDate).toLocaleDateString('en', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
             </time>
             <h3 id="resurfaced-title"><a href={`/blog/${urlSlug}/`}>{lead.data.title}</a></h3>
-            <p class="lead-description">{lead.data.description || 'A signal recovered from deeper in the archive.'}</p>
+            <p class="lead-description">{lead.data.description || 'A piece recovered from deeper in the archive.'}</p>
             <div class="lead-themes">
               {ids.map(id => themeName.has(id) && <ThemeChip id={id} name={themeName.get(id)!} small />)}
             </div>
-            <a class="open-signal" href={`/blog/${urlSlug}/`}>Open this signal <span aria-hidden="true">→</span></a>
+            <a class="open-signal" href={`/blog/${urlSlug}/`}>Read this piece <span aria-hidden="true">→</span></a>
           </article>
         );
       })() : <p class="empty">The archive is listening.</p>}
@@ -86,7 +86,7 @@ const supporting = resurfaced.slice(1, 3);
     </section>
 
     <section class="muse-column" aria-labelledby="threads-title">
-      <p class="column-label"><span>02</span> Threads</p>
+      <p class="column-label">Threads</p>
       <h3 id="threads-title">What keeps returning</h3>
       {activeThemes.length === 0 ? (
         <p class="empty">Coming soon.</p>
@@ -106,8 +106,8 @@ const supporting = resurfaced.slice(1, 3);
     </section>
 
     <section class="muse-column" aria-labelledby="stories-title">
-      <p class="column-label"><span>03</span> Stories</p>
-      <h3 id="stories-title">Longer transmissions</h3>
+      <p class="column-label">Stories</p>
+      <h3 id="stories-title">Longer works</h3>
       <ul class="story-list">
         {stories.map(item => (
           item.kind === 'post' ? (

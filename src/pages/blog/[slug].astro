@@ -197,14 +197,14 @@ const jsonLd = blogPostingGraph({
     <nav class="post-nav" aria-label="Adjacent posts">
       {prevPost ? (
         <a href={`/blog/${prevPost.slug}/`} class="post-nav-link older">
-          <span>{isSeries ? '← Previous' : '← Older transmission'}</span>
+          <span>{isSeries ? '← Previous' : '← Older post'}</span>
           <strong>{prevPost.data.title}</strong>
           <small>{new Date(prevPost.data.pubDate).getUTCFullYear()}</small>
         </a>
       ) : <span class="post-nav-empty" />}
       {nextPost ? (
         <a href={`/blog/${nextPost.slug}/`} class="post-nav-link newer">
-          <span>{isSeries ? 'Next →' : 'Newer transmission →'}</span>
+          <span>{isSeries ? 'Next →' : 'Newer post →'}</span>
           <strong>{nextPost.data.title}</strong>
           <small>{new Date(nextPost.data.pubDate).getUTCFullYear()}</small>
         </a>

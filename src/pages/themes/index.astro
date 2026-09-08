@@ -7,15 +7,15 @@ const totalConnections = themes.reduce((sum: number, theme: any) => sum + theme.
 const maxCount = Math.max(...themes.map((theme: any) => theme.postCount));
 ---
 
-<Layout wide title="Themes — Hologram Thoughts" description="The threads running through twenty years of writing — themes Muse drew across the archive, each with the posts that grow it.">
+<Layout wide title="Themes — Hologram Thoughts" description="Threads running through twenty years of writing, each connecting posts across the archive.">
   <header class="themes-hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <div>
-      <p class="hero-kicker"><span></span> Muse / thematic index</p>
+      <p class="hero-kicker"><span></span> Archive / thematic index</p>
       <h1>The patterns<br /><em>beneath the pages.</em></h1>
     </div>
     <div class="hero-copy">
-      <p>Muse read the archive laterally—not by year, but by what kept returning. These are the persistent questions, images, practices, and preoccupations she found.</p>
+      <p>Read laterally—not by year, but by what keeps returning. These are the persistent questions, images, practices, and preoccupations running through the archive.</p>
       <dl>
         <div><dt>Threads</dt><dd>{themes.length}</dd></div>
         <div><dt>Connections</dt><dd>{totalConnections}</dd></div>
@@ -25,7 +25,7 @@ const maxCount = Math.max(...themes.map((theme: any) => theme.postCount));
   </header>
 
   {themes.length === 0 ? (
-    <p class="empty">Muse hasn't finished reading the archive yet.</p>
+    <p class="empty">No themes have been mapped yet.</p>
   ) : (
     <section class="theme-atlas" aria-labelledby="atlas-title">
       <header class="atlas-heading">

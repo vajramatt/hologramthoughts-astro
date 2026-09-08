@@ -66,11 +66,11 @@ const jsonLd = collectionPageGraph({
   <header class="thread-hero">
     <div class="hero-grid" aria-hidden="true"></div>
     <a href="/themes/" class="back-link">← thematic index</a>
-    <p class="thread-kicker"><span></span> Muse / thread dossier</p>
+    <p class="thread-kicker"><span></span> Archive / thread dossier</p>
     <h1>{theme.name}</h1>
     {theme.blurb && <p class="thread-deck">{theme.blurb}</p>}
     <dl class="thread-stats">
-      <div><dt>Signals</dt><dd>{posts.length}</dd></div>
+      <div><dt>Posts</dt><dd>{posts.length}</dd></div>
       <div><dt>First seen</dt><dd>{firstYear ?? '—'}</dd></div>
       <div><dt>Last seen</dt><dd>{lastYear ?? '—'}</dd></div>
       <div><dt>Span</dt><dd>{span ? `${span} years` : '—'}</dd></div>
@@ -97,11 +97,11 @@ const jsonLd = collectionPageGraph({
             <div>
               <span aria-hidden="true">✦</span>
               <div>
-                <p>MUSE.md / synthesis</p>
+                <p>Archive synthesis</p>
                 <h2 id="muse-reading-title">What the thread reveals</h2>
               </div>
             </div>
-            <small>machine-curated<br />human-approved</small>
+            <small>machine-assisted<br />human-reviewed</small>
           </header>
           <div class="synthesis" set:html={renderSynthesis(theme.synthesis as string)} />
         </section>
@@ -121,7 +121,7 @@ const jsonLd = collectionPageGraph({
             <li class="trace-year" id={`year-${year}`}>
               <header>
                 <span>{year}</span>
-                <small>{group.length} {group.length === 1 ? 'signal' : 'signals'}</small>
+                <small>{group.length} {group.length === 1 ? 'post' : 'posts'}</small>
               </header>
               <ol>
                 {group.map((post: any) => {

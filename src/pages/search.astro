@@ -598,7 +598,7 @@ const newestYear = Math.max(...searchablePosts.map((post) => post.year));
 
     function excerptFor(post, terms) {
       if (post.description && terms.some((term) => normalize(post.description).includes(term))) return post.description;
-      const content = post.content || post.description || 'Open this transmission.';
+      const content = post.content || post.description || 'Open this piece.';
       const normalized = normalize(content);
       const positions = terms.map((term) => normalized.indexOf(term)).filter((position) => position >= 0);
       if (!positions.length) return post.description || content.slice(0, 220);

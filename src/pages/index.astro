@@ -290,11 +290,11 @@ for (const s of themedSlugs) {
   }
 }
 ---
-<Layout wide title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — an archive of attention, curated by Muse.">
+<Layout wide title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — connected by recurring ideas.">
   <section class="home-hero" aria-labelledby="home-title">
     <div class="hero-copy">
       <p class="terminal-line" aria-hidden="true">
-        <span class="prompt-user">muse@hologram</span><span class="prompt-faint">:</span><span class="prompt-path">~</span><span class="prompt-faint">$</span>
+        <span class="prompt-user">archive@hologram</span><span class="prompt-faint">:</span><span class="prompt-path">~</span><span class="prompt-faint">$</span>
         <span class="term-cmd-wrap">
           <span class="term-ghost">replay ./archive --era 2006..2026</span>
           <span class="term-cmd"><span data-tw-cmd>replay ./archive --era 2006..2026</span><span class="term-mini-caret" data-cmd-caret></span></span>
@@ -317,7 +317,7 @@ for (const s of themedSlugs) {
       <div class="latest-heading">
         <div>
           <p class="panel-kicker">Live index</p>
-          <h2 id="latest-title">Latest transmissions</h2>
+          <h2 id="latest-title">Latest writing</h2>
         </div>
         <span class="status-dot" aria-label="Archive active"></span>
       </div>
@@ -331,7 +331,7 @@ for (const s of themedSlugs) {
                 <span class="latest-index">0{index + 1}</span>
                 <span class="latest-copy">
                   <span class="latest-title">{post.data.title}</span>
-                  <span class="latest-description">{post.data.description || 'Open the transmission.'}</span>
+                  <span class="latest-description">{post.data.description || 'Open this piece.'}</span>
                   <span class="latest-themes">
                     {ids.map((id) => {
                       const theme = themesById.get(id);

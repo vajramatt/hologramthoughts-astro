@@ -10,7 +10,7 @@ const categoryDefinitions = [
   { name: 'Creative Writing', slug: 'creative-writing', description: 'Poetry, fiction, myth, dreamwork, and worlds built to hold a question.', code: 'CREATE' },
   { name: 'Consciousness & Philosophy', slug: 'consciousness-philosophy', description: 'Mind, reality, divinity, identity, and the strange architecture of being.', code: 'MIND' },
   { name: 'Practice & Inner Life', slug: 'practice-inner-life', description: 'Meditation, dreams, healing, and what changes when attention turns inward.', code: 'INNER' },
-  { name: 'Other', slug: 'other', description: 'Technology, culture, daily life, and transmissions that resist a cleaner label.', code: 'OTHER' },
+  { name: 'Other', slug: 'other', description: 'Technology, culture, daily life, and pieces that resist a cleaner label.', code: 'OTHER' },
 ];
 
 export async function getStaticPaths() {
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
     { name: 'Creative Writing', slug: 'creative-writing', description: 'Poetry, fiction, myth, dreamwork, and worlds built to hold a question.', code: 'CREATE' },
     { name: 'Consciousness & Philosophy', slug: 'consciousness-philosophy', description: 'Mind, reality, divinity, identity, and the strange architecture of being.', code: 'MIND' },
     { name: 'Practice & Inner Life', slug: 'practice-inner-life', description: 'Meditation, dreams, healing, and what changes when attention turns inward.', code: 'INNER' },
-    { name: 'Other', slug: 'other', description: 'Technology, culture, daily life, and transmissions that resist a cleaner label.', code: 'OTHER' },
+    { name: 'Other', slug: 'other', description: 'Technology, culture, daily life, and pieces that resist a cleaner label.', code: 'OTHER' },
   ];
   return definitions.map((category) => ({
     params: { category: category.slug },
@@ -119,7 +119,7 @@ const otherCategories = categoryDefinitions.filter(item => item.slug !== categor
       <h2>What grows here</h2>
       {dominantThemes.length ? (
         <div>{dominantThemes.map((theme: any) => <ThemeChip id={theme.id} name={theme.name} />)}</div>
-      ) : <p class="empty">Muse is still mapping this district.</p>}
+      ) : <p class="empty">No recurring themes have been mapped here yet.</p>}
       <span>Categories tell you what kind of writing this is. Themes reveal what moves through it.</span>
     </aside>
   </section>
