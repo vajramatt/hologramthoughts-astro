@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-three",
+  "themeIds": [
+    "nature",
+    "childhood",
+    "animal-welfare"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-one",
+      "rationale": "Picks up the introduction of Beau and complicates his relationship with Clementine."
+    },
+    {
+      "slug": "beau-chapter-eight",
+      "rationale": "Deepens the mystery of the village's edge with the Grandmother's untold stories."
+    },
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Picks up the ordinary days and complicates them with Saturday adventures."
+    }
+  ]
+}

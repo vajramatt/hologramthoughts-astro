@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-two",
+  "themeIds": [
+    "family",
+    "childhood",
+    "animal-welfare"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-one",
+      "rationale": "Goes back to the Tuesday Beau arrived and the three names the family thought were jokes."
+    },
+    {
+      "slug": "beau-chapter-four",
+      "rationale": "Picks up the Finch family's ordinary life and complicates it with darkness."
+    },
+    {
+      "slug": "beau-chapter-eight",
+      "rationale": "Deepens family portrait with the Grandmother's enigmatic presence."
+    }
+  ]
+}

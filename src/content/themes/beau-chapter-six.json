@@ -1,0 +1,21 @@
+{
+  "slug": "beau-chapter-six",
+  "themeIds": [
+    "human-connection",
+    "childhood"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Returns to the gold-hour, where the corner went thin and Beau cleared it with a slipper."
+    },
+    {
+      "slug": "beau-chapter-one",
+      "rationale": "Names the three names Clementine keeps refusing to treat as a joke."
+    },
+    {
+      "slug": "beau-chapter-eight",
+      "rationale": "Doubles down on Clementine's world with the Grandmother's unexpected arrival."
+    }
+  ]
+}

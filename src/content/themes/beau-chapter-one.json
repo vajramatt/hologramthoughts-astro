@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-one",
+  "themeIds": [
+    "family",
+    "childhood",
+    "animal-welfare"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Deepens the portrait of daily life in the Finch household with Beau."
+    },
+    {
+      "slug": "beau-chapter-three",
+      "rationale": "Picks up Clementine's story and pushes it into the wild outdoors."
+    },
+    {
+      "slug": "beau-chapter-five",
+      "rationale": "Picks up Beau's story and pushes it into his pre-Finch life."
+    }
+  ]
+}

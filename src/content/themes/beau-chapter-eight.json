@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-eight",
+  "themeIds": [
+    "family",
+    "human-connection",
+    "nature"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-seven",
+      "rationale": "Picks up the Grandmother's visit and sharpens its emotional edge."
+    },
+    {
+      "slug": "beau-chapter-three",
+      "rationale": "Picks up the Saturday setting and pushes it into village terrain."
+    },
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Doubles down on domestic routine, shifting from Saturday to Thursday."
+    }
+  ]
+}

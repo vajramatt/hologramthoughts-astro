@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-five",
+  "themeIds": [
+    "consciousness",
+    "nature",
+    "animal-welfare"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-one",
+      "rationale": "Picks up Beau's introduction and pushes it into his primal subconscious."
+    },
+    {
+      "slug": "beau-chapter-nine",
+      "rationale": "Picks up the dream-state and pushes it into waking darkness."
+    },
+    {
+      "slug": "nightmare",
+      "rationale": "Picks up the thread of primal fear in a darker, more urgent landscape."
+    }
+  ]
+}

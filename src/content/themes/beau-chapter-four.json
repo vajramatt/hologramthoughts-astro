@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-four",
+  "themeIds": [
+    "family",
+    "childhood",
+    "darkness-attraction"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Rewinds to the gold-hour, when the thin corner was still something Beau could clown away."
+    },
+    {
+      "slug": "beau-chapter-one",
+      "rationale": "Sharpens Clementine's character through earlier introduction."
+    },
+    {
+      "slug": "beau-chapter-eight",
+      "rationale": "Picks up Clementine's story and complicates it with the Grandmother's unexpected visit."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "beau-chapter-nine",
+  "themeIds": [
+    "darkness-attraction",
+    "compassion",
+    "impermanence",
+    "animal-welfare"
+  ],
+  "related": [
+    {
+      "slug": "the-light-nextdoor",
+      "rationale": "Picks up the thread of unexplained presence in a deserted home."
+    },
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Rewinds to the ordinary Thursday, before the cold learned this house was worth coming for."
+    },
+    {
+      "slug": "greenhouse",
+      "rationale": "Picks up the thread of intense sensory experience and pushes it into sweltering terrain."
+    }
+  ]
+}

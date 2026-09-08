@@ -1,0 +1,22 @@
+{
+  "slug": "beau-chapter-seven",
+  "themeIds": [
+    "family",
+    "darkness-attraction",
+    "childhood"
+  ],
+  "related": [
+    {
+      "slug": "beau-chapter-eight",
+      "rationale": "Picks up the Grandmother's enigmatic presence and sharpens her mysterious intentions."
+    },
+    {
+      "slug": "beau-chapter-two",
+      "rationale": "Doubles down on family dynamics in quieter moments."
+    },
+    {
+      "slug": "beau-chapter-four",
+      "rationale": "Complicates Clementine's family dynamics with a darker, rain-soaked night."
+    }
+  ]
+}
