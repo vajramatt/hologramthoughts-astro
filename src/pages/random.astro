@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Random post — Hologram Thoughts" description="Open a random post from twenty years of Hologram Thoughts." noindex>
+  <section class="random">
+    <p class="kicker">random --seed now</p>
+    <p class="line" aria-live="polite" data-status>Pulling a thread at random…</p>
+    <noscript><p class="line">Random needs JavaScript. <a href="/archive/">Browse the archive instead →</a></p></noscript>
+  </section>
+</Layout>
+
+<style>
+  .random { padding: var(--space-2xl) 0; text-align: center; }
+  .kicker { justify-content: center; color: var(--color-green); }
+  .line { margin-top: var(--space-s); color: var(--color-ink-soft); font: var(--step-2)/1.3 var(--font-display); }
+</style>
+
+<script>
+  const status = document.querySelector('[data-status]');
+  fetch('/search-index.json')
+    .then((r) => r.json())
+    .then((entries: { u: string; d?: string }[]) => {
+      const posts = entries.filter((e) => e.d);
+      location.replace(posts[Math.floor(Math.random() * posts.length)].u);
+    })
+    .catch(() => { if (status) status.textContent = 'Could not reach the index — try the archive.'; });
+</script>

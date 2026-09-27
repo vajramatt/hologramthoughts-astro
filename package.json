@@ -20,7 +20,8 @@
     "build:related": "tsx scripts/06-compute-related.ts",
     "build:rationale": "tsx scripts/07-write-rationale.ts",
     "build:muse": "npm run build:tag && npm run build:canonicalize && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related && npm run build:rationale",
-    "build:muse:force": "npm run build:tag && npm run build:canonicalize -- --force && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related -- --force && npm run build:rationale"
+    "build:muse:force": "npm run build:tag && npm run build:canonicalize -- --force && npm run build:bio && npm run build:blurbs && npm run build:embed && npm run build:related -- --force && npm run build:rationale",
+    "render:icons": "node scripts/render-icons.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.14",
@@ -29,7 +30,6 @@
     "@astrojs/svelte": "^7.2.5",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^5.13.8",
-    "astro-pagefind": "^1.8.5",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.1",
     "rehype-slug": "^6.0.0",

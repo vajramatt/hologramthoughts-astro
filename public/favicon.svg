@@ -1,27 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
-    <!-- Prismatic ring gradient: spore-gold → bioluminescent teal → mycelial violet → spore-gold -->
-    <linearGradient id="prism" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#c4a44a"/>
-      <stop offset="33%" stop-color="#2da89e"/>
-      <stop offset="66%" stop-color="#7a6fa0"/>
-      <stop offset="100%" stop-color="#c4a44a"/>
+    <!-- Wordmark family: TokyoNight blue → cyan → magenta -->
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7aa2f7"/>
+      <stop offset="50%" stop-color="#7dcfff"/>
+      <stop offset="100%" stop-color="#bb9af7"/>
     </linearGradient>
-    <radialGradient id="core" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f0c878"/>
-      <stop offset="60%" stop-color="#c4a44a" stop-opacity="0.85"/>
-      <stop offset="100%" stop-color="#7a6fa0" stop-opacity="0"/>
-    </radialGradient>
   </defs>
-
-  <!-- Outer hologram ring -->
-  <circle cx="32" cy="32" r="28" fill="none" stroke="url(#prism)" stroke-width="4"/>
-
-  <!-- Inner interference rings (faint) -->
-  <circle cx="32" cy="32" r="22" fill="none" stroke="url(#prism)" stroke-width="1" opacity="0.5"/>
-  <circle cx="32" cy="32" r="16" fill="none" stroke="url(#prism)" stroke-width="0.8" opacity="0.35"/>
-
-  <!-- Central spore-core -->
-  <circle cx="32" cy="32" r="9" fill="url(#core)"/>
-  <circle cx="32" cy="32" r="3.5" fill="#f0c878"/>
+  <rect width="64" height="64" rx="14" fill="#1a1b26"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#c0caf5" stroke-opacity="0.14" stroke-width="2"/>
+  <!-- prompt chevron -->
+  <path d="M15 19 L29 32 L15 45" fill="none" stroke="url(#g)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- terminal caret -->
+  <rect x="35" y="39" width="15" height="7" rx="1.5" fill="#9ece6a"/>
 </svg>

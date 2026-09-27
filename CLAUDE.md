@@ -27,7 +27,7 @@ The site has THREE faces:
 | Content | Markdown in `src/content/blog/`, Zod schema in `src/content/config.ts` |
 | Components | `.astro` + Svelte 5 islands (drawer, ambient field) |
 | Styling | Tailwind 4 (`@tailwindcss/vite`) + custom OKLCH design tokens |
-| Search | Custom client-side in-memory search (`search.astro`) — NOT pagefind despite `astro-pagefind` being installed |
+| Search | `/search` full-text search fetches `/search-full.json` on first use; site-wide ⌘K / Ctrl-K / `/` palette (`CommandPalette.svelte`) ranks titles + threads from `/search-index.json`. pagefind was removed (2026-09) |
 | Hosting | Cloudflare Pages |
 | Build-time LLM | Workers AI via local relay Worker (no API token, just `wrangler login`) |
 | Default model | `@cf/meta/llama-3.3-70b-instruct-fp8-fast` |
@@ -64,6 +64,15 @@ The site has THREE faces:
 The `@media print` block overrides only the colors that change (to the paper palette); type/motion/prism stay constant.
 
 **Syntax-highlight roles (IDE aesthetic).** The chrome is colored like an editor: numbers (dates, reading time, counts) use `--color-amber-bright` (orange); categories take a per-type hue via `categoryColor()` in `src/utils/category-color.ts` (magenta/green/cyan/blue). Tokens `--color-blue` / `--color-green` back this. Because Tailwind color utilities lose to unlayered `h1{}`/`a{}` rules in `global.css`, apply these via inline `style="color: var(--…)"`, not `text-[var(--…)]` classes.
+
+### Scales + shared primitives (reader-experience pass, 2026-09)
+
+- **Fluid scales** in `tokens.css` (`:root`, not `@theme`): type `--step--2 … --step-5`, space `--space-3xs … --space-2xl`, plus `--measure`, `--header-h`. Prefer these over hand-tuned `clamp()`s.
+- **`PageHeader.astro`** — the one compact opener for every index page (kicker, title with optional `<em>` via `slot="title"`, lede, stats). Keep content in the first viewport; do not bring back full-bleed hero cards.
+- **`PostRow.astro`** — dense list row (date · title · threads · type · minutes). `compact` = one line per post (archive). Emits `data-type/cats/text` for client filtering.
+- **`.kicker`**, **`.section-label`** (`// label` + right-aligned aside), **`.visually-hidden`**, `mark` — global in `global.css`.
+- **Atmosphere dial** — pages with `reading` prop get `body.reading-deep` once the reader is inside the text: particle field → 22%, scanfield → 0.018. Toggled by IntersectionObserver on `[data-reading-start]` / `[data-reading-end]`.
+- `.heading-link` styles the `#` anchors rehype-autolink-headings prepends (hang in the margin, visible on hover).
 
 ### Reusable classes (`src/styles/global.css`)
 
@@ -255,6 +264,10 @@ threads:
   - spirituality
   - artificial-intelligence
 
+# "Start here" row — up to 4 post slugs for first-time readers.
+# Empty/missing = the stories picks (series → part one).
+start_here: []
+
 # Italic Muse-voice note rendered on the hero (spore-gold left border)
 featured_note: "This week I'm thinking about the line between presence and devotion."
 ```
@@ -324,30 +337,34 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 ## 9. Component map
 
 ### Layouts (`src/layouts/`)
-- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG, Twitter, fonts), skip link, mounts `<ParticleField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`. No theme script and no `data-theme` on `<html>` — TokyoNight is the only on-screen theme
+- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG incl. per-page `ogImage`/`ogImageAlt`, Twitter, robots, manifest, `llms.txt` link, fonts), skip link, mounts `<ParticleField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`, `<CommandPalette>`. Props `reading={{ title }}` (post reading mode) and `noindex`. No theme script and no `data-theme` on `<html>` — TokyoNight is the only on-screen theme
 - **`BlogPostLayout.astro`** — legacy, mostly unused. The active blog post template is `src/pages/blog/[slug].astro`. Kept around for safety; mirrors the new pattern
 
 ### Components (`src/components/`)
-- **`SiteHeader.astro`** — sticky frosted header. Mono shimmer-gradient wordmark (`.wordmark`, Athena/Izakaya family look) + blinking terminal caret. Nav (`home`, `archive`, `themes`, `search`). No theme toggle (TokyoNight-only)
-- **`SiteFooter.astro`** — © line + nav + Muse attribution (static; the animated roots SVG was removed)
+- **`SiteHeader.astro`** — sticky frosted header. Mono shimmer-gradient wordmark + blinking terminal caret. Nav (`archive`, `themes`, `categories`, search button). In reading mode the post title slides into the header after the `<h1>` scrolls away, with a progress line and "N min left". Search links open the palette once hydrated (`window.__paletteReady`), else fall through to `/search/`.
+- **`SiteFooter.astro`** — wordmark, © line, links (archive, threads, random post, how, rss, for agents)
+- **`CommandPalette.svelte`** — ⌘K / Ctrl-K / `/` overlay. Lazy-fetches `/search-index.json`, ranks via `src/utils/palette-rank.ts`, ⌘↵ hands off to full-text search. On `/search` the shortcut focuses the page input instead.
 - **`ParticleField.svelte`** — fixed canvas, data packets on circuit traces (square heads, angular bends, fading trails). Reduced-motion gate
 - **`ThemeDrawer.svelte`** — global click listener for `.theme-chip` elements. Opens side drawer with theme details fetched from `/themes/reverse-index.json` + `/themes/post-meta.json`
 - **`ThemeChip.astro`** — single theme chip. `data-theme="<id>"` triggers drawer
 - **`ThemeChipStrip.astro`** — chip strip rendered at end of blog posts (themes for this post)
-- **`RelatedPosts.astro`** — "If this landed, Muse suggests" block. Renders sidecar `related[]`. **Critical**: uses multi-key `bySlug` map because sidecar slugs and Astro post slugs sometimes diverge (see Gotchas §11)
-- **`PostCard.astro`** — listing card with date / title / excerpt / chip preview. Used on homepage Recent, archive, categories
+- **`RelatedPosts.astro`** — "read next": optional series next-part lead card, then sidecar `related[]` in a 1/2/3-column grid (never an orphan). Uses `slugIndex()` (multi-key) because sidecar and Astro slugs can diverge (see Gotchas §11)
+- **`PostCard.astro`** — feature card (year · type, title, excerpt, minutes). Used by the homepage "start here" row
 - **`MuseHighlight.astro`** — 3-column block on homepage (Latest / Threads / Stories). Stories column supports series groups via `<details>` expander
-- **`ReadingProgress.astro`** — fixed-position progress bar at top of blog posts. `scanline-shift` gradient animation
-- **`TableOfContents.astro`** — auto-generated from headings, shown when 2+ exist. Glass card
+- **`TableOfContents.astro`** — shown when a post has 3+ h2/h3. `variant="rail"` = sticky left rail (≥1180px, active-section highlight); `variant="inline"` = `<details>` above the body on narrower screens
 
 ### Pages (`src/pages/`)
-- **`index.astro`** — homepage. Loads `muse-picks.yaml`, builds Latest/Stories/Threads, renders hero with `featured_note` if present, MuseHighlight, then 6 PostCards
-- **`blog/[slug].astro`** — individual post. Loads sidecar JSON, renders prose body + ThemeChipStrip + RelatedPosts + prev/next nav (series-aware)
-- **`archive/[...page].astro`** — paginated listing (Astro's `paginate()`)
+- **`index.astro`** — homepage. Typewriter hero + latest-3 panel → "start here" row (4 PostCards from `muse-picks.yaml` `start_here`, else the stories picks) → year strip (every year, quiet years dimmed) → MuseHighlight → transit map
+- **`blog/[slug].astro`** — individual post. Compact header (breadcrumb, kicker, title, deck only if `shouldShowDeck()`, meta, toolbar with categories + text size + share), series parts box, body, then ThemeChipStrip → RelatedPosts → chronological older/newer. Meta description via `metaDescription()`; OG image `/og/<slug>.png`
+- **`archive/[...page].astro`** — single page, all posts by year as compact `PostRow`s, with live filters (type / category / text) synced to `?type=&cat=&q=` (`src/utils/archive-filter.ts`)
 - **`categories/index.astro`** + **`categories/[category].astro`** — category browse
 - **`themes/index.astro`** — theme overview
 - **`themes/[id].astro`** — per-theme landing. Renders synthesis with markdown link conversion (`[text](url)` → anchors). Sidesteps bare `https://hologram-thoughts.com` prefixes from Llama
-- **`search.astro`** — custom in-memory search (NOT pagefind)
+- **`search.astro`** — full-text search; index fetched from `search-full.json.ts` on first focus/keystroke
+- **`search-index.json.ts`** / **`search-full.json.ts`** — palette index (~90KB) / full-text index
+- **`og/[slug].png.ts`**, **`og/themes/[id].png.ts`** — per-post / per-thread OG cards (see §13)
+- **`llms.txt.ts`**, **`llms-full.txt.ts`** — AEO guide + full corpus (see §12)
+- **`random.astro`** — client-side redirect to a random post (noindex)
 - **`404.astro`** — Muse-voice 404 ("This thread doesn't grow here")
 - **`rss.xml.js`** — RSS feed
 - **`agent-index.md.ts`** — agent-readable index of all posts
@@ -404,7 +421,7 @@ series: 'The Emergence'
 seriesOrder: 1
 ```
 
-When `series` is set, `[slug].astro` replaces global date-based prev/next with series-scoped prev/next sorted by `seriesOrder`. Nav labels become `← previous` / `next →`. Currently "The Emergence" has 9 entries (8 parts + NotebookLM podcast at order 9).
+When `series` is set, the post header shows "part N of M" plus a collapsible list of all parts, and "read next" leads with the next part. The older/newer nav at the bottom stays chronological (same-day parts sort by `seriesOrder`, see `publishedPosts()`). Currently "The Emergence" has 9 entries (8 parts + NotebookLM podcast at order 9).
 
 ### Stories
 
@@ -474,6 +491,10 @@ Avoid copy-pasting multi-line shell snippets with `# comments` inline. zsh treat
 
 **Rule:** never interpolate Muse/LLM/frontmatter content into raw HTML directly. Route it through `renderSynthesis()` (or `escapeHtml()` for non-link text). Everywhere else, keep using Astro/Svelte `{...}` interpolation, which auto-escapes — do not switch those to `set:html`.
 
+### Post helpers live in `src/utils/posts.ts`
+
+`publishedPosts()` (cached, newest first, series tiebreak), `urlOf()`, `routeSlug()`, `sidecarFor()`, `themeIdsFor()/themeNamesFor()`, `slugIndex()`. New pages should use these instead of re-implementing the slug dance. Categories live in `src/utils/categories.ts` (single table).
+
 ### `_redirects` slugs are validated
 
 `emit-theme-index.ts` only emits a redirect line when both the filename base and frontmatter slug match `^[A-Za-z0-9._~-]+$` (`isSafeSlug`). This blocks whitespace/newline (rule injection) and slash/colon (external or protocol-relative targets), keeping every redirect same-origin. A malformed slug is skipped with a `console.warn`, not silently emitted — if a post stops redirecting, check the build log for that warning.
@@ -504,6 +525,15 @@ curl https://hologramthoughts.com/agent-index.md
 
 ---
 
+## 12b. SEO / AEO checklist (keep these working)
+
+- Per-post `<title>`, canonical, `metaDescription()` (sentence-cut, never a truncated WP excerpt), `article:*` meta, per-post OG card
+- JSON-LD: `WebSite` + `Person` everywhere; `BlogPosting` (image object, genre, `about` = threads, series `isPartOf`) + `BreadcrumbList` on posts; `Blog` on home; `CollectionPage` on archive/themes/categories
+- Sitemap with `<lastmod>` from pubDate (`astro.config.mjs`); `/og/`, `/404/`, `/random/` excluded
+- `/llms.txt` (llmstxt.org format), `/llms-full.txt`, `/agent-index.md`, per-post `index.md` (MDX included — components stripped), RSS with `dc:creator`
+- `robots.txt` welcomes AI crawlers — do NOT disallow `/og/` (Twitterbot honours robots and would lose card images)
+- Icons: `favicon.svg` (TokyoNight chevron + caret), `apple-touch-icon.png`, `icon-192/512.png`, `site.webmanifest`. Re-render PNGs with `npm run render:icons`
+
 ## 13. OpenGraph image
 
 `public/og-image.svg` — TokyoNight terminal OG card. Mono shimmer wordmark (blue → cyan → magenta), soft cyan bloom, CRT scanfield, neon-glow caret and data packets, Muse prompt line, frontmatter byline, on deep blue-black.
@@ -518,10 +548,16 @@ Edit the SVG, re-render, commit both files. The `<head>` references `og-image.pn
 
 ---
 
+### Per-page OG cards
+
+`src/utils/og.ts` renders 1200×630 PNG cards at build time (resvg + vendored OFL fonts in `scripts/og-fonts/`, no system fonts). Title auto-fits (96→52px, ≤3 lines); subtitle is the deck when `shouldShowDeck()` passes. Output is cached in `.cache/og/` by SVG hash — bump `TEMPLATE_VERSION` if you change the renderer in a way the SVG hash wouldn't catch. ~325 cards render in ~6s cold.
+
 ## 14. Custom remark plugins (`src/utils/`)
 
 - **`reading-time.mjs`** — computes reading time from word count, injects into frontmatter
 - **`enhance-frontmatter.mjs`** — auto-generates description (excerpt), content type, complexity scores
+- **`rehype-drop-empty.mjs`** — drops `&nbsp;`-only paragraphs left by the WordPress export (they rendered as blank gaps)
+- Code blocks use Shiki `tokyo-night` (was `github-light` on a dark site)
 
 ---
 

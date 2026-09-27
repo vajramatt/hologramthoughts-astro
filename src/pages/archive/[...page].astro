@@ -1,320 +1,350 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import ThemeChip from '../../components/ThemeChip.astro';
-import taxonomy from '../../content/themes/taxonomy.json';
+import PageHeader from '../../components/PageHeader.astro';
+import PostRow from '../../components/PostRow.astro';
+import { publishedPosts, themeNamesFor, urlOf } from '../../utils/posts';
+import { CATEGORIES, CONTENT_TYPES, CONTENT_TYPE_LABEL, categorySlug } from '../../utils/categories';
+import { collectionPageGraph } from '../../utils/jsonld';
 
-export const getStaticPaths = (async () => {
-  const posts = (await getCollection('blog', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-  return [{ params: { page: undefined }, props: { posts } }];
-}) satisfies GetStaticPaths;
+export const getStaticPaths = (async () => [{ params: { page: undefined } }]) satisfies GetStaticPaths;
 
-const { posts } = Astro.props;
-const slugOf = (post: any) => post.data.slug ?? post.slug ?? post.id.replace(/\.md$/, '');
-const sidecarKey = (post: any) => post.data.slug ?? post.slug ?? post.id.replace(/\.md$/, '');
-const themeById = new Map<string, any>((taxonomy as any).themes.map((theme: any) => [theme.id, theme]));
-const sidecars = import.meta.glob('../../content/themes/*.json', { eager: true });
-
-const themeIdsFor = (post: any) => {
-  const key = `../../content/themes/${sidecarKey(post)}.json`;
-  return ((sidecars[key] as any)?.default?.themeIds ?? []) as string[];
-};
-
-const groups = new Map<number, any[]>();
+const posts = await publishedPosts();
+const groups = new Map<number, typeof posts>();
 for (const post of posts) {
   const year = post.data.pubDate.getUTCFullYear();
   if (!groups.has(year)) groups.set(year, []);
   groups.get(year)!.push(post);
 }
-const years = [...groups.entries()]
-  .map(([year, yearPosts]) => ({ year, posts: yearPosts }))
-  .sort((a, b) => b.year - a.year);
+const years = [...groups.entries()].map(([year, list]) => ({ year, posts: list })).sort((a, b) => b.year - a.year);
+const first = years.at(-1)!.year;
+const last = years[0].year;
+
+const typeCounts = new Map<string, number>();
+for (const p of posts) {
+  const t = p.data.contentType ?? 'reflection';
+  typeCounts.set(t, (typeCounts.get(t) ?? 0) + 1);
+}
+const catCounts = new Map<string, number>();
+for (const p of posts) for (const c of p.data.categories ?? []) {
+  const slug = categorySlug(c);
+  catCounts.set(slug, (catCounts.get(slug) ?? 0) + 1);
+}
+
+const jsonLd = collectionPageGraph({
+  name: 'Archive — Hologram Thoughts',
+  description: `Every post from ${first} to ${last}.`,
+  url: 'https://hologramthoughts.com/archive/',
+  posts: posts.map((p) => ({ title: p.data.title, url: `https://hologramthoughts.com${urlOf(p)}` })),
+});
 ---
 
-<Layout wide title="Archive — Hologram Thoughts" description="Every post from 2006 to today, grouped by year — the full archive of Hologram Thoughts.">
-  <header class="archive-hero">
-    <div>
-      <p class="archive-kicker">Archive · 2006—{years[0]?.year}</p>
-      <h1>Every piece,<br /><span>still within reach.</span></h1>
+<Layout wide title="Archive — Hologram Thoughts" description={`All ${posts.length} posts from ${first} to ${last} — essays, stories, poems and reflections by Matthew Williamson, filterable by type, category and thread.`} jsonLd={jsonLd}>
+  <PageHeader
+    kicker={`archive · ${first}—${last}`}
+    lede="Newest first. Narrow it by kind of writing, by category, or by a word in a title or thread."
+    stats={[{ label: 'posts', value: posts.length }, { label: 'years', value: years.length }]}
+  >
+    <Fragment slot="title">Every piece, <em>still within reach.</em></Fragment>
+  </PageHeader>
+
+  <form class="filters" role="search" aria-label="Filter the archive" data-filters onsubmit="return false">
+    <div class="types" role="group" aria-label="Kind of writing">
+      <button type="button" data-type="all" aria-pressed="true">All <span>{posts.length}</span></button>
+      {CONTENT_TYPES.filter((t) => typeCounts.get(t)).map((t) => (
+        <button type="button" data-type={t} aria-pressed="false">{CONTENT_TYPE_LABEL[t]} <span>{typeCounts.get(t)}</span></button>
+      ))}
     </div>
-    <div class="archive-summary">
-      <p><strong>{posts.length}</strong> posts across <strong>{years.length}</strong> years.</p>
-      <p>Move through time, or search for the phrase you still remember.</p>
-      <a href="/search/">Search the archive <span aria-hidden="true">→</span></a>
+    <div class="fields">
+      <label class="field">
+        <span class="visually-hidden">Category</span>
+        <select data-cat>
+          <option value="all">All categories</option>
+          {CATEGORIES.filter((c) => catCounts.get(c.slug)).map((c) => (
+            <option value={c.slug}>{c.name} ({catCounts.get(c.slug)})</option>
+          ))}
+        </select>
+      </label>
+      <label class="field grow">
+        <span class="visually-hidden">Filter by title or thread</span>
+        <span class="prompt" aria-hidden="true">›</span>
+        <input type="search" data-q placeholder="filter titles & threads" autocomplete="off" spellcheck="false" />
+      </label>
     </div>
-  </header>
+    <p class="status" aria-live="polite"><span data-count>{posts.length}</span> shown <button type="button" data-clear hidden>clear filters</button></p>
+  </form>
 
   <div class="archive-layout">
-    <aside class="year-index" aria-label="Archive years">
-      <p>// jump to year</p>
-      <nav>
-        {years.map(({ year, posts: yearPosts }) => (
-          <a href={`#year-${year}`} data-year-jump>
-            <span>{year}</span>
-            <span>{yearPosts.length}</span>
-          </a>
-        ))}
-      </nav>
-    </aside>
+    <nav class="year-index" aria-label="Jump to year">
+      {years.map(({ year, posts: list }) => (
+        <a href={`#year-${year}`} data-year-link={year}>
+          <span>{year}</span><span data-year-count>{list.length}</span>
+        </a>
+      ))}
+    </nav>
 
     <div class="year-groups">
-      {years.map(({ year, posts: yearPosts }) => (
-        <section class="year-group" id={`year-${year}`} aria-labelledby={`heading-${year}`}>
+      {years.map(({ year, posts: list }) => (
+        <section class="year-group" id={`year-${year}`} aria-labelledby={`h-${year}`} data-year-group={year}>
           <header>
-            <h2 id={`heading-${year}`}>{year}</h2>
-            <span>{yearPosts.length} {yearPosts.length === 1 ? 'post' : 'posts'}</span>
+            <h2 id={`h-${year}`}>{year}</h2>
+            <span><span data-group-count>{list.length}</span> {list.length === 1 ? 'post' : 'posts'}</span>
           </header>
           <ol>
-            {yearPosts.map((post: any) => {
-              const slug = slugOf(post);
-              const themes = themeIdsFor(post)
-                .slice(0, 2)
-                .map((id) => themeById.get(id))
-                .filter(Boolean);
-              return (
-                <li>
-                  <article>
-                    <time datetime={post.data.pubDate.toISOString()}>
-                      {post.data.pubDate.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' })}
-                    </time>
-                    <div class="post-copy">
-                      <a class="post-title" href={`/blog/${slug}/`}>{post.data.title}</a>
-                      {themes.length > 0 && (
-                        <div class="post-themes">
-                          {themes.map((theme: any) => <ThemeChip id={theme.id} name={theme.name} small />)}
-                        </div>
-                      )}
-                    </div>
-                    <a class="post-arrow" href={`/blog/${slug}/`} aria-label={`Read ${post.data.title}`}>→</a>
-                  </article>
-                </li>
-              );
-            })}
+            {list.map((post) => <PostRow post={post} themeNames={themeNamesFor(post)} compact />)}
           </ol>
         </section>
       ))}
+      <div class="empty" data-empty hidden>
+        <p>Nothing matches those filters.</p>
+        <button type="button" data-clear>clear filters</button>
+        <span>or</span>
+        <a href="/search/" data-search-link>search every word →</a>
+      </div>
     </div>
   </div>
 </Layout>
 
 <style>
-  :global(html) { scroll-padding-top: 6rem; }
-  .archive-hero {
-    position: relative;
+  .filters {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 20;
     display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
-    gap: clamp(2rem, 7vw, 7rem);
-    align-items: end;
-    padding: clamp(2rem, 6vw, 5rem) 0 clamp(2.5rem, 6vw, 5rem);
-    border-bottom: 1px solid var(--color-border-strong);
-  }
-  .archive-hero::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    width: 48rem;
-    height: 30rem;
-    left: -18rem;
-    top: -8rem;
-    background: radial-gradient(circle, color-mix(in oklch, var(--color-blue) 15%, transparent), transparent 66%);
-    filter: blur(20px);
-  }
-  .archive-kicker {
-    margin: 0 0 1rem;
-    color: var(--color-amber-bright);
-    font: 0.68rem var(--font-mono);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .archive-hero h1 {
-    margin: 0;
-    font-size: clamp(3rem, 7vw, 6.5rem);
-    line-height: 0.92;
-    letter-spacing: -0.05em;
-  }
-  .archive-hero h1 span {
-    background: linear-gradient(95deg, var(--color-ink), var(--color-blue), var(--color-magenta));
-    background-clip: text;
-    color: transparent;
-  }
-  .archive-summary { padding-bottom: 0.45rem; color: var(--color-ink-soft); }
-  .archive-summary p { margin: 0 0 0.55rem; }
-  .archive-summary strong { color: var(--color-cyan); font-weight: 500; }
-  .archive-summary a {
-    display: inline-flex;
-    gap: 0.5rem;
-    min-height: 44px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    color: var(--color-cyan);
-    font: 0.72rem var(--font-mono);
-    text-decoration: none;
+    gap: 0.6rem 1rem;
+    margin: 0 -0.75rem var(--space-l);
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    background: color-mix(in oklch, var(--color-bg) 92%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
+  .types { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .types button {
+    min-height: 34px;
+    padding: 0 0.7rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-ink-soft);
+    font: var(--step--1)/1 var(--font-ui);
+    cursor: pointer;
+    transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast);
+  }
+  .types button span { margin-left: 0.2rem; color: var(--color-ink-faint); font: var(--step--2) var(--font-mono); }
+  .types button:hover { color: var(--color-cyan); border-color: color-mix(in oklch, var(--color-cyan) 45%, transparent); }
+  .types button[aria-pressed='true'] {
+    color: var(--color-bg);
+    border-color: var(--color-cyan);
+    background: var(--color-cyan);
+  }
+  .types button[aria-pressed='true'] span { color: color-mix(in oklch, var(--color-bg) 70%, transparent); }
+  .fields { display: flex; gap: 0.5rem; min-width: 0; }
+  .field {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 36px;
+    padding: 0 0.6rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 8px;
+    background: color-mix(in oklch, var(--color-surface) 55%, transparent);
+  }
+  .field:focus-within { border-color: var(--color-cyan); }
+  .field.grow { flex: 1; min-width: 8rem; }
+  .prompt { color: var(--color-green); font-family: var(--font-mono); }
+  select, input {
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--color-ink);
+    font: var(--step--1)/1 var(--font-ui);
+  }
+  select { max-width: 14rem; cursor: pointer; }
+  select option { background: var(--color-bg-soft); }
+  input { flex: 1; }
+  input::placeholder { color: var(--color-ink-faint); }
+  .status { margin: 0; color: var(--color-ink-faint); font: var(--step--2) var(--font-mono); white-space: nowrap; }
+  .status [data-count] { color: var(--color-amber-bright); }
+  [data-clear] {
+    margin-left: 0.4rem;
+    border: 0;
+    background: none;
+    color: var(--color-cyan);
+    font: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
   .archive-layout {
     display: grid;
-    grid-template-columns: 8.5rem minmax(0, 1fr);
-    gap: clamp(2rem, 6vw, 6rem);
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    gap: var(--space-xl);
     align-items: start;
-    padding-top: clamp(2.5rem, 6vw, 5rem);
   }
   .year-index {
     position: sticky;
-    top: 6rem;
-    max-height: calc(100vh - 8rem);
+    top: calc(var(--header-h) + 5rem);
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - var(--header-h) - 7rem);
     overflow-y: auto;
     scrollbar-width: thin;
   }
-  .year-index > p {
-    margin: 0 0 0.65rem;
-    color: var(--color-magenta);
-    font: 0.58rem var(--font-mono);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .year-index nav { display: flex; flex-direction: column; }
   .year-index a {
     display: flex;
     justify-content: space-between;
-    min-height: 34px;
     align-items: center;
-    padding: 0.18rem 0.4rem;
+    min-height: 30px;
+    padding: 0 0.5rem;
     border-left: 1px solid var(--color-border);
     color: var(--color-ink-soft);
-    font: 0.7rem var(--font-mono);
+    font: var(--step--2) var(--font-mono);
     text-decoration: none;
+    transition: color var(--dur-fast), border-color var(--dur-fast);
   }
-  .year-index a span:last-child { color: var(--color-ink-faint); font-size: 0.58rem; }
-  .year-index a:hover {
-    border-left-color: var(--color-cyan);
-    background: color-mix(in oklch, var(--color-blue) 7%, transparent);
-    color: var(--color-cyan);
-  }
-  .year-groups { min-width: 0; }
-  .year-group {
-    scroll-margin-top: 6rem;
-    margin-bottom: clamp(3rem, 7vw, 6rem);
-  }
+  .year-index a span:last-child { color: var(--color-ink-faint); }
+  .year-index a:hover, .year-index a.is-current { color: var(--color-cyan); border-left-color: var(--color-cyan); }
+  .year-index a[hidden] { display: none; }
+
+  .year-group { margin-bottom: var(--space-l); scroll-margin-top: calc(var(--header-h) + 5.5rem); }
+  .year-group[hidden] { display: none; }
   .year-group > header {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 0.4rem;
     border-bottom: 1px solid var(--color-border-strong);
   }
   .year-group h2 {
     margin: 0;
     color: var(--color-blue);
-    font: 500 clamp(2.2rem, 5vw, 4rem)/1 var(--font-display);
+    font: 500 var(--step-4)/1 var(--font-display);
+    letter-spacing: -0.02em;
   }
-  .year-group > header span {
-    color: var(--color-amber-bright);
-    font: 0.64rem var(--font-mono);
-    text-transform: uppercase;
-  }
-  .year-group ol { margin: 0; padding: 0; list-style: none; }
-  .year-group li { border-bottom: 1px solid var(--color-border); }
-  .year-group article {
-    display: grid;
-    grid-template-columns: 3.75rem minmax(0, 1fr) 2rem;
-    gap: 1rem;
-    align-items: center;
-    min-height: 78px;
-    padding: 0.85rem 0.4rem;
-    transition: background var(--dur-fast) var(--ease-grow);
-  }
-  .year-group article:hover { background: linear-gradient(90deg, color-mix(in oklch, var(--color-blue) 6%, transparent), transparent); }
-  .year-group time { color: var(--color-amber-bright); font: 0.62rem var(--font-mono); text-transform: uppercase; }
-  .post-copy { min-width: 0; }
-  .post-title {
-    display: inline;
-    color: var(--color-ink);
-    font: 500 clamp(1rem, 2vw, 1.2rem)/1.25 var(--font-display);
-    text-decoration: none;
-  }
-  .post-title:hover { color: var(--color-cyan); }
-  .post-themes { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
-  .post-arrow {
-    display: grid;
-    place-items: center;
-    min-width: 44px;
-    min-height: 44px;
-    color: var(--color-ink-faint);
-    text-decoration: none;
-  }
-  .year-group article:hover .post-arrow { color: var(--color-magenta); }
+  .year-group > header > span { color: var(--color-amber-bright); font: var(--step--2) var(--font-mono); text-transform: uppercase; }
+  .year-group ol { margin: 0; padding: 0; }
 
-  @media (max-width: 760px) {
-    .archive-hero { grid-template-columns: 1fr; gap: 1.5rem; }
-    .archive-layout { grid-template-columns: 1fr; }
-    .year-index {
-      position: sticky;
-      z-index: 5;
-      top: 64px;
-      max-height: none;
-      margin-inline: -1.25rem;
-      padding: 0.65rem 1.25rem;
-      overflow-x: auto;
-      background: color-mix(in oklch, var(--color-bg) 92%, transparent);
-      border-block: 1px solid var(--color-border);
-      backdrop-filter: blur(16px);
-    }
-    .year-index > p { display: none; }
-    .year-index nav { width: max-content; flex-direction: row; }
-    .year-index a {
-      min-width: 64px;
-      min-height: 44px;
-      flex-direction: column;
-      justify-content: center;
-      border-left: 0;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .year-group article { grid-template-columns: 3.1rem minmax(0, 1fr) 2rem; gap: 0.55rem; }
+  .empty {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: var(--space-l) 0;
+    color: var(--color-ink-soft);
   }
-  @media (max-width: 440px) {
-    .archive-hero h1 { font-size: clamp(2.75rem, 14vw, 4rem); }
-    .post-themes { display: none; }
-    .year-group article { min-height: 66px; }
+  .empty p { width: 100%; margin: 0 0 0.25rem; font: var(--step-2)/1.2 var(--font-display); color: var(--color-ink); }
+  .empty span { color: var(--color-ink-faint); }
+  .empty a { color: var(--color-cyan); font: var(--step--1) var(--font-mono); }
+  .empty [data-clear] { margin: 0; font: var(--step--1) var(--font-mono); }
+
+  @media (max-width: 900px) {
+    .filters { grid-template-columns: 1fr; }
+    .status { justify-self: start; }
+    .archive-layout { grid-template-columns: 1fr; gap: 0; }
+    .year-index { display: none; }
+  }
+  @media (max-width: 560px) {
+    .filters { position: static; margin-inline: 0; padding-inline: 0; background: none; backdrop-filter: none; }
+    .types { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -1.25rem; padding-inline: 1.25rem; }
+    .types button { flex: 0 0 auto; }
+    .fields { flex-direction: column; }
+    select { max-width: none; width: 100%; }
   }
 </style>
 
 <script>
-  const yearLinks = document.querySelectorAll<HTMLAnchorElement>('[data-year-jump]');
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  import { matchesFilters, parseFilters, serializeFilters, isFiltered, EMPTY_FILTERS, type ArchiveFilters } from '../../utils/archive-filter';
 
-  yearLinks.forEach((link) => {
-    link.addEventListener('click', (event) => {
-      const id = link.hash.slice(1);
-      const target = document.getElementById(id);
-      if (!target) return;
+  const form = document.querySelector<HTMLFormElement>('[data-filters]')!;
+  const typeButtons = [...form.querySelectorAll<HTMLButtonElement>('[data-type]')];
+  const catSelect = form.querySelector<HTMLSelectElement>('[data-cat]')!;
+  const qInput = form.querySelector<HTMLInputElement>('[data-q]')!;
+  const countEl = form.querySelector<HTMLElement>('[data-count]')!;
+  const clearButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-clear]')];
+  const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+  const searchLink = document.querySelector<HTMLAnchorElement>('[data-search-link]');
+  const groups = [...document.querySelectorAll<HTMLElement>('[data-year-group]')];
+  const yearLinks = new Map([...document.querySelectorAll<HTMLAnchorElement>('[data-year-link]')].map((a) => [a.dataset.yearLink!, a]));
+  const rows = [...document.querySelectorAll<HTMLElement>('[data-row]')].map((el) => ({
+    el,
+    data: { type: el.dataset.type!, cats: (el.dataset.cats || '').split(' ').filter(Boolean), text: el.dataset.text! },
+  }));
 
-      event.preventDefault();
-      const offset = window.innerWidth <= 760 ? 128 : 88;
-      const start = window.scrollY;
-      const destination = Math.max(0, target.getBoundingClientRect().top + start - offset);
+  let filters: ArchiveFilters = parseFilters(location.search);
 
-      history.pushState(null, '', link.hash);
+  function syncControls() {
+    typeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.type === filters.type)));
+    catSelect.value = [...catSelect.options].some((o) => o.value === filters.cat) ? filters.cat : 'all';
+    if (qInput.value !== filters.q) qInput.value = filters.q;
+  }
 
-      if (reducedMotion.matches) {
-        window.scrollTo(0, destination);
-        return;
+  function apply() {
+    let shown = 0;
+    for (const r of rows) {
+      const ok = matchesFilters(r.data, filters);
+      r.el.hidden = !ok;
+      if (ok) shown++;
+    }
+    for (const g of groups) {
+      const visible = g.querySelectorAll('[data-row]:not([hidden])').length;
+      g.hidden = visible === 0;
+      const gc = g.querySelector('[data-group-count]');
+      if (gc) gc.textContent = String(visible);
+      const link = yearLinks.get(g.dataset.yearGroup!);
+      if (link) {
+        link.hidden = visible === 0;
+        const lc = link.querySelector('[data-year-count]');
+        if (lc) lc.textContent = String(visible);
       }
+    }
+    countEl.textContent = String(shown);
+    empty.hidden = shown > 0;
+    const filtered = isFiltered(filters);
+    clearButtons.forEach((b) => { b.hidden = !filtered && !b.closest('[data-empty]'); });
+    if (searchLink) searchLink.href = filters.q ? `/search/?q=${encodeURIComponent(filters.q)}` : '/search/';
+    history.replaceState(null, '', `${location.pathname}${serializeFilters(filters)}${location.hash}`);
+  }
 
-      const distance = destination - start;
-      const duration = Math.min(1050, Math.max(520, Math.abs(distance) * 0.13));
-      const startedAt = performance.now();
-
-      // Quintic ease-out: immediate travel, then a long, soft arrival.
-      const glide = (now: number) => {
-        const elapsed = Math.min(1, (now - startedAt) / duration);
-        const eased = 1 - Math.pow(1 - elapsed, 5);
-        window.scrollTo(0, start + distance * eased);
-        if (elapsed < 1) requestAnimationFrame(glide);
-        else target.querySelector<HTMLElement>('h2')?.focus({ preventScroll: true });
-      };
-
-      requestAnimationFrame(glide);
-    });
+  typeButtons.forEach((b) => b.addEventListener('click', () => {
+    filters = { ...filters, type: b.dataset.type! };
+    syncControls();
+    apply();
+  }));
+  catSelect.addEventListener('change', () => { filters = { ...filters, cat: catSelect.value }; apply(); });
+  let t = 0;
+  qInput.addEventListener('input', () => {
+    clearTimeout(t);
+    t = window.setTimeout(() => { filters = { ...filters, q: qInput.value }; apply(); }, 80);
   });
+  qInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && qInput.value) { e.preventDefault(); qInput.value = ''; filters = { ...filters, q: '' }; apply(); }
+  });
+  clearButtons.forEach((b) => b.addEventListener('click', () => {
+    filters = { ...EMPTY_FILTERS };
+    syncControls();
+    apply();
+  }));
+
+  syncControls();
+  if (isFiltered(filters)) apply();
+  else clearButtons.forEach((b) => { if (!b.closest('[data-empty]')) b.hidden = true; });
+
+  // Highlight the year currently in view in the rail.
+  if ('IntersectionObserver' in window) {
+    let current: HTMLAnchorElement | undefined;
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        current?.classList.remove('is-current');
+        current = yearLinks.get((e.target as HTMLElement).dataset.yearGroup!);
+        current?.classList.add('is-current');
+      }
+    }, { rootMargin: '-30% 0px -65% 0px' });
+    groups.forEach((g) => io.observe(g));
+  }
 </script>

@@ -1,6 +1,11 @@
 @import "./tokens.css";
 
-html { color-scheme: dark light; }
+html {
+  color-scheme: dark;
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
@@ -242,6 +247,82 @@ a:hover {
   background: linear-gradient(90deg, transparent, var(--color-border-strong), transparent);
   margin: 3em 0;
 }
+
+/* Heading anchors injected by rehype-autolink-headings ("#", prepended).
+   Hang them in the left margin, visible on hover/focus only. */
+.heading-link {
+  position: absolute;
+  margin-left: -1.1em;
+  width: 1em;
+  color: var(--color-ink-faint) !important;
+  text-decoration: none !important;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-grow), color var(--dur-fast);
+}
+:is(h1, h2, h3, h4, h5, h6):hover > .heading-link,
+.heading-link:focus-visible { opacity: 1; }
+.heading-link:hover { color: var(--color-cyan) !important; }
+@media (max-width: 720px) { .heading-link { display: none; } }
+
+/* Shared chrome primitives */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  color: var(--color-ink-soft);
+  font: 500 var(--step--2)/1.4 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.section-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 var(--space-s);
+  padding-bottom: var(--space-2xs);
+  border-bottom: 1px solid var(--color-border);
+}
+.section-label > :first-child {
+  margin: 0;
+  color: var(--color-magenta);
+  font: 500 var(--step--2)/1.2 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.section-label > :first-child::before { content: "// "; color: var(--color-ink-faint); }
+.section-label > :not(:first-child) {
+  margin: 0;
+  color: var(--color-ink-faint);
+  font: var(--step--2)/1.2 var(--font-mono);
+}
+.section-label a { color: var(--color-cyan); text-decoration: none; }
+.section-label a:hover { color: var(--color-magenta); }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+mark {
+  background: color-mix(in oklch, var(--color-amber) 26%, transparent);
+  color: var(--color-ink);
+  border-radius: 2px;
+  padding: 0 0.1em;
+}
+
+/* Atmosphere dial — once a reader is deep in a post, the ambient field and
+   scanfield step back so the text owns the screen. Toggled by Layout script. */
+.particle-field { transition: opacity 1.2s var(--ease-breathe); }
+body::after { transition: opacity 1.2s var(--ease-breathe); }
+body.reading-deep .particle-field { opacity: 0.22; }
+body.reading-deep::after { opacity: 0.018; }
 
 /* Focus ring — bioluminescent */
 *:focus-visible {

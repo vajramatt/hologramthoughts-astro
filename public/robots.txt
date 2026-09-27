@@ -1,6 +1,7 @@
 # Hologram Thoughts — humans and agents both welcome.
 # Clean Markdown for any page: append ?format=md or send Accept: text/markdown.
 # Post index: /agent-index.md
+# Guide for language models: /llms.txt   Full text: /llms-full.txt
 
 User-agent: *
 Allow: /

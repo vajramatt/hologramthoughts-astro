@@ -37,10 +37,10 @@ export function emitThemeIndex(): AstroIntegration {
           }
         }
         const redirects: string[] = [];
-        for (const bf of (await readdir(blogDir)).filter(f => f.endsWith('.md'))) {
+        for (const bf of (await readdir(blogDir)).filter(f => /\.mdx?$/.test(f))) {
           const { data } = matter(await readFile(join(blogDir, bf), 'utf8'));
           if (data.draft) continue;
-          const filenameBase = bf.replace(/\.md$/, '');
+          const filenameBase = bf.replace(/\.mdx?$/, '');
           const slug = data.slug ?? filenameBase;
           meta[slug] = { slug, title: data.title, pubDate: new Date(data.pubDate).toISOString() };
           // Legacy URL redirect: filename-based slug (often YYYY-MM-DD-foo) → clean frontmatter slug.

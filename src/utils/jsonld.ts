@@ -48,6 +48,10 @@ export function blogPostingGraph(opts: {
   categories?: string[];
   wordCount?: number;
   readingTime?: number;
+  genre?: string;
+  about?: string[];
+  series?: { name: string; position?: number };
+  imageAlt?: string;
 }): any[] {
   const posting: any = {
     '@context': 'https://schema.org',
@@ -57,11 +61,23 @@ export function blogPostingGraph(opts: {
     url: opts.url,
     mainEntityOfPage: opts.url,
     datePublished: opts.datePublished,
-    image: opts.image,
+    image: { '@type': 'ImageObject', url: opts.image, width: 1200, height: 630, ...(opts.imageAlt ? { caption: opts.imageAlt } : {}) },
     inLanguage: 'en',
     author: PERSON,
     publisher: PERSON,
+    copyrightHolder: PERSON,
+    isAccessibleForFree: true,
+    isPartOf: { '@type': 'Blog', name: SITE_NAME, url: SITE },
   };
+  if (opts.genre) posting.genre = opts.genre;
+  if (opts.about?.length) posting.about = opts.about.map((name) => ({ '@type': 'Thing', name }));
+  if (opts.series) {
+    posting.isPartOf = [
+      posting.isPartOf,
+      { '@type': 'CreativeWorkSeries', name: opts.series.name },
+    ];
+    if (opts.series.position) posting.position = opts.series.position;
+  }
   if (opts.tags?.length) posting.keywords = opts.tags.join(', ');
   if (opts.categories?.length) posting.articleSection = opts.categories;
   if (opts.wordCount) posting.wordCount = opts.wordCount;
@@ -113,5 +129,25 @@ export function aboutPageGraph(opts: { url: string; description: string }): any 
     description: opts.description,
     inLanguage: 'en',
     author: PERSON,
+  };
+}
+
+export function blogGraph(opts: { posts: Array<{ title: string; url: string; datePublished: string }> }): any {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: SITE_NAME,
+    url: `${SITE}/`,
+    description: SITE_DESC,
+    inLanguage: 'en',
+    author: PERSON,
+    publisher: PERSON,
+    blogPost: opts.posts.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.title,
+      url: p.url,
+      datePublished: p.datePublished,
+      author: PERSON,
+    })),
   };
 }

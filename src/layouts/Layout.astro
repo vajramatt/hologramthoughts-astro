@@ -4,6 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ParticleField from '../components/ParticleField.svelte';
 import ThemeDrawer from '../components/ThemeDrawer.svelte';
+import CommandPalette from '../components/CommandPalette.svelte';
 import JsonLd from '../components/JsonLd.astro';
 import { websiteGraph } from '../utils/jsonld';
 
@@ -13,79 +14,99 @@ export interface Props {
   wide?: boolean;
   ogType?: 'website' | 'article';
   ogImage?: string;
+  ogImageAlt?: string;
   publishedTime?: string;
+  section?: string;
   tags?: string[];
   canonicalUrl?: string;
   jsonLd?: object | object[];
+  /** Long-form reading page: header shows progress, atmosphere steps back. */
+  reading?: { title: string } | null;
+  noindex?: boolean;
 }
 
+const SITE = 'https://hologramthoughts.com';
 const {
   title,
-  description = 'Hologram Thoughts — an archive of writing on consciousness, dharma, and the strange edges of culture.',
+  description = 'Hologram Thoughts — twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture, by Matthew Williamson.',
   wide = false,
   ogType = 'website',
-  ogImage = 'https://hologramthoughts.com/og-image.png',
+  ogImage = `${SITE}/og-image.png`,
+  ogImageAlt = 'Hologram Thoughts — an archive of attention by Matthew Williamson',
   publishedTime,
+  section,
   tags = [],
   canonicalUrl,
   jsonLd,
+  reading = null,
+  noindex = false,
 } = Astro.props;
 
-const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathname}`;
+const canonical = canonicalUrl ?? `${SITE}${Astro.url.pathname}`;
+const mdPath = Astro.url.pathname.startsWith('/blog/') ? `${Astro.url.pathname}index.md` : null;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="author" content="Matthew Williamson" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#1a1b26" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={canonical} />
+    <link rel="author" href="/how/" />
     <link rel="alternate" type="application/rss+xml" title="Hologram Thoughts" href="/rss.xml" />
-    <link rel="alternate" type="text/markdown" href={`${Astro.url.pathname}?format=md`} />
+    {mdPath && <link rel="alternate" type="text/markdown" href={mdPath} title="Markdown version for agents" />}
+    <link rel="help" type="text/plain" href="/llms.txt" title="Guide for language models" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Hologram Thoughts — an archive of attention" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Hologram Thoughts" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:logo" content="https://hologramthoughts.com/favicon.svg" />
-    <meta name="robots" content="index,follow" />
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
-    {tags.map(t => <meta property="article:tag" content={t} />)}
-    <meta name="article:author" content="Matthew Williamson" />
+    {ogType === 'article' && <meta property="article:author" content="Matthew Williamson" />}
+    {section && <meta property="article:section" content={section} />}
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
 
-    <!-- Twitter Card -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="Hologram Thoughts — an archive of attention" />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
 
     <JsonLd data={websiteGraph()} />
     {jsonLd && <JsonLd data={jsonLd} />}
   </head>
-  <body>
+  <body data-reading={reading ? '' : undefined}>
     <a href="#main" class="skip-link">Skip to main content</a>
     <ParticleField client:idle />
-    <SiteHeader />
+    <SiteHeader reading={reading} />
     <main
       id="main"
+      tabindex="-1"
       class:list={[
-        'mx-auto w-full px-5 sm:px-6 py-10 sm:py-16',
+        'site-main mx-auto w-full px-5 sm:px-6 pt-6 pb-10 sm:pt-10 sm:pb-16',
         wide ? 'max-w-6xl' : 'max-w-3xl'
       ]}
     >
@@ -93,6 +114,33 @@ const canonical = canonicalUrl ?? `https://hologramthoughts.com${Astro.url.pathn
     </main>
     <SiteFooter />
     <ThemeDrawer client:idle />
-    <!-- agent: machine-readable markdown available at ?format=md or /agent-index.md -->
+    <CommandPalette client:idle />
+    {reading && (
+      <script>
+        // Atmosphere dial: once the reader is inside the text, the ambient field and
+        // scanfield step back. One IntersectionObserver, no scroll handlers.
+        const body = document.body;
+        const start = document.querySelector('[data-reading-start]');
+        const end = document.querySelector('[data-reading-end]');
+        if (start && 'IntersectionObserver' in window) {
+          let pastStart = false;
+          let atEnd = false;
+          const sync = () => body.classList.toggle('reading-deep', pastStart && !atEnd);
+          new IntersectionObserver(([e]) => {
+            pastStart = !e.isIntersecting && e.boundingClientRect.top < 0;
+            sync();
+          }).observe(start);
+          if (end) new IntersectionObserver(([e]) => {
+            atEnd = e.isIntersecting || e.boundingClientRect.top < 0;
+            sync();
+          }).observe(end);
+        }
+      </script>
+    )}
+    <!-- agent: machine-readable markdown at /blog/<slug>/index.md (or ?format=md); site guide at /llms.txt; index at /agent-index.md -->
   </body>
 </html>
+
+<style>
+  .site-main:focus { outline: none; }
+</style>

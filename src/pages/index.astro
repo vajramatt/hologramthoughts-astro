@@ -2,7 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import MuseHighlight from '../components/MuseHighlight.astro';
 import NetworkMap from '../components/NetworkMap.svelte';
-import ThemeChip from '../components/ThemeChip.astro';
+import PostCard from '../components/PostCard.astro';
+import { metaDescription } from '../utils/deck';
+import { blogGraph } from '../utils/jsonld';
 import { getCollection } from 'astro:content';
 import taxonomy from '../content/themes/taxonomy.json';
 import { readFile } from 'node:fs/promises';
@@ -23,6 +25,7 @@ interface MusePicks {
   latest?: string[];
   threads?: string[];
   featured_note?: string;
+  start_here?: string[];
 }
 let picks: MusePicks = {};
 try {
@@ -52,9 +55,12 @@ for (const post of all) {
   const year = post.data.pubDate.getUTCFullYear();
   countByYear.set(year, (countByYear.get(year) ?? 0) + 1);
 }
-const archiveYears = [...countByYear.entries()]
-  .map(([year, count]) => ({ year, count }))
-  .sort((a, b) => b.year - a.year);
+// Every year from first post to latest — quiet years included, so the gaps read as part of the story.
+const yearsWithPosts = [...countByYear.keys()];
+const archiveYears: { year: number; count: number }[] = [];
+for (let y = Math.max(...yearsWithPosts); y >= Math.min(...yearsWithPosts); y--) {
+  archiveYears.push({ year: y, count: countByYear.get(y) ?? 0 });
+}
 const maxYearCount = Math.max(...archiveYears.map((item) => item.count));
 
 // Stories: mix of single posts and series groups.
@@ -92,6 +98,22 @@ const activeThemes = (picks.threads?.length
 ).map((t: any) => ({ id: t.id, name: t.name, blurb: t.blurb, postCount: t.postCount }));
 
 const featuredNote = picks.featured_note?.trim() || null;
+
+// "Start here": a few doorways for first-time readers. Hand-picked via
+// muse-picks.yaml `start_here`, else the first stories (series → part one).
+const startHere: any[] = [];
+if (picks.start_here?.length) {
+  for (const s of picks.start_here) { const p = postBySlug.get(s); if (p) startHere.push(p); }
+} else {
+  for (const entry of picks.stories ?? []) {
+    if (typeof entry === 'string') { const p = postBySlug.get(entry); if (p) startHere.push(p); }
+    else if (entry?.series) {
+      const first = all.filter((p) => p.data.series === entry.series).sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0))[0];
+      if (first) startHere.push(first);
+    }
+  }
+}
+const startHereItems = [...new Set(startHere)].slice(0, 4);
 
 // ── Mycelial subway map: themes as stations on flowing, time-ordered lines ──
 // Each theme is a station. x = when the thread was most active (median post date),
@@ -290,7 +312,7 @@ for (const s of themedSlugs) {
   }
 }
 ---
-<Layout wide title="Hologram Thoughts" description="Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture — connected by recurring ideas.">
+<Layout wide title="Hologram Thoughts — an archive of attention by Matthew Williamson" description={`${all.length} essays, stories and poems from ${Math.min(...yearsWithPosts)}–${Math.max(...yearsWithPosts)} on consciousness, Buddhist practice, fatherhood, mythology, code and the strange edges of culture — connected by recurring threads.`} jsonLd={blogGraph({ posts: all.slice(0, 12).map((p) => ({ title: p.data.title, url: `https://hologramthoughts.com/blog/${slugOf(p)}/`, datePublished: p.data.pubDate.toISOString() })) })}>
   <section class="home-hero" aria-labelledby="home-title">
     <div class="hero-copy">
       <p class="terminal-line" aria-hidden="true">
@@ -331,7 +353,7 @@ for (const s of themedSlugs) {
                 <span class="latest-index">0{index + 1}</span>
                 <span class="latest-copy">
                   <span class="latest-title">{post.data.title}</span>
-                  <span class="latest-description">{post.data.description || 'Open this piece.'}</span>
+                  <span class="latest-description">{metaDescription(post.data.description, post.body, 140)}</span>
                   <span class="latest-themes">
                     {ids.map((id) => {
                       const theme = themesById.get(id);
@@ -397,6 +419,15 @@ for (const s of themedSlugs) {
     })();
   </script>
 
+  {startHereItems.length > 0 && (
+    <section class="start-here" aria-labelledby="start-title">
+      <div class="section-label"><h2 id="start-title">start here</h2><p>four doorways into twenty years</p></div>
+      <ul>
+        {startHereItems.map((p) => <li><PostCard post={p} label={p.data.series ? `${p.data.series} · part 1` : undefined} /></li>)}
+      </ul>
+    </section>
+  )}
+
   <section class="year-doorway" aria-labelledby="years-title">
     <div class="year-intro">
       <p class="section-kicker">Twenty years in the archive</p>
@@ -405,12 +436,18 @@ for (const s of themedSlugs) {
     </div>
     <div class="year-rail-shell">
       <div class="year-rail" aria-label="Browse archive by year" data-year-rail>
-        {archiveYears.map(({ year, count }) => (
+        {archiveYears.map(({ year, count }) => count > 0 ? (
           <a href={`/archive/#year-${year}`} class="year-link">
             <span class="year-value">{year}</span>
             <span class="year-bar" style={`--year-density:${count / maxYearCount}`}></span>
             <span class="year-count">{count} {count === 1 ? 'post' : 'posts'}</span>
           </a>
+        ) : (
+          <span class="year-link is-quiet" aria-label={`${year}: no posts`}>
+            <span class="year-value">{year}</span>
+            <span class="year-bar"></span>
+            <span class="year-count">quiet</span>
+          </span>
         ))}
       </div>
       <button class="year-scroll-cue" type="button" data-year-scroll aria-label="Show earlier archive years">
@@ -459,6 +496,7 @@ for (const s of themedSlugs) {
     <div class="map-bleed">
       <NetworkMap data={mapData} client:visible />
     </div>
+    <p class="map-exit"><a href="/themes/">all {(taxonomy as any).themes.length} threads, as a list →</a></p>
   </section>
 </Layout>
 
@@ -732,6 +770,18 @@ for (const s of themedSlugs) {
     0%, 55%, 100% { transform: translateX(0); }
     75% { transform: translateX(5px); }
   }
+
+  .start-here { margin: var(--space-l) 0 var(--space-xl); }
+  .start-here .section-label h2 { font-family: var(--font-mono); font-weight: 500; }
+  .start-here ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xs); margin: 0; padding: 0; list-style: none; }
+  @media (max-width: 1000px) { .start-here ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .start-here ul { grid-template-columns: 1fr; } }
+  .year-link.is-quiet { opacity: 0.4; border-style: dashed; background: transparent; }
+  .year-link.is-quiet .year-value { color: var(--color-ink-faint); }
+  .year-link.is-quiet .year-bar { width: 12%; background: var(--color-border-strong); box-shadow: none; }
+  .map-exit { margin: var(--space-s) 0 0; text-align: center; }
+  .map-exit a { color: var(--color-cyan); font: var(--step--2) var(--font-mono); text-decoration: none; }
+  .map-exit a:hover { color: var(--color-magenta); }
 
   .understory-zone {
     position: relative;

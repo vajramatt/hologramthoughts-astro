@@ -1,35 +1,21 @@
 ---
 import ThemeChip from './ThemeChip.astro';
-import taxonomy from '../content/themes/taxonomy.json';
+import { themeById } from '../utils/posts';
 
 interface Props { themeIds: string[]; label?: string; }
-const { themeIds, label = 'Threads in this post' } = Astro.props;
-const themes = themeIds
-  .map(id => (taxonomy as any).themes.find((t: any) => t.id === id))
-  .filter(Boolean);
+const { themeIds, label = 'threads in this post' } = Astro.props;
+const themes = themeIds.map((id) => themeById.get(id)).filter(Boolean);
 ---
 {themes.length > 0 && (
-  <aside class="theme-strip">
-    <p>{label}</p>
-    <div>
-      {themes.map((t: any) => <ThemeChip id={t.id} name={t.name} />)}
+  <aside class="theme-strip" aria-label="Threads in this post">
+    <div class="section-label"><p>{label}</p><p>tap a thread to follow it</p></div>
+    <div class="chips">
+      {themes.map((t) => <ThemeChip id={t!.id} name={t!.name} />)}
     </div>
   </aside>
 )}
 
 <style>
-  .theme-strip {
-    margin-top: 2rem;
-    padding: 1.25rem 0;
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-  .theme-strip p {
-    margin-bottom: 0.75rem;
-    color: var(--color-ink-faint);
-    font: 500 0.63rem/1 var(--font-mono);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .theme-strip > div { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .theme-strip { margin-top: var(--space-l); }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 </style>

@@ -1,7 +1,7 @@
 # Reader Experience Overhaul — Design
 
 **Date:** 2026-09-26
-**Status:** Approved in conversation; awaiting written-spec review
+**Status:** Approved and implemented 2026-09-26
 **Scope:** Site-wide UI/UX pass, even depth across reading and discovery pages.
 
 ## Intent

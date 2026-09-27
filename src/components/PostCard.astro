@@ -1,25 +1,50 @@
 ---
-interface Props {
-  slug: string;
-  title: string;
-  pubDate: Date;
-  themeIds?: string[];
-}
-const { slug, title, pubDate, themeIds = [] } = Astro.props;
-import ThemeChip from './ThemeChip.astro';
-import taxonomy from '../content/themes/taxonomy.json';
-const themes = themeIds.slice(0, 3).map(id => (taxonomy as any).themes.find((t: any) => t.id === id)).filter(Boolean);
+// Feature card: year · type, title, one-line excerpt, reading time.
+import { urlOf, type Post } from '../utils/posts';
+import { metaDescription } from '../utils/deck';
+import { readingMinutesOf } from '../utils/reading';
+import { CONTENT_TYPE_LABEL, type ContentType } from '../utils/categories';
+
+interface Props { post: Post; label?: string; }
+const { post, label } = Astro.props;
+const type = (post.data.contentType ?? 'reflection') as ContentType;
+const excerpt = metaDescription(post.data.description, post.body, 130);
 ---
-<a href={`/blog/${slug}/`} class="block group no-underline">
-  <article class="p-6 rounded-2xl border border-transparent hover:border-[var(--color-border-strong)] hover:bg-[color-mix(in_oklch,var(--color-amber)_6%,transparent)] transition-all duration-[var(--dur-med)]">
-    <p class="text-xs uppercase tracking-[0.18em] mb-2" style="color: var(--color-amber-bright)">
-      {pubDate.toLocaleDateString('en', { year: 'numeric', month: 'long', timeZone: 'UTC' })}
-    </p>
-    <h3 class="text-2xl text-[var(--color-ink)] group-hover:text-[var(--color-cyan)] transition-colors mb-2" style="font-family: var(--font-display);">{title}</h3>
-    {themes.length > 0 && (
-      <div class="flex flex-wrap gap-2 mt-3">
-        {themes.map((t: any) => <ThemeChip id={t.id} name={t.name} />)}
-      </div>
-    )}
-  </article>
+<a href={urlOf(post)} class="post-card">
+  <span class="pc-meta">
+    <span class="pc-year">{post.data.pubDate.getUTCFullYear()}</span>
+    <span class="pc-type">{label ?? CONTENT_TYPE_LABEL[type]}</span>
+  </span>
+  <strong>{post.data.title}</strong>
+  <span class="pc-excerpt">{excerpt}</span>
+  <span class="pc-foot">{readingMinutesOf(post.body)} min read <span aria-hidden="true">→</span></span>
 </a>
+
+<style>
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    height: 100%;
+    padding: var(--space-s);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: color-mix(in oklch, var(--color-surface) 40%, transparent);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast) var(--ease-grow);
+  }
+  .post-card:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in oklch, var(--color-cyan) 50%, transparent);
+    background: color-mix(in oklch, var(--color-blue) 7%, var(--color-surface));
+  }
+  .pc-meta { display: flex; justify-content: space-between; font: var(--step--2)/1 var(--font-mono); }
+  .pc-year { color: var(--color-amber-bright); }
+  .pc-type { color: var(--color-magenta); letter-spacing: 0.08em; text-transform: uppercase; }
+  strong { font: 480 var(--step-2)/1.12 var(--font-display); text-wrap: balance; }
+  .post-card:hover strong { color: var(--color-cyan); }
+  .pc-excerpt { color: var(--color-ink-soft); font-size: var(--step--1); line-height: 1.5; text-wrap: pretty; }
+  .pc-foot { margin-top: auto; padding-top: 0.4rem; color: var(--color-ink-faint); font: var(--step--2) var(--font-mono); }
+  .post-card:hover .pc-foot { color: var(--color-cyan); }
+</style>

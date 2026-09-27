@@ -57,6 +57,31 @@
   );
 }
 
+/* Fluid type + space scales (Utopia-style, 360px → 1440px). Plain :root vars,
+   not @theme, so Tailwind doesn't mint utilities for them. */
+:root {
+  --step--2: clamp(0.69rem, 0.67rem + 0.08vw, 0.74rem);
+  --step--1: clamp(0.8rem, 0.77rem + 0.13vw, 0.89rem);
+  --step-0: clamp(1.06rem, 1.02rem + 0.19vw, 1.2rem);
+  --step-1: clamp(1.25rem, 1.17rem + 0.35vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.36rem + 0.6vw, 1.95rem);
+  --step-3: clamp(1.8rem, 1.56rem + 1.05vw, 2.6rem);
+  --step-4: clamp(2.1rem, 1.72rem + 1.7vw, 3.4rem);
+  --step-5: clamp(2.4rem, 1.84rem + 2.5vw, 4.4rem);
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: clamp(2rem, 1.7rem + 1.3vw, 3rem);
+  --space-xl: clamp(3rem, 2.4rem + 2.6vw, 5rem);
+  --space-2xl: clamp(4rem, 3rem + 4.4vw, 7.5rem);
+
+  --measure: 66ch;
+  --header-h: 64px;
+}
+
 /* The old "canopy morning" light palette is now the PRINT-ONLY paper theme.
    TokyoNight is the sole on-screen theme; when a reader prints a post we fall
    back to dark-ink-on-paper so it reads and saves toner. No on-screen toggle. */

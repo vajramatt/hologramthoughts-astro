@@ -11,20 +11,29 @@ export function markdownForAgents(): AstroIntegration {
         const contentDir = path.resolve('src/content/blog');
         const outDir = dir.pathname;
 
-        const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md'));
+        const files = fs.readdirSync(contentDir).filter(f => /\.mdx?$/.test(f));
         let count = 0;
 
         for (const file of files) {
           const raw = fs.readFileSync(path.join(contentDir, file), 'utf-8');
-          const { data, content } = matter(raw);
+          const parsed = matter(raw);
+          const data = parsed.data;
+          // MDX: drop import/export lines and capitalised component tags — agents get prose only.
+          const content = file.endsWith('.mdx')
+            ? parsed.content
+                .replace(/^(import|export)\s.*$/gm, '')
+                .replace(/<([A-Z][\w.]*)\b[^>]*\/>/gs, '')
+                .replace(/<([A-Z][\w.]*)\b[^>]*>[\s\S]*?<\/\1>/g, '')
+                .replace(/\n{3,}/g, '\n\n')
+            : parsed.content;
 
           // Skip drafts
           if (data.draft) continue;
 
-          // Use the frontmatter slug (all posts have one)
-          const slug = data.slug;
-          if (!slug) {
-            logger.warn(`No slug found in ${file}, skipping`);
+          // Route slug: frontmatter slug, else the filename (matches Astro's p.slug)
+          const slug = (typeof data.slug === 'string' && data.slug.trim()) || file.replace(/\.mdx?$/, '');
+          if (!/^[A-Za-z0-9._~-]+$/.test(slug)) {
+            logger.warn(`Unsafe slug in ${file}, skipping`);
             continue;
           }
 
@@ -41,7 +50,9 @@ export function markdownForAgents(): AstroIntegration {
             data.description ? `description: "${String(data.description).replace(/"/g, '\\"').replace(/\n/g, ' ').trim()}"` : null,
             data.categories?.length ? `categories: [${data.categories.map((c: string) => `"${c}"`).join(', ')}]` : null,
             data.tags?.length ? `tags: [${data.tags.map((t: string) => `"${t}"`).join(', ')}]` : null,
-            `url: /blog/${slug}/`,
+            `author: "Matthew Williamson"`,
+            data.series ? `series: "${String(data.series).replace(/"/g, '\\"')}"` : null,
+            `url: https://hologramthoughts.com/blog/${slug}/`,
             '---',
           ].filter(Boolean).join('\n');
 

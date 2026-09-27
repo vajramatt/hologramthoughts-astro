@@ -27,6 +27,11 @@ latest: []
 # the 6 themes with the highest postCount.
 threads: []
 
+# Start here — up to 4 post slugs shown as a "start here" row under the hero,
+# for first-time readers. If empty, falls back to the stories list above
+# (a series contributes its part one).
+start_here: []
+
 # Featured note (optional) — hand-written Muse note shown atop the homepage
 # in italic. If empty, the section is hidden.
 featured_note: ""

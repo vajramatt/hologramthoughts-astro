@@ -1,17 +1,37 @@
 ---
 const year = new Date().getFullYear();
+const links = [
+  { href: '/archive/', label: 'archive' },
+  { href: '/themes/', label: 'threads' },
+  { href: '/random/', label: 'random post' },
+  { href: '/how/', label: "how it's made" },
+  { href: '/rss.xml', label: 'rss' },
+  { href: '/llms.txt', label: 'for agents' },
+];
 ---
-<footer class="mt-32 relative">
-  <div class="border-t border-[var(--color-border)] pt-12 mt-10">
-    <div class="mx-auto max-w-5xl px-6 pb-10 flex flex-wrap items-center justify-between gap-4 text-sm text-[var(--color-ink-faint)]" style="font-family: var(--font-ui);">
-      <p>© {year} Matthew Williamson · written and grown over twenty years</p>
-      <nav class="flex gap-6">
-        <a href="/how/" class="no-underline hover:text-[var(--color-cyan)]">how it's made</a>
-        <a href="/rss.xml" class="no-underline hover:text-[var(--color-cyan)]">rss</a>
-        <a href="/agent-index.md" class="no-underline hover:text-[var(--color-cyan)]">agents</a>
-        <a href="/archive/" class="no-underline hover:text-[var(--color-cyan)]">archive</a>
+<footer class="site-footer">
+  <div class="mx-auto max-w-6xl px-5 sm:px-6">
+    <div class="footer-row">
+      <p class="sig">
+        <span class="wordmark">hologram thoughts</span>
+        <span class="by">© {year} Matthew Williamson · written and grown over twenty years</span>
+      </p>
+      <nav aria-label="Footer">
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
       </nav>
     </div>
-    <p class="mx-auto max-w-5xl px-6 pb-8 text-[11px] tracking-[0.14em]" style="font-family: var(--font-mono); color: var(--color-ink-faint); opacity: 0.7;">// twenty years, still here</p>
+    <p class="eot">// end of transmission</p>
   </div>
 </footer>
+
+<style>
+  .site-footer { margin-top: var(--space-2xl); padding: var(--space-l) 0 var(--space-m); border-top: 1px solid var(--color-border); }
+  .footer-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-s) var(--space-l); }
+  .sig { display: flex; flex-direction: column; gap: 0.35rem; margin: 0; }
+  .sig .wordmark { font-size: 0.95rem; width: fit-content; }
+  .by { color: var(--color-ink-faint); font: var(--step--1) var(--font-ui); }
+  nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+  nav a { display: inline-flex; align-items: center; min-height: 36px; color: var(--color-ink-soft); font: var(--step--1) var(--font-ui); text-decoration: none; }
+  nav a:hover { color: var(--color-cyan); }
+  .eot { margin: var(--space-m) 0 0; color: var(--color-ink-faint); font: 11px var(--font-mono); letter-spacing: 0.14em; opacity: 0.7; }
+</style>

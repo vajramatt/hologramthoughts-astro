@@ -1,0 +1,118 @@
+---
+// Dense, scannable post row used by archive, theme, and category lists.
+// Carries data-* attributes so client scripts can filter without re-rendering.
+import { categorySlug, CONTENT_TYPE_LABEL, type ContentType } from '../utils/categories';
+import { readingMinutesOf } from '../utils/reading';
+
+interface Props {
+  post: any;
+  themeNames?: string[];
+  dateStyle?: 'short' | 'year' | 'full';
+  showExcerpt?: boolean;
+  /** compact: one line per post (title + threads inline) — for long indexes. */
+  compact?: boolean;
+}
+const { post, themeNames = [], dateStyle = 'short', showExcerpt = false, compact = false } = Astro.props;
+const url = `/blog/${post.slug ?? post.id.replace(/\.md$/, '')}/`;
+const type = (post.data.contentType ?? 'reflection') as ContentType;
+const cats = (post.data.categories ?? []).map(categorySlug);
+const date: Date = post.data.pubDate;
+const dateLabel =
+  dateStyle === 'year'
+    ? String(date.getUTCFullYear())
+    : dateStyle === 'full'
+      ? date.toLocaleDateString('en', { month: 'short', day: '2-digit', year: 'numeric', timeZone: 'UTC' })
+      : date.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' });
+const minutes = post.data.readingTime ?? readingMinutesOf(post.body ?? '');
+const searchText = [post.data.title, ...themeNames].join(' ').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '');
+---
+<li
+  class:list={['post-row', compact && 'compact']}
+  data-row
+  data-type={type}
+  data-cats={cats.join(' ')}
+  data-text={searchText}
+>
+  <a href={url}>
+    <time datetime={date.toISOString()}>{dateLabel}</time>
+    <span class="pr-main">
+      <span class="pr-title">{post.data.title}</span>
+      {showExcerpt && post.data.description && <span class="pr-excerpt">{post.data.description}</span>}
+      {themeNames.length > 0 && <span class="pr-themes">{themeNames.slice(0, 3).join(' · ')}</span>}
+    </span>
+    <span class="pr-meta">
+      <span class="pr-type">{CONTENT_TYPE_LABEL[type] ?? type}</span>
+      {minutes ? <span class="pr-min">{minutes}m</span> : null}
+    </span>
+  </a>
+</li>
+
+<style>
+  .post-row { list-style: none; border-bottom: 1px solid var(--color-border); }
+  .post-row[hidden] { display: none; }
+  a {
+    display: grid;
+    grid-template-columns: 4.2rem minmax(0, 1fr) auto;
+    gap: var(--space-s);
+    align-items: baseline;
+    min-height: 48px;
+    padding: 0.7rem 0.5rem;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-grow);
+  }
+  a:hover {
+    background: linear-gradient(90deg, color-mix(in oklch, var(--color-blue) 7%, transparent), transparent 80%);
+  }
+  time {
+    color: var(--color-amber-bright);
+    font: var(--step--2)/1.4 var(--font-mono);
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .pr-main { display: flex; flex-direction: column; min-width: 0; gap: 0.2rem; }
+  .pr-title {
+    font: 480 var(--step-1)/1.25 var(--font-display);
+    text-wrap: pretty;
+    transition: color var(--dur-fast);
+  }
+  a:hover .pr-title { color: var(--color-cyan); }
+  .pr-excerpt {
+    color: var(--color-ink-soft);
+    font-size: var(--step--1);
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pr-themes {
+    color: var(--color-ink-faint);
+    font: var(--step--2)/1.4 var(--font-ui);
+    letter-spacing: 0.02em;
+  }
+  .pr-meta {
+    display: flex;
+    gap: 0.75rem;
+    color: var(--color-ink-faint);
+    font: var(--step--2)/1.4 var(--font-mono);
+    white-space: nowrap;
+  }
+  .pr-type { color: var(--color-magenta); opacity: 0.85; }
+  .pr-min { min-width: 2.2rem; text-align: right; font-variant-numeric: tabular-nums; }
+  .compact a { min-height: 38px; padding: 0.36rem 0.5rem; align-items: baseline; }
+  .compact .pr-main { flex-direction: row; align-items: baseline; gap: 0.9rem; overflow: hidden; }
+  .compact .pr-title { flex: 0 1 auto; font-size: var(--step-0); line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .compact .pr-themes { flex: 1 1 0; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  @media (max-width: 560px) {
+    .compact .pr-main { flex-direction: column; gap: 0.1rem; }
+    .compact .pr-title { white-space: normal; }
+    a { grid-template-columns: 3.4rem minmax(0, 1fr); gap: var(--space-xs); }
+    .pr-meta { grid-column: 2; }
+    .pr-themes { display: none; }
+    .compact a { grid-template-columns: 3.4rem minmax(0, 1fr) auto; }
+    .compact .pr-meta { grid-column: auto; }
+    .compact .pr-min { display: none; }
+  }
+</style>

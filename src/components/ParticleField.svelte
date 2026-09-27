@@ -121,17 +121,21 @@
     const pauseForScroll = () => {
       stop();
       clearTimeout(resumeTimer);
-      resumeTimer = window.setTimeout(start, 140);
+      resumeTimer = window.setTimeout(() => { if (!document.hidden) start(); }, 140);
     };
+
+    const onVisibility = () => (document.hidden ? stop() : start());
 
     start();
     addEventListener('scroll', pauseForScroll, { passive: true });
+    document.addEventListener('visibilitychange', onVisibility);
 
     return () => {
       stop();
       clearTimeout(resumeTimer);
       removeEventListener('scroll', pauseForScroll);
       removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   });
 </script>

@@ -1,73 +1,85 @@
 ---
-interface Props {
-  headings: Array<{
-    depth: number;
-    slug: string;
-    text: string;
-  }>;
-}
-
-const { headings } = Astro.props;
-const showTOC = headings && headings.length > 1;
+// Contents for long posts. Two renderings from one list:
+//   variant="rail"   — sticky sidebar with active-section highlight (wide screens)
+//   variant="inline" — collapsible <details> above the body (narrow screens)
+// Rendered only when a post has 3+ h2/h3 headings.
+interface Heading { depth: number; slug: string; text: string; }
+interface Props { headings: Heading[]; variant: 'rail' | 'inline'; }
+const { headings, variant } = Astro.props;
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const clean = (t: string) => t.replace(/^#\s*/, '').trim();
 ---
-
-{showTOC && (
-  <nav class="toc" aria-label="On this page">
-    <div class="toc-heading">
-      <span aria-hidden="true">§</span>
-      <p>On this page</p>
-      <small>{headings.length} sections</small>
-    </div>
-    <ul>
-      {headings.map((heading) => (
-        <li class={`toc-level-${heading.depth}`}>
-          <a href={`#${heading.slug}`}>{heading.text}<span aria-hidden="true">↘</span></a>
-        </li>
+{variant === 'rail' ? (
+  <nav class="toc-rail" aria-label="Contents" data-toc>
+    <p class="toc-label">contents</p>
+    <ol>
+      {items.map((h) => (
+        <li class={`d${h.depth}`}><a href={`#${h.slug}`} data-toc-link={h.slug}>{clean(h.text)}</a></li>
       ))}
-    </ul>
+    </ol>
   </nav>
+) : (
+  <details class="toc-inline">
+    <summary><span class="toc-label">contents</span><span class="toc-count">{items.length} sections</span></summary>
+    <ol>
+      {items.map((h) => (
+        <li class={`d${h.depth}`}><a href={`#${h.slug}`}>{clean(h.text)}</a></li>
+      ))}
+    </ol>
+  </details>
 )}
 
 <style>
-  .toc {
-    margin: 0 0 3rem;
-    padding: 1.1rem 1.2rem;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: linear-gradient(120deg, color-mix(in oklch, var(--color-blue) 7%, transparent), color-mix(in oklch, var(--color-surface) 54%, transparent));
-  }
-  .toc-heading {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.65rem;
-    align-items: center;
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
-    font-family: var(--font-mono);
-  }
-  .toc-heading > span { color: var(--color-magenta); }
-  .toc-heading p {
-    color: var(--color-ink-soft);
-    font-size: 0.68rem;
-    letter-spacing: 0.13em;
+  .toc-label {
+    margin: 0;
+    color: var(--color-magenta);
+    font: 500 var(--step--2)/1 var(--font-mono);
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
-  .toc-heading small { color: var(--color-ink-faint); font-size: 0.62rem; }
-  .toc ul { display: grid; gap: 0.1rem; }
-  .toc li { list-style: none; }
-  .toc a {
+  .toc-label::before { content: "// "; color: var(--color-ink-faint); }
+  ol { margin: 0; padding: 0; list-style: none; }
+  a {
+    display: block;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    font: var(--step--1)/1.4 var(--font-ui);
+    transition: color var(--dur-fast), border-color var(--dur-fast);
+  }
+  a:hover { color: var(--color-cyan); }
+  .d3 a { padding-left: 0.85rem; font-size: var(--step--2); }
+
+  .toc-rail { position: sticky; top: calc(var(--header-h) + 2rem); max-height: calc(100vh - var(--header-h) - 4rem); overflow-y: auto; scrollbar-width: thin; }
+  .toc-rail .toc-label { margin-bottom: var(--space-xs); }
+  .toc-rail a {
+    padding: 0.32rem 0 0.32rem 0.75rem;
+    border-left: 1px solid var(--color-border);
+  }
+  .toc-rail a:global(.is-active) {
+    color: var(--color-ink);
+    border-left-color: var(--color-cyan);
+    box-shadow: inset 1px 0 0 var(--color-cyan);
+  }
+
+  .toc-inline {
+    margin: 0 0 var(--space-l);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: color-mix(in oklch, var(--color-surface) 40%, transparent);
+  }
+  .toc-inline summary {
     display: flex;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 0.38rem 0.25rem;
-    color: var(--color-ink-soft);
-    font: 0.85rem/1.4 var(--font-ui);
-    text-decoration: none;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 1rem;
+    cursor: pointer;
+    list-style: none;
   }
-  .toc a span { color: var(--color-ink-faint); opacity: 0; transition: opacity var(--dur-fast), transform var(--dur-fast); }
-  .toc a:hover { color: var(--color-cyan); }
-  .toc a:hover span { opacity: 1; transform: translate(2px, 2px); }
-  .toc-level-3 { padding-left: 1rem; }
-  .toc-level-4, .toc-level-5, .toc-level-6 { padding-left: 2rem; opacity: 0.85; }
+  .toc-inline summary::-webkit-details-marker { display: none; }
+  .toc-inline summary::after { content: "+"; color: var(--color-cyan); font: 1rem var(--font-mono); margin-left: 0.75rem; }
+  .toc-inline[open] summary::after { content: "−"; }
+  .toc-count { margin-left: auto; color: var(--color-ink-faint); font: var(--step--2) var(--font-mono); }
+  .toc-inline ol { padding: 0 1rem 0.9rem; }
+  .toc-inline a { padding: 0.4rem 0; border-top: 1px solid var(--color-border); }
 </style>

@@ -1,0 +1,134 @@
+---
+// Compact page opener shared by every index page. Content should start within
+// the first viewport, so this stays deliberately short: kicker, title, lede,
+// optional stats. Use the `title` slot for a title with an <em> accent.
+export interface Stat { label: string; value: string | number; }
+interface Props {
+  kicker?: string;
+  title?: string;
+  lede?: string;
+  stats?: Stat[];
+  back?: { href: string; label: string };
+  accent?: string; // CSS color for the kicker dot
+  id?: string;
+}
+const { kicker, title, lede, stats = [], back, accent = 'var(--color-magenta)', id = 'page-title' } = Astro.props;
+---
+<header class="page-header" style={`--ph-accent:${accent}`}>
+  {back && <a class="ph-back" href={back.href}><span aria-hidden="true">←</span> {back.label}</a>}
+  {kicker && <p class="kicker ph-kicker"><span class="ph-dot" aria-hidden="true"></span>{kicker}</p>}
+  <div class="ph-main">
+    <h1 id={id}>{title}<slot name="title" /></h1>
+    {(lede || Astro.slots.has('lede')) && <p class="ph-lede">{lede}<slot name="lede" /></p>}
+  </div>
+  {stats.length > 0 && (
+    <dl class="ph-stats">
+      {stats.map((s) => (
+        <div><dt>{s.label}</dt><dd>{s.value}</dd></div>
+      ))}
+    </dl>
+  )}
+  <slot />
+</header>
+
+<style>
+  .page-header {
+    position: relative;
+    isolation: isolate;
+    padding: var(--space-m) 0 var(--space-l);
+    margin-bottom: var(--space-l);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .page-header::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: -12rem;
+    top: -10rem;
+    width: 40rem;
+    height: 26rem;
+    background: radial-gradient(circle, color-mix(in oklch, var(--color-blue) 13%, transparent), transparent 65%);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+  .page-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: min(10rem, 30%);
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-cyan), var(--color-magenta), transparent);
+  }
+  .ph-back {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    min-height: 32px;
+    margin-bottom: var(--space-2xs);
+    color: var(--color-ink-faint);
+    font: var(--step--2)/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .ph-back:hover { color: var(--color-cyan); }
+  .ph-kicker { margin-bottom: var(--space-xs); }
+  .ph-dot {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--ph-accent);
+    box-shadow: 0 0 12px var(--ph-accent);
+  }
+  .ph-main {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: var(--space-s) var(--space-xl);
+    align-items: end;
+  }
+  h1 {
+    margin: 0;
+    font-size: var(--step-5);
+    font-weight: 480;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  h1 :global(em) {
+    color: var(--color-blue);
+    font-style: italic;
+  }
+  .ph-lede {
+    max-width: 44ch;
+    margin: 0;
+    color: var(--color-ink-soft);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+  .ph-lede :global(a) { color: var(--color-cyan); }
+  .ph-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-l);
+    margin: var(--space-m) 0 0;
+  }
+  .ph-stats div { display: flex; gap: 0.5rem; align-items: baseline; }
+  .ph-stats dt {
+    color: var(--color-ink-faint);
+    font: var(--step--2)/1 var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .ph-stats dd {
+    margin: 0;
+    color: var(--color-amber-bright);
+    font: 500 var(--step--1)/1 var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 760px) {
+    .ph-main { grid-template-columns: 1fr; }
+    .page-header { padding-top: var(--space-2xs); }
+  }
+</style>
