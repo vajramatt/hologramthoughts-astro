@@ -12,7 +12,7 @@ tags:
   - mantra
 slug: magic-words
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_290,w_300/v1417391347/Screenshot-2014-03-05-14_55_48_bqqepz.png)
+![Terence McKenna quote: the real secret of magic is that the world is made of words](/images/blog/magic-words/screenshot-2014-03-05-14-55-48-thumb.png)
 
 I think about this often. Magic. Words have power. When you consciously will there to be power or connection in these words then they become magical by shear willpower.
 

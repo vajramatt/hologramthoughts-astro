@@ -10,7 +10,9 @@ categories:
 tags: []
 slug: living-forever
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_300/v1417391398/Who_Wants_to_Live_Forever_qsing32_qsp780.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391398/Who_Wants_to_Live_Forever_qsing32_qsp780.jpg) Who Wants To Live Forever
+[![Cover of the Queen single Who Wants to Live Forever](/images/blog/living-forever/who-wants-to-live-forever-qsing32-thumb.jpg)](/images/blog/living-forever/who-wants-to-live-forever-qsing32.jpg)
+
+Who Wants To Live Forever
 
 A friend of mine said this to me:
 

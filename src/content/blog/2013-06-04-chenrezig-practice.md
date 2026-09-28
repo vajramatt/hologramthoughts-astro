@@ -11,7 +11,9 @@ tags:
   - chenrezig
 slug: chenrezig-practice
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/v1417391406/chenrezig_s1lhia.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391406/chenrezig_s1lhia.jpg) The Buddha of Compassion
+[![The Buddha of Compassion](/images/blog/chenrezig-practice/chenrezig.jpg)](/images/blog/chenrezig-practice/chenrezig.jpg)
+
+The Buddha of Compassion
 
 Ok, enough of this messing around... I am going to commit myself to a Chenrezig practice in full. Mantra, meditation, comtemplation, compassion, adoration, and hopefully; understanding will emerge.
 

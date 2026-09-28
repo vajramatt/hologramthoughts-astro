@@ -11,7 +11,9 @@ tags:
   - dream
 slug: the-universe-tree
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_168,w_300/v1417391335/Space-Tree-wallpaper_qx8qor.jpg)Last night I dreamed that I was sitting on a high branch in the Universe Tree. The branches span galaxies. Nebula float in and around leaves, suns glisten like dew drops as the float along the most slender of branches.
+![A lone tree on a floating island against a starry nebula](/images/blog/the-universe-tree/space-tree-wallpaper-thumb.jpg)
+
+Last night I dreamed that I was sitting on a high branch in the Universe Tree. The branches span galaxies. Nebula float in and around leaves, suns glisten like dew drops as the float along the most slender of branches.
 
 I sat on branch near the top, but not at the apex itself, the owl, seeing it all. The Universe Tree then spoke deeply into my being. Every creak of the branches, every sound of leaf against leaf, told the story of worlds, of races, of individual beings who lived but only for a moment in time.
 

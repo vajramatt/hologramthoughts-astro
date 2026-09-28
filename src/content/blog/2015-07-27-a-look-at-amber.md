@@ -16,13 +16,21 @@ I found this art on DeviantArt and I am so drawn to it. I first read the Roger Z
 
 Image Source: (http://firsin.deviantart.com)
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_200,w_300/v1438748855/amber_by_goliart-d68lyq8_af2jo2.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748855/amber_by_goliart-d68lyq8_af2jo2.jpg) Amber
+[![Amber](/images/blog/a-look-at-amber/amber-by-goliart-d68lyq8-thumb.jpg)](/images/blog/a-look-at-amber/amber-by-goliart-d68lyq8.jpg)
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_200,w_300/v1438748854/library_of_amber_by_goliart-d68lyuk_afntcj.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748854/library_of_amber_by_goliart-d68lyuk_afntcj.jpg) The Library of Amber
+Amber
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_240/v1438748851/through_the_shadows_by_goliart-d68lyxv_z49cjf.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748851/through_the_shadows_by_goliart-d68lyxv_z49cjf.jpg) Hellride.
+[![The Library of Amber](/images/blog/a-look-at-amber/library-of-amber-by-goliart-d68lyuk-thumb.jpg)](/images/blog/a-look-at-amber/library-of-amber-by-goliart-d68lyuk.jpg)
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_200,w_300/v1438748852/remba_by_goliart-d68lz71_zazgxi.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748852/remba_by_goliart-d68lz71_zazgxi.jpg) Rebma
+The Library of Amber
+
+[![Hellride: a rider on horseback beneath a night sky of auroras](/images/blog/a-look-at-amber/through-the-shadows-by-goliart-d68lyxv-thumb.jpg)](/images/blog/a-look-at-amber/through-the-shadows-by-goliart-d68lyxv.jpg)
+
+Hellride.
+
+[![Rebma](/images/blog/a-look-at-amber/remba-by-goliart-d68lz71-thumb.jpg)](/images/blog/a-look-at-amber/remba-by-goliart-d68lz71.jpg)
+
+Rebma
 
 I hope that you want to explore this amazing fantasy universe.
 

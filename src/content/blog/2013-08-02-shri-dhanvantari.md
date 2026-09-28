@@ -10,7 +10,7 @@ categories:
 tags: []
 slug: shri-dhanvantari
 ---
-[![Shri Dhanvantari](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_200/v1417391354/Lord_Dhanvantari_mantras-1_q7lfmy.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391354/Lord_Dhanvantari_mantras-1_q7lfmy.jpg)
+[![Shri Dhanvantari](/images/blog/shri-dhanvantari/lord-dhanvantari-mantras-1-thumb.jpg)](/images/blog/shri-dhanvantari/lord-dhanvantari-mantras-1.jpg)
 
 Shri Dhanvantari
 

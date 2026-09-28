@@ -11,7 +11,9 @@ tags:
   - yeshe-tsogyal
 slug: a-bit-of-the-sky-dancer
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_285/v1438748903/10153235_10152647233952634_4756499733881761040_n_pmarrz.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748903/10153235_10152647233952634_4756499733881761040_n_pmarrz.jpg)Listen, faithful Tibetans!  I am merging with the fundamental, the ground of all that is—physical pain and suffering are disappearing….  The son, the inner elements of my body, is reuniting with the mother, the outer elements.  Her physical remains will disappear into earth and stone.
+[![Line drawing of Yeshe Tsogyal seated in meditation](/images/blog/a-bit-of-the-sky-dancer/10153235-10152647233952634-4756499733881761040-n-thumb.jpg)](/images/blog/a-bit-of-the-sky-dancer/10153235-10152647233952634-4756499733881761040-n.jpg)
+
+Listen, faithful Tibetans!  I am merging with the fundamental, the ground of all that is—physical pain and suffering are disappearing….  The son, the inner elements of my body, is reuniting with the mother, the outer elements.  Her physical remains will disappear into earth and stone.
 
 I, Yeshe Tsogyal, am the sovereign of cyclic existence and its transcendence.  If you recognize me, I live in the minds of all beings; I emanate as the natural elements and sense-fields; though primordially we are not separate, not recognizing me, you experience me externally.
 

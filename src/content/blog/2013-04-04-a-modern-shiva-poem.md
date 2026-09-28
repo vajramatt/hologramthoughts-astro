@@ -10,7 +10,9 @@ categories:
 tags: []
 slug: a-modern-shiva-poem
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_225,w_300/v1417391410/Shiva_by_RAM75_e0wbnz.jpg) Lord Shiva, in meditation.
+![Lord Shiva, in meditation](/images/blog/a-modern-shiva-poem/shiva-by-ram75-thumb.jpg)
+
+Lord Shiva, in meditation.
 
 Namaste to He who is the speaker and the listener
 Namaste to He who is the writer and the reader

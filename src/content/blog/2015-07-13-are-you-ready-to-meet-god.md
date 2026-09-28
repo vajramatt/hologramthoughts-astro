@@ -11,7 +11,9 @@ tags:
   - mooji
 slug: are-you-ready-to-meet-god
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_200,w_300/v1438748856/11411886_10153172310103962_5833694525484750270_o_xpt4cw.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748856/11411886_10153172310103962_5833694525484750270_o_xpt4cw.jpg) Mooji
+[![Mooji](/images/blog/are-you-ready-to-meet-god/11411886-10153172310103962-5833694525484750270-o-thumb.jpg)](/images/blog/are-you-ready-to-meet-god/11411886-10153172310103962-5833694525484750270-o.jpg)
+
+Mooji
 
 Are you ready to meet God?
 Then, right now, don't touch anything, not any idea—neither good nor bad.

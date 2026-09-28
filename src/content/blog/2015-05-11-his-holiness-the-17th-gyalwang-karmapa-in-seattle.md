@@ -21,18 +21,26 @@ That the Karmapa visited the very same space and indeed stood in the same place 
 
 Karmapa Chenno!
 
-![11000336_966535396724229_1168439844353199538_n](https://res.cloudinary.com/hologram-thoughts/image/upload/h_202,w_300/v1438748868/11000336_966535396724229_1168439844353199538_n_pqpi0t.jpg)His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is meeting with His Holiness Jigdal Dagchen Sakya Rinpoche at the Sakya Monastery of Tibetan Buddhism
+![The Karmapa bowing to Jigdal Dagchen Sakya Rinpoche](/images/blog/his-holiness-the-17th-gyalwang-karmapa-in-seattle/11000336-966535396724229-1168439844353199538-n-thumb.jpg)
+
+His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is meeting with His Holiness Jigdal Dagchen Sakya Rinpoche at the Sakya Monastery of Tibetan Buddhism
 
 Seattle, Washington, America, 9 May, 2015Photograph by Kurt Smit
 
-![10930093_966553323389103_5946827538847354683_n](https://res.cloudinary.com/hologram-thoughts/image/upload/h_194,w_300/v1438748869/10930093_966553323389103_5946827538847354683_n_om2mjc.jpg)His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is meeting with His Holiness Jigdal Dagchen Sakya Rinpoche at the Sakya Monastery of Tibetan Buddhism.
+![The Karmapa in conversation with Jigdal Dagchen Sakya Rinpoche](/images/blog/his-holiness-the-17th-gyalwang-karmapa-in-seattle/10930093-966553323389103-5946827538847354683-n-thumb.jpg)
+
+His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is meeting with His Holiness Jigdal Dagchen Sakya Rinpoche at the Sakya Monastery of Tibetan Buddhism.
 
 Seattle, Washington, America, 9 May, 2015Photograph by Kurt Smit
 
-![11060897_966547350056367_2051017461670438550_o](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_221/v1438748866/11060897_966547350056367_2051017461670438550_o_eec2w9.jpg)His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is bestowing Green Tara Blessings and Teachings at the Sakya Monastery of Tibetan Buddhism.
+![The Karmapa seated in the shrine room at Sakya Monastery](/images/blog/his-holiness-the-17th-gyalwang-karmapa-in-seattle/11060897-966547350056367-2051017461670438550-o-thumb.jpg)
+
+His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is bestowing Green Tara Blessings and Teachings at the Sakya Monastery of Tibetan Buddhism.
 
 Seattle, Washington, America, 9 May, 2015Photograph by Kurt Smit
 
-![10898077_966545670056535_5564967128857961164_n](https://res.cloudinary.com/hologram-thoughts/image/upload/h_200,w_300/v1438748870/10898077_966545670056535_5564967128857961164_n_kk5rgf.jpg)His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is bestowing Green Tara Blessings and Teachings at the Sakya Monastery of Tibetan Buddhism.
+![The Karmapa teaching before the shrine at Sakya Monastery](/images/blog/his-holiness-the-17th-gyalwang-karmapa-in-seattle/10898077-966545670056535-5564967128857961164-n-thumb.jpg)
+
+His Holiness the 17th Gyalwang Karmapa, Ogyen Trinley Dorje is bestowing Green Tara Blessings and Teachings at the Sakya Monastery of Tibetan Buddhism.
 
 Seattle, Washington, America, 9 May, 2015Photograph by Kurt Smith

@@ -12,7 +12,9 @@ tags:
   - padmasambhava
 slug: direct-message-from-padmasambhava
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_165,w_300/v1417391345/Screenshot-2014-03-10-10_49_08_ucjicl.png)For the last few days, well, for the last four days now, I have been hearing Padmasambhava's mantra in my dreams and saying it as I woke. I guess it isn't anything new for me to hear mantra while I dream, I mean I do say mantra as I fall asleep most nights, but the difference is that I was not saying Padmasambhava's mantra as I fell asleep.
+![Detail of a thangka of Padmasambhava](/images/blog/direct-message-from-padmasambhava/screenshot-2014-03-10-10-49-08-thumb.png)
+
+For the last few days, well, for the last four days now, I have been hearing Padmasambhava's mantra in my dreams and saying it as I woke. I guess it isn't anything new for me to hear mantra while I dream, I mean I do say mantra as I fall asleep most nights, but the difference is that I was not saying Padmasambhava's mantra as I fell asleep.
 
 I am not well versed with the teachings of this Tibetan saint. I know a little of his story, that he came to Tibet in the 8th century AD. I know that he did magical warfare with the demons of the land that had plagued the people of Tibet, converting them to being Dharma Protectors and swearing them to oaths that they would protect the Dharma and practitioners.
 

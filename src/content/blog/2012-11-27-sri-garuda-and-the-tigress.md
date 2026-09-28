@@ -10,7 +10,9 @@ categories:
 tags: []
 slug: sri-garuda-and-the-tigress
 ---
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_215,w_300/v1417391496/Screen-Shot-2012-11-27-at-11_07_32-AM_zrbr4x.png "Sri Garuda and the Tigress") Sri Garuda and the Tigress
+![Sri Garuda and the Tigress](/images/blog/sri-garuda-and-the-tigress/screen-shot-2012-11-27-at-11-07-32-am-thumb.png)
+
+Sri Garuda and the Tigress
 
 From above the clouds he heard her call. The sound was ferocious and fearful all at once. If sentient eye could have seen him here he would have been only a tiny bright dot moving with the night stars.
 

@@ -15,9 +15,13 @@ slug: his-holiness-karmapa-recalls-how-he-is-an-emanation-of-the-buddha-akshobhy
 ---
 From a Facebook post by my Dharma Grandma, (https://www.facebook.com/amrita.nadi?fref=photo):
 
-[![11205981_10152866066967634_7852533430547750060_n](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_298/v1438748870/11205981_10152866066967634_7852533430547750060_n_gvkfdd.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748870/11205981_10152866066967634_7852533430547750060_n_gvkfdd.jpg)"After chanting the opening invocations of the empowerment, His Holiness began by commenting that he felt he might have a special karmic connection with the Buddha Akshobhya, and in fact, successive Karmapa reincarnations have been seen as none other than Akshobhya himself. He explained that out of the five tantric Buddha families, most of the yidams of the great Kagyu forefathers have also been from the Akshobhya or vajra family.
+[![Portrait of His Holiness the 17th Gyalwang Karmapa](/images/blog/his-holiness-karmapa-recalls-how-he-is-an-emanation-of-the-buddha-akshobhya/11205981-10152866066967634-7852533430547750060-n-thumb.jpg)](/images/blog/his-holiness-karmapa-recalls-how-he-is-an-emanation-of-the-buddha-akshobhya/11205981-10152866066967634-7852533430547750060-n.jpg)
 
-![11149301_10152866066417634_6264764962494135612_n](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_234/v1438748871/11149301_10152866066417634_6264764962494135612_n_ooptlb.jpg)“As a sign of this family affiliation, the uncommon crown of the Karmapa is the Black Crown of the vajra family,” His Holiness said. “Though we normally refer to the Karmapa’s crown as the Black Crown, really it is very dark blue. In the Vajrayana this color represents the dharmata, which is the unchanging nature of the mind of all buddhas.
+"After chanting the opening invocations of the empowerment, His Holiness began by commenting that he felt he might have a special karmic connection with the Buddha Akshobhya, and in fact, successive Karmapa reincarnations have been seen as none other than Akshobhya himself. He explained that out of the five tantric Buddha families, most of the yidams of the great Kagyu forefathers have also been from the Akshobhya or vajra family.
+
+![Akshobhya Buddha, blue, seated on a lotus](/images/blog/his-holiness-karmapa-recalls-how-he-is-an-emanation-of-the-buddha-akshobhya/11149301-10152866066417634-6264764962494135612-n-thumb.jpg)
+
+“As a sign of this family affiliation, the uncommon crown of the Karmapa is the Black Crown of the vajra family,” His Holiness said. “Though we normally refer to the Karmapa’s crown as the Black Crown, really it is very dark blue. In the Vajrayana this color represents the dharmata, which is the unchanging nature of the mind of all buddhas.
 
 “Buddhas possess what is called body secret, speech secret and mind secret. The mind secret is an utterly unchanging wisdom. In order to depict that we use the metaphor of the sky or space, and therefore the color dark blue is used to represent this wisdom. So the color of the Karmapa’s crown represents the unchanging dharmata.”
 

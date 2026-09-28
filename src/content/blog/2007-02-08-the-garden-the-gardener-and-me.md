@@ -50,4 +50,4 @@ I understood.
 "Is there a difference? Where do you end and I begin? Where does the garden leave off and you start?"
 
 I sat there on the bench beside him, looking at the garden, hearing and seeing.
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/v1417391792/path_pdtn0e.png "path")
+![A stone path winding through a quiet garden past a pavilion](/images/blog/the-garden-the-gardener-and-me/path.png)

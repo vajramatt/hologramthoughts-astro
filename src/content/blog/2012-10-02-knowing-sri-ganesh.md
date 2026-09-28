@@ -12,7 +12,9 @@ slug: knowing-sri-ganesh
 ---
 **
 
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_227/v1417391498/Screenshot_2012-07-08-19-34-09-1_nujxt5.jpg "Sri Ganesha") Sri Ganesha
+![Sri Ganesha](/images/blog/knowing-sri-ganesh/screenshot-2012-07-08-19-34-09-1-thumb.jpg)
+
+Sri Ganesha
 
 ## **Gayatri Mantra**
 

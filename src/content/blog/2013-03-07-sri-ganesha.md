@@ -14,4 +14,6 @@ slug: sri-ganesha
 ---
 I wanted to add this because so many people ask me about Sri Ganesha.
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_207,w_300/v1417391493/Screen-Shot-2013-03-07-at-9_32_42-AM_mbsxlt.png "Sri Ganesha")](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391493/Screen-Shot-2013-03-07-at-9_32_42-AM_mbsxlt.png) A diagram of Sri Ganesha
+[![A diagram of Sri Ganesha](/images/blog/sri-ganesha/screen-shot-2013-03-07-at-9-32-42-am-thumb.png)](/images/blog/sri-ganesha/screen-shot-2013-03-07-at-9-32-42-am.png)
+
+A diagram of Sri Ganesha

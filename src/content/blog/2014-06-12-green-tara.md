@@ -12,7 +12,9 @@ tags:
   - mantra
 slug: green-tara
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_239/v1417391340/BpqHRDDIIAAMzvw_pqjjmm.jpg) Green Tara
+![Green Tara](/images/blog/green-tara/bpqhrddiiaamzvw-thumb.jpg)
+
+Green Tara
 
 She is the skies and I am the bird,
 She is the seas, and I the fish,

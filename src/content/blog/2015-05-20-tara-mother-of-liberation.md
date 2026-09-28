@@ -15,7 +15,9 @@ tags:
   - white-tara
 slug: tara-mother-of-liberation
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_224/v1438748863/11013191_10206342138462966_1727400264332445160_n_vy3pep.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748863/11013191_10206342138462966_1727400264332445160_n_vy3pep.jpg)Post from my friend (https://www.facebook.com/gonga.nath/posts/10206342138462966:0).
+[![A thangka of a white-robed bodhisattva seated on a lotus by the sea](/images/blog/tara-mother-of-liberation/11013191-10206342138462966-1727400264332445160-n-thumb.jpg)](/images/blog/tara-mother-of-liberation/11013191-10206342138462966-1727400264332445160-n.jpg)
+
+Post from my friend (https://www.facebook.com/gonga.nath/posts/10206342138462966:0).
 
 Tara, or Ārya Tārā, also known as Jetsun Dolma in Tibetan Buddhism, is a female Bodhisattva in Mahayana Buddhism who appears as a female Buddha in Vajrayana Buddhism. She is known as the "mother of liberation", and represents the virtues of success in work and achievements.
 

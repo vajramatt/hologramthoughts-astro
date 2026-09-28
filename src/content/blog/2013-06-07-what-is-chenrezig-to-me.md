@@ -12,7 +12,9 @@ tags:
   - compassion
 slug: what-is-chenrezig-to-me
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_258/v1417391402/chenrezig_td26_mu2kry.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391402/chenrezig_td26_mu2kry.jpg)Last night a friend asked me to describe Chenrezig to him.
+[![A thangka of four-armed Chenrezig seated on a lotus](/images/blog/what-is-chenrezig-to-me/chenrezig-td26-thumb.jpg)](/images/blog/what-is-chenrezig-to-me/chenrezig-td26.jpg)
+
+Last night a friend asked me to describe Chenrezig to him.
 
 So I tried like this:
 

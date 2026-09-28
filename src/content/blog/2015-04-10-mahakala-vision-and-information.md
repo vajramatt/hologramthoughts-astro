@@ -13,7 +13,9 @@ slug: mahakala-vision-and-information
 ---
 My friend Robert sent me a message this morning, offering me a vision of Mahakala for my family. This moved me to tears.
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_223/v1438748898/homage-to-mahakala-wm-72_uuuisn.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748898/homage-to-mahakala-wm-72_uuuisn.jpg) Mahakala
+[![Mahakala](/images/blog/mahakala-vision-and-information/homage-to-mahakala-wm-72-thumb.jpg)](/images/blog/mahakala-vision-and-information/homage-to-mahakala-wm-72.jpg)
+
+Mahakala
 
 Though I am not attaching Robert's words here, I did want to take a moment and preserve his message here in another way.
 

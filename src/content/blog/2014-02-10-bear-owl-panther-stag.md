@@ -27,4 +27,6 @@ P.S.
 
 I just found this image on the net and it struck me how close it is to my dream.
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_300/v1417391344/d1084deea8c0b4473711d42cc893ad84_drrzra.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391344/d1084deea8c0b4473711d42cc893ad84_drrzra.jpg) Shamanic Medicine Wheel
+[![Shamanic Medicine Wheel](/images/blog/bear-owl-panther-stag/d1084deea8c0b4473711d42cc893ad84-thumb.jpg)](/images/blog/bear-owl-panther-stag/d1084deea8c0b4473711d42cc893ad84.jpg)
+
+Shamanic Medicine Wheel

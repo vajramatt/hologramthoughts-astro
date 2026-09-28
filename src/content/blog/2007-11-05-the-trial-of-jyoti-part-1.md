@@ -17,7 +17,9 @@ tags:
   - suffering
 slug: the-trial-of-jyoti-part-1
 ---
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_239,w_300/v1417391494/tumblr_m0vvz1XOWQ1roju5wo1_500_tfnzqc.jpg "tumblr_m0vvz1XOWQ1roju5wo1_500")He sat there, watching the judge for what seemed like an eternity. He could feel the minutes slipping away, minutes that would never come back again. The defender sat beside him on her haunches, perfectly still, eyes closed; serene. All around the court were beings that he had and had not met. Too many animals and spirits to count: furry little hedge hogs, a buck and his doe, birds of various plumes were at home, both in the branches, and on the ground alike. The guardians of the wood were there also.
+![Close-up of a white chrysanthemum](/images/blog/the-trial-of-jyoti-part-1/tumblr-m0vvz1xowq1roju5wo1-500-thumb.jpg)
+
+He sat there, watching the judge for what seemed like an eternity. He could feel the minutes slipping away, minutes that would never come back again. The defender sat beside him on her haunches, perfectly still, eyes closed; serene. All around the court were beings that he had and had not met. Too many animals and spirits to count: furry little hedge hogs, a buck and his doe, birds of various plumes were at home, both in the branches, and on the ground alike. The guardians of the wood were there also.
 
 A beautiful nymph leaned against a broad-leafed tree, smiling at him, triumphant. Her skin was the color of bark, the same browns, tans and greens as on that tree she was familiar with, her hair the green of spring leaves, her eyes like rain clouds. The smile she wore frightened him.
 

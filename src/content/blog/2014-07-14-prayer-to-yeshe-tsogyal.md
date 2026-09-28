@@ -10,7 +10,9 @@ categories:
 tags: []
 slug: prayer-to-yeshe-tsogyal
 ---
-\[caption id="attachment\_908" align="alignright" width="234"\]![Yeshe Tsogyal](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_234/v1417391339/Yeshe_Tsogyal_mxg94y.jpg) Yeshe Tsogyal\[/caption\]
+![Yeshe Tsogyal](/images/blog/prayer-to-yeshe-tsogyal/yeshe-tsogyal-thumb.jpg)
+
+Yeshe Tsogyal
 
 Prayer to Yeshe Tsogyal
 

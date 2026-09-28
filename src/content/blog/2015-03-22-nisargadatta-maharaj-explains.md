@@ -13,7 +13,9 @@ slug: nisargadatta-maharaj-explains
 ---
 I found this on a Facebook page devoted to Nisargadatta Maharaj. It isn't easy to understand, and I am not claiming that I understand it all, either, but I wanted to keep it for my own reading and understanding.
 
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_241/v1438748901/Nisargadatta_Maharaj_hk38vp.jpg) Nisargadatta Maharaj
+![Nisargadatta Maharaj](/images/blog/nisargadatta-maharaj-explains/nisargadatta-maharaj-thumb.jpg)
+
+Nisargadatta Maharaj
 
  
 

@@ -11,7 +11,9 @@ tags:
   - shamanism
 slug: the-calling
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_298/v1438748900/owl_with_stars_hlcqae.jpg)Call the good ancestors whom have wished us well down throughout the eons.
+![An owl on a branch, dissolving into points of starlight](/images/blog/the-calling/owl-with-stars-thumb.jpg)
+
+Call the good ancestors whom have wished us well down throughout the eons.
 
 Call the Mother spirit of the earth upon whom we stand and from whom all nourishment comes.
 

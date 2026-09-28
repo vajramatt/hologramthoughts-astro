@@ -11,7 +11,9 @@ tags:
   - oneness
 slug: your-advocate
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_198,w_300/v1417391405/franklin_trees_01_e65b8s.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391405/franklin_trees_01_e65b8s.jpg)The trees are singing to you, listen.
+[![A dirt path through a tall green forest](/images/blog/your-advocate/franklin-trees-01-thumb.jpg)](/images/blog/your-advocate/franklin-trees-01.jpg)
+
+The trees are singing to you, listen.
 
 A blooming flower is more worthy of our gaze than all the stars in the sky.
 

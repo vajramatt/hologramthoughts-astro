@@ -13,7 +13,9 @@ tags:
   - yidam
 slug: hanuman-ji
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_223,w_300/v1417391357/hanuman-ji_xkbqca.jpg) Sri Hanuman
+![Sri Hanuman](/images/blog/hanuman-ji/hanuman-ji-thumb.jpg)
+
+Sri Hanuman
 
 How do I express this in words when words fail me?
 
@@ -32,7 +34,9 @@ His simple mantra brings a feeling of warrior strength and compassionate determi
 
 His yantra pulls me in as I chant the mantra over and over. It is a hypnotic state like which I have not experienced before.
 
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_300/v1417391355/Hanuman-Yantra_n4o06u.png "Hanuman Yantra") Hanuman Yantra
+![Hanuman Yantra](/images/blog/hanuman-ji/hanuman-yantra-thumb.png)
+
+Hanuman Yantra
 
 This is a decent example of his mantra that I have used from YouTube.
 

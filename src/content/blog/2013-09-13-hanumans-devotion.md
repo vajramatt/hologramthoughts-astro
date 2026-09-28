@@ -13,7 +13,9 @@ tags:
   - sita
 slug: hanumans-devotion
 ---
-[![512iYEVxtHL._SY346_](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_189/v1417391351/512iYEVxtHL__SY346__q5nged.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391351/512iYEVxtHL__SY346__q5nged.jpg)I read a graphic novelization of Hanuman's time in Lanka last night, and I loved it. (http://www.amazon.com/gp/product/9380741707/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=9380741707&linkCode=as2&tag=hologramthoug-20) is beautiful, easy to read, and leaves the esoteric knowledge for later readings. This, in my opinion, is the easiest introduction to Hanuman and his relationship with Ram, Sita, Ravana, and Lakshman.
+[![Cover of the graphic novel Sundarkaand: Triumph of Hanuman](/images/blog/hanumans-devotion/512iyevxthl-sy346-thumb.jpg)](/images/blog/hanumans-devotion/512iyevxthl-sy346.jpg)
+
+I read a graphic novelization of Hanuman's time in Lanka last night, and I loved it. (http://www.amazon.com/gp/product/9380741707/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=9380741707&linkCode=as2&tag=hologramthoug-20) is beautiful, easy to read, and leaves the esoteric knowledge for later readings. This, in my opinion, is the easiest introduction to Hanuman and his relationship with Ram, Sita, Ravana, and Lakshman.
 
 For me, one of the reasons that I love Hanuman is his simple devotion. Yes, Hanuman is almost unimaginably powerful himself. He is the son of the wind, the student of the sun, and an incarnation of Shiva himself; but his devotion and humility is total and sincere.
 

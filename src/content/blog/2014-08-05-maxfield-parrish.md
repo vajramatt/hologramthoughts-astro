@@ -11,6 +11,8 @@ tags:
   - art
 slug: maxfield-parrish
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/v1417391337/mp_enchanted_prince_qymnor.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391337/mp_enchanted_prince_qymnor.jpg) Enchanted Prince is deeper than you think...
+[![Maxfield Parrish, The Enchanted Prince: a girl sits beneath giant trees watching a frog](/images/blog/maxfield-parrish/mp-enchanted-prince.jpg)](/images/blog/maxfield-parrish/mp-enchanted-prince.jpg)
+
+Enchanted Prince is deeper than you think...
 
 There is something special about Maxfield Parrish and his amazing paintings. Like many of the artists I am drawn to, Parrish seems to know something and he is sharing with you, but only if you have 'eyes to see'...

@@ -13,7 +13,9 @@ slug: realization-shall-be-acquired
 ---
 "If a person observes the whole sky, they will realize that space has neither locality nor boundary. Thus they will dispense with such concepts. So when mind and all phenomena are investigated, not so much as an atom of objective substantiality will be found.
 
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_219/v1438748864/Saraha2_znzfw5.jpg)The observer making this search, likewise will not be found.
+![The mahasiddha Saraha holding an arrow](/images/blog/realization-shall-be-acquired/saraha2-thumb.jpg)
+
+The observer making this search, likewise will not be found.
 
 Observing this, realization shall be acquired!
 

@@ -12,7 +12,9 @@ tags:
   - padmasambhava
 slug: prayer-by-guru-rinpoche-to-wake-us-up
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_211,w_300/v1438748897/10261974_10152824907187634_3841047866008387889_n_v9ay99.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748897/10261974_10152824907187634_3841047866008387889_n_v9ay99.jpg) Padmasambhava
+[![Padmasambhava](/images/blog/prayer-by-guru-rinpoche-to-wake-us-up/10261974-10152824907187634-3841047866008387889-n-thumb.jpg)](/images/blog/prayer-by-guru-rinpoche-to-wake-us-up/10261974-10152824907187634-3841047866008387889-n.jpg)
+
+Padmasambhava
 
 "Whatever appears to the eye,
 The outer universe, inner living beings and all objects,

@@ -12,7 +12,7 @@ tags:
   - tantra
 slug: prostrations-to-the-guru
 ---
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/c_scale,w_291/v1418695099/_4207396508_jp0n99.jpg)
+![A thangka of Guru Rinpoche surrounded by deities](/images/blog/prostrations-to-the-guru/4207396508-thumb.jpg)
 
 Upon a throne of gold and jewels the guru sits, his eyes closed in effortless, illuminated meditation. A serene smile spreads across his face and then he opens his eyes to gaze upon you. Within those eyes show all of the stars from all of the universes, and yet you can see yourself there, plainly visible in his being.
 

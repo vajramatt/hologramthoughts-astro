@@ -12,4 +12,6 @@ tags:
   - ramayana
 slug: hanuman-and-reality
 ---
-[![hanuman-ji-hd](https://res.cloudinary.com/hologram-thoughts/image/upload/h_224,w_300/v1417391350/hanuman-ji-hd_zphjye.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391350/hanuman-ji-hd_zphjye.jpg)Hanuman tells Rama: ‘when I think of myself as a body, I am your servant; when I think of myself as an individual soul, I am part of you; but when I realize I am atman, you and I become one.’
+[![Hanuman seated with one hand raised in blessing](/images/blog/hanuman-and-reality/hanuman-ji-hd-thumb.jpg)](/images/blog/hanuman-and-reality/hanuman-ji-hd.jpg)
+
+Hanuman tells Rama: ‘when I think of myself as a body, I am your servant; when I think of myself as an individual soul, I am part of you; but when I realize I am atman, you and I become one.’

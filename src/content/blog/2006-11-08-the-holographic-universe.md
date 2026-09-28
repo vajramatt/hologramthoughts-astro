@@ -15,7 +15,7 @@ tags:
   - pribam
 slug: the-holographic-universe
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/v1417391401/images_esewno.jpg)](http://www.amazon.com/gp/product/0062014102/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0062014102&linkCode=as2&tag=hologramthoug-20)
+[![Cover of The Holographic Universe by Michael Talbot](/images/blog/the-holographic-universe/images.jpg)](http://www.amazon.com/gp/product/0062014102/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0062014102&linkCode=as2&tag=hologramthoug-20)
 
 I think it must have been in 1992 when I first read The Holographic Universe. I remember laying on a cot in Pendleton, the sun was beating in on me from the open window. I remember vividly thinking that it made sense, that most of his theories felt right to me.
 

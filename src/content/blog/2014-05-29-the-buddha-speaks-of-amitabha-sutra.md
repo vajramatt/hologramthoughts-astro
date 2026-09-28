@@ -11,7 +11,9 @@ tags:
   - amitabha
 slug: the-buddha-speaks-of-amitabha-sutra
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_150,w_300/v1417391341/Amitabha-by-Aloka_ztco90.jpg) Amitabha By Aloka
+![Amitabha Buddha seated on a lotus against a golden background](/images/blog/the-buddha-speaks-of-amitabha-sutra/amitabha-by-aloka-thumb.jpg)
+
+Amitabha By Aloka
 
 Namo! Homage to the Lotus Pool Assembly of Buddhas and Bodhisattvas As Vast As the Sea
 

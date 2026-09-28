@@ -21,7 +21,9 @@ The animal lifts its head from the water and stands erect, looking out over the 
 
 *To be on that island, that would be a good thing.*
 
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_169,w_300/v1438748849/Air_Temple_Island_overview_fvoe1u.png)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748849/Air_Temple_Island_overview_fvoe1u.png)A sound attracts your attention, and looking to your animal you see that it is headed to a small boat rocking gently against the rocky shore.
+[![An island temple rising from the sea](/images/blog/journey-to-the-temple/air-temple-island-overview-thumb.png)](/images/blog/journey-to-the-temple/air-temple-island-overview.png)
+
+A sound attracts your attention, and looking to your animal you see that it is headed to a small boat rocking gently against the rocky shore.
 
 Your animal climbs into the boat and looks to the island.  You follow, knowing that is where you should be, safe in the understanding that no harm can come to you on these waters.
 

@@ -17,7 +17,7 @@ slug: what-have-we-forgotten
 
 This statement made by Gurdjieff makes me think of the lost knowledge that humanity now clearly needs. The now occult and esoteric knowledge that we wonder about. How did the Indian yogis pinpoint the chakra system? How did the ancient Chinese wizards (doctors) pinpoint the channels for acupuncture?
 
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_214,w_300/v1417391788/YonaguniJima_fwi7dx.jpg "Yonaguni Jima")
+![Yonaguni Jima](/images/blog/what-have-we-forgotten/yonagunijima-thumb.jpg)
 
 What in the hell is Yonaguni Jima and why can modern science not explain it? Hundreds of feet under the ocean off of the coast of Japan sits a megalithic city. I would call it a temple complex if you are asking me.
 

@@ -11,7 +11,9 @@ tags:
   - oneness
 slug: to-breathe-a-tree
 ---
-![](https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_224/v1417391789/moss-tree-trunk2_jd9nyr.jpg "Breathe")I sat against the trunk of the ages old tree and closed my eyes.  I was tired of walking in this forest of melody and mist, I needed a rest, I needed food, I needed to be dry and to find a real bed, a fireplace and a few moments of peace.  I only closed my eyes for a moment, thinking to myself, 'only for a few seconds, sweet tree, keep me company'.
+![Looking up a moss-covered tree trunk into green leaves](/images/blog/to-breathe-a-tree/moss-tree-trunk2-thumb.jpg)
+
+I sat against the trunk of the ages old tree and closed my eyes.  I was tired of walking in this forest of melody and mist, I needed a rest, I needed food, I needed to be dry and to find a real bed, a fireplace and a few moments of peace.  I only closed my eyes for a moment, thinking to myself, 'only for a few seconds, sweet tree, keep me company'.
 
 Slowly the sounds of the forest slid away from my consciousness.  The songs of the birds became softer and then were gone. The frogs, crickets and other noises from the underbrush slowed, quieted, and were gone.  My hands reached into the mossy warmth around me, and I could feel the energy swirling within my mind.  I could hear my own breath for a long while, and it was warm in the sun, there against my tree, and then I slept.
 

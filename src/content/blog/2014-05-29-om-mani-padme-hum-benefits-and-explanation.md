@@ -11,7 +11,9 @@ tags:
   - om-mani-padme-hum
 slug: om-mani-padme-hum-benefits-and-explanation
 ---
-!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_258/v1417391402/chenrezig_td26_mu2kry.jpg) Chenrezig
+![A thangka of four-armed Chenrezig seated on a lotus](/images/blog/om-mani-padme-hum-benefits-and-explanation/chenrezig-td26-thumb.jpg)
+
+Chenrezig
 
 **Significance of OM, MA, NI, PAD, ME, HUM**
 

@@ -12,7 +12,9 @@ slug: rainbow-bodies-and-catholic-study
 ---
 I recently found an article about a Roman Catholic priest who is also an expert in Tibetan Buddhism. He has read and traveled extensively in Tibet, Nepal and India in his quest to understand the spiritual and religious beliefs of that area.
 
-> [!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_209/v1417391348/padmasambhava_rainbow_body_rrbifs.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391348/padmasambhava_rainbow_body_rrbifs.jpg) Padmasambhava's Rainbow Body
+> [![Padmasambhava's Rainbow Body](/images/blog/rainbow-bodies-and-catholic-study/padmasambhava-rainbow-body-thumb.jpg)](/images/blog/rainbow-bodies-and-catholic-study/padmasambhava-rainbow-body.jpg)
+>
+> Padmasambhava's Rainbow Body
 >
 > Fr. Francis encountered writings of early fathers of the Christian church and in the early Buddhist canon that described humans as originally beings of light.
 >

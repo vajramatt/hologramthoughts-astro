@@ -11,7 +11,9 @@ tags:
   - loki
 slug: lokis-puzzle
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/v1417391400/stacks_image_369_qoiron.png)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1417391400/stacks_image_369_qoiron.png) Loki stone carving.
+[![Loki stone carving](/images/blog/lokis-puzzle/stacks-image-369.png)](/images/blog/lokis-puzzle/stacks-image-369.png)
+
+Loki stone carving.
 
 As the clouds slowly gave way to moonlight and stars, Loki shook off the snow and smiled. Sitting alone in his mountain retreat his thoughts wandered from Odin, to brother Thor, and back again. Eons had been spent in battle for, and against, those two. But now Loki was seeking to distance himself from he ceaseless warring.
 

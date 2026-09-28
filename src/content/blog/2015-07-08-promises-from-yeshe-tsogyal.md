@@ -13,7 +13,9 @@ tags:
   - yeshe-tsogyal
 slug: promises-from-yeshe-tsogyal
 ---
-[!(https://res.cloudinary.com/hologram-thoughts/image/upload/h_300,w_236/v1438748857/887370_960406704002686_4146858313766263532_o_p26gys.jpg)](http://res.cloudinary.com/hologram-thoughts/image/upload/v1438748857/887370_960406704002686_4146858313766263532_o_p26gys.jpg) Guru Yeshe Tsogyal
+[![Guru Yeshe Tsogyal](/images/blog/promises-from-yeshe-tsogyal/887370-960406704002686-4146858313766263532-o-thumb.jpg)](/images/blog/promises-from-yeshe-tsogyal/887370-960406704002686-4146858313766263532-o.jpg)
+
+Guru Yeshe Tsogyal
 
 "What we understand to be phenomena
 Are but the magical projections of the mind.
