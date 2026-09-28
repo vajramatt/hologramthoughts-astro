@@ -11,7 +11,6 @@ tags:
   - mahamudra
 slug: stages-of-mahamudra
 ---
-[!(https://www.hologramthoughts.com/wp-content/uploads/2015/08/11891215_1200620829964246_988278587353067974_n-200x300.jpg)](https://www.hologramthoughts.com/wp-content/uploads/2015/08/11891215_1200620829964246_988278587353067974_n.jpg) Tilopa
 
 At first a yogi feels his mind
 Is tumbling like a waterfall;

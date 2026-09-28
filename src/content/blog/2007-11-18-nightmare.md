@@ -11,7 +11,7 @@ tags:
   - dream
 slug: nightmare
 ---
-!(https://photos.runic.com/photos/bluebell-woods.jpg)The group, ten or more of us, walked in silence under the beech trees.  The sun was low in the sky and the shadows where coming at strange angles, making it look like there was something moving just out of my eyesight.  I was in the middle, watching those in front while trying to keep the few behind me up with us, they kept trying to stop; they were too tired now.
+The group, ten or more of us, walked in silence under the beech trees.  The sun was low in the sky and the shadows where coming at strange angles, making it look like there was something moving just out of my eyesight.  I was in the middle, watching those in front while trying to keep the few behind me up with us, they kept trying to stop; they were too tired now.
 
 I knew we had to keep going, I knew we could not stay the night in the woods.  No shelter, no where to put your back and know you were safe from at least on direction.
 

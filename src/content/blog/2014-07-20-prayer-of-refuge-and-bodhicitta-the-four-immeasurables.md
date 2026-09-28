@@ -48,15 +48,8 @@ SEM CHEN TAM CHAY NYE RING CHAG DANG
      NYI DANG DREL WAY DANG NYOM LA NAY PAR
      GYUR CHIG
 
-
-
-
-
-
-
 Reprinted from:
 
 Chenrezig Tibetan Buddhist Center of Philadelphia, Daily Prayers
 Losang Rinpoche, Spiritual Director
 
-[![20140720-103802-38282514.jpg](https://www.hologramthoughts.com/wp-content/uploads/2014/07/20140720-103802-38282514.jpg)](https://www.hologramthoughts.com/wp-content/uploads/2014/07/20140720-103802-38282514.jpg)

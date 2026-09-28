@@ -13,7 +13,7 @@ tags:
   - macbook-pro
 slug: macbook-pro-too-much-to-ask-for
 ---
-!(https://www.hologramthoughts.com/wp-content/uploads/2007/12/product-15in-macbook1.jpg)I was talking to a friend about something I want last night.  It is a large expense and one I would not normally lavish upon myself when I can so easily think of other things I need to spend my money on first.  A fence for the backyard, a new car for my mother-in-law, an (http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2FApple-Desktop-Display-MA878LL-SuperDrive%2Fdp%2FB000R805L4%3Fie%3DUTF8%26s%3Delectronics%26qid%3D1198178616%26sr%3D1-3&tag=hologramthoug-20&linkCode=ur2&camp=1789&creative=9325) for the family, things the kids need and so on and so forth... But I really want a MacBook Pro.
+I was talking to a friend about something I want last night.  It is a large expense and one I would not normally lavish upon myself when I can so easily think of other things I need to spend my money on first.  A fence for the backyard, a new car for my mother-in-law, an (http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2FApple-Desktop-Display-MA878LL-SuperDrive%2Fdp%2FB000R805L4%3Fie%3DUTF8%26s%3Delectronics%26qid%3D1198178616%26sr%3D1-3&tag=hologramthoug-20&linkCode=ur2&camp=1789&creative=9325) for the family, things the kids need and so on and so forth... But I really want a MacBook Pro.
 
 There, I said it: I want a (http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2FApple-MacBook-MA895LL-Notebook-SuperDrive%2Fdp%2FB000R7X80U%3Fie%3DUTF8%26s%3Delectronics%26qid%3D1198178414%26sr%3D8-7&tag=hologramthoug-20&linkCode=ur2&camp=1789&creative=9325).
 

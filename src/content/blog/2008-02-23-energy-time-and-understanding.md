@@ -17,7 +17,7 @@ tags:
   - universe
 slug: energy-time-and-understanding
 ---
-!(https://www.hologramthoughts.com/wp-content/uploads/2008/02/bigbangsupernova1.jpg)In that timeless moment when the multiverse erupted from a single point in non-space, when all that we see today was only pure energy; was there a remnant of thought and understanding there?  Before the first neutrinos coalesced out of the flowing energy foam, before the first atoms began to bind together into  first structures, and eons before the first differentiated points in this new space were formed; was there a compassionate Buddha-nature pervading that energy as it raced out to become all that there is?
+In that timeless moment when the multiverse erupted from a single point in non-space, when all that we see today was only pure energy; was there a remnant of thought and understanding there?  Before the first neutrinos coalesced out of the flowing energy foam, before the first atoms began to bind together into  first structures, and eons before the first differentiated points in this new space were formed; was there a compassionate Buddha-nature pervading that energy as it raced out to become all that there is?
 
 The table that my laptop rests on as I write this, the mass that is the table, it was present there in that moment of the big bang.  In fact, all that I am, was there in that moment too.  The atoms, the elements that make my body, my skin, my hair and my heart, all of those atoms where nothing more than energy in that super-expanding ball of energy.  This is a very hard idea to grasp.  Of course the thing trying to grasp this idea was in the Big Bang too... my mind.
 

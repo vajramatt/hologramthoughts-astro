@@ -74,7 +74,7 @@
 
   <!-- Author — the frontmatter byline -->
   <text x="100" y="528" font-family="JetBrains Mono, Menlo, monospace" font-size="24">
-    <tspan fill="#bb9af7">author</tspan><tspan fill="#737aa2">: "</tspan><tspan fill="#9ece6a" font-weight="500">Matthew Williamson</tspan><tspan fill="#737aa2">"</tspan>
+    <tspan fill="#bb9af7">author</tspan><tspan fill="#737aa2">: </tspan><tspan fill="#9ece6a" font-weight="500">Matthew Williamson</tspan>
   </text>
 
   <!-- Bottom status row -->

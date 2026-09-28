@@ -20,7 +20,7 @@ tags:
   - universe
 slug: 113-thoughts-from-the-buddha
 ---
-!(https://www.hologramthoughts.com/wp-content/uploads/2007/12/286620962_7fd11ca5ea1.jpg)1. You yourself, as much as anybody in the entire universe, deserve your love and affection.
+1. You yourself, as much as anybody in the entire universe, deserve your love and affection.
 
 2. He is able who thinks he is able.
 

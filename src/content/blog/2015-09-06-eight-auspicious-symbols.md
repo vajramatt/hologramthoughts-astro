@@ -10,7 +10,7 @@ categories:
 tags: []
 slug: eight-auspicious-symbols
 ---
-[![](https://www.hologramthoughts.com/wp-content/uploads/2015/09/IMG_5024.jpg)](https://www.hologramthoughts.com/wp-content/uploads/2015/09/IMG_5024.jpg)
+
 In Buddhism these eight symbols of good fortune represent the offerings made by the gods to Shakyamuni Buddha immediately after he attained enlightenment.
 
 Designs of the Eight Auspicious Symbols decorate all manner of sacred and secular Buddhist objects. One finds them embellishing wooden furniture, metalwork, carpets, silk brocades, jewelry, paper, and as wall hangings in temples.

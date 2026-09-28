@@ -11,7 +11,6 @@ categories:
 tags: []
 slug: watch-these
 ---
-[!(https://www.hologramthoughts.com/wp-content/uploads/2008/08/picture-1.png "Woman")](https://www.hologramthoughts.com/wp-content/uploads/2008/08/picture-1.png)
 
 I first found this clip on YouTube and I was blown away... it just makes so much sense.
 

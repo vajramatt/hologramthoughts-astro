@@ -11,7 +11,7 @@ tags:
   - bombay-dub-orchestra
 slug: the-cave-and-the-sadhu
 ---
-!(https://www.hologramthoughts.com/wp-content/uploads/2012/09/Mountain-cave.jpg "Mountain-cave.jpg")The cave sits just above the treeline on the southern face of a rather unassuming mountain. Standing in the mouth of the cave the Sadhu can see a vast green jungle to the left and the swiftly flowing Ganghes to the right.
+The cave sits just above the treeline on the southern face of a rather unassuming mountain. Standing in the mouth of the cave the Sadhu can see a vast green jungle to the left and the swiftly flowing Ganghes to the right.
 
 He sits before his sacred dhuni fire in the predawn morning. His breath coming out in tiny puffs as his mantra echoes through the cave, 'Om Namah Shivaya, Shivaya Namah Om.' He is thin, his hair and beard seem to have merged into one tangled mess of dreadlocks and colored ribbons. He sits lightly on a pillow made of cloth wrapped around grass straw.
 

@@ -16,7 +16,7 @@ tags:
   - wonderlane
 slug: wonderlane-in-nepal
 ---
-!(https://www.hologramthoughts.com/wp-content/uploads/2007/11/buddha1.jpg)My friend, Wonderlane, is on retreat in Nepal right now and will be there for a while to come.  We have shared a few emails back and forth, but last night she sent me this link to her photos.
+My friend, Wonderlane, is on retreat in Nepal right now and will be there for a while to come.  We have shared a few emails back and forth, but last night she sent me this link to her photos.
 
 > (http://www.flickrleech.net/user/wonderlane)
 

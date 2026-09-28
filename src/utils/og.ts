@@ -133,7 +133,7 @@ export function cardSvg(card: OgCard): string {
   <text x="100" y="556" font-family="JetBrains Mono" font-size="26" font-weight="500" fill="url(#wm)">hologram thoughts</text>
   <rect x="371" y="534" width="13" height="26" fill="#9ece6a" filter="url(#glow)"/>
   <text x="1100" y="556" text-anchor="end" font-family="JetBrains Mono" font-size="20">
-    <tspan fill="#bb9af7">author</tspan><tspan fill="#737aa2">: "</tspan><tspan fill="#9ece6a">Matthew Williamson</tspan><tspan fill="#737aa2">"</tspan>${card.footRight ? `<tspan fill="#737aa2">  ·  </tspan><tspan fill="#ff9e64">${esc(card.footRight)}</tspan>` : ''}
+    <tspan fill="#bb9af7">author</tspan><tspan fill="#737aa2">: </tspan><tspan fill="#9ece6a">Matthew Williamson</tspan>${card.footRight ? `<tspan fill="#737aa2">  ·  </tspan><tspan fill="#ff9e64">${esc(card.footRight)}</tspan>` : ''}
   </text>
 
   <rect width="1200" height="630" fill="url(#scan)"/>

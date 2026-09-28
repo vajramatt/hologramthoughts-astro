@@ -24,6 +24,5 @@ I know it seems long, but it's very repetitive, super easy to learn and it conta
 
 once you do this, you'll truly have something
 
-**big time**: Vajra power, healing, purification, direct insight into reality, smashing ability, cutting ability, energizing and augmenting ability...![Vajravidarana-01-mid](https://www.hologramthoughts.com/wp-content/uploads/2015/12/Vajravidarana-01-mid.jpg)
+**big time**: Vajra power, healing, purification, direct insight into reality, smashing ability, cutting ability, energizing and augmenting ability...
 
-[![Vajravidarana.Mandala.03](https://www.hologramthoughts.com/wp-content/uploads/2015/12/Vajravidarana.Mandala.03.jpg)](https://www.hologramthoughts.com/wp-content/uploads/2015/12/Vajravidarana.Mandala.03.jpg)
