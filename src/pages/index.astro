@@ -274,10 +274,11 @@ const lastWrite = latestPosts[0] ? lsDate(latestPosts[0].data.pubDate).toLowerCa
       events.push([t += 80, () => {
         title.classList.remove('reveal-pending');
         title.classList.add('revealed');
-        reveals.forEach((el) => el.classList.remove('reveal-pending'));
       }]);
+      // The headline types itself (CSS steps, ~1.06s); then the rest arrives.
+      events.push([t += 1100, () => reveals.forEach((el) => el.classList.remove('reveal-pending'))]);
       // Then the terminal pane prints its output, one line at a time.
-      t += 260;
+      t += 200;
       stream.forEach((el) => events.push([t += 110, () => el.classList.remove('stream-pending')]));
 
       const startAt = performance.now();
@@ -427,35 +428,39 @@ const lastWrite = latestPosts[0] ? lsDate(latestPosts[0].data.pubDate).toLowerCa
     opacity: 0;
   }
   .term-mini-caret.caret-typing { opacity: 1; }
+  /* The headline is the output of `replay`: monospace, the same family as the
+     wordmark, keeping the prismatic gradient on the first line. */
   .hero-title {
     margin: 0;
-    font-size: clamp(3.65rem, 7.4vw, 7.1rem);
-    line-height: 0.88;
-    letter-spacing: -0.055em;
-    text-wrap: balance;
+    font-family: var(--font-mono);
+    font-weight: 600;
+    /* Sized so "of attention." + cursor (≈14.2 cells at 0.555em) fits the
+       left column at every width; the max matches the column's 1152px cap. */
+    font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.045em;
   }
-  .hero-title > span { display: block; }
+  /* fit-content so each line is exactly its characters wide: in a monospace
+     face a steps(N) clip-path wipe then reveals one character per step, which
+     is genuine typing rather than a blur-in. */
+  .hero-title > span { display: block; width: fit-content; white-space: nowrap; }
   .hero-title > span:last-child { color: var(--color-ink); }
-  .hero-title.reveal-pending {
-    opacity: 0;
-    transform: translateY(10px);
-    filter: blur(10px);
+  .hero-title.reveal-pending { opacity: 0; }
+  .hero-title.revealed > span:first-child { animation: type-line 420ms steps(10, end) both; }
+  .hero-title.revealed > span:last-child { animation: type-line 600ms steps(14, end) 460ms both; }
+  @keyframes type-line {
+    from { clip-path: inset(-0.2em 100% -0.2em 0); }
+    to { clip-path: inset(-0.2em -0.5em -0.2em 0); }
   }
-  .hero-title.revealed {
-    animation: title-bloom 680ms var(--ease-grow) both;
-  }
-  @keyframes title-bloom {
-    from { opacity: 0; transform: translateY(10px); filter: blur(10px); clip-path: inset(0 100% 0 0); }
-    to { opacity: 1; transform: none; filter: blur(0); clip-path: inset(0); }
-  }
+  /* A block cursor exactly one character cell wide. */
   .hero-caret {
     display: inline-block;
-    width: 0.48ch;
-    height: 0.78em;
-    margin-left: 0.14ch;
-    transform: translateY(0.06em);
+    width: 1ch;
+    height: 0.86em;
+    margin-left: 0.08ch;
+    transform: translateY(0.1em);
     background: var(--color-green);
-    box-shadow: 0 0 18px color-mix(in oklch, var(--color-green) 55%, transparent);
+    box-shadow: 0 0 16px color-mix(in oklch, var(--color-green) 50%, transparent);
     animation: hero-blink 1.06s steps(1) infinite;
   }
   @keyframes hero-blink {
@@ -463,11 +468,10 @@ const lastWrite = latestPosts[0] ? lsDate(latestPosts[0].data.pubDate).toLowerCa
     50.01%, 100% { opacity: 0; }
   }
   .hero-intro {
-    max-width: 38rem;
-    margin: 2rem 0 0;
+    max-width: 52ch;
+    margin: 1.75rem 0 0;
     color: var(--color-ink-soft);
-    font-size: clamp(1.05rem, 1.8vw, 1.22rem);
-    line-height: 1.65;
+    font: clamp(0.92rem, 1.3vw, 1.02rem)/1.75 var(--font-mono);
   }
   [data-hero-reveal] { transition: opacity 520ms var(--ease-grow), transform 520ms var(--ease-grow); }
   [data-hero-reveal].reveal-pending { opacity: 0; transform: translateY(8px); }
@@ -771,8 +775,8 @@ const lastWrite = latestPosts[0] ? lsDate(latestPosts[0].data.pubDate).toLowerCa
   @media (max-width: 620px) {
     .home-hero { gap: 2.2rem; padding-bottom: 2rem; }
     .terminal-line { overflow: hidden; margin-bottom: 1.35rem; }
-    .hero-title { font-size: clamp(3.25rem, 17vw, 4.8rem); }
-    .hero-intro { margin-top: 1.35rem; font-size: 1rem; }
+    .hero-title { font-size: clamp(2rem, 10.4vw, 3.4rem); }
+    .hero-intro { margin-top: 1.35rem; font-size: 0.9rem; }
     .hero-actions { margin-top: 1.25rem; }
     .term-window { margin-inline: -0.25rem; }
     .tw-size, .tm-win { display: none; }
