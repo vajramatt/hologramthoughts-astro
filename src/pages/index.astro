@@ -5,6 +5,8 @@ import ThreadLines from '../components/ThreadLines.astro';
 import { threadSeries } from '../utils/thread-years';
 import PostCard from '../components/PostCard.astro';
 import { metaDescription } from '../utils/deck';
+import { readingMinutesOf } from '../utils/reading';
+import { CONTENT_TYPE_LABEL, type ContentType } from '../utils/categories';
 import { blogGraph } from '../utils/jsonld';
 import { getCollection } from 'astro:content';
 import taxonomy from '../content/themes/taxonomy.json';
@@ -150,6 +152,19 @@ for (const s of themedSlugs) {
     themeIdsByPostSlug[s] = [];
   }
 }
+
+// Hero terminal: `ls -lt` rows for the latest posts + tmux status-bar stats.
+const lsDate = (d: Date) => d.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' });
+const heroRows = latestPosts.map((post: any) => ({
+  url: `/blog/${slugOf(post)}/`,
+  title: post.data.title,
+  date: post.data.pubDate as Date,
+  type: CONTENT_TYPE_LABEL[(post.data.contentType ?? 'reflection') as ContentType].toLowerCase(),
+  minutes: readingMinutesOf(post.body),
+  comment: metaDescription(post.data.description, post.body, 120),
+  tags: (themeIdsByPostSlug[slugOf(post)] ?? []).slice(0, 2).filter((id) => themesById.has(id)),
+}));
+const lastWrite = latestPosts[0] ? lsDate(latestPosts[0].data.pubDate).toLowerCase() : '';
 ---
 <Layout wide signal title="Hologram Thoughts — an archive of attention by Matthew Williamson" description={`${all.length} essays, stories and poems from ${Math.min(...yearsWithPosts)}–${Math.max(...yearsWithPosts)} on consciousness, Buddhist practice, fatherhood, mythology, code and the strange edges of culture — connected by recurring threads.`} jsonLd={blogGraph({ posts: all.slice(0, 12).map((p) => ({ title: p.data.title, url: `https://hologramthoughts.com/blog/${slugOf(p)}/`, datePublished: p.data.pubDate.toISOString() })) })}>
   <section class="home-hero" aria-labelledby="home-title" data-signal-zone>
@@ -169,62 +184,84 @@ for (const s of themedSlugs) {
         Twenty years of writing on consciousness, dharma, fatherhood, code, and the strange edges of culture—kept here so it doesn’t get lost in the scroll.
       </p>
       <div class="hero-actions" data-hero-reveal>
-        <a href="#latest" class="command-link"><span aria-hidden="true">›</span> read --latest</a>
-        <a href="#understory" class="command-link secondary"><span aria-hidden="true">›</span> explore --threads</a>
+        {heroRows[0] && (
+          <a href={heroRows[0].url} class="cmd-btn is-primary">
+            <span class="cmd-sigil" aria-hidden="true">$</span> read --latest <kbd aria-hidden="true">↵</kbd>
+          </a>
+        )}
+        <a href="#understory" class="cmd-btn">
+          <span class="cmd-sigil" aria-hidden="true">$</span> explore --threads
+        </a>
       </div>
     </div>
 
-    <aside id="latest" class="latest-panel console" aria-labelledby="latest-title">
-      <div class="latest-heading">
-        <div>
-          <p class="panel-kicker">Live index</p>
-          <h2 id="latest-title">Latest writing</h2>
-        </div>
-        <span class="status-dot" aria-label="Archive active"></span>
+    <!-- The live index, as a terminal pane running `ls -lt`. -->
+    <aside id="latest" class="term-window console" aria-labelledby="latest-title">
+      <div class="tw-bar" aria-hidden="true">
+        <span class="tw-dots"><i></i><i></i><i></i></span>
+        <span class="tw-name">~/archive — zsh</span>
+        <span class="tw-size">80×24</span>
       </div>
-      <ol class="latest-list">
-        {latestPosts.map((post: any, index) => {
-          const slug = slugOf(post);
-          const ids = (themeIdsByPostSlug[slug] ?? []).slice(0, 2);
-          return (
-            <li>
-              <a href={`/blog/${slug}/`} class="latest-link">
-                <span class="latest-index">0{index + 1}</span>
-                <span class="latest-copy">
-                  <span class="latest-title">{post.data.title}</span>
-                  <span class="latest-description">{metaDescription(post.data.description, post.body, 140)}</span>
-                  <span class="latest-themes">
-                    {ids.map((id) => {
-                      const theme = themesById.get(id);
-                      return theme && <span>{theme.name}</span>;
-                    })}
-                  </span>
+      <div class="tw-body">
+        <h2 id="latest-title" class="visually-hidden">Latest writing</h2>
+        <p class="tw-line tw-cmdline" aria-hidden="true" data-stream>
+          <span class="tw-ps">$</span> ls -lt ./archive <span class="tw-faint">| head -{heroRows.length}</span>
+        </p>
+        <ol class="tw-list">
+          {heroRows.map((row) => (
+            <li class="tw-line" data-stream>
+              <a href={row.url} class="tw-entry">
+                <span class="tw-meta">
+                  <time datetime={row.date.toISOString()}>{lsDate(row.date)}</time>
+                  <span class="tw-type">{row.type}</span>
+                  <span class="tw-min">{row.minutes}m</span>
                 </span>
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString('en', { month: 'short', day: '2-digit', timeZone: 'UTC' })}
-                </time>
+                <span class="tw-title">{row.title}</span>
+                <span class="tw-comment"><span aria-hidden="true">#</span>{row.comment}</span>
+                {row.tags.length > 0 && (
+                  <span class="tw-tags">{row.tags.map((id) => <span>#{id}</span>)}</span>
+                )}
               </a>
             </li>
-          );
-        })}
-      </ol>
-      <a class="latest-all" href="/archive/">View every post <span aria-hidden="true">→</span></a>
+          ))}
+        </ol>
+        <a class="tw-line tw-prompt" href="/archive/" data-stream>
+          <span class="tw-ps" aria-hidden="true">$</span> cd archive/<span class="tw-cursor" aria-hidden="true"></span>
+          <span class="tw-hint">every post <span aria-hidden="true">↵</span></span>
+        </a>
+      </div>
     </aside>
+
+    <!-- tmux status bar: session + windows on the left (they navigate), stats right. -->
+    <nav class="tmux-bar" aria-label="Archive status" data-hero-reveal>
+      <span class="tm-session">archive</span>
+      <a class="tm-win is-current" href="#latest" aria-current="true">0:replay*</a>
+      <a class="tm-win" href="#understory">1:threads</a>
+      <a class="tm-win" href="/archive/">2:archive</a>
+      <span class="tm-spacer"></span>
+      <span class="tm-stat"><b>{all.length}</b> posts</span>
+      <span class="tm-stat"><b>{threads.length}</b> threads</span>
+      <span class="tm-stat tm-years"><b>{firstYear}</b>→<b>{lastYear}</b></span>
+      <span class="tm-clock">last write {lastWrite}</span>
+    </nav>
   </section>
   <script is:inline>
-    // Type one short command, then reveal the complete literary headline. Full text
-    // remains in the HTML for SEO/no-JS and reduced-motion visitors.
+    // Type one short command, reveal the literary headline, then let the terminal
+    // pane print its `ls` output line by line. Full text remains in the HTML for
+    // SEO/no-JS and reduced-motion visitors (nothing is hidden unless JS runs).
     (() => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const cmd = document.querySelector('[data-tw-cmd]');
       const cmdCaret = document.querySelector('[data-cmd-caret]');
       const title = document.querySelector('[data-hero-title]');
       const reveals = document.querySelectorAll('[data-hero-reveal]');
+      const stream = document.querySelectorAll('[data-stream]');
       if (!cmd || !cmdCaret || !title) return;
       const cmdText = cmd.textContent;
       cmd.textContent = '';
       title.classList.add('reveal-pending');
       reveals.forEach((el) => el.classList.add('reveal-pending'));
+      stream.forEach((el) => el.classList.add('stream-pending'));
       const events = [];
       let t = 120;
       events.push([t, () => cmdCaret.classList.add('caret-typing')]);
@@ -239,6 +276,9 @@ for (const s of themedSlugs) {
         title.classList.add('revealed');
         reveals.forEach((el) => el.classList.remove('reveal-pending'));
       }]);
+      // Then the terminal pane prints its output, one line at a time.
+      t += 260;
+      stream.forEach((el) => events.push([t += 110, () => el.classList.remove('stream-pending')]));
 
       const startAt = performance.now();
       let idx = 0;
@@ -342,7 +382,7 @@ for (const s of themedSlugs) {
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.92fr);
-    gap: clamp(2rem, 5vw, 5.5rem);
+    gap: clamp(2rem, 4vw, 3rem) clamp(2rem, 5vw, 5.5rem);
     align-items: center;
     min-height: min(690px, calc(100vh - 8rem));
     padding: clamp(2rem, 6vw, 5.5rem) 0;
@@ -431,81 +471,162 @@ for (const s of themedSlugs) {
   }
   [data-hero-reveal] { transition: opacity 520ms var(--ease-grow), transform 520ms var(--ease-grow); }
   [data-hero-reveal].reveal-pending { opacity: 0; transform: translateY(8px); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin-top: 1.75rem; }
-  .command-link {
+  /* Commands as keys: bordered, mono, with a `$` sigil. Primary carries the ↵. */
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .cmd-btn {
     display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    min-height: 44px;
+    padding: 0 1rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-s);
+    background: color-mix(in oklch, var(--color-console) 70%, transparent);
+    color: var(--color-ink);
+    font: 0.82rem var(--font-mono);
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease-grow), background var(--dur-fast) var(--ease-grow), color var(--dur-fast) var(--ease-grow);
+  }
+  .cmd-sigil { color: var(--color-green); }
+  .cmd-btn kbd {
+    padding: 0.05rem 0.35rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 4px;
+    color: var(--color-ink-faint);
+    font: 0.72rem var(--font-mono);
+  }
+  .cmd-btn.is-primary {
+    border-color: color-mix(in oklch, var(--color-green) 55%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-green) 12%, transparent), 0 0 22px -6px color-mix(in oklch, var(--color-green) 40%, transparent);
+  }
+  .cmd-btn:hover, .cmd-btn:focus-visible {
+    border-color: var(--color-cyan);
+    background: color-mix(in oklch, var(--color-cyan) 9%, var(--color-console));
+    color: var(--color-cyan);
+  }
+  .cmd-btn:hover kbd { color: var(--color-cyan); border-color: color-mix(in oklch, var(--color-cyan) 50%, transparent); }
+
+  /* ── Terminal pane (material from global .console) ─────────────────────── */
+  .term-window { min-width: 0; padding: 0; }
+  .tw-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid rgba(192, 202, 245, 0.07);
+    background: color-mix(in oklch, var(--color-bg-soft) 55%, transparent);
+    color: var(--color-ink-faint);
+    font: 0.7rem var(--font-mono);
+  }
+  .tw-dots { display: inline-flex; gap: 6px; }
+  .tw-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--color-border-strong); }
+  .tw-dots i:nth-child(1) { background: color-mix(in oklch, var(--color-magenta-hot) 70%, var(--color-console)); }
+  .tw-dots i:nth-child(2) { background: color-mix(in oklch, var(--color-amber) 70%, var(--color-console)); }
+  .tw-dots i:nth-child(3) { background: color-mix(in oklch, var(--color-green) 70%, var(--color-console)); }
+  .tw-name { flex: 1; text-align: center; color: var(--color-ink-soft); }
+  .tw-body { padding: clamp(1rem, 2.4vw, 1.5rem); font-family: var(--font-mono); }
+  .tw-line { transition: opacity 160ms steps(2, end); }
+  .tw-line.stream-pending { opacity: 0; }
+  .tw-cmdline { margin: 0 0 0.9rem; color: var(--color-ink); font-size: 0.8rem; }
+  .tw-ps { color: var(--color-green); }
+  .tw-faint { color: var(--color-ink-faint); }
+  .tw-list { margin: 0; padding: 0; list-style: none; }
+  .tw-list li + li { margin-top: 0.15rem; }
+  .tw-entry {
+    display: grid;
+    gap: 0.2rem;
+    margin-inline: -0.6rem;
+    padding: 0.7rem 0.6rem;
+    border-left: 2px solid transparent;
+    border-radius: 0 6px 6px 0;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background var(--dur-fast) var(--ease-grow), border-color var(--dur-fast) var(--ease-grow);
+  }
+  .tw-entry:hover, .tw-entry:focus-visible {
+    background: color-mix(in oklch, var(--color-blue) 8%, transparent);
+    border-left-color: var(--color-cyan);
+  }
+  .tw-meta { display: flex; gap: 0.9rem; font-size: 0.7rem; text-transform: lowercase; }
+  .tw-meta time, .tw-min { color: var(--color-amber-bright); }
+  .tw-type { color: var(--color-magenta); }
+  .tw-title { color: var(--color-ink); font: 500 clamp(1rem, 1.6vw, 1.12rem)/1.3 var(--font-mono); letter-spacing: -0.01em; }
+  .tw-entry:hover .tw-title, .tw-entry:focus-visible .tw-title { color: var(--color-cyan); }
+  /* Description reads as a code comment: dim, italic serif. */
+  .tw-comment {
+    display: -webkit-box;
+    overflow: hidden;
+    /* ink-faint alone is ~4.1:1 on the console; this mix clears 4.5:1. */
+    color: color-mix(in oklch, var(--color-ink-soft) 72%, var(--color-ink-faint));
+    font: italic 0.92rem/1.45 var(--font-body);
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .tw-comment > span { margin-right: 0.15em; color: var(--color-ink-faint); font: normal 0.8rem var(--font-mono); }
+  .tw-tags { display: flex; flex-wrap: wrap; gap: 0.2rem 0.7rem; color: var(--color-green); font-size: 0.68rem; }
+  .tw-prompt {
+    display: flex;
     align-items: center;
     gap: 0.4rem;
     min-height: 44px;
-    color: var(--color-cyan);
-    font: 0.78rem var(--font-mono);
+    margin-top: 0.7rem;
+    color: var(--color-ink);
+    font-size: 0.8rem;
     text-decoration: none;
   }
-  .command-link span { color: var(--color-green); }
-  .command-link.secondary { color: var(--color-ink-soft); }
-  .command-link:hover { color: var(--color-magenta); }
+  /* Unfocused-terminal cursor: hollow and steady (the headline caret is the one that blinks). */
+  .tw-cursor { display: inline-block; width: 0.6em; height: 1.15em; border: 1.5px solid var(--color-green); opacity: 0.8; }
+  .tw-hint { margin-left: auto; color: var(--color-ink-soft); font-size: 0.7rem; }
+  .tw-prompt:hover, .tw-prompt:focus-visible { color: var(--color-cyan); }
+  .tw-prompt:hover .tw-cursor { background: var(--color-green); }
+  .tw-prompt:hover .tw-hint { color: var(--color-cyan); }
 
-  /* Material (bg, border, shadow) comes from global .console. */
-  .latest-panel {
-    min-width: 0;
-    padding: clamp(1.25rem, 3vw, 2rem);
+  /* ── tmux status bar ─────────────────────────────────────────────────────
+     Powerline segments drawn with clip-path chevrons (no patched font). */
+  .tmux-bar {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: stretch;
+    min-height: 30px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--color-console);
+    border: 1px solid rgba(192, 202, 245, 0.06);
+    font: 0.7rem/1 var(--font-mono);
   }
-  .latest-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0.75rem 1.2rem auto;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-blue), var(--color-magenta), transparent);
-    opacity: 0.7;
+  .tmux-bar > * { display: inline-flex; align-items: center; white-space: nowrap; }
+  .tm-session {
+    padding: 0 1.2rem 0 0.8rem;
+    background: var(--color-blue);
+    color: var(--color-bg);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 50%, calc(100% - 9px) 100%, 0 100%);
   }
-  .latest-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: start; padding: 0.25rem 0 1rem; }
-  .panel-kicker, .section-kicker {
+  .tm-win { padding: 0 0.75rem; color: var(--color-ink-soft); text-decoration: none; }
+  .tm-win.is-current { color: var(--color-ink); }
+  .tm-win:hover, .tm-win:focus-visible { color: var(--color-cyan); }
+  .tm-spacer { flex: 1; }
+  .tm-stat { padding: 0 0.75rem; color: var(--color-ink-soft); border-left: 1px solid var(--color-border); }
+  .tm-stat b { color: var(--color-amber-bright); font-weight: 400; margin-right: 0.3em; }
+  .tm-stat b + b { margin-left: 0.3em; }
+  .tm-clock {
+    padding: 0 0.85rem 0 1.3rem;
+    background: color-mix(in oklch, var(--color-magenta) 85%, var(--color-console));
+    color: var(--color-bg);
+    font-weight: 500;
+    clip-path: polygon(9px 0, 100% 0, 100% 100%, 9px 100%, 0 50%);
+  }
+
+  .section-kicker {
     margin: 0 0 0.25rem;
     color: var(--color-magenta);
     font: 0.64rem var(--font-mono);
     letter-spacing: 0.16em;
     text-transform: uppercase;
   }
-  .latest-heading h2 { margin: 0; font-size: clamp(1.45rem, 2.4vw, 1.9rem); }
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    margin-top: 0.7rem;
-    border-radius: 50%;
-    background: var(--color-green);
-    box-shadow: 0 0 12px color-mix(in oklch, var(--color-green) 75%, transparent);
-  }
-  .latest-list { margin: 0; padding: 0; list-style: none; }
-  .latest-list li { border-top: 1px solid var(--color-border); }
-  .latest-link {
-    display: grid;
-    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
-    gap: 0.85rem;
-    align-items: start;
-    min-height: 44px;
-    padding: 1rem 0;
-    color: var(--color-ink);
-    text-decoration: none;
-  }
-  .latest-index { padding-top: 0.2rem; color: var(--color-blue); font: 0.62rem var(--font-mono); }
-  .latest-copy { display: flex; min-width: 0; flex-direction: column; }
-  .latest-title { color: var(--color-ink); font: 500 clamp(1.05rem, 1.8vw, 1.25rem)/1.2 var(--font-display); }
-  .latest-description {
-    display: -webkit-box;
-    margin-top: 0.25rem;
-    overflow: hidden;
-    color: var(--color-ink-soft);
-    font-size: 0.82rem;
-    line-height: 1.4;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-  .latest-themes { display: flex; flex-wrap: wrap; gap: 0.35rem 0.65rem; margin-top: 0.55rem; }
-  .latest-themes span { color: var(--color-magenta); font: 0.6rem var(--font-mono); text-transform: uppercase; }
-  .latest-link time { padding-top: 0.2rem; color: var(--color-amber-bright); font: 0.6rem var(--font-mono); text-transform: uppercase; }
-  .latest-link:hover .latest-title { color: var(--color-cyan); }
-  .latest-link:hover .latest-index { color: var(--color-magenta); }
-  .latest-all, .browse-archive {
+  .browse-archive {
     display: inline-flex;
     gap: 0.5rem;
     margin-top: 0.8rem;
@@ -640,19 +761,23 @@ for (const s of themedSlugs) {
     .hero-caret { animation: none; opacity: 1; }
     .hero-title.reveal-pending,
     [data-hero-reveal].reveal-pending { opacity: 1; transform: none; filter: none; }
+    .tw-line.stream-pending { opacity: 1; }
   }
   @media (max-width: 900px) {
     .home-hero { grid-template-columns: 1fr; min-height: auto; padding-top: 2.5rem; }
-    .latest-panel { max-width: 42rem; }
+    .term-window { max-width: 42rem; }
+    .tm-win:not(.is-current) { display: none; }
   }
   @media (max-width: 620px) {
     .home-hero { gap: 2.2rem; padding-bottom: 2rem; }
     .terminal-line { overflow: hidden; margin-bottom: 1.35rem; }
     .hero-title { font-size: clamp(3.25rem, 17vw, 4.8rem); }
     .hero-intro { margin-top: 1.35rem; font-size: 1rem; }
-    .hero-actions { margin-top: 1rem; }
-    .latest-panel { margin-inline: -0.25rem; padding: 1.15rem; }
-    .latest-description { -webkit-line-clamp: 1; }
+    .hero-actions { margin-top: 1.25rem; }
+    .term-window { margin-inline: -0.25rem; }
+    .tw-size, .tm-win { display: none; }
+    .tw-comment { -webkit-line-clamp: 1; }
+    .tm-years { display: none; }
     .year-doorway { margin-inline: -1.25rem; padding-inline: 1.25rem; }
     .year-intro { grid-template-columns: 1fr; gap: 0.6rem; }
     .year-intro .section-kicker { grid-column: auto; }
