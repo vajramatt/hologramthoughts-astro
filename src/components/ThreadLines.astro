@@ -1,0 +1,261 @@
+---
+// "Lines through the archive": one row per thread, one bar per year. Replaces the
+// transit map, which placed each thread at a single median date and hid when it
+// actually ran. Each row is scaled to its own peak (sparkline convention: read the
+// shape); the peak year is amber and its count is printed, so magnitude stays
+// readable. Every value is also in the table view, so nothing is hover-only.
+import type { ThreadSeries } from '../utils/thread-years';
+
+interface Props {
+  series: ThreadSeries[];
+  from: number;
+  to: number;
+  /** Years the whole archive was silent; shaded across every row. */
+  quietYears: number[];
+  visible?: number;
+}
+const { series, from, to, quietYears, visible = 12 } = Astro.props;
+
+const years = Array.from({ length: to - from + 1 }, (_, i) => from + i);
+const quiet = new Set(quietYears);
+
+// Axis: first, last, and every fifth year, skipping quiet years and anything that
+// would crowd a neighbour. The quiet band gets its own label.
+const axis = new Map<number, string>();
+for (const y of years) {
+  const anchor = y === from || y === to || y % 5 === 0;
+  if (!anchor || quiet.has(y)) continue;
+  const near = [...axis.keys()].some((k) => Math.abs(k - y) < 3);
+  if (near && y !== to) continue;
+  if (near) for (const k of [...axis.keys()]) if (to - k < 3) axis.delete(k);
+  axis.set(y, String(y));
+}
+const quietSorted = [...quiet].sort((a, b) => a - b);
+const quietMid = quietSorted.length ? quietSorted[Math.floor((quietSorted.length - 1) / 2)] : null;
+
+const plural = (n: number) => `${n} ${n === 1 ? 'post' : 'posts'}`;
+const head = series.slice(0, visible);
+const tail = series.slice(visible);
+---
+<div class="thread-lines" style={`--cols:${years.length}`}>
+  <div class="tl-row tl-axis" aria-hidden="true">
+    <span class="tl-name">thread</span>
+    <span class="tl-spark">
+      {years.map((y) => (
+        <span class:list={['tl-col', quiet.has(y) && 'is-quiet']}>
+          {axis.has(y) && <b>{axis.get(y)}</b>}
+          {y === quietMid && <i>quiet</i>}
+        </span>
+      ))}
+    </span>
+    <span class="tl-total">posts</span>
+    <span class="tl-ranges">active</span>
+  </div>
+
+  {[head, tail].map((group, gi) => {
+    const rows = group.map((s) => (
+      <div class="tl-row">
+        <a class="tl-name" href={`/themes/${s.id}/`}>{s.name}</a>
+        <span
+          class="tl-spark"
+          role="img"
+          aria-label={`${s.name}: ${plural(s.total)}, active ${s.ranges}, busiest in ${s.peak.year} with ${s.peak.count}.`}
+        >
+          {s.counts.map((c, i) => {
+            const y = from + i;
+            const cls = ['tl-col', quiet.has(y) && 'is-quiet'];
+            if (!c) return <span class:list={[...cls, 'is-empty']}></span>;
+            return (
+              <a
+                class:list={[...cls, 'tip', y === s.peak.year && 'is-peak']}
+                href={`/themes/${s.id}/#year-${y}`}
+                tabindex="-1"
+                aria-hidden="true"
+                data-tip={`${y} · ${plural(c)}`}
+                style={`--h:${Math.max(0.14, c / s.peak.count)}`}
+              ><span class="tl-bar"></span></a>
+            );
+          })}
+        </span>
+        <span class="tl-total">{s.total}<small>peak {s.peak.year}·{s.peak.count}</small></span>
+        <span class="tl-ranges">{s.ranges}</span>
+      </div>
+    ));
+    if (gi === 0) return rows;
+    if (!group.length) return null;
+    return (
+      <details class="tl-more">
+        <summary>show all {series.length} threads</summary>
+        {rows}
+      </details>
+    );
+  })}
+
+  <details class="tl-table">
+    <summary>view as a table</summary>
+    <div class="tl-table-scroll">
+      <table>
+        <caption class="visually-hidden">Posts per thread per year, {from} to {to}</caption>
+        <thead>
+          <tr><th scope="col">thread</th>{years.map((y) => <th scope="col">{String(y).slice(2)}</th>)}<th scope="col">total</th></tr>
+        </thead>
+        <tbody>
+          {series.map((s) => (
+            <tr>
+              <th scope="row"><a href={`/themes/${s.id}/`}>{s.name}</a></th>
+              {s.counts.map((c) => <td class:list={[!c && 'zero']}>{c || '·'}</td>)}
+              <td class="sum">{s.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
+
+<style>
+  .thread-lines {
+    --spark-h: 30px;
+    display: grid;
+    gap: 2px;
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) 6rem minmax(10rem, 14rem);
+    align-items: end;
+    gap: 0 var(--space-m);
+    padding: 0.55rem var(--space-s);
+    border-radius: var(--radius-s);
+    transition: background var(--dur-fast) var(--ease-grow);
+  }
+  .tl-row:not(.tl-axis):hover { background: color-mix(in oklch, var(--color-blue) 7%, transparent); }
+
+  .tl-name {
+    align-self: center;
+    color: var(--color-ink);
+    font: 480 var(--step-0)/1.2 var(--font-display);
+    text-decoration: none;
+  }
+  a.tl-name:hover, a.tl-name:focus-visible, .tl-row:hover a.tl-name { color: var(--color-cyan); }
+
+  /* Sparkline: one grid column per year. Each column is the hit target (full
+     height); the bar inside carries the value. */
+  .tl-spark {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: 2px;
+    height: var(--spark-h);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .tl-col {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-width: 0;
+    height: 100%;
+    text-decoration: none;
+  }
+  .tl-col.is-quiet {
+    background: repeating-linear-gradient(135deg, transparent 0 3px, color-mix(in oklch, var(--color-ink-faint) 9%, transparent) 3px 4px);
+  }
+  .tl-bar {
+    display: block;
+    width: min(100%, 9px);
+    height: calc(var(--h) * 100%);
+    border-radius: 2px 2px 0 0;
+    background: color-mix(in oklch, var(--color-cyan) 72%, transparent);
+    transition: background var(--dur-fast) var(--ease-grow);
+  }
+  .tl-col.is-peak .tl-bar { background: var(--color-amber-bright); }
+  a.tl-col:hover .tl-bar { background: var(--color-ink); }
+  /* The shared .tip tooltip. It's centred by default; at the row ends anchor it
+     inward, or the (invisible) tooltip box widens the page on phones. */
+  .tl-col.tip::after { font-size: 0.66rem; }
+  .tl-col.tip:nth-child(-n+3)::after,
+  .tl-col.tip:nth-child(-n+3):hover::after { left: 0; transform: none; }
+  .tl-col.tip:nth-last-child(-n+3)::after,
+  .tl-col.tip:nth-last-child(-n+3):hover::after { left: auto; right: 0; transform: none; }
+
+  .tl-total {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    color: var(--color-amber-bright);
+    font: var(--step--1)/1.15 var(--font-mono);
+    text-align: right;
+  }
+  .tl-total small { color: var(--color-ink-faint); font-size: 0.68rem; }
+  .tl-ranges {
+    align-self: center;
+    color: var(--color-ink-soft);
+    font: var(--step--2)/1.3 var(--font-mono);
+  }
+
+  /* Axis row reuses the grid so labels sit over their columns. */
+  .tl-axis { padding-block: 0 0.35rem; align-items: end; }
+  .tl-axis .tl-name, .tl-axis .tl-total, .tl-axis .tl-ranges {
+    color: var(--color-ink-faint);
+    font: var(--step--2)/1 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tl-axis .tl-spark { height: 1.1rem; border: 0; overflow: visible; }
+  .tl-axis .tl-col { align-items: flex-end; overflow: visible; }
+  .tl-axis b, .tl-axis i {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    color: var(--color-ink-faint);
+    font: 400 0.66rem/1 var(--font-mono);
+  }
+  .tl-axis i { color: var(--color-ink-faint); font-style: italic; opacity: 0.8; }
+
+  .tl-more summary, .tl-table summary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin: var(--space-2xs) var(--space-s) 0;
+    color: var(--color-cyan);
+    font: var(--step--2) var(--font-mono);
+    cursor: pointer;
+    list-style: none;
+  }
+  .tl-more summary::-webkit-details-marker, .tl-table summary::-webkit-details-marker { display: none; }
+  .tl-more summary::before, .tl-table summary::before { content: "+ "; color: var(--color-green); }
+  .tl-more[open] summary::before, .tl-table[open] summary::before { content: "− "; }
+  .tl-more summary:hover, .tl-table summary:hover { color: var(--color-magenta); }
+  .tl-more[open] > summary { display: none; }
+
+  .tl-table-scroll { overflow-x: auto; margin-top: var(--space-2xs); }
+  .tl-table table { width: 100%; border-collapse: collapse; font: var(--step--2)/1.2 var(--font-mono); }
+  .tl-table th, .tl-table td { padding: 0.35rem 0.4rem; border-bottom: 1px solid var(--color-border); text-align: right; white-space: nowrap; }
+  .tl-table thead th { color: var(--color-ink-faint); font-weight: 400; }
+  .tl-table thead th:first-child { text-align: left; }
+  .tl-table tbody th { text-align: left; font: 400 var(--step--1) var(--font-ui); }
+  .tl-table tbody th a { color: var(--color-ink); text-decoration: none; }
+  .tl-table tbody th a:hover { color: var(--color-cyan); }
+  .tl-table td { color: var(--color-ink); }
+  .tl-table td.zero { color: var(--color-ink-faint); opacity: 0.6; }
+  .tl-table td.sum { color: var(--color-amber-bright); }
+
+  @media (max-width: 760px) {
+    .tl-row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: "name total" "spark spark" "ranges ranges";
+      gap: 0.35rem 0.75rem;
+      padding-inline: 0.5rem;
+    }
+    .tl-name { grid-area: name; }
+    .tl-total { grid-area: total; flex-direction: row; gap: 0.5rem; align-items: baseline; }
+    .tl-spark { grid-area: spark; }
+    .tl-ranges { grid-area: ranges; }
+    .tl-axis .tl-name, .tl-axis .tl-total, .tl-axis .tl-ranges { display: none; }
+    .tl-more summary, .tl-table summary { margin-inline: 0.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tl-row, .tl-bar { transition: none; }
+  }
+</style>

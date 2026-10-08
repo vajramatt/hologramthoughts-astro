@@ -355,6 +355,7 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 - **`SiteHeader.astro`** — sticky frosted header. Mono shimmer-gradient wordmark + blinking terminal caret. Nav (`archive`, `themes`, `categories`, search button). In reading mode the post title slides into the header after the `<h1>` scrolls away, with a progress line and "N min left". Search links open the palette once hydrated (`window.__paletteReady`), else fall through to `/search/`.
 - **`SiteFooter.astro`** — wordmark, © line, links (archive, threads, random post, how, rss, for agents)
 - **`CommandPalette.svelte`** — ⌘K / Ctrl-K / `/` overlay. Lazy-fetches `/search-index.json`, ranks via `src/utils/palette-rank.ts`, ⌘↵ hands off to full-text search. On `/search` the shortcut focuses the page input instead.
+- **`ThreadLines.astro`** — homepage "Lines through the archive": one row per thread, one bar per year on a true linear axis (`threadSeries()` in `src/utils/thread-years.ts`, tested). Rows scale to their own peak (sparkline convention); the peak bar is amber and its count printed. Archive-wide quiet years are hatched. Bars link to `/themes/<id>/#year-YYYY` with a `.tip` hover; top 12 rows shown, rest behind "show all"; a full "view as a table" grid means nothing is hover-only. Replaced the `NetworkMap.svelte` transit map (2026-10), which placed each thread at one median date and hid when it ran
 - **`CircuitSubstrate.astro`** — static circuit-board backdrop + homepage hero signal pulses (see §3 Atmospheric overlays)
 - **`ThemeDrawer.svelte`** — global click listener for `.theme-chip` elements. Opens side drawer with theme details fetched from `/themes/reverse-index.json` + `/themes/post-meta.json`
 - **`ThemeChip.astro`** — single theme chip. `data-theme="<id>"` triggers drawer
@@ -365,7 +366,7 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 - **`TableOfContents.astro`** — shown when a post has 3+ h2/h3. `variant="rail"` = sticky left rail (≥1180px, active-section highlight); `variant="inline"` = `<details>` above the body on narrower screens
 
 ### Pages (`src/pages/`)
-- **`index.astro`** — homepage. Typewriter hero + latest-3 panel → "start here" row (4 PostCards from `muse-picks.yaml` `start_here`, else the stories picks) → year strip (every year, quiet years dimmed) → MuseHighlight → transit map
+- **`index.astro`** — homepage. Typewriter hero + latest-3 panel → "start here" row (4 PostCards from `muse-picks.yaml` `start_here`, else the stories picks) → year strip (every year, quiet years dimmed) → MuseHighlight → "Lines through the archive" (`ThreadLines.astro`)
 - **`blog/[slug].astro`** — individual post. Compact header (breadcrumb, kicker, title, deck only if `shouldShowDeck()`, meta, toolbar with categories + text size + share), series parts box, body, then ThemeChipStrip → RelatedPosts → chronological older/newer. Meta description via `metaDescription()`; OG image `/og/<slug>.png`
 - **`archive/[...page].astro`** — single page, all posts by year as compact `PostRow`s, with live filters (type / category / text) synced to `?type=&cat=&q=` (`src/utils/archive-filter.ts`)
 - **`categories/index.astro`** + **`categories/[category].astro`** — category browse
