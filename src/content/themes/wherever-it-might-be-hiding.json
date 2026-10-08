@@ -1,0 +1,23 @@
+{
+  "slug": "wherever-it-might-be-hiding",
+  "themeIds": [
+    "artificial-intelligence",
+    "consciousness",
+    "spirituality",
+    "buddhist-philosophy"
+  ],
+  "related": [
+    {
+      "slug": "buddhist-robots",
+      "rationale": "Answers from 2006: Breazeal's Kismet and friend robots, weighed against Buddhist ideas of mind."
+    },
+    {
+      "slug": "the-emergence-part-one",
+      "rationale": "Pushes the question into fiction: a mind blinks awake inside Techne Systems' lab."
+    },
+    {
+      "slug": "the-demonization-of-the-daimon",
+      "rationale": "Complicates nonhuman agency with the attending spirits the early church recast as demons."
+    }
+  ]
+}
