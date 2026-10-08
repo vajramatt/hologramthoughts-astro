@@ -460,9 +460,12 @@ const lastWrite = latestPosts[0] ? lsDate(latestPosts[0].data.pubDate).toLowerCa
     margin-left: 0.08ch;
     transform: translateY(0.1em);
     background: var(--color-green);
-    box-shadow: 0 0 16px color-mix(in oklch, var(--color-green) 50%, transparent);
-    animation: hero-blink 1.06s steps(1) infinite;
+    box-shadow: 0 0 10px color-mix(in oklch, var(--color-green) 35%, transparent);
   }
+  /* A big block blinking forever beside the pane is hard to ignore. Blink a few
+     times once the line has typed (~1.06s), then hold steady. No JS or reduced
+     motion: steady from the start. */
+  .hero-title.revealed .hero-caret { animation: hero-blink 1.06s steps(1) 1.1s 3; }
   @keyframes hero-blink {
     0%, 50% { opacity: 1; }
     50.01%, 100% { opacity: 0; }
