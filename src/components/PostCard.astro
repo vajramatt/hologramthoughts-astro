@@ -28,16 +28,20 @@ const excerpt = metaDescription(post.data.description, post.body, 130);
     height: 100%;
     padding: var(--space-s);
     border: 1px solid var(--color-border);
-    border-radius: 12px;
-    background: color-mix(in oklch, var(--color-surface) 40%, transparent);
+    border-radius: var(--radius-m);
+    background: var(--tile-bg);
+    box-shadow: var(--shadow-1);
     color: var(--color-ink);
     text-decoration: none;
-    transition: border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast) var(--ease-grow);
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast) var(--ease-grow), transform var(--dur-fast) var(--ease-grow);
   }
-  .post-card:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(in oklch, var(--color-cyan) 50%, transparent);
-    background: color-mix(in oklch, var(--color-blue) 7%, var(--color-surface));
+  .post-card:hover, .post-card:focus-visible {
+    transform: translateY(-3px);
+    border-color: color-mix(in oklch, var(--color-cyan) 45%, transparent);
+    box-shadow: var(--shadow-2);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .post-card:hover, .post-card:focus-visible { transform: none; }
   }
   .pc-meta { display: flex; justify-content: space-between; font: var(--step--2)/1 var(--font-mono); }
   .pc-year { color: var(--color-amber-bright); }

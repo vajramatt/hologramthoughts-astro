@@ -312,8 +312,8 @@ for (const s of themedSlugs) {
   }
 }
 ---
-<Layout wide title="Hologram Thoughts — an archive of attention by Matthew Williamson" description={`${all.length} essays, stories and poems from ${Math.min(...yearsWithPosts)}–${Math.max(...yearsWithPosts)} on consciousness, Buddhist practice, fatherhood, mythology, code and the strange edges of culture — connected by recurring threads.`} jsonLd={blogGraph({ posts: all.slice(0, 12).map((p) => ({ title: p.data.title, url: `https://hologramthoughts.com/blog/${slugOf(p)}/`, datePublished: p.data.pubDate.toISOString() })) })}>
-  <section class="home-hero" aria-labelledby="home-title">
+<Layout wide signal title="Hologram Thoughts — an archive of attention by Matthew Williamson" description={`${all.length} essays, stories and poems from ${Math.min(...yearsWithPosts)}–${Math.max(...yearsWithPosts)} on consciousness, Buddhist practice, fatherhood, mythology, code and the strange edges of culture — connected by recurring threads.`} jsonLd={blogGraph({ posts: all.slice(0, 12).map((p) => ({ title: p.data.title, url: `https://hologramthoughts.com/blog/${slugOf(p)}/`, datePublished: p.data.pubDate.toISOString() })) })}>
+  <section class="home-hero" aria-labelledby="home-title" data-signal-zone>
     <div class="hero-copy">
       <p class="terminal-line" aria-hidden="true">
         <span class="prompt-user">archive@hologram</span><span class="prompt-faint">:</span><span class="prompt-path">~</span><span class="prompt-faint">$</span>
@@ -335,7 +335,7 @@ for (const s of themedSlugs) {
       </div>
     </div>
 
-    <aside id="latest" class="latest-panel" aria-labelledby="latest-title">
+    <aside id="latest" class="latest-panel console" aria-labelledby="latest-title">
       <div class="latest-heading">
         <div>
           <p class="panel-kicker">Live index</p>
@@ -608,18 +608,10 @@ for (const s of themedSlugs) {
   .command-link.secondary { color: var(--color-ink-soft); }
   .command-link:hover { color: var(--color-magenta); }
 
+  /* Material (bg, border, shadow) comes from global .console. */
   .latest-panel {
-    position: relative;
     min-width: 0;
     padding: clamp(1.25rem, 3vw, 2rem);
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 100% 0%, color-mix(in oklch, var(--color-magenta) 11%, transparent), transparent 42%),
-      color-mix(in oklch, var(--color-surface) 82%, transparent);
-    border: 1px solid var(--color-border);
-    border-radius: 16px;
-    box-shadow: 0 24px 70px oklch(0 0 0 / 0.32);
-    backdrop-filter: blur(20px);
   }
   .latest-panel::before {
     content: "";
@@ -714,9 +706,10 @@ for (const s of themedSlugs) {
     gap: 0.35rem;
     min-height: 88px;
     padding: 0.65rem 0.7rem;
-    background: color-mix(in oklch, var(--color-surface) 38%, transparent);
+    background: var(--tile-bg);
     border: 1px solid var(--color-border);
-    border-radius: 8px;
+    border-radius: var(--radius-s);
+    box-shadow: var(--shadow-1);
     color: var(--color-ink);
     text-decoration: none;
     scroll-snap-align: start;
@@ -731,7 +724,7 @@ for (const s of themedSlugs) {
     transition: width var(--dur-med) var(--ease-grow);
   }
   .year-count { color: var(--color-ink-faint); font: 0.58rem var(--font-mono); }
-  .year-link:hover { border-color: var(--color-border-strong); background: color-mix(in oklch, var(--color-blue) 8%, transparent); }
+  .year-link:hover { border-color: var(--color-border-strong); background: color-mix(in oklch, var(--color-blue) 8%, var(--tile-bg)); }
   .year-link:hover .year-bar { width: 100%; background: linear-gradient(90deg, var(--color-magenta), var(--color-cyan)); }
   .year-scroll-cue {
     position: absolute;
@@ -762,7 +755,7 @@ for (const s of themedSlugs) {
     font-size: 1.35rem;
     font-weight: 400;
     line-height: 1;
-    animation: year-nudge 1.8s var(--ease-grow) infinite;
+    animation: year-nudge 1.8s var(--ease-grow) 1s 3; /* says "more this way" three times, then rests */
   }
   .year-scroll-cue:hover b { color: var(--color-magenta); }
   .year-scroll-cue.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -776,7 +769,7 @@ for (const s of themedSlugs) {
   .start-here ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xs); margin: 0; padding: 0; list-style: none; }
   @media (max-width: 1000px) { .start-here ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) { .start-here ul { grid-template-columns: 1fr; } }
-  .year-link.is-quiet { opacity: 0.4; border-style: dashed; background: transparent; }
+  .year-link.is-quiet { opacity: 0.4; border-style: dashed; background: transparent; box-shadow: none; }
   .year-link.is-quiet .year-value { color: var(--color-ink-faint); }
   .year-link.is-quiet .year-bar { width: 12%; background: var(--color-border-strong); box-shadow: none; }
   .map-exit { margin: var(--space-s) 0 0; text-align: center; }

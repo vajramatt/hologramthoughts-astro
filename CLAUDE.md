@@ -41,7 +41,18 @@ The site has THREE faces:
 
 ## 3. Design system — TokyoNight terminal
 
-**Aesthetic concept:** the archive as an editor buffer. TokyoNight palette, dark only. Deep blue-black ground, hot-magenta headlines, cyan hover/focus, amber numbers, syntax-highlighted metadata. CRT scanfield and organic grain over everything, data packets drifting on circuit traces. Two signature moments: the shimmering mono wordmark and the typewriter hero.
+**Aesthetic concept:** the archive as an editor buffer. TokyoNight palette, dark only. Deep blue-black ground, hot-magenta headlines, cyan hover/focus, amber numbers, syntax-highlighted metadata. CRT scanfield and organic grain over a still circuit board. Two signature moments: the mono wordmark and the typewriter hero.
+
+**Depth from material, not motion (2026-10, borrowed from crossinginto.ai's Luminous Commons discipline).** The old full-screen drifting packets were distracting behind reading text. Rules now: decoration is static; at most one or two things animate per view; no decorative infinite loops outside the homepage hero. Surfaces come in four tiers (tokens in `tokens.css` `:root`, classes in `global.css`):
+
+| Tier | Class | Use |
+|---|---|---|
+| page | — | `--color-bg` + `CircuitSubstrate` |
+| tile | `.tile` (`--tile-bg`, `--shadow-1`) | solid cards: PostCard, read-next, TOC, year links |
+| glass | `.panel` / `.glass` (`--glass-bg`, `--glass-blur`) | chrome only: header, drawer. Don't nest glass in glass |
+| console | `.console` (`--color-console` = TokyoNight bg_dark) | night insets: the homepage live index |
+
+`.lift` = hover/focus elevation (−3px, `--shadow-2`; no transform under reduced motion). Shadows `--shadow-1/2/3` all carry the `--edge-light` 1px inset top highlight. Radii `--radius-s/m/l`.
 
 **TokyoNight is the only on-screen theme — there is no light/dark toggle.** The old "canopy morning" light palette is now PRINT-ONLY: a `@media print` block in `tokens.css` (+ print cleanup in `global.css`) renders a post as dark-ink-on-paper. `ThemeToggle.astro` and the FOUC theme script were removed; `<html>` never gets `data-theme`.
 
@@ -71,7 +82,7 @@ The `@media print` block overrides only the colors that change (to the paper pal
 - **`PageHeader.astro`** — the one compact opener for every index page (kicker, title with optional `<em>` via `slot="title"`, lede, stats). Keep content in the first viewport; do not bring back full-bleed hero cards.
 - **`PostRow.astro`** — dense list row (date · title · threads · type · minutes). `compact` = one line per post (archive). Emits `data-type/cats/text` for client filtering.
 - **`.kicker`**, **`.section-label`** (`// label` + right-aligned aside), **`.visually-hidden`**, `mark` — global in `global.css`.
-- **Atmosphere dial** — pages with `reading` prop get `body.reading-deep` once the reader is inside the text: particle field → 22%, scanfield → 0.018. Toggled by IntersectionObserver on `[data-reading-start]` / `[data-reading-end]`.
+- **Atmosphere dial** — `body.reading-deep` once the reader is inside the text: circuit substrate → 40%, scanfield → 0.018. Toggled by IntersectionObserver on `[data-reading-start]` / `[data-reading-end]`. The script in `Layout.astro` is unconditional and keys off what the page contains — **never wrap a processed `<script>` in `{cond && (...)}`**: Astro 5 mis-emits them (with two conditional scripts in Layout, posts got the wrong one and the homepage got neither).
 - `.heading-link` styles the `#` anchors rehype-autolink-headings prepends (hang in the margin, visible on hover).
 
 ### Reusable classes (`src/styles/global.css`)
@@ -80,23 +91,23 @@ The `@media print` block overrides only the colors that change (to the paper pal
 - **`.panel`** — frosted glass surface (backdrop-blur + transparent bg)
 - **`.glass`** — alias for `.panel` so legacy refs don't break. Was a `@apply` originally but Tailwind 4 doesn't allow `@apply` of custom classes; expanded to literal CSS
 - **`.prismatic`** — 4-stop gradient with bg-clip text. Used on the hero `<h1>` on the homepage. Hover transitions `background-position` 0% → 100%
-- **`.wordmark`** — the header logo: JetBrains Mono weight 500, TokyoNight blue→cyan→magenta→cyan→blue gradient clipped to text, continuously shimmering (`wordmark-flow` 8s linear infinite). Deliberately the same family treatment as the Athena (`✦ ATHENA`) and Izakaya sites
-- **`.scanline`** — `--prism` background with `scanline-shift` keyframe (18-30s linear infinite hue drift)
+- **`.wordmark`** — the header logo: JetBrains Mono weight 500, TokyoNight blue→cyan→magenta→cyan→blue gradient clipped to text. Sweeps once on load (`wordmark-flow`, 2.8s), rests, and sweeps again when its link is hovered/focused (`wordmark-flow-again` — a second keyframe name is what restarts it). Deliberately the same family treatment as the Athena (`✦ ATHENA`) and Izakaya sites
 - **`.skip-link`** — a11y skip-to-main link
 
 ### Atmospheric overlays
 
 - **Body grain** — fixed SVG `feTurbulence` noise at `opacity: 0.035`, `mix-blend-mode: overlay`. Painted via `body::before`
 - **CRT scanfield** — `body::after` paints fixed hairline horizontal raster lines (3px period) at `opacity: 0.05`. Static (no animation), hidden in print
-- **Ambient data packets** — `ParticleField.svelte` paints ~8–16 packets on a fixed canvas (z-index 0): small glowing square heads traveling invisible circuit traces (straight runs, 45°/90° bends) with short fading trails. The ambient twin of the homepage transit map. Cyan dominant, blue/magenta/green accents, no gold (the solarpunk spore motes are gone). Movement is dt-clamped rAF. `prefers-reduced-motion` → empty canvas
-- **Terminal caret** — `SiteHeader.astro` renders a blinking green block caret (with a soft neon glow) after the wordmark, CLI-style. Reduced-motion → steady (no blink). The old canopy-curve / mycelial-root SVGs were removed.
+- **Circuit substrate** — `CircuitSubstrate.astro` renders a fixed, static inline SVG (z-index 0) of PCB traces: 45°/90° bends, 2–3-lane mitred buses, via rings at trace ends. Geometry is `circuitTraces()` in `src/utils/circuit.ts` — seeded (`2043`), so every build draws the same board; tested in `tests/circuit.test.ts`. Mostly `--color-blue` at 10% with a few cyan/magenta routes; radially masked so the centre (reading column) is clean; dimmer still on phones. Replaced the old `ParticleField.svelte` moving packets (2026-10).
+- **Hero signal** — homepage only (`<Layout signal>` + `data-signal-zone` on the hero): short cyan/magenta pulses ride the few substrate traces that sit entirely in the side gutters / top band, never behind the headline. CSS `stroke-dashoffset` on `pathLength=1` paths; paused unless `body.signal-live` (IntersectionObserver on the hero), so the board goes still once you scroll. Removed entirely under reduced motion.
+- **Terminal caret** — `SiteHeader.astro` renders a green block caret (with a soft neon glow) after the wordmark. It blinks 4 times on arrival, then holds steady; hovering the wordmark wakes the blink. Reduced-motion → steady. The homepage hero caret is the one caret that blinks continuously.
 - **Typewriter hero** (`index.astro`) — the homepage opens as a Muse terminal session: a mono prompt line (`muse@hologram:~$ replay ./archive --era 2006..2026`) types itself, then the serif prismatic `<h1>` types under a large glowing green block caret that keeps blinking, then the subline/featured-note fade in. Full text ships in the HTML (SEO / no-JS); a ghost/overlay twin reserves layout so there's no CLS; the inline script is one elapsed-time event timeline driven by rAF + a timeout fallback (background/occluded tabs fast-forward instead of stalling). Skipped entirely under `prefers-reduced-motion`.
 - **Hot-pink `::selection`** — selected text inverts to `--color-magenta-hot` on `--color-bg`
 - **Footer sign-off** — faint mono `// end of transmission` line at the bottom of every page
 
 ### Reduced motion
 
-Tokens have a `@media (prefers-reduced-motion: reduce)` block that clamps all animations/transitions to 0.01ms globally. Components that gate their own animation (ParticleField, the terminal caret) also honor reduced-motion. Always honor it; don't add motion that ignores this.
+Tokens have a `@media (prefers-reduced-motion: reduce)` block that clamps all animations/transitions to 0.01ms globally. Components that gate their own animation (CircuitSubstrate hero pulses, the terminal carets) also honor reduced-motion. Always honor it; don't add motion that ignores this.
 
 ### Focus + a11y
 
@@ -337,14 +348,14 @@ Direct commits to `main` only. No PRs. Force-push only when matching prod (`git 
 ## 9. Component map
 
 ### Layouts (`src/layouts/`)
-- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG incl. per-page `ogImage`/`ogImageAlt`, Twitter, robots, manifest, `llms.txt` link, fonts), skip link, mounts `<ParticleField>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`, `<CommandPalette>`. Props `reading={{ title }}` (post reading mode) and `noindex`. No theme script and no `data-theme` on `<html>` — TokyoNight is the only on-screen theme
+- **`Layout.astro`** — root shell. Manages `<head>` (meta, OG incl. per-page `ogImage`/`ogImageAlt`, Twitter, robots, manifest, `llms.txt` link, fonts), skip link, mounts `<CircuitSubstrate>`, `<SiteHeader>`, `<main>`, `<SiteFooter>`, `<ThemeDrawer>`, `<CommandPalette>`. Props `reading={{ title }}` (post reading mode), `noindex`, and `signal` (homepage hero pulses). No theme script and no `data-theme` on `<html>` — TokyoNight is the only on-screen theme
 - **`BlogPostLayout.astro`** — legacy, mostly unused. The active blog post template is `src/pages/blog/[slug].astro`. Kept around for safety; mirrors the new pattern
 
 ### Components (`src/components/`)
 - **`SiteHeader.astro`** — sticky frosted header. Mono shimmer-gradient wordmark + blinking terminal caret. Nav (`archive`, `themes`, `categories`, search button). In reading mode the post title slides into the header after the `<h1>` scrolls away, with a progress line and "N min left". Search links open the palette once hydrated (`window.__paletteReady`), else fall through to `/search/`.
 - **`SiteFooter.astro`** — wordmark, © line, links (archive, threads, random post, how, rss, for agents)
 - **`CommandPalette.svelte`** — ⌘K / Ctrl-K / `/` overlay. Lazy-fetches `/search-index.json`, ranks via `src/utils/palette-rank.ts`, ⌘↵ hands off to full-text search. On `/search` the shortcut focuses the page input instead.
-- **`ParticleField.svelte`** — fixed canvas, data packets on circuit traces (square heads, angular bends, fading trails). Reduced-motion gate
+- **`CircuitSubstrate.astro`** — static circuit-board backdrop + homepage hero signal pulses (see §3 Atmospheric overlays)
 - **`ThemeDrawer.svelte`** — global click listener for `.theme-chip` elements. Opens side drawer with theme details fetched from `/themes/reverse-index.json` + `/themes/post-meta.json`
 - **`ThemeChip.astro`** — single theme chip. `data-theme="<id>"` triggers drawer
 - **`ThemeChipStrip.astro`** — chip strip rendered at end of blog posts (themes for this post)

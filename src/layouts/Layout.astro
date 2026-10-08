@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import ParticleField from '../components/ParticleField.svelte';
+import CircuitSubstrate from '../components/CircuitSubstrate.astro';
 import ThemeDrawer from '../components/ThemeDrawer.svelte';
 import CommandPalette from '../components/CommandPalette.svelte';
 import JsonLd from '../components/JsonLd.astro';
@@ -23,6 +23,8 @@ export interface Props {
   /** Long-form reading page: header shows progress, atmosphere steps back. */
   reading?: { title: string } | null;
   noindex?: boolean;
+  /** Homepage only: signal pulses on the substrate while [data-signal-zone] is in view. */
+  signal?: boolean;
 }
 
 const SITE = 'https://hologramthoughts.com';
@@ -40,6 +42,7 @@ const {
   jsonLd,
   reading = null,
   noindex = false,
+  signal = false,
 } = Astro.props;
 
 const canonical = canonicalUrl ?? `${SITE}${Astro.url.pathname}`;
@@ -100,7 +103,7 @@ const mdPath = Astro.url.pathname.startsWith('/blog/') ? `${Astro.url.pathname}i
   </head>
   <body data-reading={reading ? '' : undefined}>
     <a href="#main" class="skip-link">Skip to main content</a>
-    <ParticleField client:idle />
+    <CircuitSubstrate signal={signal} />
     <SiteHeader reading={reading} />
     <main
       id="main"
@@ -115,14 +118,23 @@ const mdPath = Astro.url.pathname.startsWith('/blog/') ? `${Astro.url.pathname}i
     <SiteFooter />
     <ThemeDrawer client:idle />
     <CommandPalette client:idle />
-    {reading && (
-      <script>
-        // Atmosphere dial: once the reader is inside the text, the ambient field and
-        // scanfield step back. One IntersectionObserver, no scroll handlers.
-        const body = document.body;
+    <script>
+      // Atmosphere: one script for every page, keyed off what the page contains.
+      // (Astro mis-emits conditionally rendered <script>s in one component, so
+      // this is never wrapped in {cond && ...}.) IntersectionObservers only.
+      const body = document.body;
+      if ('IntersectionObserver' in window) {
+        // Homepage: substrate pulses run only while the hero is on screen.
+        const zone = document.querySelector('[data-signal-zone]');
+        if (zone) new IntersectionObserver(([e]) => {
+          body.classList.toggle('signal-live', e.isIntersecting);
+        }, { threshold: 0.35 }).observe(zone);
+
+        // Reading pages: once the reader is inside the text, the substrate and
+        // scanfield step back.
         const start = document.querySelector('[data-reading-start]');
         const end = document.querySelector('[data-reading-end]');
-        if (start && 'IntersectionObserver' in window) {
+        if (start) {
           let pastStart = false;
           let atEnd = false;
           const sync = () => body.classList.toggle('reading-deep', pastStart && !atEnd);
@@ -135,8 +147,8 @@ const mdPath = Astro.url.pathname.startsWith('/blog/') ? `${Astro.url.pathname}i
             sync();
           }).observe(end);
         }
-      </script>
-    )}
+      }
+    </script>
     <!-- agent: machine-readable markdown at /blog/<slug>/index.md (or ?format=md); site guide at /llms.txt; index at /agent-index.md -->
   </body>
 </html>

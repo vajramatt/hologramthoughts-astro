@@ -78,28 +78,57 @@ a:hover {
   text-decoration-color: var(--color-cyan);
 }
 
-/* Membrane surface — replaces .glass */
-.panel {
-  background: var(--panel-bg);
-  backdrop-filter: blur(var(--panel-blur));
-  -webkit-backdrop-filter: blur(var(--panel-blur));
+/* ── Materials (tokens in tokens.css) ─────────────────────────────────── */
+
+/* Tile — solid card. Opaque, so it reads above the substrate, never through it. */
+.tile {
+  background: var(--tile-bg);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  box-shadow: var(--shadow-deep);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-1);
 }
 
-/* Legacy alias so existing .glass usages don't crash */
-.glass {
-  background: var(--panel-bg);
-  backdrop-filter: blur(var(--panel-blur));
-  -webkit-backdrop-filter: blur(var(--panel-blur));
+/* Glass — chrome only (drawer, overlays). Nesting glass in glass doesn't blur. */
+.panel, .glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
-  box-shadow: var(--shadow-deep);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-2);
+}
+
+/* Console — the night inset: darker than the page, lit from two corners. */
+.console {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 520px 300px at 100% 0%, color-mix(in oklch, var(--color-magenta) 10%, transparent), transparent 70%),
+    radial-gradient(ellipse 480px 320px at 0% 110%, color-mix(in oklch, var(--color-blue) 9%, transparent), transparent 70%),
+    var(--color-console);
+  border: 1px solid rgba(192, 202, 245, 0.07);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-3);
+}
+
+/* Lift — hover/focus elevation for tiles. */
+.lift {
+  transition: transform var(--dur-fast) var(--ease-grow),
+              box-shadow var(--dur-fast) var(--ease-grow),
+              border-color var(--dur-fast) var(--ease-grow);
+}
+.lift:is(:hover, :focus-visible) {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--color-border-strong);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lift:is(:hover, :focus-visible) { transform: none; }
 }
 
 /* Wordmark — mono machine-plate, same family look as the Athena and Izakaya
-   sites: TokyoNight blue→cyan→magenta loop, continuously shimmering. */
+   sites: TokyoNight blue→cyan→magenta gradient. It sweeps once on load, then
+   rests; hovering the link sweeps it again (a second keyframe name restarts it). */
 .wordmark {
   font-family: var(--font-mono);
   font-weight: 500;
@@ -114,11 +143,11 @@ a:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: wordmark-flow 8s linear infinite;
+  animation: wordmark-flow 2.8s var(--ease-grow) 0.2s 1;
 }
-@keyframes wordmark-flow {
-  to { background-position: 220% center; }
-}
+a:is(:hover, :focus-visible) > .wordmark { animation: wordmark-flow-again 2.8s var(--ease-grow) 1; }
+@keyframes wordmark-flow { to { background-position: 220% center; } }
+@keyframes wordmark-flow-again { to { background-position: 220% center; } }
 
 /* Instant hover/focus tooltip (replaces the slow native title= on the MUSE abbr) */
 .tip { position: relative; }
@@ -165,16 +194,6 @@ a:hover {
 }
 .prismatic:hover, .prismatic:focus-visible {
   background-position: 100% 50%;
-}
-
-/* Vine reading-progress — gradient that subtly hue-rotates */
-.scanline {
-  background: var(--prism);
-  background-size: 200% 100%;
-  animation: scanline-shift 18s linear infinite;
-}
-@keyframes scanline-shift {
-  to { background-position: 200% 0; }
 }
 
 /* Prose — bookish, generous. --story-scale lets the reader resize story text only. */
@@ -317,11 +336,10 @@ mark {
   padding: 0 0.1em;
 }
 
-/* Atmosphere dial — once a reader is deep in a post, the ambient field and
+/* Atmosphere dial — once a reader is deep in a post, the circuit substrate and
    scanfield step back so the text owns the screen. Toggled by Layout script. */
-.particle-field { transition: opacity 1.2s var(--ease-breathe); }
 body::after { transition: opacity 1.2s var(--ease-breathe); }
-body.reading-deep .particle-field { opacity: 0.22; }
+body.reading-deep .circuit-substrate { opacity: 0.4; }
 body.reading-deep::after { opacity: 0.018; }
 
 /* Focus ring — bioluminescent */

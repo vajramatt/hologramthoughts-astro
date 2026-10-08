@@ -1,0 +1,122 @@
+---
+// The page's ambient layer: a still circuit board, faintly lit, faded out under
+// the reading column so text sits on clean ground. Replaces the moving data
+// packets — depth now comes from material, not motion.
+//
+// `signal` (homepage only) adds a few pulses that ride existing traces. They run
+// only while the hero is on screen (body.signal-live, toggled in Layout) and are
+// removed entirely under reduced motion.
+import { circuitTraces } from '../utils/circuit';
+
+interface Props { signal?: boolean; }
+const { signal = false } = Astro.props;
+
+const W = 1600;
+const H = 1000;
+const traces = circuitTraces({ width: W, height: H, count: 46, seed: 2043 });
+
+// A few routes (and their whole bus) take an accent hue; the rest stay blue.
+const ACCENTS = ['var(--color-cyan)', 'var(--color-magenta)'];
+const strokeOf = (i: number) => {
+  const r = traces[i].route;
+  return r % 8 === 3 ? ACCENTS[Math.floor(r / 8) % 2] : 'var(--color-blue)';
+};
+
+// Pulses only ride traces that stay in the side gutters or the band above the
+// hero, so nothing ever moves behind the headline or the live index. With this
+// seed that's four lanes (one is a two-lane bus, which pulses as a pair).
+const GUTTER_X = W * 0.12;
+const GUTTER_Y = H * 0.12;
+const inGutter = (t: (typeof traces)[number]) =>
+  t.points.every(([x, y]) => x < GUTTER_X || x > W - GUTTER_X || y < GUTTER_Y);
+const pulses = signal
+  ? traces
+      .filter((t) => inGutter(t) && t.length >= 180)
+      .map((t) => ({
+        d: t.d,
+        dur: 8 + (t.route % 3) * 1.5,
+        delay: (t.route % 4) * 2.2,
+        hue: t.route % 2 ? 'var(--color-cyan)' : 'var(--color-magenta)',
+      }))
+  : [];
+---
+<svg
+  class="circuit-substrate"
+  viewBox={`0 0 ${W} ${H}`}
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g class="cs-traces" fill="none" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+    {traces.map((t, i) => <path d={t.d} stroke={strokeOf(i)} />)}
+  </g>
+  <g class="cs-vias" fill="var(--color-bg)" stroke-width="1">
+    {traces.map((t, i) => {
+      const [x, y] = t.points[t.points.length - 1];
+      return <circle cx={x} cy={y} r="2.6" stroke={strokeOf(i)} />;
+    })}
+  </g>
+  {pulses.length > 0 && (
+    <g class="cs-pulses" fill="none" stroke-linecap="round">
+      {pulses.map((p) => (
+        <g style={`--dur:${p.dur}s;--delay:${p.delay}s;--hue:${p.hue}`}>
+          <path class="cs-glow" d={p.d} pathLength="1" />
+          <path class="cs-head" d={p.d} pathLength="1" />
+        </g>
+      ))}
+    </g>
+  )}
+</svg>
+
+<style>
+  .circuit-substrate {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    contain: strict;
+    transform: translateZ(0);
+    /* Keep the reading column clean: the board shows at the edges only. */
+    -webkit-mask-image: radial-gradient(ellipse 52% 62% at 50% 46%, transparent 30%, #000 92%);
+    mask-image: radial-gradient(ellipse 52% 62% at 50% 46%, transparent 30%, #000 92%);
+    transition: opacity 1.2s var(--ease-breathe);
+  }
+  .cs-traces { opacity: 0.1; }
+  .cs-vias { opacity: 0.18; }
+
+  /* A pulse is one short dash on a pathLength=1 path: dash 0.06, gap 2 (longer
+     than the path, so only one dash ever shows). It crosses in the first 40% of
+     its cycle and rests hidden for the remainder, so at most one or two are
+     ever in flight. */
+  .cs-pulses g { --len: 0.06; }
+  .cs-pulses path {
+    stroke: var(--hue);
+    stroke-dasharray: var(--len) 2;
+    stroke-dashoffset: var(--len);
+    animation: cs-travel var(--dur) var(--ease-breathe) var(--delay) infinite;
+    animation-play-state: paused;
+  }
+  .cs-head { stroke-width: 1.4; opacity: 0.8; }
+  .cs-glow { stroke-width: 4; opacity: 0.12; }
+  .cs-pulses { opacity: 0; transition: opacity 1.2s var(--ease-breathe); }
+  :global(body.signal-live) .cs-pulses { opacity: 1; }
+  :global(body.signal-live) .cs-pulses path { animation-play-state: running; }
+  @keyframes cs-travel {
+    0% { stroke-dashoffset: var(--len); }
+    40%, 100% { stroke-dashoffset: -1; }
+  }
+
+  /* Phones have no gutter: the text spans the board, so the board recedes. */
+  @media (max-width: 680px) {
+    .cs-traces { opacity: 0.06; }
+    .cs-vias { opacity: 0.1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-pulses { display: none; }
+  }
+  @media print {
+    .circuit-substrate { display: none; }
+  }
+</style>

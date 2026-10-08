@@ -80,6 +80,22 @@
 
   --measure: 66ch;
   --header-h: 64px;
+
+  /* Materials — depth comes from surfaces, not motion. Four tiers, low to high:
+     page (bg + circuit substrate) → tile (solid card) → glass (chrome: header,
+     drawer, palette) → console (night inset: the live index, terminal blocks).
+     Each shadow carries a 1px inset top highlight so surfaces catch light. */
+  --color-console: #16161e;                 /* TokyoNight bg_dark */
+  --tile-bg: color-mix(in oklch, var(--color-surface) 88%, var(--color-bg));
+  --glass-bg: color-mix(in oklch, var(--color-bg) 72%, transparent);
+  --glass-blur: blur(18px) saturate(150%);
+  --edge-light: inset 0 1px 0 rgba(192, 202, 245, 0.06);
+  --shadow-1: var(--edge-light), 0 8px 22px -14px oklch(0 0 0 / 0.7);
+  --shadow-2: var(--edge-light), 0 2px 4px oklch(0 0 0 / 0.18), 0 26px 50px -28px oklch(0 0 0 / 0.8);
+  --shadow-3: var(--edge-light), 0 4px 10px oklch(0 0 0 / 0.2), 0 44px 80px -30px oklch(0 0 0 / 0.85);
+  --radius-s: 8px;
+  --radius-m: 12px;
+  --radius-l: 16px;
 }
 
 /* The old "canopy morning" light palette is now the PRINT-ONLY paper theme.
