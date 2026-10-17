@@ -149,6 +149,8 @@ const mdPath = Astro.url.pathname.startsWith('/blog/') ? `${Astro.url.pathname}i
         }
       }
     </script>
+    <!-- Cloudflare Web Analytics: cookieless page views only. -->
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8e2cd2b03a244a889fdfccae49722671"}'></script>
     <!-- agent: machine-readable markdown at /blog/<slug>/index.md (or ?format=md); site guide at /llms.txt; index at /agent-index.md -->
   </body>
 </html>
