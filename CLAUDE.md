@@ -4,7 +4,7 @@
 
 **Site:** https://hologramthoughts.com (Cloudflare Pages, custom domain)
 **Repo:** https://github.com/vajramatt/hologramthoughts-astro
-**Default branch:** `main` — every push to main triggers Cloudflare auto-deploy via `wrangler pages deploy`. The local deploy command pushes directly; no PR flow.
+**Default branch:** `main` — direct commits, no PR flow. **Pushing does not deploy:** the Pages project has no Git integration (Source shows the commit hash of a direct upload). Deploy with `wrangler pages deploy` (§8). Analytics: Cloudflare Web Analytics is injected automatically at the edge (zone setup) — don't add a beacon snippet, or pages load two.
 
 ---
 
