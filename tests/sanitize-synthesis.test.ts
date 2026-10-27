@@ -29,6 +29,15 @@ describe('isInternalHref', () => {
     expect(isInternalHref('')).toBe(false);
     expect(isInternalHref('   ')).toBe(false);
   });
+  it('rejects paths browsers normalize to protocol-relative (off-site)', () => {
+    // WHATWG URL parsing treats `\` as `/` and strips tab/newline, so each of
+    // these resolves to https://evil.com/… despite starting with a single `/`.
+    expect(isInternalHref('/\\evil.com/x')).toBe(false);
+    expect(isInternalHref('/\t/evil.com/x')).toBe(false);
+    expect(isInternalHref('/\n/evil.com/x')).toBe(false);
+    expect(isInternalHref('/blog/a\\b')).toBe(false);
+    expect(isInternalHref('https://hologramthoughts.com\t@evil.com/')).toBe(false);
+  });
 });
 
 describe('renderSynthesis', () => {
@@ -61,6 +70,12 @@ describe('renderSynthesis', () => {
     const out = renderSynthesis('read [more](https://evil.com/phish)');
     expect(out).not.toContain('<a');
     expect(out).not.toContain('evil.com');
+    expect(out).toContain('more');
+  });
+
+  it('drops backslash-smuggled off-site links to plain text', () => {
+    const out = renderSynthesis('read [more](/\\evil.com/phish)');
+    expect(out).not.toContain('<a');
     expect(out).toContain('more');
   });
 

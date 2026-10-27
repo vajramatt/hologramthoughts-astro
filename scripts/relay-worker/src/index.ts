@@ -20,6 +20,20 @@ export default {
       return new Response('POST /run only', { status: 404 });
     }
 
+    // Any page open in the browser can fire a no-preflight text/plain POST at
+    // localhost and spend Workers AI quota. Only the node build scripts may call:
+    // loopback Host (blocks DNS rebinding), no Origin (blocks browsers), and
+    // application/json (a cross-origin browser request would need a preflight).
+    if (url.hostname !== 'localhost' && url.hostname !== '127.0.0.1') {
+      return new Response('loopback only', { status: 403 });
+    }
+    if (req.headers.get('origin')) {
+      return new Response('no browser callers', { status: 403 });
+    }
+    if (!req.headers.get('content-type')?.startsWith('application/json')) {
+      return new Response('application/json only', { status: 415 });
+    }
+
     let payload: { model?: string; body?: unknown };
     try {
       payload = await req.json();

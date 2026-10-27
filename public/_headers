@@ -1,0 +1,11 @@
+# Security headers for every static response (Cloudflare Pages).
+# Deliberately no script-src/style-src: inline scripts (typewriter hero, Layout
+# observers, JSON-LD) and the edge-injected Web Analytics beacon would need
+# hashes/nonces first. These directives are safe on a static, auth-less site.
+/*
+  Content-Security-Policy: object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin

@@ -38,6 +38,9 @@ export function escapeHtml(s: string): string {
 export function isInternalHref(url: string): boolean {
   const u = url.trim();
   if (u === '') return false;
+  // Browsers read `\` as `/` and strip tab/newline, so `/\evil.com` and
+  // `/<TAB>/evil.com` both parse as protocol-relative. No legit link needs these.
+  if (/[\s\\\u0000-\u001F\u007F]/.test(u)) return false;
   if (u.startsWith('//')) return false; // protocol-relative → off-site
   if (u.startsWith('/')) return true; // root-relative path
   if (u.startsWith('#')) return true; // in-page anchor
